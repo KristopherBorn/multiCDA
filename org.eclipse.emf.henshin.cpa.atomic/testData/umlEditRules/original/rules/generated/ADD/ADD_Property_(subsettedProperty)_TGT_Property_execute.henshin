@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fEfl0ArUEeaHpbC5MOSUqw" name="ADD_Property_(subsettedProperty)_TGT_Property" description="Adds to Property's reference subsettedProperty the target Property">
+  <annotations xmi:id="_fEfl0QrUEeaHpbC5MOSUqw" key="INVERSE" value="REMOVE_Property_(subsettedProperty)_TGT_Property"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fEfl0grUEeaHpbC5MOSUqw" name="addToProperty_subsettedProperty_Property" description="Adds to Property's reference subsettedProperty the target Property">
+    <parameters xmi:id="_fEfl0wrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_fEfl1ArUEeaHpbC5MOSUqw" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <lhs xmi:id="_fEfl1QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fEfl1grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <nodes xmi:id="_fEfl1wrUEeaHpbC5MOSUqw" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fEfl2ArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fEfl2QrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fEfl2wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <nodes xmi:id="_fEfl2grUEeaHpbC5MOSUqw" name="NewTarget" incoming="_fEfl2wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <edges xmi:id="_fEfl2wrUEeaHpbC5MOSUqw" source="_fEfl2QrUEeaHpbC5MOSUqw" target="_fEfl2grUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/subsettedProperty"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fEfl3ArUEeaHpbC5MOSUqw" origin="_fEfl1grUEeaHpbC5MOSUqw" image="_fEfl2QrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fEfl3QrUEeaHpbC5MOSUqw" origin="_fEfl1wrUEeaHpbC5MOSUqw" image="_fEfl2grUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fEfl3grUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fEfl0grUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fEfl3wrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fEfl4ArUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_fEfl4QrUEeaHpbC5MOSUqw" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameterMappings xmi:id="_fEfl4grUEeaHpbC5MOSUqw" source="_fEfl3wrUEeaHpbC5MOSUqw" target="_fEfl0wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fEfl4wrUEeaHpbC5MOSUqw" source="_fEfl4QrUEeaHpbC5MOSUqw" target="_fEfl1ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

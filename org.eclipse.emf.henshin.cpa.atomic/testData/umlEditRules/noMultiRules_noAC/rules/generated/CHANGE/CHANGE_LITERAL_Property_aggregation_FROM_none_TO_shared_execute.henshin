@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_f9bY8ArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Property_aggregation_FROM_none_TO_shared" description="Changes the attribute value of aggregation_FROM_none_TO_shared">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_f9bY8QrUEeaHpbC5MOSUqw" name="changePropertyAggregation_FROM_None_TO_shared" description="Changes the attribute value of aggregation_FROM_none_TO_shared">
+    <parameters xmi:id="_f9bY8grUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_f9bY8wrUEeaHpbC5MOSUqw" name="&quot;none&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//AggregationKind"/>
+    </parameters>
+    <parameters xmi:id="_f9bY9ArUEeaHpbC5MOSUqw" name="&quot;shared&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//AggregationKind"/>
+    </parameters>
+    <lhs xmi:id="_f9bY9QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_f9bY9grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_f9bY9wrUEeaHpbC5MOSUqw" value="&quot;none&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/aggregation"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_f9bY-ArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_f9bY-QrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_f9bY-grUEeaHpbC5MOSUqw" value="&quot;shared&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/aggregation"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_f9bY-wrUEeaHpbC5MOSUqw" origin="_f9bY9grUEeaHpbC5MOSUqw" image="_f9bY-QrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_f9bY_ArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_f9bY8QrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_f9bY_QrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_f9bY_grUEeaHpbC5MOSUqw" name="&quot;none&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//AggregationKind"/>
+    </parameters>
+    <parameters xmi:id="_f9bY_wrUEeaHpbC5MOSUqw" name="&quot;shared&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//AggregationKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_f9bZAArUEeaHpbC5MOSUqw" source="_f9bY_QrUEeaHpbC5MOSUqw" target="_f9bY8grUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_f9bZAQrUEeaHpbC5MOSUqw" source="_f9bY_grUEeaHpbC5MOSUqw" target="_f9bY8wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_f9bZAgrUEeaHpbC5MOSUqw" source="_f9bY_wrUEeaHpbC5MOSUqw" target="_f9bY9ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

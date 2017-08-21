@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_xZJUgFHsEeOwv-kVbb2fiQ" name="DELETE_Property_IN_Class_(ownedAttribute)" description="Deletes one Property in Class">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_xZJUgVHsEeOwv-kVbb2fiQ" name="deleteProperty_IN_Class" description="deletes one Property in the context: Class">
+    <parameters xmi:id="_xZJUglHsEeOwv-kVbb2fiQ" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_xZJUg1HsEeOwv-kVbb2fiQ" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+    </parameters>
+    <lhs xmi:id="_xZJUhFHsEeOwv-kVbb2fiQ" name="LHS">
+      <nodes xmi:id="_xZJUhVHsEeOwv-kVbb2fiQ" name="Selected" incoming="_0XGbwOxfEeWmkd1W4oyhKw" outgoing="_xZJUh1HsEeOwv-kVbb2fiQ">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </nodes>
+      <nodes xmi:id="_xZJUhlHsEeOwv-kVbb2fiQ" name="ToBeDeleted" incoming="_xZJUh1HsEeOwv-kVbb2fiQ" outgoing="_0XGbwOxfEeWmkd1W4oyhKw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <edges xmi:id="_xZJUh1HsEeOwv-kVbb2fiQ" source="_xZJUhVHsEeOwv-kVbb2fiQ" target="_xZJUhlHsEeOwv-kVbb2fiQ">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier/ownedAttribute"/>
+      </edges>
+      <edges xmi:id="_0XGbwOxfEeWmkd1W4oyhKw" source="_xZJUhlHsEeOwv-kVbb2fiQ" target="_xZJUhVHsEeOwv-kVbb2fiQ">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/class"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_xZJUiFHsEeOwv-kVbb2fiQ" name="RHS">
+      <nodes xmi:id="_xZJUiVHsEeOwv-kVbb2fiQ" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_xZJUilHsEeOwv-kVbb2fiQ" origin="_xZJUhVHsEeOwv-kVbb2fiQ" image="_xZJUiVHsEeOwv-kVbb2fiQ"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_xZJUi1HsEeOwv-kVbb2fiQ" name="mainUnit" subUnits="_xZJUgVHsEeOwv-kVbb2fiQ">
+    <parameters xmi:id="_xZJUjFHsEeOwv-kVbb2fiQ" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_xZJUjVHsEeOwv-kVbb2fiQ" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+    </parameters>
+    <parameterMappings xmi:id="_xZJUjlHsEeOwv-kVbb2fiQ" source="_xZJUjFHsEeOwv-kVbb2fiQ" target="_xZJUglHsEeOwv-kVbb2fiQ"/>
+    <parameterMappings xmi:id="_xZJUj1HsEeOwv-kVbb2fiQ" source="_xZJUjVHsEeOwv-kVbb2fiQ" target="_xZJUg1HsEeOwv-kVbb2fiQ"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_C1zuYAorEeaLVYS0mq5KrA" name="MOVE_Constraint_FROM_ParameterSet_(condition)_TO_ParameterSet_(condition)" description="MOVEs Constraint from ParameterSet(Reference:condition) to ParameterSet(Reference:condition">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_C1zuYQorEeaLVYS0mq5KrA" name="moveConstraint_FROM_ParameterSet_condition_TO_ParameterSet_ParameterSet" description="Moves Constraint from ParameterSet(Reference:condition) toParameterSet(Reference:ParameterSet)">
+    <parameters xmi:id="_C1zuYgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_C1zuYworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+    </parameters>
+    <parameters xmi:id="_C1zuZAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+    </parameters>
+    <lhs xmi:id="_C1zuZQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_C1zuZgorEeaLVYS0mq5KrA" name="Selected" incoming="_C1zuaQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <nodes xmi:id="_C1zuZworEeaLVYS0mq5KrA" name="OldSource" outgoing="_C1zuaQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+      </nodes>
+      <nodes xmi:id="_C1zuaAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+      </nodes>
+      <edges xmi:id="_C1zuaQorEeaLVYS0mq5KrA" source="_C1zuZworEeaLVYS0mq5KrA" target="_C1zuZgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet/condition"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_C1zuagorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_C1zuaworEeaLVYS0mq5KrA" name="Selected" incoming="_C1zubgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <nodes xmi:id="_C1zubAorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+      </nodes>
+      <nodes xmi:id="_C1zubQorEeaLVYS0mq5KrA" name="NewSource" outgoing="_C1zubgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+      </nodes>
+      <edges xmi:id="_C1zubgorEeaLVYS0mq5KrA" source="_C1zubQorEeaLVYS0mq5KrA" target="_C1zuaworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet/condition"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_C1zubworEeaLVYS0mq5KrA" origin="_C1zuZgorEeaLVYS0mq5KrA" image="_C1zuaworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_C1zucAorEeaLVYS0mq5KrA" origin="_C1zuZworEeaLVYS0mq5KrA" image="_C1zubAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_C1zucQorEeaLVYS0mq5KrA" origin="_C1zuaAorEeaLVYS0mq5KrA" image="_C1zubQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_C1zucgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_C1zuYQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_C1zucworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_C1zudAorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+    </parameters>
+    <parameters xmi:id="_C1zudQorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterSet"/>
+    </parameters>
+    <parameterMappings xmi:id="_C1zudgorEeaLVYS0mq5KrA" source="_C1zucworEeaLVYS0mq5KrA" target="_C1zuYgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_C1zudworEeaLVYS0mq5KrA" source="_C1zudAorEeaLVYS0mq5KrA" target="_C1zuYworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_C1zueAorEeaLVYS0mq5KrA" source="_C1zudQorEeaLVYS0mq5KrA" target="_C1zuZAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_CmdqwAorEeaLVYS0mq5KrA" name="MOVE_OpaqueExpression_FROM_JoinNode_(joinSpec)_TO_JoinNode_(joinSpec)" description="MOVEs OpaqueExpression from JoinNode(Reference:joinSpec) to JoinNode(Reference:joinSpec">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_CmdqwQorEeaLVYS0mq5KrA" name="moveOpaqueExpression_FROM_JoinNode_joinSpec_TO_JoinNode_JoinNode" description="Moves OpaqueExpression from JoinNode(Reference:joinSpec) toJoinNode(Reference:JoinNode)">
+    <parameters xmi:id="_CmdqwgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_CmdqwworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+    </parameters>
+    <parameters xmi:id="_CmdqxAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+    </parameters>
+    <lhs xmi:id="_CmdqxQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_CmdqxgorEeaLVYS0mq5KrA" name="Selected" incoming="_CmdqyQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_CmdqxworEeaLVYS0mq5KrA" name="OldSource" outgoing="_CmdqyQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+      </nodes>
+      <nodes xmi:id="_CmdqyAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+      </nodes>
+      <edges xmi:id="_CmdqyQorEeaLVYS0mq5KrA" source="_CmdqxworEeaLVYS0mq5KrA" target="_CmdqxgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode/joinSpec"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_CmdqygorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_CmdqyworEeaLVYS0mq5KrA" name="Selected" incoming="_CmdqzgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_CmdqzAorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+      </nodes>
+      <nodes xmi:id="_CmdqzQorEeaLVYS0mq5KrA" name="NewSource" outgoing="_CmdqzgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+      </nodes>
+      <edges xmi:id="_CmdqzgorEeaLVYS0mq5KrA" source="_CmdqzQorEeaLVYS0mq5KrA" target="_CmdqyworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode/joinSpec"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_CmdqzworEeaLVYS0mq5KrA" origin="_CmdqxgorEeaLVYS0mq5KrA" image="_CmdqyworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Cmdq0AorEeaLVYS0mq5KrA" origin="_CmdqxworEeaLVYS0mq5KrA" image="_CmdqzAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Cmdq0QorEeaLVYS0mq5KrA" origin="_CmdqyAorEeaLVYS0mq5KrA" image="_CmdqzQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Cmdq0gorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_CmdqwQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_Cmdq0worEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_Cmdq1AorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+    </parameters>
+    <parameters xmi:id="_Cmdq1QorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//JoinNode"/>
+    </parameters>
+    <parameterMappings xmi:id="_Cmdq1gorEeaLVYS0mq5KrA" source="_Cmdq0worEeaLVYS0mq5KrA" target="_CmdqwgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Cmdq1worEeaLVYS0mq5KrA" source="_Cmdq1AorEeaLVYS0mq5KrA" target="_CmdqwworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Cmdq2AorEeaLVYS0mq5KrA" source="_Cmdq1QorEeaLVYS0mq5KrA" target="_CmdqxAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

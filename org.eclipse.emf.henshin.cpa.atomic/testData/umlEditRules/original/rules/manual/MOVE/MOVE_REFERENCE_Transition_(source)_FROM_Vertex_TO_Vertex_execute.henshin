@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_EEL5UOxYEeWmkd1W4oyhKw" name="MOVE_REFERENCE_Transition_(source)_FROM_Vertex_TO_Vertex" description="MOVEs Reference source of Transition from Vertex to Vertex">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_EEL5UexYEeWmkd1W4oyhKw" name="moveReference_Transition_(source)_FROM_Vertex_TO_Vertex" description="MOVEs Reference source of Transition from Vertex to Vertex">
+    <parameters xmi:id="_EEL5UuxYEeWmkd1W4oyhKw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_EEL5U-xYEeWmkd1W4oyhKw" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <parameters xmi:id="_EEL5VOxYEeWmkd1W4oyhKw" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <lhs xmi:id="_EEL5VexYEeWmkd1W4oyhKw" name="Lhs">
+      <nodes xmi:id="_EEL5VuxYEeWmkd1W4oyhKw" name="Selected" outgoing="__Ejp4OyUEeWc3L__AKEFhw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_EEL5V-xYEeWmkd1W4oyhKw" name="OldTarget" incoming="__Ejp4OyUEeWc3L__AKEFhw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+      </nodes>
+      <nodes xmi:id="_EEL5WOxYEeWmkd1W4oyhKw" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+      </nodes>
+      <edges xmi:id="__Ejp4OyUEeWc3L__AKEFhw" source="_EEL5VuxYEeWmkd1W4oyhKw" target="_EEL5V-xYEeWmkd1W4oyhKw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/source"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_EEL5W-xYEeWmkd1W4oyhKw" name="Rhs">
+      <nodes xmi:id="_EEL5XOxYEeWmkd1W4oyhKw" name="Selected" outgoing="_ATV7wOyWEeWc3L__AKEFhw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_EEL5XexYEeWmkd1W4oyhKw" name="OldTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+      </nodes>
+      <nodes xmi:id="_EEL5XuxYEeWmkd1W4oyhKw" name="NewTarget" incoming="_ATV7wOyWEeWc3L__AKEFhw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+      </nodes>
+      <edges xmi:id="_ATV7wOyWEeWc3L__AKEFhw" source="_EEL5XOxYEeWmkd1W4oyhKw" target="_EEL5XuxYEeWmkd1W4oyhKw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/source"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_EEL5YexYEeWmkd1W4oyhKw" origin="_EEL5VuxYEeWmkd1W4oyhKw" image="_EEL5XOxYEeWmkd1W4oyhKw"/>
+    <mappings xmi:id="_EEL5YuxYEeWmkd1W4oyhKw" origin="_EEL5V-xYEeWmkd1W4oyhKw" image="_EEL5XexYEeWmkd1W4oyhKw"/>
+    <mappings xmi:id="_EEL5Y-xYEeWmkd1W4oyhKw" origin="_EEL5WOxYEeWmkd1W4oyhKw" image="_EEL5XuxYEeWmkd1W4oyhKw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_EEL5ZOxYEeWmkd1W4oyhKw" name="mainUnit" subUnits="_EEL5UexYEeWmkd1W4oyhKw">
+    <parameters xmi:id="_EEL5ZexYEeWmkd1W4oyhKw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_EEL5ZuxYEeWmkd1W4oyhKw" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <parameters xmi:id="_EEL5Z-xYEeWmkd1W4oyhKw" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <parameterMappings xmi:id="_EEL5aOxYEeWmkd1W4oyhKw" source="_EEL5ZexYEeWmkd1W4oyhKw" target="_EEL5UuxYEeWmkd1W4oyhKw"/>
+    <parameterMappings xmi:id="_EEL5aexYEeWmkd1W4oyhKw" source="_EEL5ZuxYEeWmkd1W4oyhKw" target="_EEL5U-xYEeWmkd1W4oyhKw"/>
+    <parameterMappings xmi:id="_EEL5auxYEeWmkd1W4oyhKw" source="_EEL5Z-xYEeWmkd1W4oyhKw" target="_EEL5VOxYEeWmkd1W4oyhKw"/>
+  </units>
+</henshin:Module>

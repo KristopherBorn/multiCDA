@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Dk1-oQorEeaLVYS0mq5KrA" name="ADD_Constraint_(constrainedElement)_TGT_Element" description="Adds to Constraint's reference constrainedElement the target Element">
+  <annotations xmi:id="_Dk1-ogorEeaLVYS0mq5KrA" key="INVERSE" value="REMOVE_Constraint_(constrainedElement)_TGT_Element"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Dk1-oworEeaLVYS0mq5KrA" name="addToConstraint_constrainedElement_Element" description="Adds to Constraint's reference constrainedElement the target Element">
+    <parameters xmi:id="_Dk1-pAorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_Dk1-pQorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+    </parameters>
+    <lhs xmi:id="_Dk1-pgorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_Dk1-pworEeaLVYS0mq5KrA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <nodes xmi:id="_Dk1-qAorEeaLVYS0mq5KrA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_Dk1-qQorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_Dk1-qgorEeaLVYS0mq5KrA" name="Selected" outgoing="_Dk1-rAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <nodes xmi:id="_Dk1-qworEeaLVYS0mq5KrA" name="NewTarget" incoming="_Dk1-rAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+      </nodes>
+      <edges xmi:id="_Dk1-rAorEeaLVYS0mq5KrA" source="_Dk1-qgorEeaLVYS0mq5KrA" target="_Dk1-qworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint/constrainedElement"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Dk1-rQorEeaLVYS0mq5KrA" origin="_Dk1-pworEeaLVYS0mq5KrA" image="_Dk1-qgorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Dk1-rgorEeaLVYS0mq5KrA" origin="_Dk1-qAorEeaLVYS0mq5KrA" image="_Dk1-qworEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Dk1-rworEeaLVYS0mq5KrA" name="mainUnit" subUnits="_Dk1-oworEeaLVYS0mq5KrA">
+    <parameters xmi:id="_Dk1-sAorEeaLVYS0mq5KrA" name="selectedEObject">
+      <annotations xmi:id="_Dk1-sQorEeaLVYS0mq5KrA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_Dk1-sgorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+    </parameters>
+    <parameterMappings xmi:id="_Dk1-sworEeaLVYS0mq5KrA" source="_Dk1-sAorEeaLVYS0mq5KrA" target="_Dk1-pAorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Dk1-tAorEeaLVYS0mq5KrA" source="_Dk1-sgorEeaLVYS0mq5KrA" target="_Dk1-pQorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

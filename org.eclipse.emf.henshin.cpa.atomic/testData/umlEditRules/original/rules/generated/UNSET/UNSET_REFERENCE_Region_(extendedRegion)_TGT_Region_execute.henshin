@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_f0NLgArUEeaHpbC5MOSUqw" name="UNSET_REFERENCE_Region_(extendedRegion)_TGT_Region" description="Sets Region's reference extendedRegion the target Region">
+  <annotations xmi:id="_f0NLgQrUEeaHpbC5MOSUqw" key="INVERSE" value="SET_REFERENCE_Region_(extendedRegion)_TGT_Region"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_f0NLggrUEeaHpbC5MOSUqw" name="setRegion_extendedRegion_TO_Region" description="SetRegionRefextendedRegionToRegion">
+    <parameters xmi:id="_f0NLgwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+    </parameters>
+    <parameters xmi:id="_f0NLhArUEeaHpbC5MOSUqw" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+    </parameters>
+    <lhs xmi:id="_f0NLhQrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_f0NLhgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_f0NLiArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+      </nodes>
+      <nodes xmi:id="_f0NLhwrUEeaHpbC5MOSUqw" name="NewTarget" incoming="_f0NLiArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+      </nodes>
+      <edges xmi:id="_f0NLiArUEeaHpbC5MOSUqw" source="_f0NLhgrUEeaHpbC5MOSUqw" target="_f0NLhwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region/extendedRegion"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_f0NLiQrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_f0NLigrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+      </nodes>
+      <nodes xmi:id="_f0NLiwrUEeaHpbC5MOSUqw" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_f0NLjArUEeaHpbC5MOSUqw" origin="_f0NLhgrUEeaHpbC5MOSUqw" image="_f0NLigrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_f0NLjQrUEeaHpbC5MOSUqw" origin="_f0NLhwrUEeaHpbC5MOSUqw" image="_f0NLiwrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_f0NLjgrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_f0NLggrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_f0NLjwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_f0NLkArUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+    </parameters>
+    <parameters xmi:id="_f0NLkQrUEeaHpbC5MOSUqw" name="NewTarget">
+      <annotations xmi:id="_f0NLkgrUEeaHpbC5MOSUqw" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+    </parameters>
+    <parameterMappings xmi:id="_f0NLkwrUEeaHpbC5MOSUqw" source="_f0NLjwrUEeaHpbC5MOSUqw" target="_f0NLgwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_f0NLlArUEeaHpbC5MOSUqw" source="_f0NLkQrUEeaHpbC5MOSUqw" target="_f0NLhArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

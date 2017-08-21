@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fn_UcArUEeaHpbC5MOSUqw" name="CREATE_LiteralUnlimitedNatural_IN_Package_(packagedElement)" description="Creates one LiteralUnlimitedNatural in Package">
+  <annotations xmi:id="_fn_UcQrUEeaHpbC5MOSUqw" key="INVERSE" value="DELETE_LiteralUnlimitedNatural_IN_Package_(packagedElement)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fn_UcgrUEeaHpbC5MOSUqw" name="createLiteralUnlimitedNatural_IN_Package" description="creates one LiteralUnlimitedNatural in the context: Package">
+    <parameters xmi:id="_fn_UcwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_fn_UdArUEeaHpbC5MOSUqw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <parameters xmi:id="_fn_UdQrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_fn_UdgrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_fn_UdwrUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//UnlimitedNatural"/>
+    </parameters>
+    <lhs xmi:id="_fn_UeArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fn_UeQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fn_UegrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fn_UewrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fn_UgArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <nodes xmi:id="_fn_UfArUEeaHpbC5MOSUqw" name="New" incoming="_fn_UgArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+        <attributes xmi:id="_fn_UfQrUEeaHpbC5MOSUqw" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_fn_UfgrUEeaHpbC5MOSUqw" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+        <attributes xmi:id="_fn_UfwrUEeaHpbC5MOSUqw" value="Value">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural/value"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_fn_UgArUEeaHpbC5MOSUqw" source="_fn_UewrUEeaHpbC5MOSUqw" target="_fn_UfArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fn_UgQrUEeaHpbC5MOSUqw" origin="_fn_UeQrUEeaHpbC5MOSUqw" image="_fn_UewrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fn_UggrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fn_UcgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fn_UgwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fn_UhArUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_fn_UhQrUEeaHpbC5MOSUqw" name="New">
+      <annotations xmi:id="_fn_UhgrUEeaHpbC5MOSUqw" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <parameters xmi:id="_fn_UhwrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_fn_UiArUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_fn_UiQrUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//UnlimitedNatural"/>
+    </parameters>
+    <parameterMappings xmi:id="_fn_UigrUEeaHpbC5MOSUqw" source="_fn_UgwrUEeaHpbC5MOSUqw" target="_fn_UcwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fn_UiwrUEeaHpbC5MOSUqw" source="_fn_UdArUEeaHpbC5MOSUqw" target="_fn_UhQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fn_UjArUEeaHpbC5MOSUqw" source="_fn_UhwrUEeaHpbC5MOSUqw" target="_fn_UdQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fn_UjQrUEeaHpbC5MOSUqw" source="_fn_UiArUEeaHpbC5MOSUqw" target="_fn_UdgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fn_UjgrUEeaHpbC5MOSUqw" source="_fn_UiQrUEeaHpbC5MOSUqw" target="_fn_UdwrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

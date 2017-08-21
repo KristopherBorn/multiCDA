@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fpJLAArUEeaHpbC5MOSUqw" name="CREATE_LiteralInteger_IN_Property_(defaultValue)" description="Creates one LiteralInteger in Property">
+  <annotations xmi:id="_fpJLAQrUEeaHpbC5MOSUqw" key="INVERSE" value="DELETE_LiteralInteger_IN_Property_(defaultValue)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fpJLAgrUEeaHpbC5MOSUqw" name="createLiteralInteger_IN_Property" description="creates one LiteralInteger in the context: Property">
+    <parameters xmi:id="_fpJLAwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_fpJLBArUEeaHpbC5MOSUqw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_fpJLBQrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_fpJLBgrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_fpJLBwrUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Integer"/>
+    </parameters>
+    <lhs xmi:id="_fpJLCArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fpJLCQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <formula xsi:type="henshin:Not" xmi:id="_fpJLCgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_fpJLCwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_fpJLDArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_fpJLDQrUEeaHpbC5MOSUqw" outgoing="_fpJLDwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+            </nodes>
+            <nodes xmi:id="_fpJLDgrUEeaHpbC5MOSUqw" incoming="_fpJLDwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+            </nodes>
+            <edges xmi:id="_fpJLDwrUEeaHpbC5MOSUqw" source="_fpJLDQrUEeaHpbC5MOSUqw" target="_fpJLDgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/defaultValue"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_fpJLEArUEeaHpbC5MOSUqw" origin="_fpJLCQrUEeaHpbC5MOSUqw" image="_fpJLDQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_fpJLEQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fpJLEgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fpJLFwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <nodes xmi:id="_fpJLEwrUEeaHpbC5MOSUqw" name="New" incoming="_fpJLFwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+        <attributes xmi:id="_fpJLFArUEeaHpbC5MOSUqw" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_fpJLFQrUEeaHpbC5MOSUqw" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+        <attributes xmi:id="_fpJLFgrUEeaHpbC5MOSUqw" value="Value">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger/value"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_fpJLFwrUEeaHpbC5MOSUqw" source="_fpJLEgrUEeaHpbC5MOSUqw" target="_fpJLEwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/defaultValue"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fpJLGArUEeaHpbC5MOSUqw" origin="_fpJLCQrUEeaHpbC5MOSUqw" image="_fpJLEgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fpJLGQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fpJLAgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fpJLGgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fpJLGwrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_fpJLHArUEeaHpbC5MOSUqw" name="New">
+      <annotations xmi:id="_fpJLHQrUEeaHpbC5MOSUqw" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_fpJLHgrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_fpJLHwrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_fpJLIArUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Integer"/>
+    </parameters>
+    <parameterMappings xmi:id="_fpJLIQrUEeaHpbC5MOSUqw" source="_fpJLGgrUEeaHpbC5MOSUqw" target="_fpJLAwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpJLIgrUEeaHpbC5MOSUqw" source="_fpJLBArUEeaHpbC5MOSUqw" target="_fpJLHArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpJLIwrUEeaHpbC5MOSUqw" source="_fpJLHgrUEeaHpbC5MOSUqw" target="_fpJLBQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpJLJArUEeaHpbC5MOSUqw" source="_fpJLHwrUEeaHpbC5MOSUqw" target="_fpJLBgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpJLJQrUEeaHpbC5MOSUqw" source="_fpJLIArUEeaHpbC5MOSUqw" target="_fpJLBwrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

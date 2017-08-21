@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fyvy8ArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_entryPoint_TO_initial" description="Changes the attribute value of kind_FROM_entryPoint_TO_initial">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fyvy8QrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_EntryPoint_TO_initial" description="Changes the attribute value of kind_FROM_entryPoint_TO_initial">
+    <parameters xmi:id="_fyvy8grUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fyvy8wrUEeaHpbC5MOSUqw" name="&quot;entryPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_fyvy9ArUEeaHpbC5MOSUqw" name="&quot;initial&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_fyvy9QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fyvy9grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_fyvy9wrUEeaHpbC5MOSUqw" value="&quot;entryPoint&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fyvy-ArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fyvy-QrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_fyvy-grUEeaHpbC5MOSUqw" value="&quot;initial&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fyvy-wrUEeaHpbC5MOSUqw" origin="_fyvy9grUEeaHpbC5MOSUqw" image="_fyvy-QrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fyvy_ArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fyvy8QrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fyvy_QrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fyvy_grUEeaHpbC5MOSUqw" name="&quot;entryPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_fyvy_wrUEeaHpbC5MOSUqw" name="&quot;initial&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fyvzAArUEeaHpbC5MOSUqw" source="_fyvy_QrUEeaHpbC5MOSUqw" target="_fyvy8grUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fyvzAQrUEeaHpbC5MOSUqw" source="_fyvy_grUEeaHpbC5MOSUqw" target="_fyvy8wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fyvzAgrUEeaHpbC5MOSUqw" source="_fyvy_wrUEeaHpbC5MOSUqw" target="_fyvy9ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

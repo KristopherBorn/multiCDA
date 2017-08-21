@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_clVy0Pf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Lifeline_Name" description="Sets Lifeline Name">
+  <annotations xmi:id="_clVy0ff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Lifeline_Name"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_clVy0vf8EeWvvZD_9IfuzA" name="setLifelineName" description="Sets the EAttribute name">
+    <parameters xmi:id="_clVy0_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_clVy1Pf8EeWvvZD_9IfuzA" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_clVy1ff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_clVy1vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_clVy1_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_clVy2Pf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+        <attributes xmi:id="_clVy2ff8EeWvvZD_9IfuzA" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_clVy2vf8EeWvvZD_9IfuzA" origin="_clVy1vf8EeWvvZD_9IfuzA" image="_clVy2Pf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_clVy2_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_clVy0vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_clVy3Pf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_clVy3ff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_clVy3vf8EeWvvZD_9IfuzA" name="Name">
+      <annotations xmi:id="_clVy3_f8EeWvvZD_9IfuzA" key="INVERSE" value="Name"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_clVy4Pf8EeWvvZD_9IfuzA" source="_clVy3Pf8EeWvvZD_9IfuzA" target="_clVy0_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_clVy4ff8EeWvvZD_9IfuzA" source="_clVy3vf8EeWvvZD_9IfuzA" target="_clVy1Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fkgioArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_deepHistory_TO_initial" description="Changes the attribute value of kind_FROM_deepHistory_TO_initial">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fkhJsArUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_DeepHistory_TO_initial" description="Changes the attribute value of kind_FROM_deepHistory_TO_initial">
+    <parameters xmi:id="_fkhJsQrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fkhJsgrUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_fkhJswrUEeaHpbC5MOSUqw" name="&quot;initial&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_fkhJtArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fkhJtQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_fkhJtgrUEeaHpbC5MOSUqw" value="&quot;deepHistory&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fkhJtwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fkhJuArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_fkhJuQrUEeaHpbC5MOSUqw" value="&quot;initial&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fkhJugrUEeaHpbC5MOSUqw" origin="_fkhJtQrUEeaHpbC5MOSUqw" image="_fkhJuArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fkhJuwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fkhJsArUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fkhJvArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fkhJvQrUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_fkhJvgrUEeaHpbC5MOSUqw" name="&quot;initial&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fkhJvwrUEeaHpbC5MOSUqw" source="_fkhJvArUEeaHpbC5MOSUqw" target="_fkhJsQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fkhJwArUEeaHpbC5MOSUqw" source="_fkhJvQrUEeaHpbC5MOSUqw" target="_fkhJsgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fkhJwQrUEeaHpbC5MOSUqw" source="_fkhJvgrUEeaHpbC5MOSUqw" target="_fkhJswrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

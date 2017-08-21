@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fjTowArUEeaHpbC5MOSUqw" name="DELETE_LiteralUnlimitedNatural_IN_Lifeline_(selector)" description="Deletes one LiteralUnlimitedNatural in Lifeline">
+  <annotations xmi:id="_fjTowQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_LiteralUnlimitedNatural_IN_Lifeline_(selector)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fjTowgrUEeaHpbC5MOSUqw" name="deleteLiteralUnlimitedNatural_IN_Lifeline" description="deletes one LiteralUnlimitedNatural in the context: Lifeline">
+    <parameters xmi:id="_fjTowwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_fjToxArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <lhs xmi:id="_fjToxQrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fjToxgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fjToyArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_fjToxwrUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_fjToyArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+      </nodes>
+      <edges xmi:id="_fjToyArUEeaHpbC5MOSUqw" source="_fjToxgrUEeaHpbC5MOSUqw" target="_fjToxwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/selector"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fjToyQrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fjToygrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fjToywrUEeaHpbC5MOSUqw" origin="_fjToxgrUEeaHpbC5MOSUqw" image="_fjToygrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fjTozArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fjTowgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fjTozQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fjTozgrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_fjTozwrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_fjTo0ArUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <parameterMappings xmi:id="_fjTo0QrUEeaHpbC5MOSUqw" source="_fjTozQrUEeaHpbC5MOSUqw" target="_fjTowwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fjTo0grUEeaHpbC5MOSUqw" source="_fjTozwrUEeaHpbC5MOSUqw" target="_fjToxArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

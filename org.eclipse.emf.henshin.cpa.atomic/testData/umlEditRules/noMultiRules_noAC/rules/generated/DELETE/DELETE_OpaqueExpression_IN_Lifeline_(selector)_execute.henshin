@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eIZJ8ArUEeaHpbC5MOSUqw" name="DELETE_OpaqueExpression_IN_Lifeline_(selector)" description="Deletes one OpaqueExpression in Lifeline">
+  <annotations xmi:id="_eIZJ8QrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_OpaqueExpression_IN_Lifeline_(selector)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eIZxAArUEeaHpbC5MOSUqw" name="deleteOpaqueExpression_IN_Lifeline" description="deletes one OpaqueExpression in the context: Lifeline">
+    <parameters xmi:id="_eIZxAQrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_eIZxAgrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <lhs xmi:id="_eIZxAwrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_eIZxBArUEeaHpbC5MOSUqw" name="Selected" outgoing="_eIZxBgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_eIZxBQrUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_eIZxBgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <edges xmi:id="_eIZxBgrUEeaHpbC5MOSUqw" source="_eIZxBArUEeaHpbC5MOSUqw" target="_eIZxBQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/selector"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_eIZxBwrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_eIZxCArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eIZxCQrUEeaHpbC5MOSUqw" origin="_eIZxBArUEeaHpbC5MOSUqw" image="_eIZxCArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eIZxCgrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eIZxAArUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eIZxCwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_eIZxDArUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_eIZxDQrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_eIZxDgrUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameterMappings xmi:id="_eIZxDwrUEeaHpbC5MOSUqw" source="_eIZxCwrUEeaHpbC5MOSUqw" target="_eIZxAQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eIZxEArUEeaHpbC5MOSUqw" source="_eIZxDQrUEeaHpbC5MOSUqw" target="_eIZxAgrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

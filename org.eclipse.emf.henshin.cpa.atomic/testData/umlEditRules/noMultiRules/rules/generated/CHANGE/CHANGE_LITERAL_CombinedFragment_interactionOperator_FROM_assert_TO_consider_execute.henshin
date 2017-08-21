@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_d7v1EArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_CombinedFragment_interactionOperator_FROM_assert_TO_consider" description="Changes the attribute value of interactionOperator_FROM_assert_TO_consider">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_d7v1EQrUEeaHpbC5MOSUqw" name="changeCombinedFragmentInteractionOperator_FROM_Assert_TO_consider" description="Changes the attribute value of interactionOperator_FROM_assert_TO_consider">
+    <parameters xmi:id="_d7v1EgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_d7v1EwrUEeaHpbC5MOSUqw" name="&quot;assert&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_d7v1FArUEeaHpbC5MOSUqw" name="&quot;consider&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_d7v1FQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_d7v1FgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_d7v1FwrUEeaHpbC5MOSUqw" value="&quot;assert&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_d7v1GArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_d7v1GQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_d7v1GgrUEeaHpbC5MOSUqw" value="&quot;consider&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_d7v1GwrUEeaHpbC5MOSUqw" origin="_d7v1FgrUEeaHpbC5MOSUqw" image="_d7v1GQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_d7v1HArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_d7v1EQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_d7v1HQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_d7v1HgrUEeaHpbC5MOSUqw" name="&quot;assert&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_d7v1HwrUEeaHpbC5MOSUqw" name="&quot;consider&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_d7v1IArUEeaHpbC5MOSUqw" source="_d7v1HQrUEeaHpbC5MOSUqw" target="_d7v1EgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d7v1IQrUEeaHpbC5MOSUqw" source="_d7v1HgrUEeaHpbC5MOSUqw" target="_d7v1EwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d7v1IgrUEeaHpbC5MOSUqw" source="_d7v1HwrUEeaHpbC5MOSUqw" target="_d7v1FArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

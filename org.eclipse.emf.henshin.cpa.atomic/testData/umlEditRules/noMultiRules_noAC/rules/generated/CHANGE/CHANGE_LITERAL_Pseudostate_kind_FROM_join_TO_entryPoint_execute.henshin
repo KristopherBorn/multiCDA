@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e9Q8cArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_join_TO_entryPoint" description="Changes the attribute value of kind_FROM_join_TO_entryPoint">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e9Q8cQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_Join_TO_entryPoint" description="Changes the attribute value of kind_FROM_join_TO_entryPoint">
+    <parameters xmi:id="_e9Q8cgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_e9Q8cwrUEeaHpbC5MOSUqw" name="&quot;join&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_e9Q8dArUEeaHpbC5MOSUqw" name="&quot;entryPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_e9Q8dQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_e9Q8dgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_e9Q8dwrUEeaHpbC5MOSUqw" value="&quot;join&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_e9Q8eArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_e9Q8eQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_e9RjgArUEeaHpbC5MOSUqw" value="&quot;entryPoint&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e9RjgQrUEeaHpbC5MOSUqw" origin="_e9Q8dgrUEeaHpbC5MOSUqw" image="_e9Q8eQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e9RjggrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e9Q8cQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e9RjgwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_e9RjhArUEeaHpbC5MOSUqw" name="&quot;join&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_e9RjhQrUEeaHpbC5MOSUqw" name="&quot;entryPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_e9RjhgrUEeaHpbC5MOSUqw" source="_e9RjgwrUEeaHpbC5MOSUqw" target="_e9Q8cgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e9RjhwrUEeaHpbC5MOSUqw" source="_e9RjhArUEeaHpbC5MOSUqw" target="_e9Q8cwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e9RjiArUEeaHpbC5MOSUqw" source="_e9RjhQrUEeaHpbC5MOSUqw" target="_e9Q8dArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

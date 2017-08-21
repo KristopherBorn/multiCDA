@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eGJHMArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_OpaqueExpression_FROM_InteractionConstraint_(minint)_TO_Lifeline_(selector)" description="MOVEs OpaqueExpression from InteractionConstraint(Reference:minint) to Lifeline(Reference:selector">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eGJHMQrUEeaHpbC5MOSUqw" name="moveOpaqueExpression_FROM_InteractionConstraint_minint_TO_Lifeline_Lifeline" description="Moves OpaqueExpression from InteractionConstraint(Reference:minint) toLifeline(Reference:Lifeline)">
+    <parameters xmi:id="_eGJHMgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_eGJHMwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_eGJHNArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <lhs xmi:id="_eGJHNQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eGJHNgrUEeaHpbC5MOSUqw" name="Selected" incoming="_eGJHOQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_eGJHNwrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_eGJHOQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_eGJHOArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <edges xmi:id="_eGJHOQrUEeaHpbC5MOSUqw" source="_eGJHNwrUEeaHpbC5MOSUqw" target="_eGJHNgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/minint"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_eGJHOgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_eGJHOwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_eGJHPArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_eGJHPQrUEeaHpbC5MOSUqw" outgoing="_eGJHPwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+            </nodes>
+            <nodes xmi:id="_eGJHPgrUEeaHpbC5MOSUqw" incoming="_eGJHPwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+            </nodes>
+            <edges xmi:id="_eGJHPwrUEeaHpbC5MOSUqw" source="_eGJHPQrUEeaHpbC5MOSUqw" target="_eGJHPgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/selector"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_eGJHQArUEeaHpbC5MOSUqw" origin="_eGJHOArUEeaHpbC5MOSUqw" image="_eGJHPQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_eGJHQQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eGJHQgrUEeaHpbC5MOSUqw" name="Selected" incoming="_eGJHRQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_eGJHQwrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_eGJHRArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_eGJHRQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <edges xmi:id="_eGJHRQrUEeaHpbC5MOSUqw" source="_eGJHRArUEeaHpbC5MOSUqw" target="_eGJHQgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/selector"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_eGJHRgrUEeaHpbC5MOSUqw" origin="_eGJHNgrUEeaHpbC5MOSUqw" image="_eGJHQgrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eGJHRwrUEeaHpbC5MOSUqw" origin="_eGJHNwrUEeaHpbC5MOSUqw" image="_eGJHQwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eGJHSArUEeaHpbC5MOSUqw" origin="_eGJHOArUEeaHpbC5MOSUqw" image="_eGJHRArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eGJHSQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eGJHMQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eGJHSgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_eGJHSwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_eGJHTArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameterMappings xmi:id="_eGJHTQrUEeaHpbC5MOSUqw" source="_eGJHSgrUEeaHpbC5MOSUqw" target="_eGJHMgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eGJHTgrUEeaHpbC5MOSUqw" source="_eGJHSwrUEeaHpbC5MOSUqw" target="_eGJHMwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eGJHTwrUEeaHpbC5MOSUqw" source="_eGJHTArUEeaHpbC5MOSUqw" target="_eGJHNArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

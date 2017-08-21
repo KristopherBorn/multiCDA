@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fGnFsArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_CombinedFragment_interactionOperator_FROM_seq_TO_par" description="Changes the attribute value of interactionOperator_FROM_seq_TO_par">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fGnFsQrUEeaHpbC5MOSUqw" name="changeCombinedFragmentInteractionOperator_FROM_Seq_TO_par" description="Changes the attribute value of interactionOperator_FROM_seq_TO_par">
+    <parameters xmi:id="_fGnFsgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fGnFswrUEeaHpbC5MOSUqw" name="&quot;seq&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fGnFtArUEeaHpbC5MOSUqw" name="&quot;par&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_fGnFtQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fGnFtgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fGnFtwrUEeaHpbC5MOSUqw" value="&quot;seq&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fGnFuArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fGnFuQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fGnFugrUEeaHpbC5MOSUqw" value="&quot;par&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fGnFuwrUEeaHpbC5MOSUqw" origin="_fGnFtgrUEeaHpbC5MOSUqw" image="_fGnFuQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fGnFvArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fGnFsQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fGnFvQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fGnFvgrUEeaHpbC5MOSUqw" name="&quot;seq&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fGnFvwrUEeaHpbC5MOSUqw" name="&quot;par&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fGnFwArUEeaHpbC5MOSUqw" source="_fGnFvQrUEeaHpbC5MOSUqw" target="_fGnFsgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fGnFwQrUEeaHpbC5MOSUqw" source="_fGnFvgrUEeaHpbC5MOSUqw" target="_fGnFswrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fGnFwgrUEeaHpbC5MOSUqw" source="_fGnFvwrUEeaHpbC5MOSUqw" target="_fGnFtArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

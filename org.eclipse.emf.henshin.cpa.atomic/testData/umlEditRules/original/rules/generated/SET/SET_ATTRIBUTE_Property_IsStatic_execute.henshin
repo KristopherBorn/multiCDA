@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cTB60Pf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Property_IsStatic" description="Sets Property IsStatic">
+  <annotations xmi:id="_cTB60ff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Property_IsStatic"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cTB60vf8EeWvvZD_9IfuzA" name="setPropertyIsStatic" description="Sets the EAttribute isStatic">
+    <parameters xmi:id="_cTB60_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_cTB61Pf8EeWvvZD_9IfuzA" name="IsStatic">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_cTB61ff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_cTB61vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_cTB61_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_cTB62Pf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_cTB62ff8EeWvvZD_9IfuzA" value="IsStatic">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Feature/isStatic"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_cTB62vf8EeWvvZD_9IfuzA" origin="_cTB61vf8EeWvvZD_9IfuzA" image="_cTB62Pf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cTB62_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cTB60vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cTB63Pf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cTB63ff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_cTB63vf8EeWvvZD_9IfuzA" name="IsStatic">
+      <annotations xmi:id="_cTB63_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsStatic"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_cTB64Pf8EeWvvZD_9IfuzA" source="_cTB63Pf8EeWvvZD_9IfuzA" target="_cTB60_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cTB64ff8EeWvvZD_9IfuzA" source="_cTB63vf8EeWvvZD_9IfuzA" target="_cTB61Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

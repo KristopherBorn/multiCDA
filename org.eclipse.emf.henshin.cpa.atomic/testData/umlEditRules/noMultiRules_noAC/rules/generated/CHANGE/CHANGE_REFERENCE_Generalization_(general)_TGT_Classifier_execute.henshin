@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_EAXc8AorEeaLVYS0mq5KrA" name="CHANGE_REFERENCE_Generalization_(general)_TGT_Classifier" description="CHANGEs Generalization's reference general the target Classifier">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_EAXc8QorEeaLVYS0mq5KrA" name="changeGeneralization_general_TO_Classifier" description="Change the EReference general">
+    <parameters xmi:id="_EAXc8gorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+    </parameters>
+    <parameters xmi:id="_EAXc8worEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+    </parameters>
+    <parameters xmi:id="_EAXc9AorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+    </parameters>
+    <lhs xmi:id="_EAXc9QorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_EAXc9gorEeaLVYS0mq5KrA" name="Selected" outgoing="_EAXc-QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_EAXc9worEeaLVYS0mq5KrA" name="OldTarget" incoming="_EAXc-QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+      </nodes>
+      <nodes xmi:id="_EAXc-AorEeaLVYS0mq5KrA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+      </nodes>
+      <edges xmi:id="_EAXc-QorEeaLVYS0mq5KrA" source="_EAXc9gorEeaLVYS0mq5KrA" target="_EAXc9worEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization/general"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_EAXc-gorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_EAXc-worEeaLVYS0mq5KrA" name="Selected" outgoing="_EAXc_gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_EAXc_AorEeaLVYS0mq5KrA" name="OldTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+      </nodes>
+      <nodes xmi:id="_EAXc_QorEeaLVYS0mq5KrA" name="NewTarget" incoming="_EAXc_gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+      </nodes>
+      <edges xmi:id="_EAXc_gorEeaLVYS0mq5KrA" source="_EAXc-worEeaLVYS0mq5KrA" target="_EAXc_QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization/general"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_EAXc_worEeaLVYS0mq5KrA" origin="_EAXc9gorEeaLVYS0mq5KrA" image="_EAXc-worEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_EAXdAAorEeaLVYS0mq5KrA" origin="_EAXc9worEeaLVYS0mq5KrA" image="_EAXc_AorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_EAXdAQorEeaLVYS0mq5KrA" origin="_EAXc-AorEeaLVYS0mq5KrA" image="_EAXc_QorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_EAXdAgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_EAXc8QorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_EAXdAworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+    </parameters>
+    <parameters xmi:id="_EAXdBAorEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+    </parameters>
+    <parameters xmi:id="_EAXdBQorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+    </parameters>
+    <parameterMappings xmi:id="_EAXdBgorEeaLVYS0mq5KrA" source="_EAXdAworEeaLVYS0mq5KrA" target="_EAXc8gorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_EAXdBworEeaLVYS0mq5KrA" source="_EAXdBAorEeaLVYS0mq5KrA" target="_EAXc8worEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_EAXdCAorEeaLVYS0mq5KrA" source="_EAXdBQorEeaLVYS0mq5KrA" target="_EAXc9AorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

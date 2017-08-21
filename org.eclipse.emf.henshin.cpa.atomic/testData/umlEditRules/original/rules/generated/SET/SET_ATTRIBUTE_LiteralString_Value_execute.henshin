@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fzFKIArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_LiteralString_Value" description="Sets LiteralString Value">
+  <annotations xmi:id="_fzFKIQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_LiteralString_Value"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fzFKIgrUEeaHpbC5MOSUqw" name="setLiteralStringValue" description="Sets the EAttribute value">
+    <parameters xmi:id="_fzFKIwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_fzFKJArUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_fzFKJQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fzFKJgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fzFKJwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fzFKKArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+        <attributes xmi:id="_fzFKKQrUEeaHpbC5MOSUqw" value="Value">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString/value"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fzFKKgrUEeaHpbC5MOSUqw" origin="_fzFKJgrUEeaHpbC5MOSUqw" image="_fzFKKArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fzFKKwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fzFKIgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fzFKLArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fzFKLQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_fzFKLgrUEeaHpbC5MOSUqw" name="Value">
+      <annotations xmi:id="_fzFKLwrUEeaHpbC5MOSUqw" key="INVERSE" value="Value"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_fzFKMArUEeaHpbC5MOSUqw" source="_fzFKLArUEeaHpbC5MOSUqw" target="_fzFKIwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fzFKMQrUEeaHpbC5MOSUqw" source="_fzFKLgrUEeaHpbC5MOSUqw" target="_fzFKJArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

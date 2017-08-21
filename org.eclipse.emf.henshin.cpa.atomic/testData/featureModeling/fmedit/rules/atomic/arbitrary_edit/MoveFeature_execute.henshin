@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_TvMAEClTEeSfmulj5g7e3A" name="MoveFeature" description="Moves a Feature to another parent Feature (arbitrary edit)">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_TvMnIClTEeSfmulj5g7e3A" name="moveFeature_FROM_Feature_children_TO_Feature_Feature" description="Moves Feature from Feature(Reference:children) toFeature(Reference:Feature)">
+    <parameters xmi:id="_TvMnISlTEeSfmulj5g7e3A" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TvMnIilTEeSfmulj5g7e3A" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TvMnIylTEeSfmulj5g7e3A" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <lhs xmi:id="_TvMnJClTEeSfmulj5g7e3A" name="Lhs">
+      <nodes xmi:id="_TvMnJSlTEeSfmulj5g7e3A" name="Selected" incoming="_TvMnKClTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TvMnJilTEeSfmulj5g7e3A" name="OldSource" outgoing="_TvMnKClTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TvMnJylTEeSfmulj5g7e3A" name="NewSource">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <edges xmi:id="_TvMnKClTEeSfmulj5g7e3A" source="_TvMnJilTEeSfmulj5g7e3A" target="_TvMnJSlTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_FZl0odeIEeS0NLkhRASvow">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_FZl0oteIEeS0NLkhRASvow">
+          <conclusion xmi:id="_FZl0o9eIEeS0NLkhRASvow">
+            <nodes xmi:id="_FZl0pNeIEeS0NLkhRASvow" name="Selected" incoming="_GkapANeIEeS0NLkhRASvow" outgoing="_G0r5oNeIEeS0NLkhRASvow">
+              <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_EWKBsNeIEeS0NLkhRASvow" incoming="_G0r5oNeIEeS0NLkhRASvow" outgoing="_GkapANeIEeS0NLkhRASvow">
+              <type href="http://de.imotep.variability/featuremodel#//Group"/>
+            </nodes>
+            <edges xmi:id="_GkapANeIEeS0NLkhRASvow" source="_EWKBsNeIEeS0NLkhRASvow" target="_FZl0pNeIEeS0NLkhRASvow">
+              <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+            </edges>
+            <edges xmi:id="_G0r5oNeIEeS0NLkhRASvow" source="_FZl0pNeIEeS0NLkhRASvow" target="_EWKBsNeIEeS0NLkhRASvow">
+              <type href="http://de.imotep.variability/featuremodel#//Feature/group"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_FZl0pdeIEeS0NLkhRASvow" origin="_TvMnJSlTEeSfmulj5g7e3A" image="_FZl0pNeIEeS0NLkhRASvow"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_TvMnKSlTEeSfmulj5g7e3A" name="Rhs">
+      <nodes xmi:id="_TvMnKilTEeSfmulj5g7e3A" name="Selected" incoming="_TvMnLSlTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TvMnKylTEeSfmulj5g7e3A" name="OldSource">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TvMnLClTEeSfmulj5g7e3A" name="NewSource" outgoing="_TvMnLSlTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <edges xmi:id="_TvMnLSlTEeSfmulj5g7e3A" source="_TvMnLClTEeSfmulj5g7e3A" target="_TvMnKilTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_TvMnLilTEeSfmulj5g7e3A" origin="_TvMnJSlTEeSfmulj5g7e3A" image="_TvMnKilTEeSfmulj5g7e3A"/>
+    <mappings xmi:id="_TvMnLylTEeSfmulj5g7e3A" origin="_TvMnJilTEeSfmulj5g7e3A" image="_TvMnKylTEeSfmulj5g7e3A"/>
+    <mappings xmi:id="_TvMnMClTEeSfmulj5g7e3A" origin="_TvMnJylTEeSfmulj5g7e3A" image="_TvMnLClTEeSfmulj5g7e3A"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_TvMnMSlTEeSfmulj5g7e3A" name="mainUnit" subUnits="_TvMnIClTEeSfmulj5g7e3A">
+    <parameters xmi:id="_TvMnMilTEeSfmulj5g7e3A" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TvMnMylTEeSfmulj5g7e3A" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TvMnNClTEeSfmulj5g7e3A" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameterMappings xmi:id="_TvMnNSlTEeSfmulj5g7e3A" source="_TvMnMilTEeSfmulj5g7e3A" target="_TvMnISlTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_TvMnNilTEeSfmulj5g7e3A" source="_TvMnMylTEeSfmulj5g7e3A" target="_TvMnIilTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_TvMnNylTEeSfmulj5g7e3A" source="_TvMnNClTEeSfmulj5g7e3A" target="_TvMnIylTEeSfmulj5g7e3A"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dg1xwPf8EeWvvZD_9IfuzA" name="UNSET_REFERENCE_Lifeline_(represents)_TGT_ConnectableElement" description="Sets Lifeline's reference represents the target ConnectableElement">
+  <annotations xmi:id="_dg1xwff8EeWvvZD_9IfuzA" key="INVERSE" value="SET_REFERENCE_Lifeline_(represents)_TGT_ConnectableElement"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dg1xwvf8EeWvvZD_9IfuzA" name="setLifeline_represents_TO_ConnectableElement" description="SetLifelineRefrepresentsToConnectableElement">
+    <parameters xmi:id="_dg1xw_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dg1xxPf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+    </parameters>
+    <lhs xmi:id="_dg1xxff8EeWvvZD_9IfuzA" name="LHS">
+      <nodes xmi:id="_dg1xxvf8EeWvvZD_9IfuzA" name="Selected" outgoing="_dg1xyPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_dg1xx_f8EeWvvZD_9IfuzA" name="NewTarget" incoming="_dg1xyPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+      </nodes>
+      <edges xmi:id="_dg1xyPf8EeWvvZD_9IfuzA" source="_dg1xxvf8EeWvvZD_9IfuzA" target="_dg1xx_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/represents"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_dg1xyff8EeWvvZD_9IfuzA" name="RHS">
+      <nodes xmi:id="_dg1xyvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_dg1xy_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dg1xzPf8EeWvvZD_9IfuzA" origin="_dg1xxvf8EeWvvZD_9IfuzA" image="_dg1xyvf8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_dg1xzff8EeWvvZD_9IfuzA" origin="_dg1xx_f8EeWvvZD_9IfuzA" image="_dg1xy_f8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dg1xzvf8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dg1xwvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dg1xz_f8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dg1x0Pf8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dg1x0ff8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_dg1x0vf8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+    </parameters>
+    <parameterMappings xmi:id="_dg1x0_f8EeWvvZD_9IfuzA" source="_dg1xz_f8EeWvvZD_9IfuzA" target="_dg1xw_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dg1x1Pf8EeWvvZD_9IfuzA" source="_dg1x0ff8EeWvvZD_9IfuzA" target="_dg1xxPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

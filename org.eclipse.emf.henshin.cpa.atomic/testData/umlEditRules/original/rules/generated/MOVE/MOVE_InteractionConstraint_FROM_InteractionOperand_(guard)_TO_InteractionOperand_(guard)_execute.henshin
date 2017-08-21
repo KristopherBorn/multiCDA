@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_faOlQArUEeaHpbC5MOSUqw" name="MOVE_InteractionConstraint_FROM_InteractionOperand_(guard)_TO_InteractionOperand_(guard)" description="MOVEs InteractionConstraint from InteractionOperand(Reference:guard) to InteractionOperand(Reference:guard">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_faOlQQrUEeaHpbC5MOSUqw" name="moveInteractionConstraint_FROM_InteractionOperand_guard_TO_InteractionOperand_InteractionOperand" description="Moves InteractionConstraint from InteractionOperand(Reference:guard) toInteractionOperand(Reference:InteractionOperand)">
+    <parameters xmi:id="_faOlQgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_faOlQwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_faOlRArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <lhs xmi:id="_faOlRQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_faOlRgrUEeaHpbC5MOSUqw" name="Selected" incoming="_faOlSQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_faOlRwrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_faOlSQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_faOlSArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <edges xmi:id="_faOlSQrUEeaHpbC5MOSUqw" source="_faOlRwrUEeaHpbC5MOSUqw" target="_faOlRgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/guard"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_faOlSgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_faOlSwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_faOlTArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_faOlTQrUEeaHpbC5MOSUqw" outgoing="_faOlTwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+            </nodes>
+            <nodes xmi:id="_faOlTgrUEeaHpbC5MOSUqw" incoming="_faOlTwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+            </nodes>
+            <edges xmi:id="_faOlTwrUEeaHpbC5MOSUqw" source="_faOlTQrUEeaHpbC5MOSUqw" target="_faOlTgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/guard"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_faOlUArUEeaHpbC5MOSUqw" origin="_faOlSArUEeaHpbC5MOSUqw" image="_faOlTQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_faOlUQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_faOlUgrUEeaHpbC5MOSUqw" name="Selected" incoming="_faOlVQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_faOlUwrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_faOlVArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_faOlVQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <edges xmi:id="_faOlVQrUEeaHpbC5MOSUqw" source="_faOlVArUEeaHpbC5MOSUqw" target="_faOlUgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/guard"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_faOlVgrUEeaHpbC5MOSUqw" origin="_faOlRgrUEeaHpbC5MOSUqw" image="_faOlUgrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_faOlVwrUEeaHpbC5MOSUqw" origin="_faOlRwrUEeaHpbC5MOSUqw" image="_faOlUwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_faOlWArUEeaHpbC5MOSUqw" origin="_faOlSArUEeaHpbC5MOSUqw" image="_faOlVArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_faOlWQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_faOlQQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_faOlWgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_faOlWwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_faOlXArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameterMappings xmi:id="_faOlXQrUEeaHpbC5MOSUqw" source="_faOlWgrUEeaHpbC5MOSUqw" target="_faOlQgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_faOlXgrUEeaHpbC5MOSUqw" source="_faOlWwrUEeaHpbC5MOSUqw" target="_faOlQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_faOlXwrUEeaHpbC5MOSUqw" source="_faOlXArUEeaHpbC5MOSUqw" target="_faOlRArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

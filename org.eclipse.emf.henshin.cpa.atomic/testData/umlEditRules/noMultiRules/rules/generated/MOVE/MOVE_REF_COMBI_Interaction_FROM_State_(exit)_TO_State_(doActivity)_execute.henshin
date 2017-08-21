@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eFaucArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_Interaction_FROM_State_(exit)_TO_State_(doActivity)" description="MOVEs Interaction from State(Reference:exit) to State(Reference:doActivity">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eFaucQrUEeaHpbC5MOSUqw" name="moveInteraction_FROM_State_exit_TO_State_State" description="Moves Interaction from State(Reference:exit) toState(Reference:State)">
+    <parameters xmi:id="_eFaucgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_eFaucwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_eFaudArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <lhs xmi:id="_eFaudQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eFaudgrUEeaHpbC5MOSUqw" name="Selected" incoming="_eFaueQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+      <nodes xmi:id="_eFaudwrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_eFaueQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <nodes xmi:id="_eFaueArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <edges xmi:id="_eFaueQrUEeaHpbC5MOSUqw" source="_eFaudwrUEeaHpbC5MOSUqw" target="_eFaudgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/exit"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_eFauegrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_eFauewrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_eFaufArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_eFaufQrUEeaHpbC5MOSUqw" outgoing="_eFaufwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+            </nodes>
+            <nodes xmi:id="_eFaufgrUEeaHpbC5MOSUqw" incoming="_eFaufwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+            </nodes>
+            <edges xmi:id="_eFaufwrUEeaHpbC5MOSUqw" source="_eFaufQrUEeaHpbC5MOSUqw" target="_eFaufgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/doActivity"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_eFaugArUEeaHpbC5MOSUqw" origin="_eFaueArUEeaHpbC5MOSUqw" image="_eFaufQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_eFaugQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eFauggrUEeaHpbC5MOSUqw" name="Selected" incoming="_eFauhQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+      <nodes xmi:id="_eFaugwrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <nodes xmi:id="_eFauhArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_eFauhQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <edges xmi:id="_eFauhQrUEeaHpbC5MOSUqw" source="_eFauhArUEeaHpbC5MOSUqw" target="_eFauggrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/doActivity"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_eFauhgrUEeaHpbC5MOSUqw" origin="_eFaudgrUEeaHpbC5MOSUqw" image="_eFauggrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eFauhwrUEeaHpbC5MOSUqw" origin="_eFaudwrUEeaHpbC5MOSUqw" image="_eFaugwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eFauiArUEeaHpbC5MOSUqw" origin="_eFaueArUEeaHpbC5MOSUqw" image="_eFauhArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eFauiQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eFaucQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eFauigrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_eFauiwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_eFaujArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameterMappings xmi:id="_eFaujQrUEeaHpbC5MOSUqw" source="_eFauigrUEeaHpbC5MOSUqw" target="_eFaucgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eFaujgrUEeaHpbC5MOSUqw" source="_eFauiwrUEeaHpbC5MOSUqw" target="_eFaucwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eFaujwrUEeaHpbC5MOSUqw" source="_eFaujArUEeaHpbC5MOSUqw" target="_eFaudArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

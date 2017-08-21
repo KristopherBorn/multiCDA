@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e8L-YArUEeaHpbC5MOSUqw" name="DELETE_Association_IN_Package_(packagedElement)" description="Deletes one Association in Package">
+  <annotations xmi:id="_e8L-YQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_Association_IN_Package_(packagedElement)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e8L-YgrUEeaHpbC5MOSUqw" name="deleteAssociation_IN_Package" description="deletes one Association in the context: Package">
+    <parameters xmi:id="_e8L-YwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_e8L-ZArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Association"/>
+    </parameters>
+    <parameters xmi:id="_e8L-ZQrUEeaHpbC5MOSUqw" name="Existing">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_e8L-ZgrUEeaHpbC5MOSUqw" name="Existing1">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <lhs xmi:id="_e8L-ZwrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_e8L-aArUEeaHpbC5MOSUqw" name="Selected" outgoing="_e8L-bArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <nodes xmi:id="_e8L-aQrUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_e8L-bArUEeaHpbC5MOSUqw _e8L-bgrUEeaHpbC5MOSUqw _e8L-cArUEeaHpbC5MOSUqw" outgoing="_e8L-bQrUEeaHpbC5MOSUqw _e8L-bwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Association"/>
+      </nodes>
+      <nodes xmi:id="_e8L-agrUEeaHpbC5MOSUqw" name="Existing" incoming="_e8L-bQrUEeaHpbC5MOSUqw" outgoing="_e8L-bgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <nodes xmi:id="_e8L-awrUEeaHpbC5MOSUqw" name="Existing1" incoming="_e8L-bwrUEeaHpbC5MOSUqw" outgoing="_e8L-cArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <edges xmi:id="_e8L-bArUEeaHpbC5MOSUqw" source="_e8L-aArUEeaHpbC5MOSUqw" target="_e8L-aQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      </edges>
+      <edges xmi:id="_e8L-bQrUEeaHpbC5MOSUqw" source="_e8L-aQrUEeaHpbC5MOSUqw" target="_e8L-agrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Association/memberEnd"/>
+      </edges>
+      <edges xmi:id="_e8L-bgrUEeaHpbC5MOSUqw" source="_e8L-agrUEeaHpbC5MOSUqw" target="_e8L-aQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/association"/>
+      </edges>
+      <edges xmi:id="_e8L-bwrUEeaHpbC5MOSUqw" source="_e8L-aQrUEeaHpbC5MOSUqw" target="_e8L-awrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Association/memberEnd"/>
+      </edges>
+      <edges xmi:id="_e8L-cArUEeaHpbC5MOSUqw" source="_e8L-awrUEeaHpbC5MOSUqw" target="_e8L-aQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/association"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_e8L-cQrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_e8L-cgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <nodes xmi:id="_e8L-cwrUEeaHpbC5MOSUqw" name="Existing">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <nodes xmi:id="_e8L-dArUEeaHpbC5MOSUqw" name="Existing1">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e8L-dQrUEeaHpbC5MOSUqw" origin="_e8L-aArUEeaHpbC5MOSUqw" image="_e8L-cgrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_e8L-dgrUEeaHpbC5MOSUqw" origin="_e8L-agrUEeaHpbC5MOSUqw" image="_e8L-cwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_e8L-dwrUEeaHpbC5MOSUqw" origin="_e8L-awrUEeaHpbC5MOSUqw" image="_e8L-dArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e8L-eArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e8L-YgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e8L-eQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_e8L-egrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_e8L-ewrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_e8L-fArUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Association"/>
+    </parameters>
+    <parameters xmi:id="_e8L-fQrUEeaHpbC5MOSUqw" name="Existing">
+      <annotations xmi:id="_e8L-fgrUEeaHpbC5MOSUqw" key="INVERSE" value="Existing"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_e8L-fwrUEeaHpbC5MOSUqw" name="Existing1">
+      <annotations xmi:id="_e8L-gArUEeaHpbC5MOSUqw" key="INVERSE" value="Existing1"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameterMappings xmi:id="_e8L-gQrUEeaHpbC5MOSUqw" source="_e8L-eQrUEeaHpbC5MOSUqw" target="_e8L-YwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e8L-ggrUEeaHpbC5MOSUqw" source="_e8L-ewrUEeaHpbC5MOSUqw" target="_e8L-ZArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e8L-gwrUEeaHpbC5MOSUqw" source="_e8L-fQrUEeaHpbC5MOSUqw" target="_e8L-ZQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e8L-hArUEeaHpbC5MOSUqw" source="_e8L-fwrUEeaHpbC5MOSUqw" target="_e8L-ZgrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_CcOJoAorEeaLVYS0mq5KrA" name="MOVE_StateMachine_FROM_TemplateParameterSubstitution_(ownedActual)_TO_TemplateParameterSubstitution_(ownedActual)" description="MOVEs StateMachine from TemplateParameterSubstitution(Reference:ownedActual) to TemplateParameterSubstitution(Reference:ownedActual">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_CcOJoQorEeaLVYS0mq5KrA" name="moveStateMachine_FROM_TemplateParameterSubstitution_ownedActual_TO_TemplateParameterSubstitution_TemplateParameterSubstitution" description="Moves StateMachine from TemplateParameterSubstitution(Reference:ownedActual) toTemplateParameterSubstitution(Reference:TemplateParameterSubstitution)">
+    <parameters xmi:id="_CcOJogorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+    </parameters>
+    <parameters xmi:id="_CcOJoworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+    </parameters>
+    <parameters xmi:id="_CcOJpAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+    </parameters>
+    <lhs xmi:id="_CcOJpQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_CcOJpgorEeaLVYS0mq5KrA" name="Selected" incoming="_CcOJqQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+      </nodes>
+      <nodes xmi:id="_CcOJpworEeaLVYS0mq5KrA" name="OldSource" outgoing="_CcOJqQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+      </nodes>
+      <nodes xmi:id="_CcOJqAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+      </nodes>
+      <edges xmi:id="_CcOJqQorEeaLVYS0mq5KrA" source="_CcOJpworEeaLVYS0mq5KrA" target="_CcOJpgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution/ownedActual"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_CcOJqgorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_CcOJqworEeaLVYS0mq5KrA" name="Selected" incoming="_CcOJrgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+      </nodes>
+      <nodes xmi:id="_CcOJrAorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+      </nodes>
+      <nodes xmi:id="_CcOJrQorEeaLVYS0mq5KrA" name="NewSource" outgoing="_CcOJrgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+      </nodes>
+      <edges xmi:id="_CcOJrgorEeaLVYS0mq5KrA" source="_CcOJrQorEeaLVYS0mq5KrA" target="_CcOJqworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution/ownedActual"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_CcOJrworEeaLVYS0mq5KrA" origin="_CcOJpgorEeaLVYS0mq5KrA" image="_CcOJqworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_CcOJsAorEeaLVYS0mq5KrA" origin="_CcOJpworEeaLVYS0mq5KrA" image="_CcOJrAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_CcOJsQorEeaLVYS0mq5KrA" origin="_CcOJqAorEeaLVYS0mq5KrA" image="_CcOJrQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_CcOJsgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_CcOJoQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_CcOJsworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+    </parameters>
+    <parameters xmi:id="_CcOJtAorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+    </parameters>
+    <parameters xmi:id="_CcOJtQorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameterSubstitution"/>
+    </parameters>
+    <parameterMappings xmi:id="_CcOJtgorEeaLVYS0mq5KrA" source="_CcOJsworEeaLVYS0mq5KrA" target="_CcOJogorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_CcOJtworEeaLVYS0mq5KrA" source="_CcOJtAorEeaLVYS0mq5KrA" target="_CcOJoworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_CcOJuAorEeaLVYS0mq5KrA" source="_CcOJtQorEeaLVYS0mq5KrA" target="_CcOJpAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

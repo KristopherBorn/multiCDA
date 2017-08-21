@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dr6ZUPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Interaction_IsReentrant" description="Sets Interaction IsReentrant">
+  <annotations xmi:id="_dr6ZUff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Interaction_IsReentrant"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dr6ZUvf8EeWvvZD_9IfuzA" name="setInteractionIsReentrant" description="Sets the EAttribute isReentrant">
+    <parameters xmi:id="_dr6ZU_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_dr6ZVPf8EeWvvZD_9IfuzA" name="IsReentrant">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_dr6ZVff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dr6ZVvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dr6ZV_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dr6ZWPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+        <attributes xmi:id="_dr6ZWff8EeWvvZD_9IfuzA" value="IsReentrant">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior/isReentrant"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dr6ZWvf8EeWvvZD_9IfuzA" origin="_dr6ZVvf8EeWvvZD_9IfuzA" image="_dr6ZWPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dr6ZW_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dr6ZUvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dr6ZXPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dr6ZXff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_dr6ZXvf8EeWvvZD_9IfuzA" name="IsReentrant">
+      <annotations xmi:id="_dr6ZX_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsReentrant"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_dr6ZYPf8EeWvvZD_9IfuzA" source="_dr6ZXPf8EeWvvZD_9IfuzA" target="_dr6ZU_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dr6ZYff8EeWvvZD_9IfuzA" source="_dr6ZXvf8EeWvvZD_9IfuzA" target="_dr6ZVPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

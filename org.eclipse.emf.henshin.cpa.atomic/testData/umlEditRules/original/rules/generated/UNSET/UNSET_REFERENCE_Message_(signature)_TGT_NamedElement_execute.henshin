@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dOVsgPf8EeWvvZD_9IfuzA" name="UNSET_REFERENCE_Message_(signature)_TGT_NamedElement" description="Sets Message's reference signature the target NamedElement">
+  <annotations xmi:id="_dOVsgff8EeWvvZD_9IfuzA" key="INVERSE" value="SET_REFERENCE_Message_(signature)_TGT_NamedElement"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dOVsgvf8EeWvvZD_9IfuzA" name="setMessage_signature_TO_NamedElement" description="SetMessageRefsignatureToNamedElement">
+    <parameters xmi:id="_dOVsg_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_dOVshPf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+    </parameters>
+    <lhs xmi:id="_dOVshff8EeWvvZD_9IfuzA" name="LHS">
+      <nodes xmi:id="_dOVshvf8EeWvvZD_9IfuzA" name="Selected" outgoing="_dOVsiPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+      <nodes xmi:id="_dOVsh_f8EeWvvZD_9IfuzA" name="NewTarget" incoming="_dOVsiPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </nodes>
+      <edges xmi:id="_dOVsiPf8EeWvvZD_9IfuzA" source="_dOVshvf8EeWvvZD_9IfuzA" target="_dOVsh_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/signature"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_dOVsiff8EeWvvZD_9IfuzA" name="RHS">
+      <nodes xmi:id="_dOVsivf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+      <nodes xmi:id="_dOVsi_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dOVsjPf8EeWvvZD_9IfuzA" origin="_dOVshvf8EeWvvZD_9IfuzA" image="_dOVsivf8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_dOVsjff8EeWvvZD_9IfuzA" origin="_dOVsh_f8EeWvvZD_9IfuzA" image="_dOVsi_f8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dOVsjvf8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dOVsgvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dOVsj_f8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dOVskPf8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_dOVskff8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_dOVskvf8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+    </parameters>
+    <parameterMappings xmi:id="_dOVsk_f8EeWvvZD_9IfuzA" source="_dOVsj_f8EeWvvZD_9IfuzA" target="_dOVsg_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dOVslPf8EeWvvZD_9IfuzA" source="_dOVskff8EeWvvZD_9IfuzA" target="_dOVshPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

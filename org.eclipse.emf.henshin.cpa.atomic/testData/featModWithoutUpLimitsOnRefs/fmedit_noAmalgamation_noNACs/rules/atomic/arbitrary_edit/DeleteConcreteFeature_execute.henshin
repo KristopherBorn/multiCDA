@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_TuwiQClTEeSfmulj5g7e3A" name="DeleteConcreteFeature" description="Deletes a non-abstract mandatory feature in a feature (arbitrary edit)">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_TuxJUClTEeSfmulj5g7e3A" name="deleteConcreteFeature_IN_Feature" description="deletes one concrete Feature in the context: Feature">
+    <parameters xmi:id="_TuxJUSlTEeSfmulj5g7e3A" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TuxJUilTEeSfmulj5g7e3A" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <lhs xmi:id="_TuxJUylTEeSfmulj5g7e3A" name="LHS">
+      <nodes xmi:id="_TuxJVClTEeSfmulj5g7e3A" name="Selected" outgoing="_TuxJVilTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TuxJVSlTEeSfmulj5g7e3A" name="ToBeDeleted" incoming="_TuxJVilTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_x5Q5gE7YEeSqJo0dYqcUFw" value="false">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/abstract"/>
+        </attributes>
+        <attributes xmi:id="_z9cAgJJfEeSToOLhcgctbQ" value="true">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_TuxJVilTEeSfmulj5g7e3A" source="_TuxJVClTEeSfmulj5g7e3A" target="_TuxJVSlTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_TuxJVylTEeSfmulj5g7e3A" name="RHS">
+      <nodes xmi:id="_TuxJWClTEeSfmulj5g7e3A" name="Selected" description="">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_TuxJWSlTEeSfmulj5g7e3A" origin="_TuxJVClTEeSfmulj5g7e3A" image="_TuxJWClTEeSfmulj5g7e3A"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_TuxJWilTEeSfmulj5g7e3A" name="mainUnit" subUnits="_TuxJUClTEeSfmulj5g7e3A">
+    <parameters xmi:id="_TuxJWylTEeSfmulj5g7e3A" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TuxJXClTEeSfmulj5g7e3A" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameterMappings xmi:id="_TuxJXSlTEeSfmulj5g7e3A" source="_TuxJWylTEeSfmulj5g7e3A" target="_TuxJUSlTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_TuxJXilTEeSfmulj5g7e3A" source="_TuxJXClTEeSfmulj5g7e3A" target="_TuxJUilTEeSfmulj5g7e3A"/>
+  </units>
+</henshin:Module>

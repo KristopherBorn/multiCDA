@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eg_QIArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_OpaqueBehavior_FROM_Transition_(effect)_TO_Transition_(effect)" description="MOVEs OpaqueBehavior from Transition(Reference:effect) to Transition(Reference:effect">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eg_QIQrUEeaHpbC5MOSUqw" name="moveOpaqueBehavior_FROM_Transition_effect_TO_Transition_Transition" description="Moves OpaqueBehavior from Transition(Reference:effect) toTransition(Reference:Transition)">
+    <parameters xmi:id="_eg_QIgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_eg_QIwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_eg_QJArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <lhs xmi:id="_eg_QJQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eg_QJgrUEeaHpbC5MOSUqw" name="Selected" incoming="_eg_QKQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+      </nodes>
+      <nodes xmi:id="_eg_QJwrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_eg_QKQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_eg_QKArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <edges xmi:id="_eg_QKQrUEeaHpbC5MOSUqw" source="_eg_QJwrUEeaHpbC5MOSUqw" target="_eg_QJgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/effect"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_eg_QKgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_eg_QKwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_eg_QLArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_eg_QLQrUEeaHpbC5MOSUqw" outgoing="_eg_QLwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+            </nodes>
+            <nodes xmi:id="_eg_QLgrUEeaHpbC5MOSUqw" incoming="_eg_QLwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+            </nodes>
+            <edges xmi:id="_eg_QLwrUEeaHpbC5MOSUqw" source="_eg_QLQrUEeaHpbC5MOSUqw" target="_eg_QLgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/effect"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_eg_QMArUEeaHpbC5MOSUqw" origin="_eg_QKArUEeaHpbC5MOSUqw" image="_eg_QLQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_eg_QMQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eg_QMgrUEeaHpbC5MOSUqw" name="Selected" incoming="_eg_QNQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+      </nodes>
+      <nodes xmi:id="_eg_QMwrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_eg_QNArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_eg_QNQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <edges xmi:id="_eg_QNQrUEeaHpbC5MOSUqw" source="_eg_QNArUEeaHpbC5MOSUqw" target="_eg_QMgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/effect"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_eg_QNgrUEeaHpbC5MOSUqw" origin="_eg_QJgrUEeaHpbC5MOSUqw" image="_eg_QMgrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eg_QNwrUEeaHpbC5MOSUqw" origin="_eg_QJwrUEeaHpbC5MOSUqw" image="_eg_QMwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eg_QOArUEeaHpbC5MOSUqw" origin="_eg_QKArUEeaHpbC5MOSUqw" image="_eg_QNArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eg_QOQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eg_QIQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eg_QOgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_eg_QOwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_eg_QPArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameterMappings xmi:id="_eg_QPQrUEeaHpbC5MOSUqw" source="_eg_QOgrUEeaHpbC5MOSUqw" target="_eg_QIgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eg_QPgrUEeaHpbC5MOSUqw" source="_eg_QOwrUEeaHpbC5MOSUqw" target="_eg_QIwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eg_QPwrUEeaHpbC5MOSUqw" source="_eg_QPArUEeaHpbC5MOSUqw" target="_eg_QJArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

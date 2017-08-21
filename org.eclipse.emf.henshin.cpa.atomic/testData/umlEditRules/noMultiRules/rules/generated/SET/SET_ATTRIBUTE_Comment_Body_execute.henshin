@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_f4TBUArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Comment_Body" description="Sets Comment Body">
+  <annotations xmi:id="_f4TBUQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Comment_Body"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_f4TBUgrUEeaHpbC5MOSUqw" name="setCommentBody" description="Sets the EAttribute body">
+    <parameters xmi:id="_f4TBUwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+    </parameters>
+    <parameters xmi:id="_f4TBVArUEeaHpbC5MOSUqw" name="Body">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_f4TBVQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_f4TBVgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_f4TBVwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_f4TBWArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+        <attributes xmi:id="_f4TBWQrUEeaHpbC5MOSUqw" value="Body">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment/body"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_f4TBWgrUEeaHpbC5MOSUqw" origin="_f4TBVgrUEeaHpbC5MOSUqw" image="_f4TBWArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_f4TBWwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_f4TBUgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_f4TBXArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_f4TBXQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+    </parameters>
+    <parameters xmi:id="_f4TBXgrUEeaHpbC5MOSUqw" name="Body">
+      <annotations xmi:id="_f4TBXwrUEeaHpbC5MOSUqw" key="INVERSE" value="Body"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_f4TBYArUEeaHpbC5MOSUqw" source="_f4TBXArUEeaHpbC5MOSUqw" target="_f4TBUwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_f4TBYQrUEeaHpbC5MOSUqw" source="_f4TBXgrUEeaHpbC5MOSUqw" target="_f4TBVArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fDOagArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Message_messageSort_FROM_asynchCall_TO_deleteMessage" description="Changes the attribute value of messageSort_FROM_asynchCall_TO_deleteMessage">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fDOagQrUEeaHpbC5MOSUqw" name="changeMessageMessageSort_FROM_AsynchCall_TO_deleteMessage" description="Changes the attribute value of messageSort_FROM_asynchCall_TO_deleteMessage">
+    <parameters xmi:id="_fDOaggrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_fDOagwrUEeaHpbC5MOSUqw" name="&quot;asynchCall&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameters xmi:id="_fDOahArUEeaHpbC5MOSUqw" name="&quot;deleteMessage&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <lhs xmi:id="_fDOahQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fDOahgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+        <attributes xmi:id="_fDOahwrUEeaHpbC5MOSUqw" value="&quot;asynchCall&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/messageSort"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fDOaiArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fDOaiQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+        <attributes xmi:id="_fDOaigrUEeaHpbC5MOSUqw" value="&quot;deleteMessage&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/messageSort"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fDOaiwrUEeaHpbC5MOSUqw" origin="_fDOahgrUEeaHpbC5MOSUqw" image="_fDOaiQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fDOajArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fDOagQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fDOajQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_fDOajgrUEeaHpbC5MOSUqw" name="&quot;asynchCall&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameters xmi:id="_fDOajwrUEeaHpbC5MOSUqw" name="&quot;deleteMessage&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameterMappings xmi:id="_fDOakArUEeaHpbC5MOSUqw" source="_fDOajQrUEeaHpbC5MOSUqw" target="_fDOaggrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fDOakQrUEeaHpbC5MOSUqw" source="_fDOajgrUEeaHpbC5MOSUqw" target="_fDOagwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fDOakgrUEeaHpbC5MOSUqw" source="_fDOajwrUEeaHpbC5MOSUqw" target="_fDOahArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

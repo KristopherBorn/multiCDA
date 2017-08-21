@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Da9p0AorEeaLVYS0mq5KrA" name="MOVE_LiteralUnlimitedNatural_FROM_Duration_(expr)_TO_Duration_(expr)" description="MOVEs LiteralUnlimitedNatural from Duration(Reference:expr) to Duration(Reference:expr">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Da9p0QorEeaLVYS0mq5KrA" name="moveLiteralUnlimitedNatural_FROM_Duration_expr_TO_Duration_Duration" description="Moves LiteralUnlimitedNatural from Duration(Reference:expr) toDuration(Reference:Duration)">
+    <parameters xmi:id="_Da9p0gorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <parameters xmi:id="_Da9p0worEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+    </parameters>
+    <parameters xmi:id="_Da9p1AorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+    </parameters>
+    <lhs xmi:id="_Da9p1QorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_Da9p1gorEeaLVYS0mq5KrA" name="Selected" incoming="_Da9p2QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+      </nodes>
+      <nodes xmi:id="_Da9p1worEeaLVYS0mq5KrA" name="OldSource" outgoing="_Da9p2QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+      </nodes>
+      <nodes xmi:id="_Da9p2AorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+      </nodes>
+      <edges xmi:id="_Da9p2QorEeaLVYS0mq5KrA" source="_Da9p1worEeaLVYS0mq5KrA" target="_Da9p1gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration/expr"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_Da9p2gorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_Da9p2worEeaLVYS0mq5KrA" name="Selected" incoming="_Da9p3gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+      </nodes>
+      <nodes xmi:id="_Da9p3AorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+      </nodes>
+      <nodes xmi:id="_Da9p3QorEeaLVYS0mq5KrA" name="NewSource" outgoing="_Da9p3gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+      </nodes>
+      <edges xmi:id="_Da9p3gorEeaLVYS0mq5KrA" source="_Da9p3QorEeaLVYS0mq5KrA" target="_Da9p2worEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration/expr"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Da9p3worEeaLVYS0mq5KrA" origin="_Da9p1gorEeaLVYS0mq5KrA" image="_Da9p2worEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Da9p4AorEeaLVYS0mq5KrA" origin="_Da9p1worEeaLVYS0mq5KrA" image="_Da9p3AorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Da9p4QorEeaLVYS0mq5KrA" origin="_Da9p2AorEeaLVYS0mq5KrA" image="_Da9p3QorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Da9p4gorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_Da9p0QorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_Da9p4worEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <parameters xmi:id="_Da9p5AorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+    </parameters>
+    <parameters xmi:id="_Da9p5QorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Duration"/>
+    </parameters>
+    <parameterMappings xmi:id="_Da9p5gorEeaLVYS0mq5KrA" source="_Da9p4worEeaLVYS0mq5KrA" target="_Da9p0gorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Da9p5worEeaLVYS0mq5KrA" source="_Da9p5AorEeaLVYS0mq5KrA" target="_Da9p0worEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Da9p6AorEeaLVYS0mq5KrA" source="_Da9p5QorEeaLVYS0mq5KrA" target="_Da9p1AorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

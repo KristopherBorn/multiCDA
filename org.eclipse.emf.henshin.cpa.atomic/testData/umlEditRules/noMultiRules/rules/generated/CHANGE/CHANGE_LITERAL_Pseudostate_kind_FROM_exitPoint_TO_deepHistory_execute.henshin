@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e_6n0ArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_exitPoint_TO_deepHistory" description="Changes the attribute value of kind_FROM_exitPoint_TO_deepHistory">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e_6n0QrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_ExitPoint_TO_deepHistory" description="Changes the attribute value of kind_FROM_exitPoint_TO_deepHistory">
+    <parameters xmi:id="_e_6n0grUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_e_6n0wrUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_e_6n1ArUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_e_6n1QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_e_6n1grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_e_6n1wrUEeaHpbC5MOSUqw" value="&quot;exitPoint&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_e_6n2ArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_e_6n2QrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_e_6n2grUEeaHpbC5MOSUqw" value="&quot;deepHistory&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e_6n2wrUEeaHpbC5MOSUqw" origin="_e_6n1grUEeaHpbC5MOSUqw" image="_e_6n2QrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e_6n3ArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e_6n0QrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e_6n3QrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_e_6n3grUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_e_6n3wrUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_e_6n4ArUEeaHpbC5MOSUqw" source="_e_6n3QrUEeaHpbC5MOSUqw" target="_e_6n0grUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e_6n4QrUEeaHpbC5MOSUqw" source="_e_6n3grUEeaHpbC5MOSUqw" target="_e_6n0wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e_6n4grUEeaHpbC5MOSUqw" source="_e_6n3wrUEeaHpbC5MOSUqw" target="_e_6n1ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

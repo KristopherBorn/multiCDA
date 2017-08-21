@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fToOAArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_CombinedFragment_interactionOperator_FROM_alt_TO_break" description="Changes the attribute value of interactionOperator_FROM_alt_TO_break">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fToOAQrUEeaHpbC5MOSUqw" name="changeCombinedFragmentInteractionOperator_FROM_Alt_TO_break" description="Changes the attribute value of interactionOperator_FROM_alt_TO_break">
+    <parameters xmi:id="_fToOAgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fToOAwrUEeaHpbC5MOSUqw" name="&quot;alt&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fToOBArUEeaHpbC5MOSUqw" name="&quot;break&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_fToOBQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fToOBgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fToOBwrUEeaHpbC5MOSUqw" value="&quot;alt&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fToOCArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fToOCQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fToOCgrUEeaHpbC5MOSUqw" value="&quot;break&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fToOCwrUEeaHpbC5MOSUqw" origin="_fToOBgrUEeaHpbC5MOSUqw" image="_fToOCQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fToODArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fToOAQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fToODQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fToODgrUEeaHpbC5MOSUqw" name="&quot;alt&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fToODwrUEeaHpbC5MOSUqw" name="&quot;break&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fToOEArUEeaHpbC5MOSUqw" source="_fToODQrUEeaHpbC5MOSUqw" target="_fToOAgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fToOEQrUEeaHpbC5MOSUqw" source="_fToODgrUEeaHpbC5MOSUqw" target="_fToOAwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fToOEgrUEeaHpbC5MOSUqw" source="_fToODwrUEeaHpbC5MOSUqw" target="_fToOBArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

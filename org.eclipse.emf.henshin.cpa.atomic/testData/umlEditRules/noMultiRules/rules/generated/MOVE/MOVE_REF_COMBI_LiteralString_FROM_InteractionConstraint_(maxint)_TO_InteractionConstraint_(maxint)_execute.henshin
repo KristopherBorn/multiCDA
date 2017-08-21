@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fGLn4ArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_LiteralString_FROM_InteractionConstraint_(maxint)_TO_InteractionConstraint_(maxint)" description="MOVEs LiteralString from InteractionConstraint(Reference:maxint) to InteractionConstraint(Reference:maxint">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fGLn4QrUEeaHpbC5MOSUqw" name="moveLiteralString_FROM_InteractionConstraint_maxint_TO_InteractionConstraint_InteractionConstraint" description="Moves LiteralString from InteractionConstraint(Reference:maxint) toInteractionConstraint(Reference:InteractionConstraint)">
+    <parameters xmi:id="_fGLn4grUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_fGLn4wrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_fGLn5ArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <lhs xmi:id="_fGLn5QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fGLn5grUEeaHpbC5MOSUqw" name="Selected" incoming="_fGLn6QrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_fGLn5wrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_fGLn6QrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_fGLn6ArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <edges xmi:id="_fGLn6QrUEeaHpbC5MOSUqw" source="_fGLn5wrUEeaHpbC5MOSUqw" target="_fGLn5grUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/maxint"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_fGLn6grUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_fGLn6wrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_fGLn7ArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_fGLn7QrUEeaHpbC5MOSUqw" outgoing="_fGLn7wrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+            </nodes>
+            <nodes xmi:id="_fGLn7grUEeaHpbC5MOSUqw" incoming="_fGLn7wrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+            </nodes>
+            <edges xmi:id="_fGLn7wrUEeaHpbC5MOSUqw" source="_fGLn7QrUEeaHpbC5MOSUqw" target="_fGLn7grUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/maxint"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_fGLn8ArUEeaHpbC5MOSUqw" origin="_fGLn6ArUEeaHpbC5MOSUqw" image="_fGLn7QrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_fGLn8QrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fGLn8grUEeaHpbC5MOSUqw" name="Selected" incoming="_fGLn9QrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_fGLn8wrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_fGLn9ArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_fGLn9QrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <edges xmi:id="_fGLn9QrUEeaHpbC5MOSUqw" source="_fGLn9ArUEeaHpbC5MOSUqw" target="_fGLn8grUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/maxint"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fGLn9grUEeaHpbC5MOSUqw" origin="_fGLn5grUEeaHpbC5MOSUqw" image="_fGLn8grUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fGLn9wrUEeaHpbC5MOSUqw" origin="_fGLn5wrUEeaHpbC5MOSUqw" image="_fGLn8wrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fGLn-ArUEeaHpbC5MOSUqw" origin="_fGLn6ArUEeaHpbC5MOSUqw" image="_fGLn9ArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fGLn-QrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fGLn4QrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fGLn-grUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_fGLn-wrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_fGLn_ArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameterMappings xmi:id="_fGLn_QrUEeaHpbC5MOSUqw" source="_fGLn-grUEeaHpbC5MOSUqw" target="_fGLn4grUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fGLn_grUEeaHpbC5MOSUqw" source="_fGLn-wrUEeaHpbC5MOSUqw" target="_fGLn4wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fGLn_wrUEeaHpbC5MOSUqw" source="_fGLn_ArUEeaHpbC5MOSUqw" target="_fGLn5ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

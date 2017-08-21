@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_f46FUArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_exitPoint_TO_shallowHistory" description="Changes the attribute value of kind_FROM_exitPoint_TO_shallowHistory">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_f46FUQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_ExitPoint_TO_shallowHistory" description="Changes the attribute value of kind_FROM_exitPoint_TO_shallowHistory">
+    <parameters xmi:id="_f46FUgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_f46FUwrUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_f46FVArUEeaHpbC5MOSUqw" name="&quot;shallowHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_f46FVQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_f46FVgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_f46FVwrUEeaHpbC5MOSUqw" value="&quot;exitPoint&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_f46FWArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_f46FWQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_f46FWgrUEeaHpbC5MOSUqw" value="&quot;shallowHistory&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_f46FWwrUEeaHpbC5MOSUqw" origin="_f46FVgrUEeaHpbC5MOSUqw" image="_f46FWQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_f46FXArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_f46FUQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_f46FXQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_f46FXgrUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_f46FXwrUEeaHpbC5MOSUqw" name="&quot;shallowHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_f46FYArUEeaHpbC5MOSUqw" source="_f46FXQrUEeaHpbC5MOSUqw" target="_f46FUgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_f46FYQrUEeaHpbC5MOSUqw" source="_f46FXgrUEeaHpbC5MOSUqw" target="_f46FUwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_f46FYgrUEeaHpbC5MOSUqw" source="_f46FXwrUEeaHpbC5MOSUqw" target="_f46FVArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

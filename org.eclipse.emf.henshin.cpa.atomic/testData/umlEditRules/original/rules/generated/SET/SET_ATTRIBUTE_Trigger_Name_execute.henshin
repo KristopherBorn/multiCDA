@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_ctm-APf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Trigger_Name" description="Sets Trigger Name">
+  <annotations xmi:id="_ctm-Aff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Trigger_Name"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_ctm-Avf8EeWvvZD_9IfuzA" name="setTriggerName" description="Sets the EAttribute name">
+    <parameters xmi:id="_ctm-A_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+    </parameters>
+    <parameters xmi:id="_ctm-BPf8EeWvvZD_9IfuzA" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_ctm-Bff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_ctm-Bvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_ctm-B_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_ctm-CPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+        <attributes xmi:id="_ctm-Cff8EeWvvZD_9IfuzA" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_ctm-Cvf8EeWvvZD_9IfuzA" origin="_ctm-Bvf8EeWvvZD_9IfuzA" image="_ctm-CPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_ctm-C_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_ctm-Avf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_ctm-DPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_ctm-Dff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+    </parameters>
+    <parameters xmi:id="_ctm-Dvf8EeWvvZD_9IfuzA" name="Name">
+      <annotations xmi:id="_ctm-D_f8EeWvvZD_9IfuzA" key="INVERSE" value="Name"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_ctm-EPf8EeWvvZD_9IfuzA" source="_ctm-DPf8EeWvvZD_9IfuzA" target="_ctm-A_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_ctm-Eff8EeWvvZD_9IfuzA" source="_ctm-Dvf8EeWvvZD_9IfuzA" target="_ctm-BPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

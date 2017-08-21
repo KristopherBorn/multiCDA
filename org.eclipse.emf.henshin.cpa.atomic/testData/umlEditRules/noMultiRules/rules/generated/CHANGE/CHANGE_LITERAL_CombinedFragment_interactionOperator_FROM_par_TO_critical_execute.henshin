@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fh2QMArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_CombinedFragment_interactionOperator_FROM_par_TO_critical" description="Changes the attribute value of interactionOperator_FROM_par_TO_critical">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fh2QMQrUEeaHpbC5MOSUqw" name="changeCombinedFragmentInteractionOperator_FROM_Par_TO_critical" description="Changes the attribute value of interactionOperator_FROM_par_TO_critical">
+    <parameters xmi:id="_fh2QMgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fh2QMwrUEeaHpbC5MOSUqw" name="&quot;par&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fh2QNArUEeaHpbC5MOSUqw" name="&quot;critical&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_fh2QNQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fh2QNgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fh2QNwrUEeaHpbC5MOSUqw" value="&quot;par&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fh2QOArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fh2QOQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fh2QOgrUEeaHpbC5MOSUqw" value="&quot;critical&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fh2QOwrUEeaHpbC5MOSUqw" origin="_fh2QNgrUEeaHpbC5MOSUqw" image="_fh2QOQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fh2QPArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fh2QMQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fh2QPQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fh2QPgrUEeaHpbC5MOSUqw" name="&quot;par&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fh2QPwrUEeaHpbC5MOSUqw" name="&quot;critical&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fh2QQArUEeaHpbC5MOSUqw" source="_fh2QPQrUEeaHpbC5MOSUqw" target="_fh2QMgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fh2QQQrUEeaHpbC5MOSUqw" source="_fh2QPgrUEeaHpbC5MOSUqw" target="_fh2QMwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fh2QQgrUEeaHpbC5MOSUqw" source="_fh2QPwrUEeaHpbC5MOSUqw" target="_fh2QNArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

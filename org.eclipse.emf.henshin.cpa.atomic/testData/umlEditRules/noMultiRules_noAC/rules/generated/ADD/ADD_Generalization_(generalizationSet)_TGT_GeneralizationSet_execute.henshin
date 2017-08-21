@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DYlEQQorEeaLVYS0mq5KrA" name="ADD_Generalization_(generalizationSet)_TGT_GeneralizationSet" description="Adds to Generalization's reference generalizationSet the target GeneralizationSet">
+  <annotations xmi:id="_DYlEQgorEeaLVYS0mq5KrA" key="INVERSE" value="REMOVE_Generalization_(generalizationSet)_TGT_GeneralizationSet"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DYlEQworEeaLVYS0mq5KrA" name="addToGeneralization_generalizationSet_GeneralizationSet" description="Adds to Generalization's reference generalizationSet the target GeneralizationSet">
+    <parameters xmi:id="_DYlERAorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+    </parameters>
+    <parameters xmi:id="_DYlERQorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralizationSet"/>
+    </parameters>
+    <lhs xmi:id="_DYlERgorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_DYlERworEeaLVYS0mq5KrA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_DYlESAorEeaLVYS0mq5KrA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralizationSet"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_DYlESQorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_DYlESgorEeaLVYS0mq5KrA" name="Selected" incoming="_DYlETQorEeaLVYS0mq5KrA" outgoing="_DYlETAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_DYlESworEeaLVYS0mq5KrA" name="NewTarget" incoming="_DYlETAorEeaLVYS0mq5KrA" outgoing="_DYlETQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralizationSet"/>
+      </nodes>
+      <edges xmi:id="_DYlETAorEeaLVYS0mq5KrA" source="_DYlESgorEeaLVYS0mq5KrA" target="_DYlESworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization/generalizationSet"/>
+      </edges>
+      <edges xmi:id="_DYlETQorEeaLVYS0mq5KrA" source="_DYlESworEeaLVYS0mq5KrA" target="_DYlESgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralizationSet/generalization"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_DYlETgorEeaLVYS0mq5KrA" origin="_DYlERworEeaLVYS0mq5KrA" image="_DYlESgorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DYlETworEeaLVYS0mq5KrA" origin="_DYlESAorEeaLVYS0mq5KrA" image="_DYlESworEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_DYlEUAorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_DYlEQworEeaLVYS0mq5KrA">
+    <parameters xmi:id="_DYlEUQorEeaLVYS0mq5KrA" name="selectedEObject">
+      <annotations xmi:id="_DYlEUgorEeaLVYS0mq5KrA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+    </parameters>
+    <parameters xmi:id="_DYlEUworEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralizationSet"/>
+    </parameters>
+    <parameterMappings xmi:id="_DYlEVAorEeaLVYS0mq5KrA" source="_DYlEUQorEeaLVYS0mq5KrA" target="_DYlERAorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DYlEVQorEeaLVYS0mq5KrA" source="_DYlEUworEeaLVYS0mq5KrA" target="_DYlERQorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

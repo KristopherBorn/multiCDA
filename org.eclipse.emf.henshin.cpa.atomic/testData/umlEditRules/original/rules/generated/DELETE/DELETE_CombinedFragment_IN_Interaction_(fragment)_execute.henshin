@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fumSwArUEeaHpbC5MOSUqw" name="DELETE_CombinedFragment_IN_Interaction_(fragment)" description="Deletes one CombinedFragment in Interaction">
+  <annotations xmi:id="_fumSwQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_CombinedFragment_IN_Interaction_(fragment)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fumSwgrUEeaHpbC5MOSUqw" name="deleteCombinedFragment_IN_Interaction" description="deletes one CombinedFragment in the context: Interaction">
+    <parameters xmi:id="_fumSwwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_fumSxArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fumSxQrUEeaHpbC5MOSUqw" name="Child">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <lhs xmi:id="_fumSxgrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fumSxwrUEeaHpbC5MOSUqw" name="Selected" incoming="_fumSywrUEeaHpbC5MOSUqw" outgoing="_fumSygrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+      <nodes xmi:id="_fumSyArUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_fumSygrUEeaHpbC5MOSUqw" outgoing="_fumSywrUEeaHpbC5MOSUqw _fumSzArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+      </nodes>
+      <nodes xmi:id="_fumSyQrUEeaHpbC5MOSUqw" name="Child" incoming="_fumSzArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <edges xmi:id="_fumSygrUEeaHpbC5MOSUqw" source="_fumSxwrUEeaHpbC5MOSUqw" target="_fumSyArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction/fragment"/>
+      </edges>
+      <edges xmi:id="_fumSywrUEeaHpbC5MOSUqw" source="_fumSyArUEeaHpbC5MOSUqw" target="_fumSxwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment/enclosingInteraction"/>
+      </edges>
+      <edges xmi:id="_fumSzArUEeaHpbC5MOSUqw" source="_fumSyArUEeaHpbC5MOSUqw" target="_fumSyQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/operand"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fumSzQrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fumSzgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fumSzwrUEeaHpbC5MOSUqw" origin="_fumSxwrUEeaHpbC5MOSUqw" image="_fumSzgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fumS0ArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fumSwgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fumS0QrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fumS0grUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_fumS0wrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_fumS1ArUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fumS1QrUEeaHpbC5MOSUqw" name="Child">
+      <annotations xmi:id="_fumS1grUEeaHpbC5MOSUqw" key="INVERSE" value="Child"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameterMappings xmi:id="_fumS1wrUEeaHpbC5MOSUqw" source="_fumS0QrUEeaHpbC5MOSUqw" target="_fumSwwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fumS2ArUEeaHpbC5MOSUqw" source="_fumS0wrUEeaHpbC5MOSUqw" target="_fumSxArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fumS2QrUEeaHpbC5MOSUqw" source="_fumS1QrUEeaHpbC5MOSUqw" target="_fumSxQrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

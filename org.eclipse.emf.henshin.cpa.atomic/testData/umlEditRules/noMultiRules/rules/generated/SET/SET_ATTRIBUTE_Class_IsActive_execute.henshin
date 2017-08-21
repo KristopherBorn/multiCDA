@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eqVZYArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Class_IsActive" description="Sets Class IsActive">
+  <annotations xmi:id="_eqVZYQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Class_IsActive"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eqVZYgrUEeaHpbC5MOSUqw" name="setClassIsActive" description="Sets the EAttribute isActive">
+    <parameters xmi:id="_eqVZYwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+    </parameters>
+    <parameters xmi:id="_eqVZZArUEeaHpbC5MOSUqw" name="IsActive">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_eqVZZQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eqVZZgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_eqVZZwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eqVZaArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        <attributes xmi:id="_eqVZaQrUEeaHpbC5MOSUqw" value="IsActive">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class/isActive"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eqVZagrUEeaHpbC5MOSUqw" origin="_eqVZZgrUEeaHpbC5MOSUqw" image="_eqVZaArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eqVZawrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eqVZYgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eqVZbArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_eqVZbQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+    </parameters>
+    <parameters xmi:id="_eqVZbgrUEeaHpbC5MOSUqw" name="IsActive">
+      <annotations xmi:id="_eqVZbwrUEeaHpbC5MOSUqw" key="INVERSE" value="IsActive"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_eqVZcArUEeaHpbC5MOSUqw" source="_eqVZbArUEeaHpbC5MOSUqw" target="_eqVZYwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eqVZcQrUEeaHpbC5MOSUqw" source="_eqVZbgrUEeaHpbC5MOSUqw" target="_eqVZZArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

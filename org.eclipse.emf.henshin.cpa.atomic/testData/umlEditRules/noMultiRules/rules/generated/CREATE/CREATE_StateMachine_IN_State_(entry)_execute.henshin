@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_d41rAArUEeaHpbC5MOSUqw" name="CREATE_StateMachine_IN_State_(entry)" description="Creates one StateMachine in State">
+  <annotations xmi:id="_d41rAQrUEeaHpbC5MOSUqw" key="INVERSE" value="DELETE_StateMachine_IN_State_(entry)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_d41rAgrUEeaHpbC5MOSUqw" name="createStateMachine_IN_State" description="creates one StateMachine in the context: State">
+    <parameters xmi:id="_d41rAwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_d41rBArUEeaHpbC5MOSUqw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+    </parameters>
+    <parameters xmi:id="_d41rBQrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_d41rBgrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_d41rBwrUEeaHpbC5MOSUqw" name="IsLeaf">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rCArUEeaHpbC5MOSUqw" name="IsAbstract">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rCQrUEeaHpbC5MOSUqw" name="IsFinalSpecialization">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rCgrUEeaHpbC5MOSUqw" name="IsActive">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rCwrUEeaHpbC5MOSUqw" name="IsReentrant">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rDArUEeaHpbC5MOSUqw" name="Child">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+    </parameters>
+    <parameters xmi:id="_d41rDQrUEeaHpbC5MOSUqw" name="Name1">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_d41rDgrUEeaHpbC5MOSUqw" name="Visibility1">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_d41rDwrUEeaHpbC5MOSUqw" name="IsLeaf1">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_d41rEArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_d41rEQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <formula xsi:type="henshin:Not" xmi:id="_d41rEgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_d41rEwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_d41rFArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_d41rFQrUEeaHpbC5MOSUqw" outgoing="_d41rFwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+            </nodes>
+            <nodes xmi:id="_d41rFgrUEeaHpbC5MOSUqw" incoming="_d41rFwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+            </nodes>
+            <edges xmi:id="_d41rFwrUEeaHpbC5MOSUqw" source="_d41rFQrUEeaHpbC5MOSUqw" target="_d41rFgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/entry"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_d41rGArUEeaHpbC5MOSUqw" origin="_d41rEQrUEeaHpbC5MOSUqw" image="_d41rFQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_d41rGQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_d41rGgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_d41rJwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <nodes xmi:id="_d41rGwrUEeaHpbC5MOSUqw" name="New" incoming="_d41rJwrUEeaHpbC5MOSUqw _d41rKQrUEeaHpbC5MOSUqw" outgoing="_d41rKArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+        <attributes xmi:id="_d41rHArUEeaHpbC5MOSUqw" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_d41rHQrUEeaHpbC5MOSUqw" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+        <attributes xmi:id="_d41rHgrUEeaHpbC5MOSUqw" value="IsLeaf">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//RedefinableElement/isLeaf"/>
+        </attributes>
+        <attributes xmi:id="_d41rHwrUEeaHpbC5MOSUqw" value="IsAbstract">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier/isAbstract"/>
+        </attributes>
+        <attributes xmi:id="_d41rIArUEeaHpbC5MOSUqw" value="IsFinalSpecialization">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier/isFinalSpecialization"/>
+        </attributes>
+        <attributes xmi:id="_d41rIQrUEeaHpbC5MOSUqw" value="IsActive">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class/isActive"/>
+        </attributes>
+        <attributes xmi:id="_d41rIgrUEeaHpbC5MOSUqw" value="IsReentrant">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior/isReentrant"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_d41rIwrUEeaHpbC5MOSUqw" name="Child" incoming="_d41rKArUEeaHpbC5MOSUqw" outgoing="_d41rKQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+        <attributes xmi:id="_d41rJArUEeaHpbC5MOSUqw" value="Name1">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_d41rJQrUEeaHpbC5MOSUqw" value="Visibility1">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+        <attributes xmi:id="_d41rJgrUEeaHpbC5MOSUqw" value="IsLeaf1">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//RedefinableElement/isLeaf"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_d41rJwrUEeaHpbC5MOSUqw" source="_d41rGgrUEeaHpbC5MOSUqw" target="_d41rGwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/entry"/>
+      </edges>
+      <edges xmi:id="_d41rKArUEeaHpbC5MOSUqw" source="_d41rGwrUEeaHpbC5MOSUqw" target="_d41rIwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine/region"/>
+      </edges>
+      <edges xmi:id="_d41rKQrUEeaHpbC5MOSUqw" source="_d41rIwrUEeaHpbC5MOSUqw" target="_d41rGwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Region/stateMachine"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_d41rKgrUEeaHpbC5MOSUqw" origin="_d41rEQrUEeaHpbC5MOSUqw" image="_d41rGgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_d41rKwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_d41rAgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_d41rLArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_d41rLQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_d41rLgrUEeaHpbC5MOSUqw" name="New">
+      <annotations xmi:id="_d41rLwrUEeaHpbC5MOSUqw" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+    </parameters>
+    <parameters xmi:id="_d41rMArUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_d41rMQrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_d41rMgrUEeaHpbC5MOSUqw" name="IsLeaf">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rMwrUEeaHpbC5MOSUqw" name="IsAbstract">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rNArUEeaHpbC5MOSUqw" name="IsFinalSpecialization">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rNQrUEeaHpbC5MOSUqw" name="IsActive">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rNgrUEeaHpbC5MOSUqw" name="IsReentrant">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_d41rNwrUEeaHpbC5MOSUqw" name="Child">
+      <annotations xmi:id="_d41rOArUEeaHpbC5MOSUqw" key="INVERSE" value="Child"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+    </parameters>
+    <parameters xmi:id="_d41rOQrUEeaHpbC5MOSUqw" name="Name1">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_d41rOgrUEeaHpbC5MOSUqw" name="Visibility1">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_d41rOwrUEeaHpbC5MOSUqw" name="IsLeaf1">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_d41rPArUEeaHpbC5MOSUqw" source="_d41rLArUEeaHpbC5MOSUqw" target="_d41rAwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rPQrUEeaHpbC5MOSUqw" source="_d41rBArUEeaHpbC5MOSUqw" target="_d41rLgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rPgrUEeaHpbC5MOSUqw" source="_d41rMArUEeaHpbC5MOSUqw" target="_d41rBQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rPwrUEeaHpbC5MOSUqw" source="_d41rMQrUEeaHpbC5MOSUqw" target="_d41rBgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rQArUEeaHpbC5MOSUqw" source="_d41rMgrUEeaHpbC5MOSUqw" target="_d41rBwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rQQrUEeaHpbC5MOSUqw" source="_d41rMwrUEeaHpbC5MOSUqw" target="_d41rCArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rQgrUEeaHpbC5MOSUqw" source="_d41rNArUEeaHpbC5MOSUqw" target="_d41rCQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rQwrUEeaHpbC5MOSUqw" source="_d41rNQrUEeaHpbC5MOSUqw" target="_d41rCgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rRArUEeaHpbC5MOSUqw" source="_d41rNgrUEeaHpbC5MOSUqw" target="_d41rCwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rRQrUEeaHpbC5MOSUqw" source="_d41rDArUEeaHpbC5MOSUqw" target="_d41rNwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rRgrUEeaHpbC5MOSUqw" source="_d41rOQrUEeaHpbC5MOSUqw" target="_d41rDQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rRwrUEeaHpbC5MOSUqw" source="_d41rOgrUEeaHpbC5MOSUqw" target="_d41rDgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d41rSArUEeaHpbC5MOSUqw" source="_d41rOwrUEeaHpbC5MOSUqw" target="_d41rDwrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

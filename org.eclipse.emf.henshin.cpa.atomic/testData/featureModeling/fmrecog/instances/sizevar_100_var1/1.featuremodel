@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FeatureModel:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FeatureModel="http://de.imotep.variability/featuremodel" name="FM">
+  <constraints xsi:type="FeatureModel:ExcludeConstraint" name="R-72" excludedFeatureA="F33" excludedFeatureB="F35"/>
+  <constraints xsi:type="FeatureModel:ExcludeConstraint" name="R-73" excludedFeatureA="F63" excludedFeatureB="F33"/>
+  <constraints xsi:type="FeatureModel:RequireConstraint" name="R-74" requiredFeature="F90" feature="F99"/>
+  <constraints xsi:type="FeatureModel:ExcludeConstraint" name="R-75" excludedFeatureA="F49" excludedFeatureB="F86"/>
+  <constraints xsi:type="FeatureModel:RequireConstraint" name="R-76" requiredFeature="F3" feature="F89"/>
+  <constraints xsi:type="FeatureModel:ExcludeConstraint" name="R-77" excludedFeatureA="F91" excludedFeatureB="F84"/>
+  <constraints xsi:type="FeatureModel:ExcludeConstraint" name="R-78" excludedFeatureA="F4" excludedFeatureB="F18"/>
+  <constraints xsi:type="FeatureModel:RequireConstraint" name="R-79" requiredFeature="F34" feature="F72"/>
+  <constraints xsi:type="FeatureModel:RequireConstraint" name="R-80" requiredFeature="F18" feature="F16"/>
+  <constraints xsi:type="FeatureModel:RequireConstraint" name="R-81" requiredFeature="F85" feature="F72"/>
+  <root name="root" mandatory="true">
+  <children name="F1" mandatory="true">
+    <children name="F2" mandatory="true">
+      <children name="F5"/>
+      <children name="F6">
+        <children name="F88" mandatory="true"/>
+        <children name="F89" requireConstraints="R-76"/>
+        <children name="F90" mandatory="true" requiredConstraints="R-74"/>
+        <children name="F91" group="F6_1" excludeConstraintsA="R-77"/>
+        <children name="F92" group="F6_1"/>
+        <children name="F93" group="F6_2"/>
+        <children name="F94" group="F6_2"/>
+        <children name="F95" group="F6_2"/>
+      </children>
+      <children name="F7" mandatory="true">
+        <children name="F21" mandatory="true">
+          <children name="F29" mandatory="true"/>
+          <children name="F30" mandatory="true">
+            <children name="F60"/>
+            <children name="F61" group="F30_1"/>
+            <children name="F62" group="F30_1"/>
+            <children name="F63" group="F30_1" excludeConstraintsA="R-73">
+              <children name="F75" mandatory="true"/>
+              <children name="F76" mandatory="true"/>
+              <children name="F77" group="F63_1"/>
+              <children name="F78" group="F63_1">
+                <children name="F96"/>
+                <children name="F97" group="F78_1"/>
+                <children name="F98" group="F78_1"/>
+              </children>
+              <children name="F79" group="F63_1"/>
+              <children name="F80" group="F63_1">
+                <children name="F99" mandatory="true" requireConstraints="R-74"/>
+              </children>
+            </children>
+          </children>
+          <children name="F31"/>
+          <children name="F32" group="F21_1"/>
+          <children name="F33" group="F21_1" excludeConstraintsA="R-72" excludeConstraintsB="R-73"/>
+          <children name="F34" group="F21_1" requiredConstraints="R-79"/>
+          <children name="F35" group="F21_1" excludeConstraintsB="R-72">
+            <children name="F40"/>
+            <children name="F41"/>
+            <children name="F42" group="F35_1"/>
+            <children name="F43" group="F35_1">
+              <children name="F74"/>
+            </children>
+          </children>
+        </children>
+        <children name="F22" mandatory="true">
+          <children name="F36"/>
+          <children name="F37" mandatory="true">
+            <children name="F44" mandatory="true">
+              <children name="F71"/>
+              <children name="F72" mandatory="true" requireConstraints="R-79 R-81"/>
+              <children name="F73" mandatory="true"/>
+            </children>
+            <children name="F45"/>
+            <children name="F46" mandatory="true"/>
+            <children name="F47" group="F37_1">
+              <children name="F59"/>
+            </children>
+            <children name="F48" group="F37_1"/>
+            <children name="F49" group="F37_2" excludeConstraintsA="R-75">
+              <children name="F82"/>
+              <children name="F83" group="F49_1"/>
+              <children name="F84" group="F49_1" excludeConstraintsB="R-77"/>
+            </children>
+            <children name="F50" group="F37_2"/>
+          </children>
+          <children name="F38" group="F22_1">
+            <children name="F81"/>
+          </children>
+          <children name="F39" group="F22_1"/>
+        </children>
+        <children name="F23"/>
+        <children name="F24"/>
+        <children name="F25" group="F7_1"/>
+        <children name="F26" group="F7_1"/>
+        <children name="F27" group="F7_2">
+          <children name="F51" mandatory="true">
+            <children name="F85" requiredConstraints="R-81"/>
+            <children name="F86" excludeConstraintsB="R-75"/>
+            <children name="F87"/>
+          </children>
+          <children name="F52" mandatory="true"/>
+          <children name="F53"/>
+          <children name="F54" mandatory="true"/>
+          <children name="F55"/>
+          <children name="F56" group="F27_1"/>
+          <children name="F57" group="F27_1"/>
+          <children name="F58" group="F27_1">
+            <children name="F64"/>
+            <children name="F65" mandatory="true"/>
+            <children name="F66" mandatory="true"/>
+            <children name="F67" group="F58_1"/>
+            <children name="F68" group="F58_1"/>
+            <children name="F69" group="F58_2"/>
+            <children name="F70" group="F58_2"/>
+          </children>
+        </children>
+        <children name="F28" group="F7_2"/>
+      </children>
+      <children name="F8" mandatory="true">
+        <children name="F15"/>
+        <children name="F16" mandatory="true" requireConstraints="R-80"/>
+        <children name="F17"/>
+        <children name="F18" group="F8_1" excludeConstraintsB="R-78" requiredConstraints="R-80"/>
+        <children name="F19" group="F8_1"/>
+        <children name="F20" group="F8_1"/>
+      </children>
+      <children name="F9" mandatory="true"/>
+      <children name="F10" group="F2_1"/>
+      <children name="F11" group="F2_1"/>
+      <children name="F12" group="F2_2"/>
+      <children name="F13" group="F2_2"/>
+      <children name="F14" group="F2_2"/>
+    </children>
+    <children name="F3" requiredConstraints="R-76">
+      <children name="F4" mandatory="true" excludeConstraintsA="R-78"/>
+    </children>
+  </children>
+  </root>
+  <groups name="F6_1" features ="F91 F92" groupType="OR"/>
+  <groups name="F6_2" features ="F93 F94 F95" groupType="ALT"/>
+  <groups name="F30_1" features ="F61 F62 F63" groupType="OR"/>
+  <groups name="F63_1" features ="F77 F78 F79 F80" groupType="OR"/>
+  <groups name="F78_1" features ="F97 F98" groupType="OR"/>
+  <groups name="F21_1" features ="F32 F33 F34 F35" groupType="OR"/>
+  <groups name="F35_1" features ="F42 F43" groupType="ALT"/>
+  <groups name="F37_1" features ="F47 F48" groupType="OR"/>
+  <groups name="F37_2" features ="F49 F50" groupType="ALT"/>
+  <groups name="F49_1" features ="F83 F84" groupType="OR"/>
+  <groups name="F22_1" features ="F38 F39" groupType="ALT"/>
+  <groups name="F7_1" features ="F25 F26" groupType="OR"/>
+  <groups name="F7_2" features ="F27 F28" groupType="ALT"/>
+  <groups name="F27_1" features ="F56 F57 F58" groupType="OR"/>
+  <groups name="F58_1" features ="F67 F68" groupType="OR"/>
+  <groups name="F58_2" features ="F69 F70" groupType="ALT"/>
+  <groups name="F8_1" features ="F18 F19 F20" groupType="OR"/>
+  <groups name="F2_1" features ="F10 F11" groupType="OR"/>
+  <groups name="F2_2" features ="F12 F13 F14" groupType="ALT"/>
+</FeatureModel:FeatureModel>

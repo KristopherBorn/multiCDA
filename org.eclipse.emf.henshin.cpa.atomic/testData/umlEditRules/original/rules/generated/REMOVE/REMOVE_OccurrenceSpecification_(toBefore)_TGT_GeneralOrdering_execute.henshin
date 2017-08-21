@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DGcLUAorEeaLVYS0mq5KrA" name="REMOVE_OccurrenceSpecification_(toBefore)_TGT_GeneralOrdering" description="Removes OccurrenceSpecification's reference toBefore the target GeneralOrdering">
+  <annotations xmi:id="_DGcLUQorEeaLVYS0mq5KrA" key="INVERSE" value="ADD_OccurrenceSpecification_(toBefore)_TGT_GeneralOrdering"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DGcLUgorEeaLVYS0mq5KrA" name="removeFromOccurrenceSpecification_toBefore_GeneralOrdering" description="Removes from OccurrenceSpecification's reference toBefore the target GeneralOrdering">
+    <parameters xmi:id="_DGcLUworEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_DGcLVAorEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralOrdering"/>
+    </parameters>
+    <lhs xmi:id="_DGcLVQorEeaLVYS0mq5KrA" name="LHS">
+      <nodes xmi:id="_DGcLVgorEeaLVYS0mq5KrA" name="Selected" incoming="_DGcLWQorEeaLVYS0mq5KrA" outgoing="_DGcLWAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_DGcLVworEeaLVYS0mq5KrA" name="OldTarget" incoming="_DGcLWAorEeaLVYS0mq5KrA" outgoing="_DGcLWQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralOrdering"/>
+      </nodes>
+      <edges xmi:id="_DGcLWAorEeaLVYS0mq5KrA" source="_DGcLVgorEeaLVYS0mq5KrA" target="_DGcLVworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification/toBefore"/>
+      </edges>
+      <edges xmi:id="_DGcLWQorEeaLVYS0mq5KrA" source="_DGcLVworEeaLVYS0mq5KrA" target="_DGcLVgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralOrdering/after"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_DGcLWgorEeaLVYS0mq5KrA" name="RHS">
+      <nodes xmi:id="_DGcLWworEeaLVYS0mq5KrA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_DGcLXAorEeaLVYS0mq5KrA" name="OldTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralOrdering"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_DGcLXQorEeaLVYS0mq5KrA" origin="_DGcLVgorEeaLVYS0mq5KrA" image="_DGcLWworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DGcLXgorEeaLVYS0mq5KrA" origin="_DGcLVworEeaLVYS0mq5KrA" image="_DGcLXAorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_DGcLXworEeaLVYS0mq5KrA" name="mainUnit" subUnits="_DGcLUgorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_DGcLYAorEeaLVYS0mq5KrA" name="selectedEObject">
+      <annotations xmi:id="_DGcLYQorEeaLVYS0mq5KrA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_DGcLYgorEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//GeneralOrdering"/>
+    </parameters>
+    <parameterMappings xmi:id="_DGcLYworEeaLVYS0mq5KrA" source="_DGcLYAorEeaLVYS0mq5KrA" target="_DGcLUworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DGcLZAorEeaLVYS0mq5KrA" source="_DGcLYgorEeaLVYS0mq5KrA" target="_DGcLVAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

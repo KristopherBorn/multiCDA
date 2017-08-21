@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_D-cKUAorEeaLVYS0mq5KrA" name="MOVE_Property_FROM_DataType_(ownedAttribute)_TO_DataType_(ownedAttribute)" description="MOVEs Property from DataType(Reference:ownedAttribute) to DataType(Reference:ownedAttribute">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_D-cKUQorEeaLVYS0mq5KrA" name="moveProperty_FROM_DataType_ownedAttribute_TO_DataType_DataType" description="Moves Property from DataType(Reference:ownedAttribute) toDataType(Reference:DataType)">
+    <parameters xmi:id="_D-cKUgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_D-cKUworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+    </parameters>
+    <parameters xmi:id="_D-cKVAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+    </parameters>
+    <lhs xmi:id="_D-cKVQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_D-cKVgorEeaLVYS0mq5KrA" name="Selected" incoming="_D-cKWQorEeaLVYS0mq5KrA" outgoing="_D-cKWgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <nodes xmi:id="_D-cKVworEeaLVYS0mq5KrA" name="OldSource" incoming="_D-cKWgorEeaLVYS0mq5KrA" outgoing="_D-cKWQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+      </nodes>
+      <nodes xmi:id="_D-cKWAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+      </nodes>
+      <edges xmi:id="_D-cKWQorEeaLVYS0mq5KrA" source="_D-cKVworEeaLVYS0mq5KrA" target="_D-cKVgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType/ownedAttribute"/>
+      </edges>
+      <edges xmi:id="_D-cKWgorEeaLVYS0mq5KrA" source="_D-cKVgorEeaLVYS0mq5KrA" target="_D-cKVworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/datatype"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_D-cKWworEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_D-cKXAorEeaLVYS0mq5KrA" name="Selected" incoming="_D-cKXworEeaLVYS0mq5KrA" outgoing="_D-cKYAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <nodes xmi:id="_D-cKXQorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+      </nodes>
+      <nodes xmi:id="_D-cKXgorEeaLVYS0mq5KrA" name="NewSource" incoming="_D-cKYAorEeaLVYS0mq5KrA" outgoing="_D-cKXworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+      </nodes>
+      <edges xmi:id="_D-cKXworEeaLVYS0mq5KrA" source="_D-cKXgorEeaLVYS0mq5KrA" target="_D-cKXAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType/ownedAttribute"/>
+      </edges>
+      <edges xmi:id="_D-cKYAorEeaLVYS0mq5KrA" source="_D-cKXAorEeaLVYS0mq5KrA" target="_D-cKXgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/datatype"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_D-cKYQorEeaLVYS0mq5KrA" origin="_D-cKVgorEeaLVYS0mq5KrA" image="_D-cKXAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_D-cKYgorEeaLVYS0mq5KrA" origin="_D-cKVworEeaLVYS0mq5KrA" image="_D-cKXQorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_D-cKYworEeaLVYS0mq5KrA" origin="_D-cKWAorEeaLVYS0mq5KrA" image="_D-cKXgorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_D-cKZAorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_D-cKUQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_D-cKZQorEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_D-cKZgorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+    </parameters>
+    <parameters xmi:id="_D-cKZworEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//DataType"/>
+    </parameters>
+    <parameterMappings xmi:id="_D-cKaAorEeaLVYS0mq5KrA" source="_D-cKZQorEeaLVYS0mq5KrA" target="_D-cKUgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_D-cKaQorEeaLVYS0mq5KrA" source="_D-cKZgorEeaLVYS0mq5KrA" target="_D-cKUworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_D-cKagorEeaLVYS0mq5KrA" source="_D-cKZworEeaLVYS0mq5KrA" target="_D-cKVAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

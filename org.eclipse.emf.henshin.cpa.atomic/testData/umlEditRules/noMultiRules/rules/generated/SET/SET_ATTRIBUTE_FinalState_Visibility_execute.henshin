@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dnsnsPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_FinalState_Visibility" description="Sets FinalState Visibility">
+  <annotations xmi:id="_dnsnsff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_FinalState_Visibility"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dnsnsvf8EeWvvZD_9IfuzA" name="setFinalStateVisibility" description="Sets the EAttribute visibility">
+    <parameters xmi:id="_dnsns_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//FinalState"/>
+    </parameters>
+    <parameters xmi:id="_dnsntPf8EeWvvZD_9IfuzA" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <lhs xmi:id="_dnsntff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dnsntvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//FinalState"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dnsnt_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dnsnuPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//FinalState"/>
+        <attributes xmi:id="_dnsnuff8EeWvvZD_9IfuzA" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dnsnuvf8EeWvvZD_9IfuzA" origin="_dnsntvf8EeWvvZD_9IfuzA" image="_dnsnuPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dnsnu_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dnsnsvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dnsnvPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dnsnvff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//FinalState"/>
+    </parameters>
+    <parameters xmi:id="_dnsnvvf8EeWvvZD_9IfuzA" name="Visibility">
+      <annotations xmi:id="_dnsnv_f8EeWvvZD_9IfuzA" key="INVERSE" value="Visibility"/>
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_dnsnwPf8EeWvvZD_9IfuzA" source="_dnsnvPf8EeWvvZD_9IfuzA" target="_dnsns_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dnsnwff8EeWvvZD_9IfuzA" source="_dnsnvvf8EeWvvZD_9IfuzA" target="_dnsntPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

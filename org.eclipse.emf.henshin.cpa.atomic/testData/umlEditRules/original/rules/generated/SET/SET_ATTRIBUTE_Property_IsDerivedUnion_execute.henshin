@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e3coUArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Property_IsDerivedUnion" description="Sets Property IsDerivedUnion">
+  <annotations xmi:id="_e3coUQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Property_IsDerivedUnion"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e3coUgrUEeaHpbC5MOSUqw" name="setPropertyIsDerivedUnion" description="Sets the EAttribute isDerivedUnion">
+    <parameters xmi:id="_e3coUwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_e3coVArUEeaHpbC5MOSUqw" name="IsDerivedUnion">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_e3coVQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_e3coVgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_e3coVwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_e3coWArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_e3coWQrUEeaHpbC5MOSUqw" value="IsDerivedUnion">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/isDerivedUnion"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e3coWgrUEeaHpbC5MOSUqw" origin="_e3coVgrUEeaHpbC5MOSUqw" image="_e3coWArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e3coWwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e3coUgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e3coXArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_e3coXQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_e3coXgrUEeaHpbC5MOSUqw" name="IsDerivedUnion">
+      <annotations xmi:id="_e3coXwrUEeaHpbC5MOSUqw" key="INVERSE" value="IsDerivedUnion"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_e3coYArUEeaHpbC5MOSUqw" source="_e3coXArUEeaHpbC5MOSUqw" target="_e3coUwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e3coYQrUEeaHpbC5MOSUqw" source="_e3coXgrUEeaHpbC5MOSUqw" target="_e3coVArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

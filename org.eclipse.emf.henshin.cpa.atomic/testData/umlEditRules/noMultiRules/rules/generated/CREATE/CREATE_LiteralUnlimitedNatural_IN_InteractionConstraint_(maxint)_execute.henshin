@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_flc90ArUEeaHpbC5MOSUqw" name="CREATE_LiteralUnlimitedNatural_IN_InteractionConstraint_(maxint)" description="Creates one LiteralUnlimitedNatural in InteractionConstraint">
+  <annotations xmi:id="_flc90QrUEeaHpbC5MOSUqw" key="INVERSE" value="DELETE_LiteralUnlimitedNatural_IN_InteractionConstraint_(maxint)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_flc90grUEeaHpbC5MOSUqw" name="createLiteralUnlimitedNatural_IN_InteractionConstraint" description="creates one LiteralUnlimitedNatural in the context: InteractionConstraint">
+    <parameters xmi:id="_flc90wrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_flc91ArUEeaHpbC5MOSUqw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <parameters xmi:id="_flc91QrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_flc91grUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_flc91wrUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//UnlimitedNatural"/>
+    </parameters>
+    <lhs xmi:id="_flc92ArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_flc92QrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <formula xsi:type="henshin:Not" xmi:id="_flc92grUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_flc92wrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_flc93ArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_flc93QrUEeaHpbC5MOSUqw" outgoing="_flc93wrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+            </nodes>
+            <nodes xmi:id="_flc93grUEeaHpbC5MOSUqw" incoming="_flc93wrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+            </nodes>
+            <edges xmi:id="_flc93wrUEeaHpbC5MOSUqw" source="_flc93QrUEeaHpbC5MOSUqw" target="_flc93grUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/maxint"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_flc94ArUEeaHpbC5MOSUqw" origin="_flc92QrUEeaHpbC5MOSUqw" image="_flc93QrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_flc94QrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_flc94grUEeaHpbC5MOSUqw" name="Selected" outgoing="_flc95wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_flc94wrUEeaHpbC5MOSUqw" name="New" incoming="_flc95wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+        <attributes xmi:id="_flc95ArUEeaHpbC5MOSUqw" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_flc95QrUEeaHpbC5MOSUqw" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+        <attributes xmi:id="_flc95grUEeaHpbC5MOSUqw" value="Value">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural/value"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_flc95wrUEeaHpbC5MOSUqw" source="_flc94grUEeaHpbC5MOSUqw" target="_flc94wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/maxint"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_flc96ArUEeaHpbC5MOSUqw" origin="_flc92QrUEeaHpbC5MOSUqw" image="_flc94grUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_flc96QrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_flc90grUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_flc96grUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_flc96wrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_flc97ArUEeaHpbC5MOSUqw" name="New">
+      <annotations xmi:id="_flc97QrUEeaHpbC5MOSUqw" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralUnlimitedNatural"/>
+    </parameters>
+    <parameters xmi:id="_flc97grUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_flc97wrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_flc98ArUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//UnlimitedNatural"/>
+    </parameters>
+    <parameterMappings xmi:id="_flc98QrUEeaHpbC5MOSUqw" source="_flc96grUEeaHpbC5MOSUqw" target="_flc90wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flc98grUEeaHpbC5MOSUqw" source="_flc91ArUEeaHpbC5MOSUqw" target="_flc97ArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flc98wrUEeaHpbC5MOSUqw" source="_flc97grUEeaHpbC5MOSUqw" target="_flc91QrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flc99ArUEeaHpbC5MOSUqw" source="_flc97wrUEeaHpbC5MOSUqw" target="_flc91grUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flc99QrUEeaHpbC5MOSUqw" source="_flc98ArUEeaHpbC5MOSUqw" target="_flc91wrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

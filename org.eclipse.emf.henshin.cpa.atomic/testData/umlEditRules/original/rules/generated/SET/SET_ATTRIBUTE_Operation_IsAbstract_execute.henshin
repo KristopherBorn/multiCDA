@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cQeWEPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Operation_IsAbstract" description="Sets Operation IsAbstract">
+  <annotations xmi:id="_cQeWEff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Operation_IsAbstract"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cQeWEvf8EeWvvZD_9IfuzA" name="setOperationIsAbstract" description="Sets the EAttribute isAbstract">
+    <parameters xmi:id="_cQeWE_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+    </parameters>
+    <parameters xmi:id="_cQeWFPf8EeWvvZD_9IfuzA" name="IsAbstract">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_cQeWFff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_cQeWFvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_cQeWF_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_cQeWGPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+        <attributes xmi:id="_cQeWGff8EeWvvZD_9IfuzA" value="IsAbstract">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/isAbstract"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_cQeWGvf8EeWvvZD_9IfuzA" origin="_cQeWFvf8EeWvvZD_9IfuzA" image="_cQeWGPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cQeWG_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cQeWEvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cQeWHPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cQeWHff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+    </parameters>
+    <parameters xmi:id="_cQeWHvf8EeWvvZD_9IfuzA" name="IsAbstract">
+      <annotations xmi:id="_cQeWH_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsAbstract"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_cQeWIPf8EeWvvZD_9IfuzA" source="_cQeWHPf8EeWvvZD_9IfuzA" target="_cQeWE_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cQeWIff8EeWvvZD_9IfuzA" source="_cQeWHvf8EeWvvZD_9IfuzA" target="_cQeWFPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

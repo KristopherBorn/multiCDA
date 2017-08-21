@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_daqRQPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Trigger_Visibility" description="Sets Trigger Visibility">
+  <annotations xmi:id="_daqRQff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Trigger_Visibility"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_daqRQvf8EeWvvZD_9IfuzA" name="setTriggerVisibility" description="Sets the EAttribute visibility">
+    <parameters xmi:id="_daqRQ_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+    </parameters>
+    <parameters xmi:id="_daqRRPf8EeWvvZD_9IfuzA" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <lhs xmi:id="_daqRRff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_daqRRvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_daqRR_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_daqRSPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+        <attributes xmi:id="_daqRSff8EeWvvZD_9IfuzA" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_daqRSvf8EeWvvZD_9IfuzA" origin="_daqRRvf8EeWvvZD_9IfuzA" image="_daqRSPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_daqRS_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_daqRQvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_daqRTPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_daqRTff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+    </parameters>
+    <parameters xmi:id="_daqRTvf8EeWvvZD_9IfuzA" name="Visibility">
+      <annotations xmi:id="_daqRT_f8EeWvvZD_9IfuzA" key="INVERSE" value="Visibility"/>
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_daqRUPf8EeWvvZD_9IfuzA" source="_daqRTPf8EeWvvZD_9IfuzA" target="_daqRQ_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_daqRUff8EeWvvZD_9IfuzA" source="_daqRTvf8EeWvvZD_9IfuzA" target="_daqRRPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

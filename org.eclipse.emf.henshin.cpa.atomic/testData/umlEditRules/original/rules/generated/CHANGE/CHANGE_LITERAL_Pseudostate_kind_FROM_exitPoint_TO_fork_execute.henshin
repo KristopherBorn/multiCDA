@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_d3g1UArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_exitPoint_TO_fork" description="Changes the attribute value of kind_FROM_exitPoint_TO_fork">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_d3g1UQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_ExitPoint_TO_fork" description="Changes the attribute value of kind_FROM_exitPoint_TO_fork">
+    <parameters xmi:id="_d3g1UgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_d3g1UwrUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_d3g1VArUEeaHpbC5MOSUqw" name="&quot;fork&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_d3g1VQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_d3g1VgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_d3g1VwrUEeaHpbC5MOSUqw" value="&quot;exitPoint&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_d3g1WArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_d3g1WQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_d3g1WgrUEeaHpbC5MOSUqw" value="&quot;fork&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_d3g1WwrUEeaHpbC5MOSUqw" origin="_d3g1VgrUEeaHpbC5MOSUqw" image="_d3g1WQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_d3g1XArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_d3g1UQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_d3g1XQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_d3g1XgrUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_d3g1XwrUEeaHpbC5MOSUqw" name="&quot;fork&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_d3g1YArUEeaHpbC5MOSUqw" source="_d3g1XQrUEeaHpbC5MOSUqw" target="_d3g1UgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d3g1YQrUEeaHpbC5MOSUqw" source="_d3g1XgrUEeaHpbC5MOSUqw" target="_d3g1UwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_d3g1YgrUEeaHpbC5MOSUqw" source="_d3g1XwrUEeaHpbC5MOSUqw" target="_d3g1VArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fpw2EArUEeaHpbC5MOSUqw" name="CREATE_Property_IN_StructuredClassifier_(ownedAttribute)" description="Creates one Property in StructuredClassifier">
+  <annotations xmi:id="_fpw2EQrUEeaHpbC5MOSUqw" key="INVERSE" value="DELETE_Property_IN_StructuredClassifier_(ownedAttribute)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fpw2EgrUEeaHpbC5MOSUqw" name="createProperty_IN_StructuredClassifier" description="creates one Property in the context: StructuredClassifier">
+    <parameters xmi:id="_fpw2EwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier"/>
+    </parameters>
+    <parameters xmi:id="_fpw2FArUEeaHpbC5MOSUqw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_fpw2FQrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_fpw2FgrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_fpw2FwrUEeaHpbC5MOSUqw" name="IsLeaf">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2GArUEeaHpbC5MOSUqw" name="IsStatic">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2GQrUEeaHpbC5MOSUqw" name="IsOrdered">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2GgrUEeaHpbC5MOSUqw" name="IsUnique">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2GwrUEeaHpbC5MOSUqw" name="IsReadOnly">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2HArUEeaHpbC5MOSUqw" name="Aggregation">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//AggregationKind"/>
+    </parameters>
+    <parameters xmi:id="_fpw2HQrUEeaHpbC5MOSUqw" name="IsDerived">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2HgrUEeaHpbC5MOSUqw" name="IsDerivedUnion">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2HwrUEeaHpbC5MOSUqw" name="IsID">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_fpw2IArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fpw2IQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fpw2IgrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fpw2IwrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fpw2MArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier"/>
+      </nodes>
+      <nodes xmi:id="_fpw2JArUEeaHpbC5MOSUqw" name="New" incoming="_fpw2MArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_fpw2JQrUEeaHpbC5MOSUqw" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_fpw2JgrUEeaHpbC5MOSUqw" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+        <attributes xmi:id="_fpw2JwrUEeaHpbC5MOSUqw" value="IsLeaf">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//RedefinableElement/isLeaf"/>
+        </attributes>
+        <attributes xmi:id="_fpw2KArUEeaHpbC5MOSUqw" value="IsStatic">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Feature/isStatic"/>
+        </attributes>
+        <attributes xmi:id="_fpw2KQrUEeaHpbC5MOSUqw" value="IsOrdered">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement/isOrdered"/>
+        </attributes>
+        <attributes xmi:id="_fpw2KgrUEeaHpbC5MOSUqw" value="IsUnique">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement/isUnique"/>
+        </attributes>
+        <attributes xmi:id="_fpw2KwrUEeaHpbC5MOSUqw" value="IsReadOnly">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature/isReadOnly"/>
+        </attributes>
+        <attributes xmi:id="_fpw2LArUEeaHpbC5MOSUqw" value="Aggregation">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/aggregation"/>
+        </attributes>
+        <attributes xmi:id="_fpw2LQrUEeaHpbC5MOSUqw" value="IsDerived">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/isDerived"/>
+        </attributes>
+        <attributes xmi:id="_fpw2LgrUEeaHpbC5MOSUqw" value="IsDerivedUnion">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/isDerivedUnion"/>
+        </attributes>
+        <attributes xmi:id="_fpw2LwrUEeaHpbC5MOSUqw" value="IsID">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/isID"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_fpw2MArUEeaHpbC5MOSUqw" source="_fpw2IwrUEeaHpbC5MOSUqw" target="_fpw2JArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier/ownedAttribute"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fpw2MQrUEeaHpbC5MOSUqw" origin="_fpw2IQrUEeaHpbC5MOSUqw" image="_fpw2IwrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fpw2MgrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fpw2EgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fpw2MwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fpw2NArUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier"/>
+    </parameters>
+    <parameters xmi:id="_fpw2NQrUEeaHpbC5MOSUqw" name="New">
+      <annotations xmi:id="_fpw2NgrUEeaHpbC5MOSUqw" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_fpw2NwrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_fpw2OArUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_fpw2OQrUEeaHpbC5MOSUqw" name="IsLeaf">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2OgrUEeaHpbC5MOSUqw" name="IsStatic">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2OwrUEeaHpbC5MOSUqw" name="IsOrdered">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2PArUEeaHpbC5MOSUqw" name="IsUnique">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2PQrUEeaHpbC5MOSUqw" name="IsReadOnly">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2PgrUEeaHpbC5MOSUqw" name="Aggregation">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//AggregationKind"/>
+    </parameters>
+    <parameters xmi:id="_fpw2PwrUEeaHpbC5MOSUqw" name="IsDerived">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2QArUEeaHpbC5MOSUqw" name="IsDerivedUnion">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameters xmi:id="_fpw2QQrUEeaHpbC5MOSUqw" name="IsID">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_fpw2QgrUEeaHpbC5MOSUqw" source="_fpw2MwrUEeaHpbC5MOSUqw" target="_fpw2EwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2QwrUEeaHpbC5MOSUqw" source="_fpw2FArUEeaHpbC5MOSUqw" target="_fpw2NQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2RArUEeaHpbC5MOSUqw" source="_fpw2NwrUEeaHpbC5MOSUqw" target="_fpw2FQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2RQrUEeaHpbC5MOSUqw" source="_fpw2OArUEeaHpbC5MOSUqw" target="_fpw2FgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2RgrUEeaHpbC5MOSUqw" source="_fpw2OQrUEeaHpbC5MOSUqw" target="_fpw2FwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2RwrUEeaHpbC5MOSUqw" source="_fpw2OgrUEeaHpbC5MOSUqw" target="_fpw2GArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2SArUEeaHpbC5MOSUqw" source="_fpw2OwrUEeaHpbC5MOSUqw" target="_fpw2GQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2SQrUEeaHpbC5MOSUqw" source="_fpw2PArUEeaHpbC5MOSUqw" target="_fpw2GgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2SgrUEeaHpbC5MOSUqw" source="_fpw2PQrUEeaHpbC5MOSUqw" target="_fpw2GwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2SwrUEeaHpbC5MOSUqw" source="_fpw2PgrUEeaHpbC5MOSUqw" target="_fpw2HArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2TArUEeaHpbC5MOSUqw" source="_fpw2PwrUEeaHpbC5MOSUqw" target="_fpw2HQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2TQrUEeaHpbC5MOSUqw" source="_fpw2QArUEeaHpbC5MOSUqw" target="_fpw2HgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fpw2TgrUEeaHpbC5MOSUqw" source="_fpw2QQrUEeaHpbC5MOSUqw" target="_fpw2HwrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

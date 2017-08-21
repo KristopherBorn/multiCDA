@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Ck2hMAorEeaLVYS0mq5KrA" name="MOVE_LiteralInteger_FROM_MultiplicityElement_(lowerValue)_TO_MultiplicityElement_(lowerValue)" description="MOVEs LiteralInteger from MultiplicityElement(Reference:lowerValue) to MultiplicityElement(Reference:lowerValue">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Ck2hMQorEeaLVYS0mq5KrA" name="moveLiteralInteger_FROM_MultiplicityElement_lowerValue_TO_MultiplicityElement_MultiplicityElement" description="Moves LiteralInteger from MultiplicityElement(Reference:lowerValue) toMultiplicityElement(Reference:MultiplicityElement)">
+    <parameters xmi:id="_Ck2hMgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_Ck2hMworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+    </parameters>
+    <parameters xmi:id="_Ck2hNAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+    </parameters>
+    <lhs xmi:id="_Ck2hNQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_Ck2hNgorEeaLVYS0mq5KrA" name="Selected" incoming="_Ck2hOQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+      </nodes>
+      <nodes xmi:id="_Ck2hNworEeaLVYS0mq5KrA" name="OldSource" outgoing="_Ck2hOQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+      </nodes>
+      <nodes xmi:id="_Ck2hOAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+      </nodes>
+      <edges xmi:id="_Ck2hOQorEeaLVYS0mq5KrA" source="_Ck2hNworEeaLVYS0mq5KrA" target="_Ck2hNgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement/lowerValue"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_Ck2hOgorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_Ck2hOworEeaLVYS0mq5KrA" name="Selected" incoming="_Ck2hPgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+      </nodes>
+      <nodes xmi:id="_Ck2hPAorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+      </nodes>
+      <nodes xmi:id="_Ck2hPQorEeaLVYS0mq5KrA" name="NewSource" outgoing="_Ck2hPgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+      </nodes>
+      <edges xmi:id="_Ck2hPgorEeaLVYS0mq5KrA" source="_Ck2hPQorEeaLVYS0mq5KrA" target="_Ck2hOworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement/lowerValue"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Ck2hPworEeaLVYS0mq5KrA" origin="_Ck2hNgorEeaLVYS0mq5KrA" image="_Ck2hOworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Ck2hQAorEeaLVYS0mq5KrA" origin="_Ck2hNworEeaLVYS0mq5KrA" image="_Ck2hPAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Ck2hQQorEeaLVYS0mq5KrA" origin="_Ck2hOAorEeaLVYS0mq5KrA" image="_Ck2hPQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Ck2hQgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_Ck2hMQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_Ck2hQworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_Ck2hRAorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+    </parameters>
+    <parameters xmi:id="_Ck2hRQorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+    </parameters>
+    <parameterMappings xmi:id="_Ck2hRgorEeaLVYS0mq5KrA" source="_Ck2hQworEeaLVYS0mq5KrA" target="_Ck2hMgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Ck2hRworEeaLVYS0mq5KrA" source="_Ck2hRAorEeaLVYS0mq5KrA" target="_Ck2hMworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Ck2hSAorEeaLVYS0mq5KrA" source="_Ck2hRQorEeaLVYS0mq5KrA" target="_Ck2hNAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

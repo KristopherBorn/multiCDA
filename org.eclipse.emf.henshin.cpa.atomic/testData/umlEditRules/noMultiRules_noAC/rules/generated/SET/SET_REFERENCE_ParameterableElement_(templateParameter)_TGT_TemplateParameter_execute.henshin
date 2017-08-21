@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cRg34Pf8EeWvvZD_9IfuzA" name="SET_REFERENCE_ParameterableElement_(templateParameter)_TGT_TemplateParameter" description="Sets ParameterableElement's reference templateParameter the target TemplateParameter">
+  <annotations xmi:id="_cRg34ff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_REFERENCE_ParameterableElement_(templateParameter)_TGT_TemplateParameter"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cRg34vf8EeWvvZD_9IfuzA" name="setParameterableElement_templateParameter_TO_TemplateParameter" description="SetParameterableElementReftemplateParameterToTemplateParameter">
+    <parameters xmi:id="_cRg34_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterableElement"/>
+    </parameters>
+    <parameters xmi:id="_cRg35Pf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+    </parameters>
+    <lhs xmi:id="_cRg35ff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_cRg35vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterableElement"/>
+      </nodes>
+      <nodes xmi:id="_cRg35_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_cRg36Pf8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_cRg36ff8EeWvvZD_9IfuzA" name="Selected" incoming="_cRg37Pf8EeWvvZD_9IfuzA" outgoing="_cRg36_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterableElement"/>
+      </nodes>
+      <nodes xmi:id="_cRg36vf8EeWvvZD_9IfuzA" name="NewTarget" incoming="_cRg36_f8EeWvvZD_9IfuzA" outgoing="_cRg37Pf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+      </nodes>
+      <edges xmi:id="_cRg36_f8EeWvvZD_9IfuzA" source="_cRg36ff8EeWvvZD_9IfuzA" target="_cRg36vf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterableElement/templateParameter"/>
+      </edges>
+      <edges xmi:id="_cRg37Pf8EeWvvZD_9IfuzA" source="_cRg36vf8EeWvvZD_9IfuzA" target="_cRg36ff8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter/parameteredElement"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_cRg37ff8EeWvvZD_9IfuzA" origin="_cRg35vf8EeWvvZD_9IfuzA" image="_cRg36ff8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_cRg37vf8EeWvvZD_9IfuzA" origin="_cRg35_f8EeWvvZD_9IfuzA" image="_cRg36vf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cRg37_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cRg34vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cRg38Pf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cRg38ff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterableElement"/>
+    </parameters>
+    <parameters xmi:id="_cRg38vf8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_cRg38_f8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+    </parameters>
+    <parameterMappings xmi:id="_cRg39Pf8EeWvvZD_9IfuzA" source="_cRg38Pf8EeWvvZD_9IfuzA" target="_cRg34_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cRg39ff8EeWvvZD_9IfuzA" source="_cRg38vf8EeWvvZD_9IfuzA" target="_cRg35Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eCVlQArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Message_messageSort_FROM_deleteMessage_TO_reply" description="Changes the attribute value of messageSort_FROM_deleteMessage_TO_reply">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eCVlQQrUEeaHpbC5MOSUqw" name="changeMessageMessageSort_FROM_DeleteMessage_TO_reply" description="Changes the attribute value of messageSort_FROM_deleteMessage_TO_reply">
+    <parameters xmi:id="_eCVlQgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_eCVlQwrUEeaHpbC5MOSUqw" name="&quot;deleteMessage&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameters xmi:id="_eCVlRArUEeaHpbC5MOSUqw" name="&quot;reply&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <lhs xmi:id="_eCVlRQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eCVlRgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+        <attributes xmi:id="_eCVlRwrUEeaHpbC5MOSUqw" value="&quot;deleteMessage&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/messageSort"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_eCVlSArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eCVlSQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+        <attributes xmi:id="_eCVlSgrUEeaHpbC5MOSUqw" value="&quot;reply&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/messageSort"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eCVlSwrUEeaHpbC5MOSUqw" origin="_eCVlRgrUEeaHpbC5MOSUqw" image="_eCVlSQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eCVlTArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eCVlQQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eCVlTQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_eCVlTgrUEeaHpbC5MOSUqw" name="&quot;deleteMessage&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameters xmi:id="_eCVlTwrUEeaHpbC5MOSUqw" name="&quot;reply&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameterMappings xmi:id="_eCVlUArUEeaHpbC5MOSUqw" source="_eCVlTQrUEeaHpbC5MOSUqw" target="_eCVlQgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eCVlUQrUEeaHpbC5MOSUqw" source="_eCVlTgrUEeaHpbC5MOSUqw" target="_eCVlQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eCVlUgrUEeaHpbC5MOSUqw" source="_eCVlTwrUEeaHpbC5MOSUqw" target="_eCVlRArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

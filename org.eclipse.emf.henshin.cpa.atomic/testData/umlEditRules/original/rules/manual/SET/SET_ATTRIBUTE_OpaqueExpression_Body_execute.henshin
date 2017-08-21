@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dDB0YPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_OpaqueExpression_Body" description="Sets OpaqueExpression Name">
+  <annotations xmi:id="_dDB0Yff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_OpaqueExpression_Body"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dDB0Yvf8EeWvvZD_9IfuzA" name="setOpaqueExpressionBody" description="Sets the EAttribute Body">
+    <parameters xmi:id="_dDB0Y_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_dDB0ZPf8EeWvvZD_9IfuzA" name="Body">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_dDB0Zff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dDB0Zvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dDB0Z_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dDB0aPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+        <attributes xmi:id="_dDB0aff8EeWvvZD_9IfuzA" value="Body">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression/body"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dDB0avf8EeWvvZD_9IfuzA" origin="_dDB0Zvf8EeWvvZD_9IfuzA" image="_dDB0aPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dDB0a_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dDB0Yvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dDB0bPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dDB0bff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_dDB0bvf8EeWvvZD_9IfuzA" name="Body">
+      <annotations xmi:id="_dDB0b_f8EeWvvZD_9IfuzA" key="INVERSE" value="Name"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_dDB0cPf8EeWvvZD_9IfuzA" source="_dDB0bPf8EeWvvZD_9IfuzA" target="_dDB0Y_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dDB0cff8EeWvvZD_9IfuzA" source="_dDB0bvf8EeWvvZD_9IfuzA" target="_dDB0ZPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

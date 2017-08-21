@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fElFYArUEeaHpbC5MOSUqw" name="DELETE_Comment_IN_Element_(ownedComment)" description="Deletes one Comment in Element">
+  <annotations xmi:id="_fElFYQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_Comment_IN_Element_(ownedComment)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fElFYgrUEeaHpbC5MOSUqw" name="deleteComment_IN_Element" description="deletes one Comment in the context: Element">
+    <parameters xmi:id="_fElFYwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+    </parameters>
+    <parameters xmi:id="_fElFZArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+    </parameters>
+    <lhs xmi:id="_fElFZQrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fElFZgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fElFaArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+      </nodes>
+      <nodes xmi:id="_fElFZwrUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_fElFaArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+      </nodes>
+      <edges xmi:id="_fElFaArUEeaHpbC5MOSUqw" source="_fElFZgrUEeaHpbC5MOSUqw" target="_fElFZwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Element/ownedComment"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fElFaQrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fElFagrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fElFawrUEeaHpbC5MOSUqw" origin="_fElFZgrUEeaHpbC5MOSUqw" image="_fElFagrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fElFbArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fElFYgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fElFbQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fElFbgrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+    </parameters>
+    <parameters xmi:id="_fElFbwrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_fElFcArUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+    </parameters>
+    <parameterMappings xmi:id="_fElFcQrUEeaHpbC5MOSUqw" source="_fElFbQrUEeaHpbC5MOSUqw" target="_fElFYwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fElFcgrUEeaHpbC5MOSUqw" source="_fElFbwrUEeaHpbC5MOSUqw" target="_fElFZArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

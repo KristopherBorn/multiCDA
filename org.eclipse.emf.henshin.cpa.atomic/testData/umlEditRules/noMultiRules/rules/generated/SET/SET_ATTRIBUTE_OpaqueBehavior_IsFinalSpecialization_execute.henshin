@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dfLk4Pf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_OpaqueBehavior_IsFinalSpecialization" description="Sets OpaqueBehavior IsFinalSpecialization">
+  <annotations xmi:id="_dfLk4ff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_OpaqueBehavior_IsFinalSpecialization"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dfLk4vf8EeWvvZD_9IfuzA" name="setOpaqueBehaviorIsFinalSpecialization" description="Sets the EAttribute isFinalSpecialization">
+    <parameters xmi:id="_dfLk4_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_dfLk5Pf8EeWvvZD_9IfuzA" name="IsFinalSpecialization">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_dfLk5ff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dfLk5vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dfLk5_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dfLk6Pf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+        <attributes xmi:id="_dfLk6ff8EeWvvZD_9IfuzA" value="IsFinalSpecialization">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier/isFinalSpecialization"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dfLk6vf8EeWvvZD_9IfuzA" origin="_dfLk5vf8EeWvvZD_9IfuzA" image="_dfLk6Pf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dfLk6_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dfLk4vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dfLk7Pf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dfLk7ff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_dfLk7vf8EeWvvZD_9IfuzA" name="IsFinalSpecialization">
+      <annotations xmi:id="_dfLk7_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsFinalSpecialization"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_dfLk8Pf8EeWvvZD_9IfuzA" source="_dfLk7Pf8EeWvvZD_9IfuzA" target="_dfLk4_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dfLk8ff8EeWvvZD_9IfuzA" source="_dfLk7vf8EeWvvZD_9IfuzA" target="_dfLk5Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_c14wQPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_OpaqueBehavior_Name" description="Sets OpaqueBehavior Name">
+  <annotations xmi:id="_c14wQff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_OpaqueBehavior_Name"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_c14wQvf8EeWvvZD_9IfuzA" name="setOpaqueBehaviorName" description="Sets the EAttribute name">
+    <parameters xmi:id="_c14wQ_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_c14wRPf8EeWvvZD_9IfuzA" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_c14wRff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_c14wRvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_c14wR_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_c14wSPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+        <attributes xmi:id="_c14wSff8EeWvvZD_9IfuzA" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_c14wSvf8EeWvvZD_9IfuzA" origin="_c14wRvf8EeWvvZD_9IfuzA" image="_c14wSPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_c14wS_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_c14wQvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_c14wTPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_c14wTff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_c14wTvf8EeWvvZD_9IfuzA" name="Name">
+      <annotations xmi:id="_c14wT_f8EeWvvZD_9IfuzA" key="INVERSE" value="Name"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_c14wUPf8EeWvvZD_9IfuzA" source="_c14wTPf8EeWvvZD_9IfuzA" target="_c14wQ_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_c14wUff8EeWvvZD_9IfuzA" source="_c14wTvf8EeWvvZD_9IfuzA" target="_c14wRPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fd0EwArUEeaHpbC5MOSUqw" name="UNSET_REFERENCE_MessageEnd_(message)_TGT_Message" description="Sets MessageEnd's reference message the target Message">
+  <annotations xmi:id="_fd0EwQrUEeaHpbC5MOSUqw" key="INVERSE" value="SET_REFERENCE_MessageEnd_(message)_TGT_Message"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fd0EwgrUEeaHpbC5MOSUqw" name="setMessageEnd_message_TO_Message" description="SetMessageEndRefmessageToMessage">
+    <parameters xmi:id="_fd0EwwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageEnd"/>
+    </parameters>
+    <parameters xmi:id="_fd0ExArUEeaHpbC5MOSUqw" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <lhs xmi:id="_fd0ExQrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fd0ExgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fd0EyArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageEnd"/>
+      </nodes>
+      <nodes xmi:id="_fd0ExwrUEeaHpbC5MOSUqw" name="NewTarget" incoming="_fd0EyArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+      <edges xmi:id="_fd0EyArUEeaHpbC5MOSUqw" source="_fd0ExgrUEeaHpbC5MOSUqw" target="_fd0ExwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageEnd/message"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fd0EyQrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fd0EygrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageEnd"/>
+      </nodes>
+      <nodes xmi:id="_fd0EywrUEeaHpbC5MOSUqw" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fd0EzArUEeaHpbC5MOSUqw" origin="_fd0ExgrUEeaHpbC5MOSUqw" image="_fd0EygrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fd0EzQrUEeaHpbC5MOSUqw" origin="_fd0ExwrUEeaHpbC5MOSUqw" image="_fd0EywrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fd0EzgrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fd0EwgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fd0EzwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fd0E0ArUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageEnd"/>
+    </parameters>
+    <parameters xmi:id="_fd0E0QrUEeaHpbC5MOSUqw" name="NewTarget">
+      <annotations xmi:id="_fd0E0grUEeaHpbC5MOSUqw" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameterMappings xmi:id="_fd0E0wrUEeaHpbC5MOSUqw" source="_fd0EzwrUEeaHpbC5MOSUqw" target="_fd0EwwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fd0E1ArUEeaHpbC5MOSUqw" source="_fd0E0QrUEeaHpbC5MOSUqw" target="_fd0ExArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_TvwAwClTEeSfmulj5g7e3A" name="DeleteExcludeConstraint" description="Deletes a ExcludeConstraint (generalization)">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_TvwAwSlTEeSfmulj5g7e3A" name="deleteExcludeConstraint_IN_FeatureModel" description="deletes one ExcludeConstraint in the context: FeatureModel">
+    <parameters xmi:id="_TvwAwilTEeSfmulj5g7e3A" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+    </parameters>
+    <parameters xmi:id="_TvwAwylTEeSfmulj5g7e3A" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//ExcludeConstraint"/>
+    </parameters>
+    <parameters xmi:id="_TvwAxClTEeSfmulj5g7e3A" name="Existing">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TvwAxSlTEeSfmulj5g7e3A" name="Existing1">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <lhs xmi:id="_TvwAxilTEeSfmulj5g7e3A" name="LHS">
+      <nodes xmi:id="_TvwAxylTEeSfmulj5g7e3A" name="Selected" outgoing="_TvwAyylTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_TvwAyClTEeSfmulj5g7e3A" name="ToBeDeleted" incoming="_TvwAyylTEeSfmulj5g7e3A _TvwAzSlTEeSfmulj5g7e3A _TvwAzylTEeSfmulj5g7e3A" outgoing="_TvwAzClTEeSfmulj5g7e3A _TvwAzilTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//ExcludeConstraint"/>
+      </nodes>
+      <nodes xmi:id="_TvwAySlTEeSfmulj5g7e3A" name="Existing" incoming="_TvwAzClTEeSfmulj5g7e3A" outgoing="_TvwAzSlTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TvwAyilTEeSfmulj5g7e3A" name="Existing1" incoming="_TvwAzilTEeSfmulj5g7e3A" outgoing="_TvwAzylTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <edges xmi:id="_TvwAyylTEeSfmulj5g7e3A" source="_TvwAxylTEeSfmulj5g7e3A" target="_TvwAyClTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel/constraints"/>
+      </edges>
+      <edges xmi:id="_TvwAzClTEeSfmulj5g7e3A" source="_TvwAyClTEeSfmulj5g7e3A" target="_TvwAySlTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//ExcludeConstraint/excludedFeatureA"/>
+      </edges>
+      <edges xmi:id="_TvwAzSlTEeSfmulj5g7e3A" source="_TvwAySlTEeSfmulj5g7e3A" target="_TvwAyClTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/excludeConstraintsA"/>
+      </edges>
+      <edges xmi:id="_TvwAzilTEeSfmulj5g7e3A" source="_TvwAyClTEeSfmulj5g7e3A" target="_TvwAyilTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//ExcludeConstraint/excludedFeatureB"/>
+      </edges>
+      <edges xmi:id="_TvwAzylTEeSfmulj5g7e3A" source="_TvwAyilTEeSfmulj5g7e3A" target="_TvwAyClTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/excludeConstraintsB"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_TvwA0ClTEeSfmulj5g7e3A" name="RHS">
+      <nodes xmi:id="_TvwA0SlTEeSfmulj5g7e3A" name="Selected">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_TvwA0ilTEeSfmulj5g7e3A" name="Existing">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TvwA0ylTEeSfmulj5g7e3A" name="Existing1">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_TvwA1ClTEeSfmulj5g7e3A" origin="_TvwAxylTEeSfmulj5g7e3A" image="_TvwA0SlTEeSfmulj5g7e3A"/>
+    <mappings xmi:id="_TvwA1SlTEeSfmulj5g7e3A" origin="_TvwAySlTEeSfmulj5g7e3A" image="_TvwA0ilTEeSfmulj5g7e3A"/>
+    <mappings xmi:id="_TvwA1ilTEeSfmulj5g7e3A" origin="_TvwAyilTEeSfmulj5g7e3A" image="_TvwA0ylTEeSfmulj5g7e3A"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_TvwA1ylTEeSfmulj5g7e3A" name="mainUnit" subUnits="_TvwAwSlTEeSfmulj5g7e3A">
+    <parameters xmi:id="_TvwA2ClTEeSfmulj5g7e3A" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+    </parameters>
+    <parameters xmi:id="_TvwA2SlTEeSfmulj5g7e3A" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//ExcludeConstraint"/>
+    </parameters>
+    <parameters xmi:id="_TvwA2ilTEeSfmulj5g7e3A" name="Existing">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_TvwA2ylTEeSfmulj5g7e3A" name="Existing1">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameterMappings xmi:id="_TvwA3ClTEeSfmulj5g7e3A" source="_TvwA2ClTEeSfmulj5g7e3A" target="_TvwAwilTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_TvwA3SlTEeSfmulj5g7e3A" source="_TvwA2SlTEeSfmulj5g7e3A" target="_TvwAwylTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_TvwA3ilTEeSfmulj5g7e3A" source="_TvwA2ilTEeSfmulj5g7e3A" target="_TvwAxClTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_TvwA3ylTEeSfmulj5g7e3A" source="_TvwA2ylTEeSfmulj5g7e3A" target="_TvwAxSlTEeSfmulj5g7e3A"/>
+  </units>
+</henshin:Module>

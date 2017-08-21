@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_0C500Hv8Eee65PiRiQpu7Q">
+  <imports href="bank.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_0C500Xv8Eee65PiRiQpu7Q" name="ruleToInvert_INV">
+    <lhs xmi:id="_0C500nv8Eee65PiRiQpu7Q" name="LHS">
+      <nodes xmi:id="_0C5003v8Eee65PiRiQpu7Q" outgoing="_0C501nv8Eee65PiRiQpu7Q _0C5013v8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Bank"/>
+      </nodes>
+      <nodes xmi:id="_0C501Hv8Eee65PiRiQpu7Q" incoming="_0C5013v8Eee65PiRiQpu7Q _0C502Hv8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Account"/>
+      </nodes>
+      <nodes xmi:id="_0C501Xv8Eee65PiRiQpu7Q" incoming="_0C501nv8Eee65PiRiQpu7Q" outgoing="_0C502Hv8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Client"/>
+      </nodes>
+      <edges xmi:id="_0C501nv8Eee65PiRiQpu7Q" source="_0C5003v8Eee65PiRiQpu7Q" target="_0C501Xv8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Bank/clients"/>
+      </edges>
+      <edges xmi:id="_0C5013v8Eee65PiRiQpu7Q" source="_0C5003v8Eee65PiRiQpu7Q" target="_0C501Hv8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Bank/accounts"/>
+      </edges>
+      <edges xmi:id="_0C502Hv8Eee65PiRiQpu7Q" source="_0C501Xv8Eee65PiRiQpu7Q" target="_0C501Hv8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Client/accounts"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_0C502Xv8Eee65PiRiQpu7Q" name="RHS">
+      <nodes xmi:id="_0C502nv8Eee65PiRiQpu7Q" outgoing="_0C503Xv8Eee65PiRiQpu7Q _0C503nv8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Bank"/>
+      </nodes>
+      <nodes xmi:id="_0C5023v8Eee65PiRiQpu7Q" incoming="_0C503Xv8Eee65PiRiQpu7Q _0C5033v8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Client"/>
+      </nodes>
+      <nodes xmi:id="_0C503Hv8Eee65PiRiQpu7Q" incoming="_0C503nv8Eee65PiRiQpu7Q" outgoing="_0C5033v8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Manager"/>
+      </nodes>
+      <edges xmi:id="_0C503Xv8Eee65PiRiQpu7Q" source="_0C502nv8Eee65PiRiQpu7Q" target="_0C5023v8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Bank/clients"/>
+      </edges>
+      <edges xmi:id="_0C503nv8Eee65PiRiQpu7Q" source="_0C502nv8Eee65PiRiQpu7Q" target="_0C503Hv8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Bank/managers"/>
+      </edges>
+      <edges xmi:id="_0C5033v8Eee65PiRiQpu7Q" source="_0C503Hv8Eee65PiRiQpu7Q" target="_0C5023v8Eee65PiRiQpu7Q">
+        <type href="bank.ecore#//Manager/clients"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_0C504Hv8Eee65PiRiQpu7Q" origin="_0C5003v8Eee65PiRiQpu7Q" image="_0C502nv8Eee65PiRiQpu7Q"/>
+    <mappings xmi:id="_0C504Xv8Eee65PiRiQpu7Q" origin="_0C501Xv8Eee65PiRiQpu7Q" image="_0C5023v8Eee65PiRiQpu7Q"/>
+  </units>
+</henshin:Module>

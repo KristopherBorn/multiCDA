@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e0wgsArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_exitPoint_TO_junction" description="Changes the attribute value of kind_FROM_exitPoint_TO_junction">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e0wgsQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_ExitPoint_TO_junction" description="Changes the attribute value of kind_FROM_exitPoint_TO_junction">
+    <parameters xmi:id="_e0wgsgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_e0wgswrUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_e0wgtArUEeaHpbC5MOSUqw" name="&quot;junction&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_e0wgtQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_e0wgtgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_e0wgtwrUEeaHpbC5MOSUqw" value="&quot;exitPoint&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_e0wguArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_e0wguQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_e0wgugrUEeaHpbC5MOSUqw" value="&quot;junction&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e0wguwrUEeaHpbC5MOSUqw" origin="_e0wgtgrUEeaHpbC5MOSUqw" image="_e0wguQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e0wgvArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e0wgsQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e0wgvQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_e0wgvgrUEeaHpbC5MOSUqw" name="&quot;exitPoint&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_e0wgvwrUEeaHpbC5MOSUqw" name="&quot;junction&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_e0wgwArUEeaHpbC5MOSUqw" source="_e0wgvQrUEeaHpbC5MOSUqw" target="_e0wgsgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e0wgwQrUEeaHpbC5MOSUqw" source="_e0wgvgrUEeaHpbC5MOSUqw" target="_e0wgswrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e0wgwgrUEeaHpbC5MOSUqw" source="_e0wgvwrUEeaHpbC5MOSUqw" target="_e0wgtArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

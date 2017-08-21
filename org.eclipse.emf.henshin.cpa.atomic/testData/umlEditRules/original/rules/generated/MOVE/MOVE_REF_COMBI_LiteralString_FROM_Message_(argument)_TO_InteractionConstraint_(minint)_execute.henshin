@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_ez-dkArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_LiteralString_FROM_Message_(argument)_TO_InteractionConstraint_(minint)" description="MOVEs LiteralString from Message(Reference:argument) to InteractionConstraint(Reference:minint">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_ez-dkQrUEeaHpbC5MOSUqw" name="moveLiteralString_FROM_Message_argument_TO_InteractionConstraint_InteractionConstraint" description="Moves LiteralString from Message(Reference:argument) toInteractionConstraint(Reference:InteractionConstraint)">
+    <parameters xmi:id="_ez-dkgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_ez-dkwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_ez-dlArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <lhs xmi:id="_ez-dlQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_ez-dlgrUEeaHpbC5MOSUqw" name="Selected" incoming="_ez-dmQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_ez-dlwrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_ez-dmQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+      <nodes xmi:id="_ez-dmArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <edges xmi:id="_ez-dmQrUEeaHpbC5MOSUqw" source="_ez-dlwrUEeaHpbC5MOSUqw" target="_ez-dlgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/argument"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_ez-dmgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_ez-dmwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_ez-dnArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_ez-dnQrUEeaHpbC5MOSUqw" outgoing="_ez-dnwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+            </nodes>
+            <nodes xmi:id="_ez-dngrUEeaHpbC5MOSUqw" incoming="_ez-dnwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+            </nodes>
+            <edges xmi:id="_ez-dnwrUEeaHpbC5MOSUqw" source="_ez-dnQrUEeaHpbC5MOSUqw" target="_ez-dngrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/minint"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_ez-doArUEeaHpbC5MOSUqw" origin="_ez-dmArUEeaHpbC5MOSUqw" image="_ez-dnQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_ez-doQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_ez-dogrUEeaHpbC5MOSUqw" name="Selected" incoming="_ez-dpQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_ez-dowrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+      <nodes xmi:id="_ez-dpArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_ez-dpQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <edges xmi:id="_ez-dpQrUEeaHpbC5MOSUqw" source="_ez-dpArUEeaHpbC5MOSUqw" target="_ez-dogrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/minint"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_ez-dpgrUEeaHpbC5MOSUqw" origin="_ez-dlgrUEeaHpbC5MOSUqw" image="_ez-dogrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_ez-dpwrUEeaHpbC5MOSUqw" origin="_ez-dlwrUEeaHpbC5MOSUqw" image="_ez-dowrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_ez-dqArUEeaHpbC5MOSUqw" origin="_ez-dmArUEeaHpbC5MOSUqw" image="_ez-dpArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_ez-dqQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_ez-dkQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_ez-dqgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_ez-dqwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_ez-drArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameterMappings xmi:id="_ez-drQrUEeaHpbC5MOSUqw" source="_ez-dqgrUEeaHpbC5MOSUqw" target="_ez-dkgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_ez-drgrUEeaHpbC5MOSUqw" source="_ez-dqwrUEeaHpbC5MOSUqw" target="_ez-dkwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_ez-drwrUEeaHpbC5MOSUqw" source="_ez-drArUEeaHpbC5MOSUqw" target="_ez-dlArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

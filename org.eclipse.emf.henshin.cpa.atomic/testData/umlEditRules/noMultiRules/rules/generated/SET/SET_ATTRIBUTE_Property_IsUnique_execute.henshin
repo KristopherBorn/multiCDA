@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_d2M9wPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Property_IsUnique" description="Sets Property IsUnique">
+  <annotations xmi:id="_d2M9wff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Property_IsUnique"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_d2M9wvf8EeWvvZD_9IfuzA" name="setPropertyIsUnique" description="Sets the EAttribute isUnique">
+    <parameters xmi:id="_d2M9w_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_d2M9xPf8EeWvvZD_9IfuzA" name="IsUnique">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_d2M9xff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_d2M9xvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_d2M9x_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_d2M9yPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_d2M9yff8EeWvvZD_9IfuzA" value="IsUnique">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement/isUnique"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_d2M9yvf8EeWvvZD_9IfuzA" origin="_d2M9xvf8EeWvvZD_9IfuzA" image="_d2M9yPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_d2M9y_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_d2M9wvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_d2M9zPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_d2M9zff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_d2M9zvf8EeWvvZD_9IfuzA" name="IsUnique">
+      <annotations xmi:id="_d2M9z_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsUnique"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_d2M90Pf8EeWvvZD_9IfuzA" source="_d2M9zPf8EeWvvZD_9IfuzA" target="_d2M9w_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_d2M90ff8EeWvvZD_9IfuzA" source="_d2M9zvf8EeWvvZD_9IfuzA" target="_d2M9xPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

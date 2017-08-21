@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DksNkAorEeaLVYS0mq5KrA" name="CHANGE_REFERENCE_Transition_(target)_TGT_Vertex" description="CHANGEs Transition's reference target the target Vertex">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DksNkQorEeaLVYS0mq5KrA" name="changeTransition_target_TO_Vertex" description="Change the EReference target">
+    <parameters xmi:id="_DksNkgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_DksNkworEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <parameters xmi:id="_DksNlAorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <lhs xmi:id="_DksNlQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_DksNlgorEeaLVYS0mq5KrA" name="Selected" outgoing="_DksNmQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_DksNlworEeaLVYS0mq5KrA" name="OldTarget" incoming="_DksNmQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+      </nodes>
+      <nodes xmi:id="_DksNmAorEeaLVYS0mq5KrA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+      </nodes>
+      <edges xmi:id="_DksNmQorEeaLVYS0mq5KrA" source="_DksNlgorEeaLVYS0mq5KrA" target="_DksNlworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/target"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_DksNmgorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_DksNmworEeaLVYS0mq5KrA" name="Selected" outgoing="_DksNngorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_DksNnAorEeaLVYS0mq5KrA" name="OldTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+      </nodes>
+      <nodes xmi:id="_DksNnQorEeaLVYS0mq5KrA" name="NewTarget" incoming="_DksNngorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+      </nodes>
+      <edges xmi:id="_DksNngorEeaLVYS0mq5KrA" source="_DksNmworEeaLVYS0mq5KrA" target="_DksNnQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/target"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_DksNnworEeaLVYS0mq5KrA" origin="_DksNlgorEeaLVYS0mq5KrA" image="_DksNmworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DksNoAorEeaLVYS0mq5KrA" origin="_DksNlworEeaLVYS0mq5KrA" image="_DksNnAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DksNoQorEeaLVYS0mq5KrA" origin="_DksNmAorEeaLVYS0mq5KrA" image="_DksNnQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_DksNogorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_DksNkQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_DksNoworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_DksNpAorEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <parameters xmi:id="_DksNpQorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Vertex"/>
+    </parameters>
+    <parameterMappings xmi:id="_DksNpgorEeaLVYS0mq5KrA" source="_DksNoworEeaLVYS0mq5KrA" target="_DksNkgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DksNpworEeaLVYS0mq5KrA" source="_DksNpAorEeaLVYS0mq5KrA" target="_DksNkworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DksNqAorEeaLVYS0mq5KrA" source="_DksNpQorEeaLVYS0mq5KrA" target="_DksNlAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

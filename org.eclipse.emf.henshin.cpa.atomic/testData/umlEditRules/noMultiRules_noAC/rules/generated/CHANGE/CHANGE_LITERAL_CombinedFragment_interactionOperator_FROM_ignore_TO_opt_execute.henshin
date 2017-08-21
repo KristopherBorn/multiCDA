@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fyZ0sArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_CombinedFragment_interactionOperator_FROM_ignore_TO_opt" description="Changes the attribute value of interactionOperator_FROM_ignore_TO_opt">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fyZ0sQrUEeaHpbC5MOSUqw" name="changeCombinedFragmentInteractionOperator_FROM_Ignore_TO_opt" description="Changes the attribute value of interactionOperator_FROM_ignore_TO_opt">
+    <parameters xmi:id="_fyZ0sgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fyZ0swrUEeaHpbC5MOSUqw" name="&quot;ignore&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fyZ0tArUEeaHpbC5MOSUqw" name="&quot;opt&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_fyZ0tQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fyZ0tgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fyabwArUEeaHpbC5MOSUqw" value="&quot;ignore&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fyabwQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fyabwgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fyabwwrUEeaHpbC5MOSUqw" value="&quot;opt&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fyabxArUEeaHpbC5MOSUqw" origin="_fyZ0tgrUEeaHpbC5MOSUqw" image="_fyabwgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fyabxQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fyZ0sQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fyabxgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fyabxwrUEeaHpbC5MOSUqw" name="&quot;ignore&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fyabyArUEeaHpbC5MOSUqw" name="&quot;opt&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fyabyQrUEeaHpbC5MOSUqw" source="_fyabxgrUEeaHpbC5MOSUqw" target="_fyZ0sgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fyabygrUEeaHpbC5MOSUqw" source="_fyabxwrUEeaHpbC5MOSUqw" target="_fyZ0swrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fyabywrUEeaHpbC5MOSUqw" source="_fyabyArUEeaHpbC5MOSUqw" target="_fyZ0tArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

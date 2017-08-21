@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Ctgt8AorEeaLVYS0mq5KrA" name="MOVE_Class_FROM_TemplateParameter_(ownedParameteredElement)_TO_TemplateParameter_(ownedParameteredElement)" description="MOVEs Class from TemplateParameter(Reference:ownedParameteredElement) to TemplateParameter(Reference:ownedParameteredElement">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Ctgt8QorEeaLVYS0mq5KrA" name="moveClass_FROM_TemplateParameter_ownedParameteredElement_TO_TemplateParameter_TemplateParameter" description="Moves Class from TemplateParameter(Reference:ownedParameteredElement) toTemplateParameter(Reference:TemplateParameter)">
+    <parameters xmi:id="_Ctgt8gorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+    </parameters>
+    <parameters xmi:id="_Ctgt8worEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+    </parameters>
+    <parameters xmi:id="_Ctgt9AorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+    </parameters>
+    <lhs xmi:id="_Ctgt9QorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_Ctgt9gorEeaLVYS0mq5KrA" name="Selected" incoming="_Ctgt-QorEeaLVYS0mq5KrA" outgoing="_Ctgt-gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </nodes>
+      <nodes xmi:id="_Ctgt9worEeaLVYS0mq5KrA" name="OldSource" incoming="_Ctgt-gorEeaLVYS0mq5KrA" outgoing="_Ctgt-QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+      </nodes>
+      <nodes xmi:id="_Ctgt-AorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+      </nodes>
+      <edges xmi:id="_Ctgt-QorEeaLVYS0mq5KrA" source="_Ctgt9worEeaLVYS0mq5KrA" target="_Ctgt9gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter/ownedParameteredElement"/>
+      </edges>
+      <edges xmi:id="_Ctgt-gorEeaLVYS0mq5KrA" source="_Ctgt9gorEeaLVYS0mq5KrA" target="_Ctgt9worEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterableElement/owningTemplateParameter"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_Ctgt-worEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_Ctgt_AorEeaLVYS0mq5KrA" name="Selected" incoming="_Ctgt_worEeaLVYS0mq5KrA" outgoing="_CtguAAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </nodes>
+      <nodes xmi:id="_Ctgt_QorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+      </nodes>
+      <nodes xmi:id="_Ctgt_gorEeaLVYS0mq5KrA" name="NewSource" incoming="_CtguAAorEeaLVYS0mq5KrA" outgoing="_Ctgt_worEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+      </nodes>
+      <edges xmi:id="_Ctgt_worEeaLVYS0mq5KrA" source="_Ctgt_gorEeaLVYS0mq5KrA" target="_Ctgt_AorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter/ownedParameteredElement"/>
+      </edges>
+      <edges xmi:id="_CtguAAorEeaLVYS0mq5KrA" source="_Ctgt_AorEeaLVYS0mq5KrA" target="_Ctgt_gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ParameterableElement/owningTemplateParameter"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_CtguAQorEeaLVYS0mq5KrA" origin="_Ctgt9gorEeaLVYS0mq5KrA" image="_Ctgt_AorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_CtguAgorEeaLVYS0mq5KrA" origin="_Ctgt9worEeaLVYS0mq5KrA" image="_Ctgt_QorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_CtguAworEeaLVYS0mq5KrA" origin="_Ctgt-AorEeaLVYS0mq5KrA" image="_Ctgt_gorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_CtguBAorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_Ctgt8QorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_CtguBQorEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+    </parameters>
+    <parameters xmi:id="_CtguBgorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+    </parameters>
+    <parameters xmi:id="_CtguBworEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TemplateParameter"/>
+    </parameters>
+    <parameterMappings xmi:id="_CtguCAorEeaLVYS0mq5KrA" source="_CtguBQorEeaLVYS0mq5KrA" target="_Ctgt8gorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_CtguCQorEeaLVYS0mq5KrA" source="_CtguBgorEeaLVYS0mq5KrA" target="_Ctgt8worEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_CtguCgorEeaLVYS0mq5KrA" source="_CtguBworEeaLVYS0mq5KrA" target="_Ctgt9AorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

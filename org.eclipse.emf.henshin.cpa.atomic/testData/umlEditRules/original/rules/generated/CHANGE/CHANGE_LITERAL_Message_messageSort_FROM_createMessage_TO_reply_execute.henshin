@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eWB9UArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Message_messageSort_FROM_createMessage_TO_reply" description="Changes the attribute value of messageSort_FROM_createMessage_TO_reply">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eWB9UQrUEeaHpbC5MOSUqw" name="changeMessageMessageSort_FROM_CreateMessage_TO_reply" description="Changes the attribute value of messageSort_FROM_createMessage_TO_reply">
+    <parameters xmi:id="_eWB9UgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_eWB9UwrUEeaHpbC5MOSUqw" name="&quot;createMessage&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameters xmi:id="_eWB9VArUEeaHpbC5MOSUqw" name="&quot;reply&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <lhs xmi:id="_eWB9VQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eWB9VgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+        <attributes xmi:id="_eWB9VwrUEeaHpbC5MOSUqw" value="&quot;createMessage&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/messageSort"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_eWB9WArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eWB9WQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+        <attributes xmi:id="_eWB9WgrUEeaHpbC5MOSUqw" value="&quot;reply&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/messageSort"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eWB9WwrUEeaHpbC5MOSUqw" origin="_eWB9VgrUEeaHpbC5MOSUqw" image="_eWB9WQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eWB9XArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eWB9UQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eWB9XQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_eWB9XgrUEeaHpbC5MOSUqw" name="&quot;createMessage&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameters xmi:id="_eWB9XwrUEeaHpbC5MOSUqw" name="&quot;reply&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameterMappings xmi:id="_eWB9YArUEeaHpbC5MOSUqw" source="_eWB9XQrUEeaHpbC5MOSUqw" target="_eWB9UgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eWB9YQrUEeaHpbC5MOSUqw" source="_eWB9XgrUEeaHpbC5MOSUqw" target="_eWB9UwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eWB9YgrUEeaHpbC5MOSUqw" source="_eWB9XwrUEeaHpbC5MOSUqw" target="_eWB9VArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e3IfQArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Package_URI" description="Sets Package URI">
+  <annotations xmi:id="_e3IfQQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Package_URI"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e3IfQgrUEeaHpbC5MOSUqw" name="setPackageURI" description="Sets the EAttribute URI">
+    <parameters xmi:id="_e3IfQwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_e3IfRArUEeaHpbC5MOSUqw" name="URI">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_e3IfRQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_e3IfRgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_e3IfRwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_e3IfSArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+        <attributes xmi:id="_e3IfSQrUEeaHpbC5MOSUqw" value="URI">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/URI"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e3IfSgrUEeaHpbC5MOSUqw" origin="_e3IfRgrUEeaHpbC5MOSUqw" image="_e3IfSArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e3IfSwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e3IfQgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e3IfTArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_e3IfTQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_e3IfTgrUEeaHpbC5MOSUqw" name="URI">
+      <annotations xmi:id="_e3IfTwrUEeaHpbC5MOSUqw" key="INVERSE" value="URI"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_e3IfUArUEeaHpbC5MOSUqw" source="_e3IfTArUEeaHpbC5MOSUqw" target="_e3IfQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e3IfUQrUEeaHpbC5MOSUqw" source="_e3IfTgrUEeaHpbC5MOSUqw" target="_e3IfRArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

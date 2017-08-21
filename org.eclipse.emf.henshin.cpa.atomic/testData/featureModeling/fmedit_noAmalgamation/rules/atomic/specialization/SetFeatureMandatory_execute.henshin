@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Tvm20ClTEeSfmulj5g7e3A" name="SetFeatureMandatory" description="Sets a Feature mandatory (specialization)">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Tvm20SlTEeSfmulj5g7e3A" name="setFeatureMandatory" description="Sets the EAttribute mandatory">
+    <parameters xmi:id="_Tvm20ilTEeSfmulj5g7e3A" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <lhs xmi:id="_Tvm21ClTEeSfmulj5g7e3A" name="Lhs">
+      <nodes xmi:id="_Tvm21SlTEeSfmulj5g7e3A" name="Selected">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_A5OdcLCcEeS8n8ACTCZsQg" value="false">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <formula xsi:type="henshin:Not" xmi:id="_WsGT47CcEeS8n8ACTCZsQg">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_WsGT5LCcEeS8n8ACTCZsQg">
+          <conclusion xmi:id="_WsGT5bCcEeS8n8ACTCZsQg">
+            <nodes xmi:id="_WsGT5rCcEeS8n8ACTCZsQg" name="Selected" incoming="_Xm9ZoLCcEeS8n8ACTCZsQg" outgoing="_vYkScLKxEeSO3On609Zp-Q">
+              <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+              <attributes xmi:id="_WsGT57CcEeS8n8ACTCZsQg" value="false">
+                <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+              </attributes>
+            </nodes>
+            <nodes xmi:id="_WsGT4LCcEeS8n8ACTCZsQg" incoming="_vYkScLKxEeSO3On609Zp-Q" outgoing="_Xm9ZoLCcEeS8n8ACTCZsQg">
+              <type href="http://de.imotep.variability/featuremodel#//Group"/>
+            </nodes>
+            <edges xmi:id="_Xm9ZoLCcEeS8n8ACTCZsQg" source="_WsGT4LCcEeS8n8ACTCZsQg" target="_WsGT5rCcEeS8n8ACTCZsQg">
+              <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+            </edges>
+            <edges xmi:id="_vYkScLKxEeSO3On609Zp-Q" source="_WsGT5rCcEeS8n8ACTCZsQg" target="_WsGT4LCcEeS8n8ACTCZsQg">
+              <type href="http://de.imotep.variability/featuremodel#//Feature/group"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_WsGT6LCcEeS8n8ACTCZsQg" origin="_Tvm21SlTEeSfmulj5g7e3A" image="_WsGT5rCcEeS8n8ACTCZsQg"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_Tvm21ilTEeSfmulj5g7e3A" name="Rhs">
+      <nodes xmi:id="_Tvm21ylTEeSfmulj5g7e3A" name="Selected">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_Tvm22ClTEeSfmulj5g7e3A" value="true">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_Tvm22SlTEeSfmulj5g7e3A" origin="_Tvm21SlTEeSfmulj5g7e3A" image="_Tvm21ylTEeSfmulj5g7e3A"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Tvm22ilTEeSfmulj5g7e3A" name="mainUnit" subUnits="_Tvm20SlTEeSfmulj5g7e3A">
+    <parameters xmi:id="_Tvm22ylTEeSfmulj5g7e3A" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameterMappings xmi:id="_Tvm23SlTEeSfmulj5g7e3A" source="_Tvm22ylTEeSfmulj5g7e3A" target="_Tvm20ilTEeSfmulj5g7e3A"/>
+  </units>
+</henshin:Module>

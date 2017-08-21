@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_et-jQArUEeaHpbC5MOSUqw" name="CREATE_LiteralInteger_IN_MultiplicityElement_(lowerValue)" description="Creates one LiteralInteger in MultiplicityElement">
+  <annotations xmi:id="_et-jQQrUEeaHpbC5MOSUqw" key="INVERSE" value="DELETE_LiteralInteger_IN_MultiplicityElement_(lowerValue)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_et-jQgrUEeaHpbC5MOSUqw" name="createLiteralInteger_IN_MultiplicityElement" description="creates one LiteralInteger in the context: MultiplicityElement">
+    <parameters xmi:id="_et-jQwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+    </parameters>
+    <parameters xmi:id="_et-jRArUEeaHpbC5MOSUqw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_et-jRQrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_et-jRgrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_et-jRwrUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Integer"/>
+    </parameters>
+    <lhs xmi:id="_et_KUArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_et_KUQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+      </nodes>
+      <formula xsi:type="henshin:Not" xmi:id="_et_KUgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_et_KUwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_et_KVArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_et_KVQrUEeaHpbC5MOSUqw" outgoing="_et_KVwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+            </nodes>
+            <nodes xmi:id="_et_KVgrUEeaHpbC5MOSUqw" incoming="_et_KVwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+            </nodes>
+            <edges xmi:id="_et_KVwrUEeaHpbC5MOSUqw" source="_et_KVQrUEeaHpbC5MOSUqw" target="_et_KVgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement/lowerValue"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_et_KWArUEeaHpbC5MOSUqw" origin="_et_KUQrUEeaHpbC5MOSUqw" image="_et_KVQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_et_KWQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_et_KWgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_et_KXwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+      </nodes>
+      <nodes xmi:id="_et_KWwrUEeaHpbC5MOSUqw" name="New" incoming="_et_KXwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+        <attributes xmi:id="_et_KXArUEeaHpbC5MOSUqw" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_et_KXQrUEeaHpbC5MOSUqw" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+        <attributes xmi:id="_et_KXgrUEeaHpbC5MOSUqw" value="Value">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger/value"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_et_KXwrUEeaHpbC5MOSUqw" source="_et_KWgrUEeaHpbC5MOSUqw" target="_et_KWwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement/lowerValue"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_et_KYArUEeaHpbC5MOSUqw" origin="_et_KUQrUEeaHpbC5MOSUqw" image="_et_KWgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_et_KYQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_et-jQgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_et_KYgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_et_KYwrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//MultiplicityElement"/>
+    </parameters>
+    <parameters xmi:id="_et_KZArUEeaHpbC5MOSUqw" name="New">
+      <annotations xmi:id="_et_KZQrUEeaHpbC5MOSUqw" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_et_KZgrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_et_KZwrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameters xmi:id="_et_KaArUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Integer"/>
+    </parameters>
+    <parameterMappings xmi:id="_et_KaQrUEeaHpbC5MOSUqw" source="_et_KYgrUEeaHpbC5MOSUqw" target="_et-jQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_et_KagrUEeaHpbC5MOSUqw" source="_et-jRArUEeaHpbC5MOSUqw" target="_et_KZArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_et_KawrUEeaHpbC5MOSUqw" source="_et_KZgrUEeaHpbC5MOSUqw" target="_et-jRQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_et_KbArUEeaHpbC5MOSUqw" source="_et_KZwrUEeaHpbC5MOSUqw" target="_et-jRgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_et_KbQrUEeaHpbC5MOSUqw" source="_et_KaArUEeaHpbC5MOSUqw" target="_et-jRwrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

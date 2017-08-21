@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eCn5IArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Generalization_IsSubstitutable" description="Sets Generalization IsSubstitutable">
+  <annotations xmi:id="_eCn5IQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Generalization_IsSubstitutable"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eCn5IgrUEeaHpbC5MOSUqw" name="setGeneralizationIsSubstitutable" description="Sets the EAttribute isSubstitutable">
+    <parameters xmi:id="_eCn5IwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+    </parameters>
+    <parameters xmi:id="_eCn5JArUEeaHpbC5MOSUqw" name="IsSubstitutable">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_eCn5JQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eCn5JgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_eCn5JwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eCn5KArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+        <attributes xmi:id="_eCn5KQrUEeaHpbC5MOSUqw" value="IsSubstitutable">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization/isSubstitutable"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eCn5KgrUEeaHpbC5MOSUqw" origin="_eCn5JgrUEeaHpbC5MOSUqw" image="_eCn5KArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eCn5KwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eCn5IgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eCn5LArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_eCn5LQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
+    </parameters>
+    <parameters xmi:id="_eCn5LgrUEeaHpbC5MOSUqw" name="IsSubstitutable">
+      <annotations xmi:id="_eCn5LwrUEeaHpbC5MOSUqw" key="INVERSE" value="IsSubstitutable"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_eCn5MArUEeaHpbC5MOSUqw" source="_eCn5LArUEeaHpbC5MOSUqw" target="_eCn5IwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eCn5MQrUEeaHpbC5MOSUqw" source="_eCn5LgrUEeaHpbC5MOSUqw" target="_eCn5JArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Dm3-4AorEeaLVYS0mq5KrA" name="MOVE_InteractionConstraint_FROM_Action_(localPrecondition)_TO_Action_(localPrecondition)" description="MOVEs InteractionConstraint from Action(Reference:localPrecondition) to Action(Reference:localPrecondition">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Dm3-4QorEeaLVYS0mq5KrA" name="moveInteractionConstraint_FROM_Action_localPrecondition_TO_Action_Action" description="Moves InteractionConstraint from Action(Reference:localPrecondition) toAction(Reference:Action)">
+    <parameters xmi:id="_Dm3-4gorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_Dm3-4worEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+    </parameters>
+    <parameters xmi:id="_Dm3-5AorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+    </parameters>
+    <lhs xmi:id="_Dm3-5QorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_Dm3-5gorEeaLVYS0mq5KrA" name="Selected" incoming="_Dm3-6QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_Dm3-5worEeaLVYS0mq5KrA" name="OldSource" outgoing="_Dm3-6QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+      </nodes>
+      <nodes xmi:id="_Dm3-6AorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+      </nodes>
+      <edges xmi:id="_Dm3-6QorEeaLVYS0mq5KrA" source="_Dm3-5worEeaLVYS0mq5KrA" target="_Dm3-5gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Action/localPrecondition"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_Dm3-6gorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_Dm3-6worEeaLVYS0mq5KrA" name="Selected" incoming="_Dm3-7gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_Dm3-7AorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+      </nodes>
+      <nodes xmi:id="_Dm3-7QorEeaLVYS0mq5KrA" name="NewSource" outgoing="_Dm3-7gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+      </nodes>
+      <edges xmi:id="_Dm3-7gorEeaLVYS0mq5KrA" source="_Dm3-7QorEeaLVYS0mq5KrA" target="_Dm3-6worEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Action/localPrecondition"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Dm3-7worEeaLVYS0mq5KrA" origin="_Dm3-5gorEeaLVYS0mq5KrA" image="_Dm3-6worEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Dm3-8AorEeaLVYS0mq5KrA" origin="_Dm3-5worEeaLVYS0mq5KrA" image="_Dm3-7AorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Dm3-8QorEeaLVYS0mq5KrA" origin="_Dm3-6AorEeaLVYS0mq5KrA" image="_Dm3-7QorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Dm3-8gorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_Dm3-4QorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_Dm3-8worEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_Dm3-9AorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+    </parameters>
+    <parameters xmi:id="_Dm3-9QorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
+    </parameters>
+    <parameterMappings xmi:id="_Dm3-9gorEeaLVYS0mq5KrA" source="_Dm3-8worEeaLVYS0mq5KrA" target="_Dm3-4gorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Dm3-9worEeaLVYS0mq5KrA" source="_Dm3-9AorEeaLVYS0mq5KrA" target="_Dm3-4worEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Dm3--AorEeaLVYS0mq5KrA" source="_Dm3-9QorEeaLVYS0mq5KrA" target="_Dm3-5AorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>
