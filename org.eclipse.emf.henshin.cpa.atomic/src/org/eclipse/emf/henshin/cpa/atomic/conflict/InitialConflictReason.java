@@ -177,93 +177,45 @@ public class InitialConflictReason extends Span {
 		
 		//über jedes uncoveredCA iterieren
 		for(ConflictAtom uncoveredCA : byInitialReasonUncoveredConflictAtoms){
-			Set<Node> allreadyUsedNodesInR1 = getAlreadyUsedNodesOfR1();
-			Set<Node> allreadyUsedNodesInR2 = getAlreadyUsedNodesOfR2();
+			Set<Node> usedR1 = getUsedNodesOfR1();
+			Set<Node> usedR2 = getUsedNodesOfR2();
+	
 			//TODO: bisher wird vererbung nicht berücksichtigt! Können boundary atoms auch bei Vererbung entstehen? Muss geprüft und ggf. angepasst werden!
 			EList<Node> nodesOfUncoveredCA = uncoveredCA.getSpan().getGraph().getNodes();
 			Node node1 = nodesOfUncoveredCA.get(0);
 			Node node2 = nodesOfUncoveredCA.get(1);
-			Rule rule2 = this.getRule2();
 				
 		// 	jeweils für beide Knoten abarbeiten
 		// 		für jeden Knoten jeweils alle 'use'-Knoten der zweiten Regel finden! (auch Attr. berücksichtigen!)
 		// 			An jeder Position rekursiv versuchen auch weitere Überlappungskombinationen zu bilden!
 		// 			iteriere über Kombinationen für Knoten 1 - "Nullposition" ist ebenfalls gültig und behandelt den Fall, dass Knoten 2 nciht mit einbezogen ist
-			List<Node> potentialUseNodesForN1InLhsOfR2 = new LinkedList<Node>(rule2.getLhs().getNodes(node1.getType()));
-			potentialUseNodesForN1InLhsOfR2.removeAll(allreadyUsedNodesInR2);
+			List<Node> potentialUsesN1R2 = new LinkedList<Node>(rule2.getLhs().getNodes(node1.getType()));
+			potentialUsesN1R2.removeAll(usedR2);
 			// Knoten aus R1 dürfen nicht mehrfach in ein CR involviert sein!
-			boolean node1AlreadyUsedInR1 = allreadyUsedNodesInR1.contains(uncoveredCA.getSpan().getMappingIntoRule1(node1).getImage());
-			boolean node1AlreadyUsedInR2 = allreadyUsedNodesInR2.contains(uncoveredCA.getSpan().getMappingIntoRule2(node1).getImage());
-			if( ! (node1AlreadyUsedInR1 || node1AlreadyUsedInR2)){
-				for(Node potentialUseNodeForN1InLhsOfR2 : potentialUseNodesForN1InLhsOfR2){
-					// hier zuerst den Fall für node1 alleine (ohne node2) behandeln!
-					// bei jeder Kombination noch versuchen rekursiv ein weiteres uncoveredCA miteinzubeziehen!
-					// TODO: extract three times equal code to common method!
-					//TODO: completion test here!
-					boolean potentialUseNodeCompletesContainedBA_OrSecondUncoveredCANodeIsAlreadyPresent = potentialUseNodeCompletesContainedBAOrSecondUncoveredCANodeIsAlreadyPresent(
-							uncoveredCA, node2, potentialUseNodeForN1InLhsOfR2);
-					
-					if(!potentialUseNodeCompletesContainedBA_OrSecondUncoveredCANodeIsAlreadyPresent){
-						ConflictReason conflictReasonWithOneNewBA = new ConflictReason(this, node1, potentialUseNodeForN1InLhsOfR2, uncoveredCA);
-						derivedConflictReasons.add(conflictReasonWithOneNewBA);
-						Set<ConflictAtom> remainingUncoveredConflictAtomsOneBA = new HashSet<ConflictAtom>(byInitialReasonUncoveredConflictAtoms);
-						remainingUncoveredConflictAtomsOneBA.remove(uncoveredCA);
-						Set<ConflictReason> recursiveDerivedConflictReasonsOneBA = conflictReasonWithOneNewBA.getAllDerivedConflictReasons(remainingUncoveredConflictAtomsOneBA);
-						derivedConflictReasons.addAll(recursiveDerivedConflictReasonsOneBA);
-						
-						// iteriere über Positionen für Knoten 2 - "Nullposition" ist ebenfalls gültig und behandelt den Fall,d ass Knoten 1 nciht mit einbezogen ist
-						List<Node> potentialUseNodesForN2InLhsOfR2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
-						potentialUseNodesForN2InLhsOfR2.removeAll(allreadyUsedNodesInR2);
-						potentialUseNodesForN2InLhsOfR2.remove(potentialUseNodeForN1InLhsOfR2);
-
-						Set<Node> allreadyUsedNodesInR1OfExtendedCR = conflictReasonWithOneNewBA.getAlreadyUsedNodesOfR1();
-						Set<Node> allreadyUsedNodesInR2OfExtendedCR  = conflictReasonWithOneNewBA.getAlreadyUsedNodesOfR2();
-						for(Node potentialUseNodeForN2InLhsOfR2 : potentialUseNodesForN2InLhsOfR2){
-							boolean node2AlreadyUsedInR1 = allreadyUsedNodesInR1OfExtendedCR.contains(uncoveredCA.getSpan().getMappingIntoRule1(node2).getImage());
-							boolean node2AlreadyUsedInR2 = allreadyUsedNodesInR2OfExtendedCR.contains(potentialUseNodeForN2InLhsOfR2);
-							if( ! (node2AlreadyUsedInR1 || node2AlreadyUsedInR2)){
-								// 		Kombinationen beider Knoten sind erlaubt, solange es keine Kante des zu löschenden Typs zwischen diesen gibt!
-								boolean node1MatchedOnCAOrigin = uncoveredCA.getSpan().getMappingIntoRule2(node1).getImage() == potentialUseNodeForN1InLhsOfR2;
-								boolean node2MatchedOnCAOrigin = uncoveredCA.getSpan().getMappingIntoRule2(node2).getImage() == potentialUseNodeForN2InLhsOfR2;
-								//check that its not exactly the pattern on which the conflict atom is based on
-								// das heißt, dass node1 und node2 genau so in Regel zwei abgebildet werden wie im CA
-								if(!(node1MatchedOnCAOrigin && node2MatchedOnCAOrigin)){ //blocking should happen once per uncoveredCA
-									// TODO: extract three times equal code to common method!
-									//TODO: completion test here!
-									//								boolean potentialUseNodeCompletesContainedBoundaryAtom = false;
-									boolean potentialUseNodeCompletesContainedBA_OrSecondUncoveredCANodeIsAlreadyPresent_N2 = potentialUseNodeCompletesContainedBAOrSecondUncoveredCANodeIsAlreadyPresent(
-											uncoveredCA, node1, potentialUseNodeForN2InLhsOfR2);
-									if(!potentialUseNodeCompletesContainedBA_OrSecondUncoveredCANodeIsAlreadyPresent_N2){
-										ConflictReason conflictReasonWithTwoNewBA = new ConflictReason(conflictReasonWithOneNewBA, node2, potentialUseNodeForN2InLhsOfR2, uncoveredCA);
-										derivedConflictReasons.add(conflictReasonWithTwoNewBA);
-										Set<ConflictAtom> remainingUncoveredConflictAtomsTwoBA = new HashSet<ConflictAtom>(byInitialReasonUncoveredConflictAtoms);
-										remainingUncoveredConflictAtomsTwoBA.remove(uncoveredCA);
-										// 					bei jeder Kombination noch versuchen rekursiv ein weiteres uncoveredCA miteinzubeziehen!
-										Set<ConflictReason> recursiveDerivedConflictReasonsTwoBA = conflictReasonWithTwoNewBA.getAllDerivedConflictReasons(remainingUncoveredConflictAtomsTwoBA);
-										derivedConflictReasons.addAll(recursiveDerivedConflictReasonsTwoBA);
-									}
-								}
-							}
-						}
-					}
-
+			boolean node1UsedInR1 = usedR1.contains(uncoveredCA.getSpan().getMappingIntoRule1(node1).getImage());
+			boolean node1UsedInR2 = usedR2.contains(uncoveredCA.getSpan().getMappingIntoRule2(node1).getImage());
+			if(!node1UsedInR1 && !node1UsedInR2){
+				for(Node potentialUseN1R2 : potentialUsesN1R2){
+					processPotentialUsesN1R2(byInitialReasonUncoveredConflictAtoms, derivedConflictReasons, uncoveredCA,
+						usedR2, node1, node2, potentialUseN1R2);
 				}
 			}
+			
+			
 			List<Node> potentialUseNodesForN2AloneInLhsOfR2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
-			potentialUseNodesForN1InLhsOfR2.removeAll(allreadyUsedNodesInR2);
+			potentialUsesN1R2.removeAll(usedR2);
 			// Knoten aus R2 dürfen nicht mehrfach in ein CR involviert sein!
-			boolean node2AlreadyUsedInR1 = allreadyUsedNodesInR1.contains(uncoveredCA.getSpan().getMappingIntoRule1(node2).getImage());
-			boolean node2AlreadyUsedInR2 = allreadyUsedNodesInR2.contains(uncoveredCA.getSpan().getMappingIntoRule2(node2).getImage());
+			boolean node2AlreadyUsedInR1 = usedR1.contains(uncoveredCA.getSpan().getMappingIntoRule1(node2).getImage());
+			boolean node2AlreadyUsedInR2 = usedR2.contains(uncoveredCA.getSpan().getMappingIntoRule2(node2).getImage());
 			if( ! (node2AlreadyUsedInR1 || node2AlreadyUsedInR2)){
-				for(Node potentialUseNodeForN2InLhsOfR2 : potentialUseNodesForN2AloneInLhsOfR2){
+				for(Node potentialUseN2R2 : potentialUseNodesForN2AloneInLhsOfR2){
 					// 					bei jeder Kombination noch versuchen rekursiv ein weiteres uncoveredCA miteinzubeziehen!
 					// TODO: extract three times equal code to common method!
 					//TODO: completion test here!
 //				boolean potentialUseNodeCompletesContainedBoundaryAtom = false;
-					boolean potentialUseNodeCompletesContainedBA_OrSecondUncoveredCANodeIsAlreadyPresent = potentialUseNodeCompletesContainedBAOrSecondUncoveredCANodeIsAlreadyPresent(
-							uncoveredCA, node2, potentialUseNodeForN2InLhsOfR2);
-					if(!potentialUseNodeCompletesContainedBA_OrSecondUncoveredCANodeIsAlreadyPresent){
-						ConflictReason conflictReasonWithOneNewBA = new ConflictReason(this, node2, potentialUseNodeForN2InLhsOfR2, uncoveredCA);
+					boolean stop = checkStoppingCriterion(uncoveredCA, potentialUseN2R2);
+					if(!stop){
+						ConflictReason conflictReasonWithOneNewBA = new ConflictReason(this, node2, potentialUseN2R2, uncoveredCA);
 						derivedConflictReasons.add(conflictReasonWithOneNewBA);
 						Set<ConflictAtom> remainingUncoveredConflictAtomsOneBA = new HashSet<ConflictAtom>(byInitialReasonUncoveredConflictAtoms);
 						remainingUncoveredConflictAtomsOneBA.remove(uncoveredCA);
@@ -277,7 +229,63 @@ public class InitialConflictReason extends Span {
 		return derivedConflictReasons;
 	}
 
-	protected Set<Node> getAlreadyUsedNodesOfR1() {
+	private void processPotentialUsesN1R2(Set<ConflictAtom> byInitialReasonUncoveredConflictAtoms,
+			Set<ConflictReason> derivedConflictReasons, ConflictAtom uncoveredCA, Set<Node> usedR2, Node node1,
+			Node node2, Node potentialUseN1R2) {
+			// hier zuerst den Fall für node1 alleine (ohne node2) behandeln!
+			// bei jeder Kombination noch versuchen rekursiv ein weiteres uncoveredCA miteinzubeziehen!
+			// TODO: extract three times equal code to common method!
+			//TODO: completion test here!
+			
+			// stopping criterion = potentialUse completes contained, or second uncovered CA node is
+			// already present
+			boolean stop = checkStoppingCriterion(uncoveredCA, potentialUseN1R2);
+			if(!stop){
+				ConflictReason extendedCR = new ConflictReason(this, node1, potentialUseN1R2, uncoveredCA);
+				derivedConflictReasons.add(extendedCR);
+				Set<ConflictAtom> remainingUncoveredCAs = new HashSet<ConflictAtom>(byInitialReasonUncoveredConflictAtoms);
+				remainingUncoveredCAs.remove(uncoveredCA);
+				Set<ConflictReason> recursiveDerivedConflictReasons = extendedCR.getAllDerivedConflictReasons(remainingUncoveredCAs);
+				derivedConflictReasons.addAll(recursiveDerivedConflictReasons);
+				
+				// iteriere über Positionen für Knoten 2 - "Nullposition" ist ebenfalls gültig und behandelt den Fall, dass Knoten 1 nicht mit einbezogen ist
+				List<Node> potentialUsesN2R2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
+				potentialUsesN2R2.removeAll(usedR2);
+				potentialUsesN2R2.remove(potentialUseN1R2);
+
+				Set<Node> usedR1ExtendedCR = extendedCR.getUsedNodesOfR1();
+				Set<Node> usedR2ExtendedCR  = extendedCR.getUsedNodesOfR2();
+				for(Node potentialUseN2N2 : potentialUsesN2R2){
+					boolean node2UsedInR1 = usedR1ExtendedCR.contains(uncoveredCA.getSpan().getMappingIntoRule1(node2).getImage());
+					boolean node2UsedInR2 = usedR2ExtendedCR.contains(potentialUseN2N2);
+					if( ! (node2UsedInR1 || node2UsedInR2)){
+						// 		Kombinationen beider Knoten sind erlaubt, solange es keine Kante des zu löschenden Typs zwischen diesen gibt!
+						boolean node1MatchedOnCAOrigin = uncoveredCA.getSpan().getMappingIntoRule2(node1).getImage() == potentialUseN1R2;
+						boolean node2MatchedOnCAOrigin = uncoveredCA.getSpan().getMappingIntoRule2(node2).getImage() == potentialUseN2N2;
+						//check that its not exactly the pattern on which the conflict atom is based on
+						// das heißt, dass node1 und node2 genau so in Regel zwei abgebildet werden wie im CA
+						if(!(node1MatchedOnCAOrigin && node2MatchedOnCAOrigin)){ //blocking should happen once per uncoveredCA
+							// TODO: extract three times equal code to common method!
+							//TODO: completion test here!
+							//								boolean potentialUseNodeCompletesContainedBoundaryAtom = false;
+							boolean stop2 = checkStoppingCriterion(uncoveredCA, potentialUseN2N2);
+							if(!stop2){
+								ConflictReason conflictReasonWithTwoNewBA = new ConflictReason(extendedCR, node2, potentialUseN2N2, uncoveredCA);
+								derivedConflictReasons.add(conflictReasonWithTwoNewBA);
+								Set<ConflictAtom> remainingUncoveredConflictAtomsTwoBA = new HashSet<ConflictAtom>(byInitialReasonUncoveredConflictAtoms);
+								remainingUncoveredConflictAtomsTwoBA.remove(uncoveredCA);
+								// 					bei jeder Kombination noch versuchen rekursiv ein weiteres uncoveredCA miteinzubeziehen!
+								Set<ConflictReason> recursiveDerivedConflictReasonsTwoBA = conflictReasonWithTwoNewBA.getAllDerivedConflictReasons(remainingUncoveredConflictAtomsTwoBA);
+								derivedConflictReasons.addAll(recursiveDerivedConflictReasonsTwoBA);
+							}
+						}
+					}
+				}
+			}
+
+		}
+
+	protected Set<Node> getUsedNodesOfR1() {
 		Set<Node> usedNodesOfR1 = new HashSet<Node>();
 		if(graph.getNodes().size() != mappingsInRule1.size()){
 			System.err.println("Error!");
@@ -288,7 +296,7 @@ public class InitialConflictReason extends Span {
 		return usedNodesOfR1;
 	}
 
-	protected Set<Node> getAlreadyUsedNodesOfR2() {
+	protected Set<Node> getUsedNodesOfR2() {
 		Set<Node> usedNodesOfR2 = new HashSet<Node>();
 		if(graph.getNodes().size() != mappingsInRule2.size()){
 			System.err.println("Error!");
@@ -299,28 +307,30 @@ public class InitialConflictReason extends Span {
 		return usedNodesOfR2;
 	}
 
-	private boolean potentialUseNodeCompletesContainedBAOrSecondUncoveredCANodeIsAlreadyPresent(
-			ConflictAtom uncoveredCA, Node shouldntBeUsedYetNode, Node potentiallyUseNodeInLhsOfR2) {
-//		Rule rule2 = uncoveredCA.getSpan().getRule2();
+	private boolean checkStoppingCriterion(ConflictAtom uncoveredCA, Node potentialUseInLhsOfR2) {
+
 		boolean potentialUseNodeCompletesContainedBA = false;
 		boolean secondUncoveredCANodeIsAlreadyPresent = false;
+
 		// wenn "this" kein ConflictReason (sondern ein ICR), dann ist es ohnehin hinfällig.
 		//TODO: für den zweiten Teil stimmt das doch nciht mehr, oder?!!
 		if(this instanceof ConflictReason){
 			//Sonst muss geprüft werden,
 			// 1. dass der use-Knoten noch nicht durch ein additionallyInvolvedConflictAtoms referenziert wird 
 			//		(dieses würde sonst zum vollständigen CA und zu Duplikaten in der Ergebnissen führen)
-			Set<Node> useNodesOfLhsOfR2OfAdditionallyInvolvedConflictAtoms = ((ConflictReason)this).getAllActiveInvolvedUseNodesOfLhsOfR2();
-			if(useNodesOfLhsOfR2OfAdditionallyInvolvedConflictAtoms.contains(potentiallyUseNodeInLhsOfR2))
+			Set<Node> lhsNodesOfR2UsedByAdditionalConflictAtoms = ((ConflictReason)this).getLhsNodesOfR2UsedByAdditionalConflictAtoms();
+			if(lhsNodesOfR2UsedByAdditionalConflictAtoms.contains(potentialUseInLhsOfR2))
 				potentialUseNodeCompletesContainedBA = true;
-		}
+	
 			// 2. dass für das neue uncovered CA der zweite Knoten noch nicht vorhanden ist
 			/*		d.h. hier je nach potential use node darf der andere noch nicht vom S1-graph per mapping referenziert werden!
 			 */
 //			Node useNodeOfUncoveredCAInLhsOfR2 = uncoveredCA.getSpan().getMappingIntoRule2(shouldntBeUsedYetNode).getImage();
 			Set<Node> useNodesOfLhsOfR2OfAllInvolvedConflictAtoms = getAllUseNodesOfLhsOfR2();//getAllUseNodesOfLhsOfR2OfAllInvolvedConflictAtoms();
-			if(useNodesOfLhsOfR2OfAllInvolvedConflictAtoms.contains(potentiallyUseNodeInLhsOfR2))
+			if(useNodesOfLhsOfR2OfAllInvolvedConflictAtoms.contains(potentialUseInLhsOfR2))
 				secondUncoveredCANodeIsAlreadyPresent = true;
+			
+		}
 		return potentialUseNodeCompletesContainedBA || secondUncoveredCANodeIsAlreadyPresent;
 	}
 

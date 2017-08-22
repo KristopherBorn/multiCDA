@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Action;
@@ -1418,4 +1419,22 @@ public class AtomicCoreCPA {
 		}
 		return edgeConflictAtoms;
 	}
+
+	public Set<ConflictReason> computeConflictReasons(List<ConflictAtom> conflictAtoms,
+			Set<InitialConflictReason> initialReasons) {
+		Set<ConflictReason> conflictReasonsDerivedFromInitialReason = new HashSet<ConflictReason>();
+		Set<MinimalConflictReason> originMCRs = new HashSet<MinimalConflictReason>();
+		for (InitialConflictReason initialReason : initialReasons) {
+			originMCRs.addAll(initialReason.getOriginMCRs());
+			Set<ConflictAtom> byInitialReasonCoveredEdgeConflictAtoms = initialReason.getCoveredEdgeConflictAtoms();
+			Set<ConflictAtom> allEdgeConflictAtoms = extractEdgeConflictAtoms(conflictAtoms);
+			allEdgeConflictAtoms.removeAll(byInitialReasonCoveredEdgeConflictAtoms);
+			Set<ConflictAtom> byInitialReasonUncoveredConflictAtoms = allEdgeConflictAtoms;
+			Set<ConflictReason> allDerivedConflictReasons = initialReason
+					.getAllDerivedConflictReasons(byInitialReasonUncoveredConflictAtoms);
+			conflictReasonsDerivedFromInitialReason.addAll(allDerivedConflictReasons);
+		}
+		return conflictReasonsDerivedFromInitialReason;
+	}
+
 }

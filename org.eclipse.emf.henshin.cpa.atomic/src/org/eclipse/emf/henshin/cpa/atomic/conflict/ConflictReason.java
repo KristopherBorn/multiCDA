@@ -17,7 +17,7 @@ import org.eclipse.emf.henshin.model.Node;
 public class ConflictReason extends InitialConflictReason {
 	
 
-	Set<ConflictAtom> additionallyInvolvedConflictAtoms;
+	Set<ConflictAtom> additionalConflictAtoms;
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -75,17 +75,17 @@ public class ConflictReason extends InitialConflictReason {
 	}
 	
 
-	public ConflictReason(InitialConflictReason initialReason, Node boundaryNodeOfCA, Node usedNodeInLhsOfR2, ConflictAtom additionallyInvolvedConflictAtom) {
+	public ConflictReason(InitialConflictReason initialReason, Node boundaryNodeOfCA, Node usedNodeInLhsOfR2, ConflictAtom additionalConflictAtom) {
 //		eigene Kopie des S1 Graph
 //		eigene Kopie der Mappings in R1
-//		eigene Kopie der Mappings in R1
+//		eigene Kopie der Mappings in R2
 		super(initialReason); // erledigt alles! 
 		
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 		
 		//TODO: 
 		// lhs boundary node of rule 1
-		Node boundaryNodeOfRule1 = additionallyInvolvedConflictAtom.getSpan().getMappingIntoRule1(boundaryNodeOfCA).getImage();
+		Node boundaryNodeOfRule1 = additionalConflictAtom.getSpan().getMappingIntoRule1(boundaryNodeOfCA).getImage();
 		
 		// - hinzufuegen des use-nodes zum graph
 		String nameOfNewBoundaryNode = boundaryNodeOfRule1.getName()+"_"+usedNodeInLhsOfR2.getName();
@@ -98,53 +98,44 @@ public class ConflictReason extends InitialConflictReason {
 		// ggf. pruefen, dass es keine zu loeschende Kante gibt und somit kein vollstaendiges atom ist 
 		// 		(das waere schon durch die initialReason abgedeckt!!) 
 		
-		additionallyInvolvedConflictAtoms = new HashSet<ConflictAtom>();
-		additionallyInvolvedConflictAtoms.add(additionallyInvolvedConflictAtom);
+		additionalConflictAtoms = new HashSet<ConflictAtom>();
+		additionalConflictAtoms.add(additionalConflictAtom);
 		//wenn das ursprüngliche "InitialConflictReason initialReason" bereits ein CR ist, 
 		// so müssen dessen additionallyInvolvedConflictAtoms auch noch dem neuen CR hinzugefügt werden.
 		if(initialReason instanceof ConflictReason){
-			additionallyInvolvedConflictAtoms.addAll(((ConflictReason) initialReason).getAdditionallyInvolvedConflictAtoms());
+			additionalConflictAtoms.addAll(((ConflictReason) initialReason).getAdditionallyInvolvedConflictAtoms());
 		}
 	}
 
 	public ConflictReason(InitialConflictReason initialReason) {
 		super(initialReason); // erledigt alles! 
-		additionallyInvolvedConflictAtoms = new HashSet<ConflictAtom>();
+		additionalConflictAtoms = new HashSet<ConflictAtom>();
 	}
 
-	public Set<Node> getAllUseNodesOfLhsOfR2OfAllInvolvedConflictAtoms() {
-		Set<Node> allUseNodesOfLhsOfR2OfAllInvolvedConflictAtoms = new HashSet<Node>();
-		for(Mapping mappingInRule2 : mappingsInRule2){
-			allUseNodesOfLhsOfR2OfAllInvolvedConflictAtoms.add(mappingInRule2.getImage());
-		}
-		return allUseNodesOfLhsOfR2OfAllInvolvedConflictAtoms;
-	}
-
-	public Set<Node> getAllActiveInvolvedUseNodesOfLhsOfR2OfAdditionallyInvolvedConflictAtoms() {
-		Set<Node> allUseNodesOfLhsOfR2OfAdditionallyInvolvedConflictAtoms = new HashSet<Node>();
-		for(ConflictAtom ca : additionallyInvolvedConflictAtoms){
+	public Set<Node> getLhsNodesOfR2UsedByAdditionalConflictAtoms() {
+		Set<Node> result = new HashSet<Node>();
+		for(ConflictAtom ca : additionalConflictAtoms){
 			Set<Mapping> mappingsInRule2 = ca.getSpan().getMappingsInRule2();
 			for(Mapping mappingInRule2 : mappingsInRule2){
-				System.out.println("bla");
-				allUseNodesOfLhsOfR2OfAdditionallyInvolvedConflictAtoms.add(mappingInRule2.getImage());
+				result.add(mappingInRule2.getImage());
 			}
 		}
-		return allUseNodesOfLhsOfR2OfAdditionallyInvolvedConflictAtoms;
+		return result;
 	}
 
-	public Set<Node> getAllActiveInvolvedUseNodesOfLhsOfR2() {
-		Set<Node> allUseNodesOfLhsOfR2 = new HashSet<Node>();
-		for(Mapping mappingInR2 : mappingsInRule2){
-			allUseNodesOfLhsOfR2.add(mappingInR2.getImage());
+	public Set<Node> getUsedLhsNodesOfR2() {
+		Set<Node> result = new HashSet<Node>();
+		for(Mapping map : mappingsInRule2){
+			result.add(map.getImage());
 		}
-		return allUseNodesOfLhsOfR2;
+		return result;
 	}
 
 	/**
 	 * @return the additionallyInvolvedConflictAtoms
 	 */
 	public Set<ConflictAtom> getAdditionallyInvolvedConflictAtoms() {
-		return additionallyInvolvedConflictAtoms;
+		return additionalConflictAtoms;
 	}
 
 	// superfluous

@@ -2,8 +2,10 @@ package org.eclipse.emf.henshin.cpa.atomic.tester;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.Conditions;
+import org.eclipse.emf.henshin.model.ModelElement;
 
 public class Tester {
 	private Class<?> cl;
@@ -61,11 +63,11 @@ public class Tester {
 		return t.invoke();
 	}
 
-	protected static String getContent(Object... objects) {
+	public static String getContent(Object... objects) {
 		return getContent(false, objects);
 	}
 
-	private static String getContent(boolean clazz, Object... objects) {
+	public static String getContent(boolean clazz, Object... objects) {
 		String result = "";
 		for (Object o : objects)
 			result += ", "
@@ -96,31 +98,64 @@ public class Tester {
 
 	@Override
 	public String toString() {
-		return NAME + ": " + (failed ? executed ? "Execution failed " : "Initialisation failed " : "") + (method == null
-				? ""
+		return (failed ? executed ? "Execution failed " : "Initialisation failed " : "") + (method == null ? ""
 				: method.getName() + getContent(parameters)
 						+ (result == null ? "" : "\n\treturns " + result.getClass().getSimpleName() + " : " + result));
 	}
 
 	public void print() {
-		System.out.println(NAME + ": " + this);
+		print(this.toString());
 	}
 
-	protected String print(String message, boolean... out) {
+	public String print(String message, boolean... out) {
 		if (out.length == 0 || out.length != 0 && out[0])
 			System.out.println(NAME + ": " + message);
 		return NAME + ": " + message;
 	}
 
 	public boolean check(Conditions conditions) {
-		return check(conditions.getConditions());
+		return check(conditions.getClass(), conditions.getConditions());
 	}
 
 	public boolean check(Condition... conditions) {
+		return check(null, conditions);
+	}
+
+	public boolean check(Class<?> type, Condition... conditions) {
 		return false;
 	}
 
 	public void ready() {
 		print("Ready");
+	}
+	
+
+	protected boolean checkReasons(Set<?> elements, Object... conditions) {
+		String checked = "";
+		int index = 0;
+		if (elements.size() != conditions.length)
+			return false;
+		for (Object element : elements) {
+			boolean found = false;
+			for (Object condition : conditions) {
+				if (!(condition instanceof Condition))
+					return false;
+				Condition c = (Condition) condition;
+				if (index >= conditions.length)
+					return false;
+				if (!checked.contains("::" + condition) && c.proove(element)) {
+					found = true;
+					index++;
+					checked += "::" + condition;
+					break;
+				}
+			}
+			if (!found)
+				return false;
+		}
+		boolean result = index == conditions.length;
+//		if (PrintFounds && result)
+//			print("Found elements: " + elements + "\t\twith conditions: " + getContent(conditions));
+		return result;
 	}
 }

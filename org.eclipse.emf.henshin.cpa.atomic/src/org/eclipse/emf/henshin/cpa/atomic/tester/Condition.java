@@ -15,9 +15,32 @@ public class Condition {
 			assertTrue("Not the same number of conditions: conditions=" + values + " != elements=" + elements.length,
 					values.length == elements.length);
 		for (int i = 0; i < values.length; i++)
-			if (elements[i] != values[i])
+			if (!elements[i].equals(values[i]))
 				return false;
 		return true;
+	}
+
+	public static class InitialConditions extends Conditions {
+		public InitialConditions(Condition... conditions) {
+			super(conditions);
+		}
+	}
+
+	public static class MinimalConditions extends Conditions {
+		public MinimalConditions(Condition... conditions) {
+			super(conditions);
+		}
+	}
+
+	public static class CriticalConditions extends Conditions {
+		public CriticalConditions(Condition... conditions) {
+			super(conditions);
+		}
+	}
+	public static class CriticalRightConditions extends Conditions {
+		public CriticalRightConditions(Condition... conditions) {
+			super(conditions);
+		}
 	}
 
 	public static class Conditions {
@@ -36,7 +59,7 @@ public class Condition {
 			String result = "";
 			for (Condition condition : conditions)
 				result += ", " + condition;
-			return result.substring(2);
+			return getClass().getSimpleName() + ": " + result.substring(2);
 		}
 	}
 
@@ -84,15 +107,14 @@ public class Condition {
 			return true;
 		}
 	}
-
-	public static class MCR extends Condition {
-		public MCR(int value) {
+	
+	private static abstract class CriticalSize extends Condition{
+		public CriticalSize(int value) {
 			this(value + "");
 		}
 
-		public MCR(String value) {
+		public CriticalSize(String value) {
 			super(value);
-			name = "Minimal Conflict Reasons";
 		}
 
 		@Override
@@ -108,9 +130,20 @@ public class Condition {
 		}
 	}
 
-	public static class ICR extends MCR {
-		public ICR(int value) {
+	public static class MCR extends CriticalSize {
+		public MCR(int value) {
 			this(value + "");
+		}
+
+		public MCR(String value) {
+			super(value);
+			name = "Minimal Conflict Reasons";
+		}
+	}
+
+	public static class ICR extends CriticalSize {
+		public ICR(int value) {
+			this(value +"");
 		}
 
 		public ICR(String value) {
@@ -119,14 +152,26 @@ public class Condition {
 		}
 	}
 
-	public static class CP extends MCR {
+	public static class CP extends CriticalSize {
 		public CP(int value) {
-			this(value + "");
+			this(value +"");
 		}
 
 		public CP(String value) {
 			super(value);
 			name = "Critical Pairs";
+		}
+	}
+	
+	public static class CR extends CriticalSize {
+		public CR(int value)
+		{
+			this(value +"");
+		}
+
+		public CR(String value) {
+			super(value);
+			name = "Conflict Reason";
 		}
 	}
 
