@@ -772,23 +772,23 @@ public class AggHenshinCriticalPairTranslator {
 
 			// this duplicateEdge check filters results which are based on duplicated edges between nodes.
 			// since this is not possible in ecore we wont provide this result.
-			boolean duplicateEdge = false;
-
-			for (EStructuralFeature structuralFeature : from.getEStructuralFeatures()) {
-				if (structuralFeature instanceof EReference) {
-					if (structuralFeature.getEType().getName().equals(to.getName())) {
-						if (hashToName.get(Integer.parseInt(structuralFeature.getName()))
-								.equals(hashToName.get(Integer.parseInt(eReference.getName())))) {
-							duplicateEdge = true;
-						}
-					}
-				}
-			}
-			if (duplicateEdge) {
-				System.out.println("duplicateEdge - duplicateEdge - duplicateEdge - duplicateEdge");
-				throw new Exception(
-						"duplicate edge - the graph results contains a duplicate edge, which is not conform to the metametamodel - there cant be two edges of the same kind between two nodes!");
-			}
+//			boolean duplicateEdge = false;
+//
+//			for (EStructuralFeature structuralFeature : from.getEStructuralFeatures()) {
+//				if (structuralFeature instanceof EReference) {
+//					if (structuralFeature.getEType().getName().equals(to.getName())) {
+//						if (hashToName.get(Integer.parseInt(structuralFeature.getName()))
+//								.equals(hashToName.get(Integer.parseInt(eReference.getName())))) {
+//							duplicateEdge = true;
+//						}
+//					}
+//				}
+//			}
+//			if (duplicateEdge) {
+//				System.out.println("duplicateEdge - duplicateEdge - duplicateEdge - duplicateEdge");
+//				throw new Exception(
+//						"duplicate edge - the graph results contains a duplicate edge, which is not conform to the metametamodel - there cant be two edges of the same kind between two nodes!");
+//			}
 			eReference.setEType(to);
 			from.getEStructuralFeatures().add(eReference);
 		}
