@@ -19,61 +19,15 @@ public class ConflictReason extends InitialConflictReason {
 
 	Set<ConflictAtom> additionalConflictAtoms;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		ConflictReason other = (ConflictReason) obj;
 
-		if (this == obj)
-			return true;
-		if (graph == null || other.graph == null)
-			return false;
-		if (!(obj instanceof ConflictReason))
-			return false;
-		if (graph.getNodes().size() != other.getGraph().getNodes().size())
-			return false;
-		if (graph.getEdges().size() != other.getGraph().getEdges().size())
-			return false;
-		if (mappingsInRule1.size() != other.getMappingsInRule1().size())
-			return false;
-		if (mappingsInRule2.size() != other.getMappingsInRule2().size())
-			return false;
-
-		
-		SpanMappings spanMap = new SpanMappings(this);
-		SpanMappings spanMapOther = new SpanMappings(other);
-		
-		Set<Node> nodesRule1 = new HashSet(spanMap.s1ToRule1.values());
-		Set<Node> nodesRule2 = new HashSet(spanMap.s1ToRule2.values());
-		Set<Node> nodesRule1Other = new HashSet(spanMapOther.s1ToRule1.values());
-		Set<Node> nodesRule2Other = new HashSet(spanMapOther.s1ToRule2.values());
-		if (!(nodesRule1.equals(nodesRule1Other) &&  nodesRule2.equals(nodesRule2Other)))
-				return false;
-		
-		Map<Edge, Edge> edgeMapS1R1 = spanMap.computeEdgeMappingsS1Rule1();
-		Map<Edge, Edge> edgeMapS1R2 = spanMap.computeEdgeMappingsS1Rule2();
-		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.computeEdgeMappingsS1Rule1();
-		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.computeEdgeMappingsS1Rule2();
-		
-		Set<Edge> edgesRule1 = new HashSet(edgeMapS1R1.values());
-		Set<Edge> edgesRule2 = new HashSet(edgeMapS1R2.values());
-		Set<Edge> edgesRule1Other = new HashSet(edgeMapS1R1Other.values());
-		Set<Edge> edgesRule2Other = new HashSet(edgeMapS1R2Other.values());
-		if (!(edgesRule1.equals(edgesRule1Other) &&edgesRule2.equals(edgesRule2Other)))
-			return false;
-
-		Map<Edge,Edge> paired = getPairedEdges(edgeMapS1R1, edgeMapS1R2);
-		Map<Edge,Edge> pairedOther = getPairedEdges(edgeMapS1R1Other, edgeMapS1R2Other);
-		for (Edge e1 : paired.keySet()) {
-			if (paired.get(e1) != pairedOther.get(e1))
-				return false;
+	private Map<Node, Node> getPairedNodes(ConflictReason conflictReason, SpanMappings spanMap) {
+		Map<Node,Node> result = new HashMap<Node, Node>();
+		for (Node n1 : spanMap.s1ToRule1.keySet()) {
+			result.put(spanMap.s1ToRule1.get(n1), spanMap.s1ToRule2.get(n1));
 		}
-		
-		return true;
+		return result;
 	}
-	
+
 
 	public ConflictReason(InitialConflictReason initialReason, Node boundaryNodeOfCA, Node usedNodeInLhsOfR2, ConflictAtom additionalConflictAtom) {
 //		eigene Kopie des S1 Graph
@@ -148,14 +102,68 @@ public class ConflictReason extends InitialConflictReason {
 		// 		- Notwendig für die häufig Nutzung mit dem Comparator
 		return new PushoutResult(rule1, this, rule2);
 	}
-	
-	private Map<Edge, Edge> getPairedEdges(Map<Edge, Edge> map1, Map<Edge, Edge> map2) {
-		Map<Edge,Edge> result = new HashMap<Edge, Edge>();
-		for (Edge e1 : map1.keySet()) 
-			result.put(map1.get(e1), map2.get(e1));
-		for (Edge e2 : map2.keySet()) 
-			result.put(map2.get(e2), map1.get(e2));			
-		return result;
+
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		ConflictReason other = (ConflictReason) obj;
+
+		if (this == obj)
+			return true;
+		if (graph == null || other.graph == null)
+			return false;
+		if (!(obj instanceof ConflictReason))
+			return false;
+		if (graph.getNodes().size() != other.getGraph().getNodes().size())
+			return false;
+		if (graph.getEdges().size() != other.getGraph().getEdges().size())
+			return false;
+		if (mappingsInRule1.size() != other.getMappingsInRule1().size())
+			return false;
+		if (mappingsInRule2.size() != other.getMappingsInRule2().size())
+			return false;
+
+		
+		SpanMappings spanMap = new SpanMappings(this);
+		SpanMappings spanMapOther = new SpanMappings(other);
+		
+		
+		// Are same nodes in rules 1 and 2 used?
+		Set<Node> nodesRule1 = new HashSet<Node>(spanMap.s1ToRule1.values());
+		Set<Node> nodesRule2 = new HashSet<Node>(spanMap.s1ToRule2.values());
+		Set<Node> nodesRule1Other = new HashSet<Node>(spanMapOther.s1ToRule1.values());
+		Set<Node> nodesRule2Other = new HashSet<Node>(spanMapOther.s1ToRule2.values());
+		if (!(nodesRule1.equals(nodesRule1Other) &&  nodesRule2.equals(nodesRule2Other)))
+				return false;
+		
+		// Are same edges in rules 1 and 2 used?
+		Map<Edge, Edge> edgeMapS1R1 = spanMap.computeEdgeMappingsS1Rule1();
+		Map<Edge, Edge> edgeMapS1R2 = spanMap.computeEdgeMappingsS1Rule2();
+		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.computeEdgeMappingsS1Rule1();
+		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.computeEdgeMappingsS1Rule2();
+		
+		Set<Edge> edgesRule1 = new HashSet<Edge>(edgeMapS1R1.values());
+		Set<Edge> edgesRule2 = new HashSet<Edge>(edgeMapS1R2.values());
+		Set<Edge> edgesRule1Other = new HashSet<Edge>(edgeMapS1R1Other.values());
+		Set<Edge> edgesRule2Other = new HashSet<Edge>(edgeMapS1R2Other.values());
+		if (!(edgesRule1.equals(edgesRule1Other) &&edgesRule2.equals(edgesRule2Other)))
+			return false;
+		
+		// Do both CRs map the span graph nodes to the same nodes in rules 1 and 2?
+		Map<Node,Node> paired = getPairedNodes(this, spanMap);
+		Map<Node,Node> pairedOther = getPairedNodes(other, spanMapOther);
+		for (Node e1 : paired.keySet()) {
+			if (paired.get(e1) != pairedOther.get(e1))
+				return false;
+		}
+		
+		return true;
 	}
+	
+	
 	
 }
