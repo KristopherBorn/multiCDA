@@ -786,22 +786,11 @@ public class AtomicCoreCPA {
 			// Kopie erstellt werden,
 			// sowie die neuen Mappings der Kopie hinzugefügt werden!
 			Span extSpan = new Span(s1);
-
-			HashMap<Node, Node> rule1ToS1 = new HashMap<Node, Node>();
-			HashMap<Node, Node> s1ToRule1 = new HashMap<Node, Node>();
-			for (Mapping mapping : extSpan.getMappingsInRule1()) {
-				s1ToRule1.put(mapping.getOrigin(), mapping.getImage());
-				rule1ToS1.put(mapping.getImage(), mapping.getOrigin());
-			}
-			HashMap<Node, Node> rule2ToS1 = new HashMap<Node, Node>();
-			HashMap<Node, Node> s1ToRule2 = new HashMap<Node, Node>();
-			for (Mapping mapping : extSpan.getMappingsInRule2()) {
-				s1ToRule2.put(mapping.getOrigin(), mapping.getImage());
-				rule2ToS1.put(mapping.getImage(), mapping.getOrigin());
-			}
+			SpanMappings maps = new SpanMappings(extSpan);
+			
 			Node fixingSource = fixingEdge.getSource();
 			Node fixingTarget = fixingEdge.getTarget();
-			if (rule1ToS1.get(fixingSource) != null && rule1ToS1.get(fixingTarget) != null)
+			if (maps.rule1ToS1.get(fixingSource) != null && maps.rule1ToS1.get(fixingTarget) != null)
 				throw new RuntimeException("Fixing edge is already present in S1!");
 
 			// TODO: prüfen, dass die Art des erstellens einer Kopie korrekt ist.
@@ -817,7 +806,7 @@ public class AtomicCoreCPA {
 			// .getMappingFromGraphToRule1(fixingSource);
 
 			// wenn NULL - erstellen von Knoten und Kante in graph, und mapping
-			if (rule1ToS1.get(fixingSource) == null) { // source ist baumelnd!
+			if (maps.rule1ToS1.get(fixingSource) == null) { // source ist baumelnd!
 				// Knoten in graph von Span erstellen
 				extNode = henshinFactory.createNode(extSpan.getGraph(), fixingSource.getType(),
 						fixingSource.getName() + "_");
@@ -825,12 +814,12 @@ public class AtomicCoreCPA {
 				// TODO: Mapping in den Span hinzufügen!
 				Mapping newSourceNodeMapping = henshinFactory.createMapping(extNode, fixingSource);
 				extSpan.mappingsInRule1.add(newSourceNodeMapping);
-				s1Target = rule1ToS1.get(fixingTarget);
+				s1Target = maps.rule1ToS1.get(fixingTarget);
 				s1Existing = s1Target;
 				System.err.println(" source war baumelnd!");
 			} else
 				// wenn NULL - erstellen von Knoten und Kante in graph, und mapping
-				if (rule1ToS1.get(fixingTarget) == null) {
+				if (maps.rule1ToS1.get(fixingTarget) == null) {
 				// Knoten in graph von Span erstellen
 				extNode = henshinFactory.createNode(extSpan.getGraph(), fixingTarget.getType(),
 						fixingTarget.getName() + "_");
@@ -838,7 +827,7 @@ public class AtomicCoreCPA {
 				// TODO: Mapping in den Span hinzufügen!
 				Mapping newSourceNodeMapping = henshinFactory.createMapping(extNode, fixingTarget);
 				extSpan.mappingsInRule1.add(newSourceNodeMapping);
-				s1Source = rule1ToS1.get(fixingSource);
+				s1Source = maps.rule1ToS1.get(fixingSource);
 				s1Existing = s1Source;
 				System.err.println(" target war baumelnd!");
 			} else {
@@ -846,7 +835,7 @@ public class AtomicCoreCPA {
 			}
 			// create corresponding edge of fixingEdge in graph of span.
 			Edge s1Fixing = henshinFactory.createEdge(s1Source, s1Target, fixingEdge.getType());
-			Node r2existing = s1ToRule2.get(s1Existing);
+			Node r2existing = maps.s1ToRule2.get(s1Existing);
 			boolean sourceExistsInS1 = (s1Existing == s1Fixing.getSource());
 			createExtension(extensions, extSpan, extNode, s1Fixing, r2existing, sourceExistsInS1);
 		}
