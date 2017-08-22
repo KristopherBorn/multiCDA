@@ -60,6 +60,7 @@ public class PushoutResult {
 	private HashMap<Node, Node> mappingsOfRule1;
 	private HashMap<Node, Node> mappingsOfRule2;
 
+	@SuppressWarnings("unused")
 	public PushoutResult(Rule rule1, Span s1span, Rule rule2) {
 
 		// TODO: prüfen, dass alle mappings in die beiden Regeln verweisen, bzw.
@@ -126,7 +127,7 @@ public class PushoutResult {
 					// hier prüfen, ob es zwischen den beiden Knoten bereits
 					// eine Kante des Typs gibt. Dann keine weitere Kante
 					// erzeugen!
-					if (mergedNode.getIncoming(eIn.getType(), eIn.getSource()) != null) {
+					if (DELETE_DUPLICATE_EDGES && mergedNode.getIncoming(eIn.getType(), eIn.getSource()) != null) {
 						/* löschen der Kante */
 						duplicateEdgesToDelete.add(eIn);
 					} else {
@@ -139,7 +140,7 @@ public class PushoutResult {
 					// hier prüfen, ob es zwischen den beiden Knoten bereits
 					// eine Kante des Typs gibt. Dann keine weitere Kante
 					// erzeugen!
-					if (mergedNode.getOutgoing(eOut.getType(), eOut.getTarget()) != null) {
+					if (DELETE_DUPLICATE_EDGES && mergedNode.getOutgoing(eOut.getType(), eOut.getTarget()) != null) {
 						/* löschen der Kante */
 						duplicateEdgesToDelete.add(eOut);
 					} else {
