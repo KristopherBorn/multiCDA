@@ -10,11 +10,11 @@ import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 
 public class SpanMappings {
-	HashMap<Node, Node> rule1ToS1;
+	public HashMap<Node, Node> rule1ToS1;
 	public HashMap<Node, Node> s1ToRule1;
-	HashMap<Node, Node> rule2ToS1;
+	public HashMap<Node, Node> rule2ToS1;
 	public HashMap<Node, Node> s1ToRule2;
-	Span span;	
+	public Span span;	
 
 	public SpanMappings(Span span) {
 		this.span = span;
