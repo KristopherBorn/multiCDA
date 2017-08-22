@@ -112,7 +112,7 @@ public class ConflictReason extends InitialConflictReason {
 		additionalConflictAtoms = new HashSet<ConflictAtom>();
 	}
 
-	public Set<Node> getLhsNodesOfR2UsedByAdditionalConflictAtoms() {
+	public Set<Node> getLhsNodesOfR2UsedByAdditionalCAs() {
 		Set<Node> result = new HashSet<Node>();
 		for(ConflictAtom ca : additionalConflictAtoms){
 			Set<Mapping> mappingsInRule2 = ca.getSpan().getMappingsInRule2();
