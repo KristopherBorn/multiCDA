@@ -12,7 +12,6 @@ import org.eclipse.emf.henshin.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.ICriticalPairAnalysis;
-import org.eclipse.emf.henshin.cpa.MinimalConflict;
 import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
 import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
