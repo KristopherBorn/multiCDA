@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
+import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.SpanMappings;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.HenshinFactory;
@@ -65,6 +66,12 @@ public class ConflictReason extends InitialConflictReason {
 		super(initialReason); // erledigt alles! 
 		additionalConflictAtoms = new HashSet<ConflictAtom>();
 	}
+
+	public ConflictReason(Span span) {
+		super(span); 
+		additionalConflictAtoms = new HashSet<ConflictAtom>();
+	}
+
 
 	public Set<Node> getLhsNodesOfR2UsedByAdditionalCAs() {
 		Set<Node> result = new HashSet<Node>();
