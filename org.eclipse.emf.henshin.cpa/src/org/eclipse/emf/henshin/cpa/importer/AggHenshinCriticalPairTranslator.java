@@ -516,7 +516,7 @@ public class AggHenshinCriticalPairTranslator {
 					if (fnode.getType().getName().equals(sourceName) && !processedLhsNodes.contains(fnode)) {
 						henshinNodeLhs = fnode;
 						processedLhsNodes.add(fnode);
-						secondRuleLhsMapping.put(morph2TargetObject, henshinNodeLhs);
+						secondRuleLhsMapping.put(morph2SourceObject, henshinNodeLhs);
 						break;
 					}
 				}

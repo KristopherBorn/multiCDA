@@ -10,12 +10,16 @@
 package org.eclipse.emf.henshin.cpa.result;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.result.CriticalPair.AppliedAnalysis;
+import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.model.*;
 
 import agg.xt_basis.GraphObject;
 import agg.xt_basis.Node;
@@ -74,31 +78,40 @@ public class CPAResult implements Iterable<CriticalPair> {
 	 * @return The list of critical pairs.
 	 */
 	public List<CriticalPair> getInitialCriticalPairs() {
-		List<CriticalPair> result = new ArrayList(getCriticalPairs());
+		List<CriticalPair> result = new ArrayList();
 		for (CriticalPair pair : getCriticalPairs()) {
-			printBoundaryNodes(pair);
-			
+//			printBoundaryNodes(pair);
+			List<BoundaryNode> isolatedBoundaryNodes = new ArrayList<BoundaryNode>(pair.getBoundaryNodes());
+
+			Set<Edge> criticalEdges = new HashSet<Edge>();
 			for (CriticalElement el : pair.getCriticalElements()) {
-				GraphObject elG = el.commonElementOfCriticalGraph;
-				GraphElement elL1 = el.elementInFirstRule;
-				GraphElement elL2 = el.elementInSecondRule;
+				 if (el.elementInFirstRule instanceof Edge) {
+					 criticalEdges.add((Edge) el.elementInFirstRule);
+				 }
+				 if (el.elementInSecondRule instanceof Edge) {
+					 criticalEdges.add((Edge) el.elementInSecondRule);
+				 }
+			}
 
-				//- Boundary-Knoten
-				//- deren Löschkanten sich nicht überlappen
-
-				
-				if (elG instanceof Node) {
-					Node nodeG = (Node) elG;
-					nodeG.getIncomingArcs();
-					nodeG.getIncomingArcs();
+			for (BoundaryNode bn : pair.getBoundaryNodes()) {
+				org.eclipse.emf.henshin.model.Node n = (org.eclipse.emf.henshin.model.Node) bn.elementInFirstRule;
+				for (Edge e1 : n.getAllEdges()) {
+					if (criticalEdges.contains(e1))
+						isolatedBoundaryNodes.remove(bn);
 				}
 			}
+			
+			if (isolatedBoundaryNodes.isEmpty()) {
+				result.add(pair);
+				printCriticalElements(pair);
+			}
 		}
-		return criticalPairs;
+		System.out.println("Found "+result.size()+ " ICPs.");
+		return result;
 	}
 
 	private void printBoundaryNodes(CriticalPair pair) {
-		System.out.print("Boundary nodes ("+pair.getBoundaryNodes().size()+"): {");
+		System.out.print("Boundary nodes (" + pair.getBoundaryNodes().size() + "): {");
 		for (BoundaryNode br : pair.getBoundaryNodes()) {
 			System.out.print(br.commonElementOfCriticalGraph + " ");
 		}
