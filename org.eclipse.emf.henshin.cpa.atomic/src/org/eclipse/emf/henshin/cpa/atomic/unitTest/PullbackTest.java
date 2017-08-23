@@ -10,7 +10,7 @@ import java.util.Set;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
@@ -92,7 +92,7 @@ public class PullbackTest {
 	
 	// tested in "BoundaryNodesTest"
 	private Set<ConflictReason> computeConflictReasons(Rule executeNonLoop) {
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(executeNonLoop,
 				executeNonLoop);
 		Assert.assertEquals(3, computedConflictAtoms.size());
@@ -111,7 +111,7 @@ public class PullbackTest {
 			minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 		}
 		
-		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReason(minimalConflictReasons);
+		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(7, computedInitialReason.size());
 		//SUPER! 
 		/* Die Anzahl entspricht zumindest der im Dokument

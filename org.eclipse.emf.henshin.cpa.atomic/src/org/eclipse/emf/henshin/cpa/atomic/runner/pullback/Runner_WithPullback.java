@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.ICriticalPairAnalysis;
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.compareLogger.Logger2;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
@@ -420,7 +420,7 @@ public class Runner_WithPullback {
 											e.printStackTrace();
 										}
 //								
-										AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+										ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 										List<ConflictAtom> computeConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
 										
 										List<ConflictAtom> atomicCoreCpaConflictAtoms = resultKeeper.getConflictAtoms();

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.model.Edge;
@@ -32,7 +32,7 @@ public class EnumerateDisjointCombinationsTest {
 	Rule pullUpEncapsulatedAttributeRule;
 
 	List<Edge> danglingEdges;
-	AtomicCoreCPA atomicCoreCPA;
+	ConflictAnalysis atomicCoreCPA;
 	Span span;
 	PushoutResult pushoutResult;
 
@@ -58,7 +58,7 @@ public class EnumerateDisjointCombinationsTest {
 		Mapping node2InRule1Mapping = henshinFactory.createMapping(commonNodeOfSpan, node2InLhsOfRule1);
 		Mapping node13InRule2Mapping = henshinFactory.createMapping(commonNodeOfSpan, node13InLhsOfRule2);
 
-		atomicCoreCPA = new AtomicCoreCPA();
+		atomicCoreCPA = new ConflictAnalysis();
 		span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
 		pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);

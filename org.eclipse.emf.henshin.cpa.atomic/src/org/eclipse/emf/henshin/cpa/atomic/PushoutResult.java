@@ -69,9 +69,9 @@ public class PushoutResult {
 		// ggf. in "static" Methode (Span) s1span.isValid() auslagern die eine
 		// "IllegalStateException" wirft
 		// s1span.validate(rule1, rule2);
-		AtomicCoreCPA.checkNull(rule1);
-		AtomicCoreCPA.checkNull(s1span);
-		AtomicCoreCPA.checkNull(rule2);
+		ConflictAnalysis.checkNull(rule1);
+		ConflictAnalysis.checkNull(s1span);
+		ConflictAnalysis.checkNull(rule2);
 		if (!s1span.validate(rule1, rule2))
 			throw new IllegalArgumentException("Span is in invalide state.");
 

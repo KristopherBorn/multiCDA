@@ -1,65 +1,29 @@
 package org.eclipse.emf.henshin.cpa.atomic.dependency;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.Atom;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
+import org.eclipse.emf.henshin.model.Graph;
+import org.eclipse.emf.henshin.model.Mapping;
+import org.eclipse.emf.henshin.model.Node;
 
-public class DependencyAtom extends Atom{
-	
-	boolean createEdgeDependencyAtom = false;
-	Set<MinimalDependencyReason> minimalDependencyReasons;
+public class DependencyAtom extends Span{
 
-	/**
-	 * @return the deleteEdgeConflictAtom
-	 */
-	public boolean isCreateEdgeDependencyAtom() {
-		return createEdgeDependencyAtom;
+	public DependencyAtom(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
+		super(nodeInRule1Mapping, s1, nodeInRule2Mapping);
 	}
 
-	
-	// WICHTIG!: die minimalDependencyReasons müssen im Anschluss noch gesetzt werden! 
-	public DependencyAtom(Span span){
-		this.span = span;
-		minimalDependencyReasons = new HashSet<MinimalDependencyReason>();
+	public DependencyAtom(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
+		super(rule1Mappings, s1, rule2Mappings);
+	}
 
-		// required for boundary nodes
-		if(span.getGraph().getNodes().size() == 2)
-			createEdgeDependencyAtom = true;
-			// S1 graph of a conflict atom should contain two nodes.  Conflict Atoms with one node in the S1-span are based on node creation or attribute change.
+	public DependencyAtom(Span extSpan, Node origin, Node image) {
+		super(extSpan, origin, image);
+	}
+
+	public DependencyAtom(Span s1) {
+		super(s1);
 	}
 	
-
-	//stammt vom ConflictAtom und ist hier nicht mehr nutzbar!
-	// in Algo Zeile 6 wird ein Atom mit den Parametern candidate und reasons initilisiert.
-	// dennoch ist die Datenstruktur noch nicht klar!
-//	public ConflictAtom(Span candidate, Set<MinimalConflictReason> minimalConflictReasons) {
-//		this.span = candidate;
-//		this.minimalConflictReasons = minimalConflictReasons;
-//		for(MinimalConflictReason mcr : minimalConflictReasons){
-//			mcr.addContainedConflictAtom(this);
-//		}
-//		// required for boundary nodes
-//		if(candidate.getGraph().getNodes().size() == 2)
-//			deleteEdgeConflictAtom = true;
-//			// S1 graph of a conflict atom should contain two nodes.  Conflict Atoms with one node in the S1-span are based on node deletion or attribute change.
-//	}
-	
-	// bisher werden die "reason's" nicht berücksichtigt, 
-	// da auch nicht klar ist wozu diese eigentlich da sind um was es sich dabei handelt. 
-
-
-	/**
-	 * @return the reasons
-	 */
-	public Set<MinimalDependencyReason> getMinimalDependencyReasons() {
-		return minimalDependencyReasons;
-	}
-	
-	public boolean addMinimalDependencyReasons(MinimalDependencyReason mdr) {
-		return minimalDependencyReasons.add(mdr);
-	}
 
 }

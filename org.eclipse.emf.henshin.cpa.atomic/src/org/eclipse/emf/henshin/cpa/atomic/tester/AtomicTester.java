@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
@@ -26,7 +26,7 @@ import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 
 public class AtomicTester extends Tester {
 	public boolean PrintFounds = true;
-	private AtomicCoreCPA atomic;
+	private ConflictAnalysis atomic;
 	private Rule first;
 	private Rule second;
 	private Set<MinimalConflictReason> minimalConflictReasons;
@@ -67,13 +67,13 @@ public class AtomicTester extends Tester {
 	protected void init() {
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
-		atomic = new AtomicCoreCPA();
+		atomic = new ConflictAnalysis();
 		NAME = "Atomic Tester";
 		
 		
 		computedConflictAtoms = atomic.computeConflictAtoms(first, second);
 		minimalConflictReasons = atomic.getMinimalConflictReasons();
-		initialReasons = atomic.computeInitialReason(minimalConflictReasons);
+		initialReasons = atomic.computeInitialReasons(minimalConflictReasons);
 		conflictReasons = atomic.computeConflictReasons(computedConflictAtoms, initialReasons);
 	}
 

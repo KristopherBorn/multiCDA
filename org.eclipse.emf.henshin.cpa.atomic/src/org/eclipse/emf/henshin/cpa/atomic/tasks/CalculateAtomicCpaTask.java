@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
@@ -36,7 +36,7 @@ public class CalculateAtomicCpaTask implements Callable<List<ConflictAtom>> {
 	public List<ConflictAtom> call() throws Exception {
 //		System.out.println("CALLL!");
 
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 
 		List<ConflictAtom> computeConflictAtoms = new LinkedList<ConflictAtom>();
 
@@ -61,7 +61,7 @@ public class CalculateAtomicCpaTask implements Callable<List<ConflictAtom>> {
 			minimalConflictReasons.add(new MinimalConflictReason(conflictReason));
 		}
 		long conflictReasonStartTime = System.currentTimeMillis();
-		Set<InitialConflictReason> initialReasons = atomicCoreCPA.computeInitialReason(minimalConflictReasons);
+		Set<InitialConflictReason> initialReasons = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		
 		Set<InitialConflictReason> filteredConflictReasons = new HashSet<InitialConflictReason>(); 
 		for(InitialConflictReason initialReason : initialReasons){

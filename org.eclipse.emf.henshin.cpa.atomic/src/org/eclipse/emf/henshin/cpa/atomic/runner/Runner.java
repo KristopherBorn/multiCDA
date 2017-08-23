@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
@@ -96,11 +97,13 @@ public class Runner {
 	}
 
 	public void run(List<String> pathsToHenshinFiles, String resultPath, List<String> deactivatedRules) {
-		
+		deactivatedRules.clear();
 		List<Rule> allLoadedRules = loadAllRulesFromFileSystemPaths(pathsToHenshinFiles, deactivatedRules);
 		
+		int rulesWithMulti = allLoadedRules.stream().filter(r -> !r.getMultiRules().isEmpty()).collect(Collectors.toSet()).size();
+		System.out.println("Portion of multi-rule rules: "+rulesWithMulti+"/"+allLoadedRules.size()+" "+(rulesWithMulti*100.0/allLoadedRules.size())+"%");
+		System.exit(0);
 		
-
 		// initialisieren der Ergebnisspeicher:
 		normalCpaResults = new CPAResult();
 		essentialCpaResults = new CPAResult();
@@ -702,7 +705,6 @@ public class Runner {
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
-				System.out.println("TODO: recursive call of exploration method");
 				String fileName = child.getName();
 				if (fileName.endsWith(".henshin")) {
 					pathsToHenshinFiles.add(child.getAbsolutePath());

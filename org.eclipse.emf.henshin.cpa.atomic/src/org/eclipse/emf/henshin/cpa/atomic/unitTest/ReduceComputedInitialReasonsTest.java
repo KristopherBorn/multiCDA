@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
@@ -122,7 +122,7 @@ public class ReduceComputedInitialReasonsTest {
 
 	@Test
 	public void compute_pullUp_decapsulate_ConflictReasonTest() {
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(pullUpEncapsulatedAttributeRule, decapsulateAttributeRule);
 		assertEquals(5, computedConflictAtoms.size());
 		
@@ -179,7 +179,7 @@ public class ReduceComputedInitialReasonsTest {
 			minimalConflictReasons.add(new MinimalConflictReason(conflictReason));
 		}
 		
-		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReason(minimalConflictReasons);
+		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(17, computedInitialReason.size());
 		
 		//von diesen 17 potentiellen CRs verletzen 10 die dangling condition. 

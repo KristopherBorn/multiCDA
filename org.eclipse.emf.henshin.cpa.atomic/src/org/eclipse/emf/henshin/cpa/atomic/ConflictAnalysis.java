@@ -30,16 +30,24 @@ import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
+import org.junit.runner.Computer;
 
-public class AtomicCoreCPA {
+public class ConflictAnalysis {
 
+	
+	
 	private static final boolean supportInheritance = true;
 	// TODO: Felder für Candidates und MinimalReasons einführen - DONE
 	List<Span> candidates;
 	Set<MinimalConflictReason> overallMinimalConflictReasons;
-	// TODO: Methode zum abrufen dieser einführen - DONE
-	// TODO: in Methode "computeConflictAtoms(...)" die Felder zu beginn zurücksetzen - wird bereits gemacht. - DONE
+	private Rule rule1;
+	private Rule rule2;
 
+	public ConflictAnalysis(Rule rule1, Rule rule2) {
+		this.rule1 = rule1;
+		this.rule2 = rule2;
+	}
+	
 	/**
 	 * @return the candidates
 	 */
@@ -56,7 +64,14 @@ public class AtomicCoreCPA {
 
 	HenshinFactory henshinFactory = new HenshinFactoryImpl();
 
-	public List<ConflictAtom> computeConflictAtoms(Rule rule1, Rule rule2) {
+	public Set<MinimalConflictReason> computeMinimalConflictReasons() {
+		if (overallMinimalConflictReasons == null) {
+			computeConflictAtoms();
+		}
+		return overallMinimalConflictReasons;
+	}
+	
+	public List<ConflictAtom> computeConflictAtoms() {
 		
 		checkNull(rule1, "rule1");
 		checkNull(rule2, "rule2");
@@ -1113,8 +1128,17 @@ public class AtomicCoreCPA {
 	}
 
 	
+	
+
+	public Set<InitialConflictReason> computeInitialReasons(){
+		if (overallMinimalConflictReasons==null) {
+			computeConflictAtoms();
+		}
+		return computeInitialReasons(overallMinimalConflictReasons);
+	}
+	
 	//TODO: ist dieser "zweistufige" Ansatz überhaupt gut? (Also die Trennung in die zwei Methoden)
-	public Set<InitialConflictReason> computeInitialReason(Set<MinimalConflictReason> minimalConflictReasons){
+	public Set<InitialConflictReason> computeInitialReasons(Set<MinimalConflictReason> minimalConflictReasons){
 		Set<InitialConflictReason> initialReason = new HashSet<InitialConflictReason>();
 //		Set<InitialConflictReason> minimalConflictReasonsInternal = new HashSet<InitialConflictReason>();
 //		for(Span span : minimalConflictReasons){

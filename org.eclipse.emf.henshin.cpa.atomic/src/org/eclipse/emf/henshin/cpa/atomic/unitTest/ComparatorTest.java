@@ -10,7 +10,7 @@ import java.util.Set;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.CpaCdaComparator;
 import org.eclipse.emf.henshin.cpa.atomic.CpaCdaComparator.CompareResult;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
@@ -67,7 +67,7 @@ public class ComparatorTest {
 		
 		
 		// CDA -->>
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(executeNonLoop,
 				executeNonLoop);
 		Assert.assertEquals(3, computedConflictAtoms.size());
@@ -85,7 +85,7 @@ public class ComparatorTest {
 			minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 		}
 		
-		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReason(minimalConflictReasons);
+		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(7, computedInitialReason.size());
 		
 		Set<ConflictReason> conflictReasonsDerivedFromInitialReason = new HashSet<ConflictReason>();

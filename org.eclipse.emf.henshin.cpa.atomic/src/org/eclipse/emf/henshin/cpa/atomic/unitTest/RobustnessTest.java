@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Module;
@@ -61,7 +61,7 @@ public class RobustnessTest {
 	
 	@Test
 	public void computeConflictAtomsNotNullTest() {		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		try {			
@@ -83,7 +83,7 @@ public class RobustnessTest {
 	
 	@Test
 	public void computeConflictPartCandidatesNotNullTest() {		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		try {					
@@ -105,7 +105,7 @@ public class RobustnessTest {
 
 	@Test
 	public void computeMinimalReasonNotNullTest() {		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
@@ -50,7 +50,7 @@ public class Survey2webshopConflictTest {
 	//TODO: cofnlcitAtom Test
 	@Test
 	public void computeConflictAtomsTest() {
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(returnOneUnpaidItemRule,
 				findOrderWithThreeOrderItems_incompleteRule);
 		for(ConflictAtom conflAtom : computedConflictAtoms){
@@ -71,7 +71,7 @@ public class Survey2webshopConflictTest {
 	@Test
 	public void computeMinimalConflictReasonTest() {
 
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(returnOneUnpaidItemRule,
 				findOrderWithThreeOrderItems_incompleteRule);

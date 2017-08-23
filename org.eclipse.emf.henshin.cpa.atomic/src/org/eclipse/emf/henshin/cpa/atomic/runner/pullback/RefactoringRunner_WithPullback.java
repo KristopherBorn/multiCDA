@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.ICriticalPairAnalysis;
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
@@ -424,8 +424,8 @@ public class RefactoringRunner_WithPullback {
 											e.printStackTrace();
 										}
 //								
-										AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
-										List<ConflictAtom> computeConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
+										ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(firstRule, secondRule);
+										List<ConflictAtom> computeConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 										
 										List<ConflictAtom> atomicCoreCpaConflictAtoms = resultKeeper.getConflictAtoms();
 										List<Span> atomicCoreCpaCandidates = resultKeeper.getCandidates();

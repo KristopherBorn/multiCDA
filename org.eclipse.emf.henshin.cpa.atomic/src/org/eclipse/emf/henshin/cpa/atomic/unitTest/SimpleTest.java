@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
@@ -38,7 +38,7 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("useAwithB");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
 				useAwithBRule);
 		// should be 0 due to dangling edge condition. First rule deletes a node and second rule requires to have an edge on that node!
@@ -80,7 +80,7 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("useA");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
 				useAwithBRule);
 		Assert.assertEquals(1, computedConflictAtoms.size());
@@ -120,7 +120,7 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("deleteA");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
 				useAwithBRule);
 		Assert.assertEquals(1, computedConflictAtoms.size());
@@ -165,7 +165,7 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("deleteAfromB");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
 				useAwithBRule);
 //		Assert.assertEquals(1, computedConflictAtoms.size());

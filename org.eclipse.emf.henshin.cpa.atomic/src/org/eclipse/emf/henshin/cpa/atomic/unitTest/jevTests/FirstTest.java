@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
@@ -37,7 +37,7 @@ public class FirstTest {
 	private Rule execute;
 
 	private CpaByAGG cpa;
-	private AtomicCoreCPA ccpa;
+	private ConflictAnalysis ccpa;
 	private List<Rule> rules1;
 	private List<Rule> rules2;
 	private CPAOptions options;
@@ -48,7 +48,7 @@ public class FirstTest {
 		Module module = resourceSet.getModule(henshinFileName, false);
 
 		cpa = new CpaByAGG();
-		ccpa = new AtomicCoreCPA();
+		ccpa = new ConflictAnalysis();
 
 		execute = (Rule) module.getUnit("executeNonLoop");
 
@@ -114,7 +114,7 @@ public class FirstTest {
 		assertTrue(mcr89Found);
 		assertTrue(mcr910Found);
 		
-		Set<InitialConflictReason> computedInitialReason = ccpa.computeInitialReason(minimalConflictReasons);
+		Set<InitialConflictReason> computedInitialReason = ccpa.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(7, computedInitialReason.size());
 		System.err.println("conflictReasons: ");
 		for(InitialConflictReason initialReason : computedInitialReason){

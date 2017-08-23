@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.AtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
@@ -45,7 +45,7 @@ public class VererbungsTestOldStyle {
 					secondRule = (Rule) unit;
 			}
 		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
 		assertEquals(1, computedConflictAtoms.size());
 		
@@ -72,7 +72,7 @@ public class VererbungsTestOldStyle {
 		Assert.assertEquals("Child", mcrNodeTypeName);
 
 				
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReason(minimalConflictReasons);
+		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 	}
 
@@ -91,7 +91,7 @@ public class VererbungsTestOldStyle {
 					secondRule = (Rule) unit;
 			}
 		
-		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
 		assertEquals(1, computedConflictAtoms.size());
 		
@@ -118,7 +118,7 @@ public class VererbungsTestOldStyle {
 		Assert.assertEquals("Child", mcrNodeTypeName);
 
 				
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReason(minimalConflictReasons);
+		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 	}
 

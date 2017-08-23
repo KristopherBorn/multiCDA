@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.henshin.cpa.atomic.ProduceUseAtomicCoreCPA;
+import org.eclipse.emf.henshin.cpa.atomic.DependencyAnalysis;
 import org.eclipse.emf.henshin.interpreter.EGraph;
 import org.eclipse.emf.henshin.interpreter.impl.EGraphImpl;
 import org.eclipse.emf.henshin.model.Action;
@@ -44,7 +44,7 @@ public class RuleInversionTest {
 		Unit unit = module.getUnit("ruleToInvert");
 		Rule ruleToInvert = (Rule) unit;
 		
-		ProduceUseAtomicCoreCPA produceUseAtomicCoreCPA = new ProduceUseAtomicCoreCPA();
+		DependencyAnalysis produceUseAtomicCoreCPA = new DependencyAnalysis();
 		
 		Rule invertedRule = produceUseAtomicCoreCPA.invertRule(ruleToInvert);
 		
