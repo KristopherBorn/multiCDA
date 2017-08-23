@@ -685,7 +685,7 @@ public class HenshinAGGExporter implements HenshinModelExporter {
 	/*
 	 * Get the name of a reference.
 	 */
-	private String getUniqueReferenceName(EReference reference)
+	public static String getUniqueReferenceName(EReference reference)
 			throws Exception {
 		String srcName = ((EClass) reference.eContainer()).getName();
 		if (srcName == null)
