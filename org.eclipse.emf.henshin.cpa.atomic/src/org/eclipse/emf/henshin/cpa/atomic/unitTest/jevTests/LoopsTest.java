@@ -6,6 +6,7 @@ import org.eclipse.emf.henshin.cpa.atomic.tester.AtomicTester;
 import org.eclipse.emf.henshin.cpa.atomic.tester.CPATester;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.CP;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.CR;
+import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.ICP;
 //import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.MinimalConditions;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -21,6 +22,8 @@ public class LoopsTest {
 	private String loop3 = "executeNonLoop";
 
 	@Test
+	@Ignore
+
 	public void A() {
 
 		CR _1 = new CR(49);
@@ -37,6 +40,15 @@ public class LoopsTest {
 		assertTrue(_1 + " not correct", tester.check(_1));
 		tester.ready();
 	}
+	
+	@Test
+	public void B2() {
+		ICP _1 = new ICP(7);
+		CPATester tester = new CPATester(path, loop3);
+		assertTrue(_1 + " not correct", tester.check(_1));
+		tester.ready();
+	}
+	
 
 	@Test
 	@Ignore

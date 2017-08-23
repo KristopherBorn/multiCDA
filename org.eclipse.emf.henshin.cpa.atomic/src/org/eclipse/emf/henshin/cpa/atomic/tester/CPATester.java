@@ -7,6 +7,7 @@ import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.CP;
+import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.ICP;
 import org.eclipse.emf.henshin.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.cpa.result.CriticalPair;
 import org.eclipse.emf.henshin.model.Module;
@@ -59,10 +60,14 @@ public class CPATester extends Tester {
 		for (Condition condition : conditions)
 			if(condition instanceof CP && !condition.proove(result.getCriticalPairs().size()))
 				return false;
+			else if (condition instanceof ICP && !condition.proove(result.getInitialCriticalPairs().size()))
+				return false;
 			else
 				print(condition + " accepted");
 		return true;
 	}
+	
+	
 	public List<CriticalPair> getCriticalPairs() {
 		return result.getCriticalPairs();
 	}

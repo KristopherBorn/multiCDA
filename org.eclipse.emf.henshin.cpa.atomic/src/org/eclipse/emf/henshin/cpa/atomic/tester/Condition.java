@@ -174,6 +174,18 @@ public class Condition {
 			name = "Conflict Reason";
 		}
 	}
+	
+
+	public static class ICP extends CriticalSize {
+		public ICP (int value) {
+			this(value +"");
+		}
+
+		public ICP (String value) {
+			super(value);
+			name = "Initial Critical Pairs";
+		}
+	}
 
 	@Override
 	public String toString() {
