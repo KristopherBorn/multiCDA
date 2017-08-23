@@ -8,11 +8,17 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.uml2.uml.UMLPackage;
 
-public class ConflictsOfIcgtRefactoringsRunner extends Runner{
+public class ConflictsOfUmlEditRulesRunner extends Runner{
 	
+
 	public static void main(String args[]){
+		System.out.println("test");
 		
+		// ???? Ist das auch für UML notwendig? Denke nicht, oder? ERGEBNIS: 
+		UMLPackage.eINSTANCE.eClass();
+
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("xmi", new XMIResourceFactoryImpl());
@@ -29,7 +35,7 @@ public class ConflictsOfIcgtRefactoringsRunner extends Runner{
 
 		String projectPath = filePath.replaceAll("bin", "");
 		System.out.println(projectPath);
-		String subDirectoryPath = "testData\\refactoring\\";
+		String subDirectoryPath = "testData\\umlEditRules\\noMultiRules_noAC\\rules\\"; //TODO: warum werden nicht alle Kombinationen durchlaufen, sondern stattdessen ende es nach "changeCombinedFragmentInteractionOperator_FROM_Consider_TO_loop" als erster Regel?
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		
 		Runner runner = new Runner();

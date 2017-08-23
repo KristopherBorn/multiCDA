@@ -44,7 +44,7 @@ public class CpaOnSurveyRunner extends Runner{
 
 		String projectPath = filePath.replaceAll("bin", "");
 		System.out.println(projectPath);
-		String subDirectoryPath = "testData\\refactoring_survey-reduced\\";
+		String subDirectoryPath = "testData\\classRefactorings\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		
 		Runner runner = new Runner();

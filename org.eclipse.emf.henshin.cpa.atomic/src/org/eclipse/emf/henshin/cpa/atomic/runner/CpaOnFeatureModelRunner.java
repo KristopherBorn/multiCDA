@@ -53,7 +53,7 @@ public class CpaOnFeatureModelRunner extends Runner{
 		// String projectPath = shortendPath1.replaceAll("org.eclipse.emf.henshin.cpa.atomic.main", "");
 		// String shortendPath = filePath.replaceAll("bin", "");
 		System.out.println(projectPath);
-		String subDirectoryPath = "testData\\featureModeling\\fmedit_noAmalgamation\\rules\\";
+		String subDirectoryPath = "testData\\featureModeling\\fmedit\\rules\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		
 		Runner runner = new Runner();
