@@ -15,7 +15,7 @@ import org.eclipse.emf.henshin.model.Node;
 
 //nur der Vollständigkeit eingeführt und zur Doifferenzierung 
 // zur Bildung der entsprechenden Ergebnisse für Abgleiche mit ess. CPA
-public class ConflictReason extends InitialConflictReason {
+public class ConflictReason extends InitialReason {
 	
 
 	Set<ConflictAtom> additionalConflictAtoms;
@@ -30,7 +30,7 @@ public class ConflictReason extends InitialConflictReason {
 	}
 
 
-	public ConflictReason(InitialConflictReason initialReason, Node boundaryNodeOfCA, Node usedNodeInLhsOfR2, ConflictAtom additionalConflictAtom) {
+	public ConflictReason(InitialReason initialReason, Node boundaryNodeOfCA, Node usedNodeInLhsOfR2, ConflictAtom additionalConflictAtom) {
 //		eigene Kopie des S1 Graph
 //		eigene Kopie der Mappings in R1
 //		eigene Kopie der Mappings in R2
@@ -62,7 +62,7 @@ public class ConflictReason extends InitialConflictReason {
 		}
 	}
 
-	public ConflictReason(InitialConflictReason initialReason) {
+	public ConflictReason(InitialReason initialReason) {
 		super(initialReason); // erledigt alles! 
 		additionalConflictAtoms = new HashSet<ConflictAtom>();
 	}

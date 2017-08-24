@@ -16,7 +16,7 @@ import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.Module;
@@ -108,7 +108,7 @@ public class ComputeInitialReasonTest {
 				minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 			}
 			
-			Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+			Set<InitialReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 			Assert.assertEquals(3, computeInitialReason.size());
 			
 			
@@ -172,7 +172,7 @@ public class ComputeInitialReasonTest {
 			minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 		}
 		
-		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(17, computedInitialReason.size());
 		
 		//von diesen 17 potentiellen CRs verletzen 10 die dangling condition. 

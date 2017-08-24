@@ -9,7 +9,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.dependency.DependencyAtom;
 import org.eclipse.emf.henshin.cpa.atomic.dependency.InitialDependencyReason;
@@ -59,8 +59,8 @@ public class DependencyAnalysis {
 		Set<InitialDependencyReason> result = new HashSet<InitialDependencyReason>();
 		Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
-		Set<InitialConflictReason> conflictReasons = ca.computeInitialReasons();
-		for (InitialConflictReason cr : conflictReasons) {
+		Set<InitialReason> conflictReasons = ca.computeInitialReasons();
+		for (InitialReason cr : conflictReasons) {
 			result.add(new InitialDependencyReason(cr));
 		}
 		return result;

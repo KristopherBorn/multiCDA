@@ -12,7 +12,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
@@ -20,7 +19,7 @@ import org.eclipse.emf.henshin.cpa.atomic.MinimalConflict;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.compareLogger.Logger2;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.tasks.AtomicResultContainer;
 import org.eclipse.emf.henshin.cpa.atomic.tasks.CalculateAtomicCpaTask;
@@ -311,7 +310,7 @@ public class Runner {
 										List<ConflictAtom> atomicCoreCpaConflictAtoms = resultKeeper.getConflictAtoms();
 										List<Span> atomicCoreCpaCandidates = resultKeeper.getCandidates();
 										Set<MinimalConflictReason> atomicCoreMinimalConflictReasons = resultKeeper.getMinimalConflictReasons();
-										Set<InitialConflictReason> atomicCoreConflictReasons = resultKeeper.getConflictReasons();
+										Set<InitialReason> atomicCoreConflictReasons = resultKeeper.getConflictReasons();
 										
 //										long atomicEndTime = System.currentTimeMillis();
 //										long atomiRunTime = atomicEndTime - atomicStartTime;
@@ -445,7 +444,7 @@ public class Runner {
 	}
 
 	private boolean runEssCPA(Logger2 essCpaLogger, CPAOptions essentialCpaOptions, List<Rule> skippedRules,
-			Rule firstRule, Rule secondRule, Rule originalRuleOfRule2, boolean canceled) {
+			Rule firstRule, Rule secondRule, Rule originalSecondRule, boolean canceled) {
 		
 		String runTimesOfRuleCombination = "";
 		String amountOfDeleteUseConflictsOfRulecombination = "";
@@ -477,7 +476,7 @@ public class Runner {
 		} catch (TimeoutException e) {
 			canceled = true;
 			skippedRules.add(firstRule);
-			skippedRules.add(originalRuleOfRule2);
+			skippedRules.add(originalSecondRule);
 			skippedRules.add(secondRule);
 			System.err.println("TIME OUT!!!");
 			e.printStackTrace();
@@ -502,7 +501,7 @@ public class Runner {
 		}
 		
 		if(!canceled){			
-			essCpaLogger.addData(firstRule, originalRuleOfRule2, runTimesOfRuleCombination.toString(),
+			essCpaLogger.addData(firstRule, originalSecondRule, runTimesOfRuleCombination.toString(),
 					amountOfDeleteUseConflictsOfRulecombination.toString());
 			for(CriticalPair cp : essentialResult.getCriticalPairs()){
 				essentialCpaResults.addResult(cp);

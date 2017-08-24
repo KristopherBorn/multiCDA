@@ -19,7 +19,7 @@ import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.compareLogger.Logger2;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.tasks.AtomicResultContainer;
 import org.eclipse.emf.henshin.cpa.atomic.tasks.CalculateAtomicCpaTask;

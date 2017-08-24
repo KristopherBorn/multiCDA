@@ -16,7 +16,7 @@ import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.model.Graph;
@@ -115,10 +115,10 @@ public class FirstTest {
 		assertTrue(mcr89Found);
 		assertTrue(mcr910Found);
 		
-		Set<InitialConflictReason> computedInitialReason = ccpa.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computedInitialReason = ccpa.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(7, computedInitialReason.size());
 		System.err.println("conflictReasons: ");
-		for(InitialConflictReason initialReason : computedInitialReason){
+		for(InitialReason initialReason : computedInitialReason){
 //			conflictReason.getOriginMCRs()
 			System.out.println(initialReason.toShortString());
 			System.out.println(initialReason.toString());

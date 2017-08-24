@@ -8,7 +8,7 @@ import java.util.Set;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.model.Rule;
@@ -27,7 +27,7 @@ public class AtomicResultContainer {
 	
 	long minimalConflictReasonRunTime;
 	private long conflictReasonOverallRuneTime;
-	private Set<InitialConflictReason> initialReasons;
+	private Set<InitialReason> initialReasons;
 
 	public AtomicResultContainer(Rule firstRule, Rule secondRule) {
 		this.firstRule = firstRule;
@@ -103,14 +103,14 @@ public class AtomicResultContainer {
 	}
 
 
-	public void setConflictReasons(Set<InitialConflictReason> initialReasons) {
+	public void setConflictReasons(Set<InitialReason> initialReasons) {
 		this.initialReasons = initialReasons;
 	}
 
 
-	public Set<InitialConflictReason> getConflictReasons() {
+	public Set<InitialReason> getConflictReasons() {
 		if(initialReasons == null){
-			return new HashSet<InitialConflictReason>();
+			return new HashSet<InitialReason>();
 		}else {			
 			return initialReasons;
 		}

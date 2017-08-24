@@ -6,7 +6,7 @@ import java.util.Set;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.model.ModelElement;
 
-public class MinimalConflictReason extends InitialConflictReason{
+public class MinimalConflictReason extends InitialReason{
 	
 	private Set<ConflictAtom> containedConflictAtom;
 

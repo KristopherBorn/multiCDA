@@ -15,7 +15,7 @@ import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
-public class InitialConflictReason extends Span {
+public class InitialReason extends Span {
 
 	Set<MinimalConflictReason> originMCRs;
 
@@ -48,10 +48,10 @@ public class InitialConflictReason extends Span {
 		if (!super.equals(obj)) {
 			return false;
 		}
-		if (!(obj instanceof InitialConflictReason)) {
+		if (!(obj instanceof InitialReason)) {
 			return false;
 		}
-		InitialConflictReason other = (InitialConflictReason) obj;
+		InitialReason other = (InitialReason) obj;
 		// superfluous
 		// if (!getOuterType().equals(other.getOuterType())) {
 		// return false;
@@ -80,7 +80,7 @@ public class InitialConflictReason extends Span {
 		return deletionElementsInRule1;
 	}
 
-	public InitialConflictReason(Span minimalConflictReason) {
+	public InitialReason(Span minimalConflictReason) {
 		super(minimalConflictReason);
 		if (minimalConflictReason instanceof MinimalConflictReason) {
 			MinimalConflictReason mcr = (MinimalConflictReason) minimalConflictReason;
@@ -97,7 +97,7 @@ public class InitialConflictReason extends Span {
 
 	}
 
-	public InitialConflictReason(Set<Mapping> mappingsOfNewSpanInRule1, Graph graph1Copy,
+	public InitialReason(Set<Mapping> mappingsOfNewSpanInRule1, Graph graph1Copy,
 			Set<Mapping> mappingsOfNewSpanInRule2, Set<MinimalConflictReason> originMCRs) {
 		super(mappingsOfNewSpanInRule1, graph1Copy, mappingsOfNewSpanInRule2);
 		this.deletionElementsInRule1 = getDeletionElementsOfSpan(this);
@@ -251,7 +251,7 @@ public class InitialConflictReason extends Span {
 		return result;
 	}
 
-	private ConflictReason extendCR(InitialConflictReason original,
+	private ConflictReason extendCR(InitialReason original,
 			Set<ConflictAtom> byInitialReasonUncoveredConflictAtoms, ConflictAtom uncoveredCA, Node node2,
 			Node potentialUseN2R2, Set<ConflictReason> result) {
 		// stopping criterion = potentialUse completes contained, or second

@@ -103,10 +103,9 @@ public class CPAResult implements Iterable<CriticalPair> {
 			
 			if (isolatedBoundaryNodes.isEmpty()) {
 				result.add(pair);
-				printCriticalElements(pair);
+//				printCriticalElements(pair);
 			}
 		}
-		System.out.println("Found "+result.size()+ " ICPs.");
 		return result;
 	}
 

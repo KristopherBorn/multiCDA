@@ -11,7 +11,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.tester.AtomicTester;
 import org.eclipse.emf.henshin.cpa.atomic.tester.CPATester;
@@ -97,7 +97,7 @@ public class AttributeTestOldStyle {
 		Assert.assertEquals("Number", attribute.getType().getName());
 		Assert.assertEquals("0", attribute.getValue());
 		
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 		
 	}
@@ -166,7 +166,7 @@ public class AttributeTestOldStyle {
 		Assert.assertEquals("Number", attribute.getType().getName());
 		Assert.assertEquals("0", attribute.getValue());
 		
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 	}
 
@@ -234,7 +234,7 @@ public class AttributeTestOldStyle {
 		Assert.assertEquals("Number", attribute.getType().getName());
 		Assert.assertEquals("0", attribute.getValue());
 		
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 	}
 
@@ -302,7 +302,7 @@ public class AttributeTestOldStyle {
 		Assert.assertEquals("Number", attribute.getType().getName());
 		Assert.assertEquals("N_N", attribute.getValue());
 		
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 	}
 
@@ -471,7 +471,7 @@ public class AttributeTestOldStyle {
 		Assert.assertEquals(true, numberAttrFound);
 		Assert.assertEquals(true, nameAttrFound);
 		
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 	}
 
@@ -546,7 +546,7 @@ public class AttributeTestOldStyle {
 		Assert.assertEquals(true, numberAttrFound);
 		Assert.assertEquals(true, nameAttrFound);
 		
-		Set<InitialConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(1, computeInitialReason.size());
 	}
 
