@@ -67,11 +67,11 @@ public class AtomicTester extends Tester {
 	protected void init() {
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
-		atomic = new ConflictAnalysis();
+		atomic = new ConflictAnalysis(first, second);
 		NAME = "Atomic Tester";
 		
 		
-		computedConflictAtoms = atomic.computeConflictAtoms(first, second);
+		computedConflictAtoms = atomic.computeConflictAtoms();
 		minimalConflictReasons = atomic.getMinimalConflictReasons();
 		initialReasons = atomic.computeInitialReasons(minimalConflictReasons);
 		conflictReasons = atomic.computeConflictReasons(computedConflictAtoms, initialReasons);

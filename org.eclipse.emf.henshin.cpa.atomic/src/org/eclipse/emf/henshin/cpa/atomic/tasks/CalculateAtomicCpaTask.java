@@ -36,14 +36,14 @@ public class CalculateAtomicCpaTask implements Callable<List<ConflictAtom>> {
 	public List<ConflictAtom> call() throws Exception {
 //		System.out.println("CALLL!");
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(firstRule, secondRule);
 
 		List<ConflictAtom> computeConflictAtoms = new LinkedList<ConflictAtom>();
 
 		long normalStartTime = System.currentTimeMillis();
 		
 		try {
-			computeConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
+			computeConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		} catch (NullPointerException  e) {
 			System.err.println("Timeout!");
 		}

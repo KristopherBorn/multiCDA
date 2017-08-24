@@ -420,8 +420,8 @@ public class Runner_WithPullback {
 											e.printStackTrace();
 										}
 //								
-										ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-										List<ConflictAtom> computeConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
+										ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(firstRule, secondRule);
+										List<ConflictAtom> computeConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 										
 										List<ConflictAtom> atomicCoreCpaConflictAtoms = resultKeeper.getConflictAtoms();
 										List<Span> atomicCoreCpaCandidates = resultKeeper.getCandidates();
