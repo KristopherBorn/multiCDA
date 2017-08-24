@@ -100,9 +100,6 @@ public class Runner {
 		deactivatedRules.clear();
 		List<Rule> allLoadedRules = loadAllRulesFromFileSystemPaths(pathsToHenshinFiles, deactivatedRules);
 		
-		int rulesWithMulti = allLoadedRules.stream().filter(r -> !r.getMultiRules().isEmpty()).collect(Collectors.toSet()).size();
-		System.out.println("Portion of multi-rule rules: "+rulesWithMulti+"/"+allLoadedRules.size()+" "+(rulesWithMulti*100.0/allLoadedRules.size())+"%");
-		System.exit(0);
 		
 		// initialisieren der Ergebnisspeicher:
 		normalCpaResults = new CPAResult();
