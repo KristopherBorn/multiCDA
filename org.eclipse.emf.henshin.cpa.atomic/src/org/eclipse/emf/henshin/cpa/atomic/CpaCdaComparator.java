@@ -87,8 +87,8 @@ public class CpaCdaComparator {
 					EGraph graph = conflict.getMinimalModelEGraph();
 					module.getUnits().add(dummyPO_rule);
 					
-					System.err.println("number of Nodes/Edges in LHS rule:"+pr.getResultGraph().getNodes().size()+"/"+pr.getResultGraph().getEdges().size());
-					System.err.println("number of Nodes/Edges in graph:"+graph.toString());
+//					System.err.println("number of Nodes/Edges in LHS rule:"+pr.getResultGraph().getNodes().size()+"/"+pr.getResultGraph().getEdges().size());
+//					System.err.println("number of Nodes/Edges in graph:"+graph.toString());
 					
 //					Module module = cr.getRule1().getModule();
 //					module.get
@@ -110,7 +110,7 @@ public class CpaCdaComparator {
 					// TODO: Zuordnung der Ergebnisse
 					boolean numberOfNodesAreEqual = pr.getResultGraph().getNodes().size() == graph.size();
 					boolean numberOfEdgesAreEqual = pr.getResultGraph().getEdges().size() == InterpreterUtil.countEdges(graph);
-					System.err.println("matches found: "+matchesFound+" Nodes: "+numberOfNodesAreEqual +" Edges: "+numberOfEdgesAreEqual);
+//					System.err.println("matches found: "+matchesFound+" Nodes: "+numberOfNodesAreEqual +" Edges: "+numberOfEdgesAreEqual);
 					if(matchesFound && numberOfNodesAreEqual && numberOfEdgesAreEqual){
 						unassignedCPs.remove(cp);
 						unassignedCRs.remove(cr);

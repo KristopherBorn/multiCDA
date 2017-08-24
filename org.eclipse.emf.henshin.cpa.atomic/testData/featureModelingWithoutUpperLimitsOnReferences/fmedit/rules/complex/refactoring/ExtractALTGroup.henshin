@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_1OMbsE7dEeSZwptAIs69ag" name="ExtractALTGroup" description="Extracts an ALT Group">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_1lNNgE7dEeSZwptAIs69ag" name="ExtractALTGroup">
+    <parameters xmi:id="_9fl0sE7eEeSZwptAIs69ag" name="fA">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_9fl0sU7eEeSZwptAIs69ag" name="fB">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_GsPm8E7eEeSZwptAIs69ag" name="ORGroup">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Group"/>
+    </parameters>
+    <parameters xmi:id="_I1nuQE7eEeSZwptAIs69ag" name="excc">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//ExcludeConstraint"/>
+    </parameters>
+    <lhs xmi:id="_1lTUIE7dEeSZwptAIs69ag" name="Lhs">
+      <nodes xmi:id="_QtqokE7eEeSZwptAIs69ag" name="fB" incoming="_ebnmUE7eEeSZwptAIs69ag _v6ZxYE7eEeSZwptAIs69ag" outgoing="_N565IE7fEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_RARbgE7eEeSZwptAIs69ag" name="fA" incoming="_d8rnkE7eEeSZwptAIs69ag _va1ggE7eEeSZwptAIs69ag" outgoing="_N5pMUE7fEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_VFrxsE7eEeSZwptAIs69ag" name="ORGroup" outgoing="_d8rnkE7eEeSZwptAIs69ag _ebnmUE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group"/>
+        <attributes xmi:id="_gFo4IE7eEeSZwptAIs69ag" value="&quot;OR&quot;">
+          <type href="http://de.imotep.variability/featuremodel#//Group/groupType"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_lzJ0kE7eEeSZwptAIs69ag" name="excc" incoming="_1AvZEE7eEeSZwptAIs69ag _N5pMUE7fEeSZwptAIs69ag _N565IE7fEeSZwptAIs69ag" outgoing="_va1ggE7eEeSZwptAIs69ag _v6ZxYE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//ExcludeConstraint"/>
+      </nodes>
+      <nodes xmi:id="_ooCXAE7eEeSZwptAIs69ag" outgoing="_1AvZEE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+      </nodes>
+      <edges xmi:id="_d8rnkE7eEeSZwptAIs69ag" source="_VFrxsE7eEeSZwptAIs69ag" target="_RARbgE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+      </edges>
+      <edges xmi:id="_ebnmUE7eEeSZwptAIs69ag" source="_VFrxsE7eEeSZwptAIs69ag" target="_QtqokE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+      </edges>
+      <edges xmi:id="_va1ggE7eEeSZwptAIs69ag" source="_lzJ0kE7eEeSZwptAIs69ag" target="_RARbgE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//ExcludeConstraint/excludedFeatureA"/>
+      </edges>
+      <edges xmi:id="_v6ZxYE7eEeSZwptAIs69ag" source="_lzJ0kE7eEeSZwptAIs69ag" target="_QtqokE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//ExcludeConstraint/excludedFeatureB"/>
+      </edges>
+      <edges xmi:id="_1AvZEE7eEeSZwptAIs69ag" source="_ooCXAE7eEeSZwptAIs69ag" target="_lzJ0kE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel/constraints"/>
+      </edges>
+      <edges xmi:id="_N5pMUE7fEeSZwptAIs69ag" source="_RARbgE7eEeSZwptAIs69ag" target="_lzJ0kE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/excludeConstraintsA"/>
+      </edges>
+      <edges xmi:id="_N565IE7fEeSZwptAIs69ag" source="_QtqokE7eEeSZwptAIs69ag" target="_lzJ0kE7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/excludeConstraintsB"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_1lT7ME7dEeSZwptAIs69ag" name="Rhs">
+      <nodes xmi:id="_QtqokU7eEeSZwptAIs69ag" name="fB" incoming="_ebnmUU7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_RARbgU7eEeSZwptAIs69ag" name="fA" incoming="_d8rnkU7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_VFrxsU7eEeSZwptAIs69ag" name="ORGroup" outgoing="_d8rnkU7eEeSZwptAIs69ag _ebnmUU7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group"/>
+        <attributes xmi:id="_gFo4IU7eEeSZwptAIs69ag" value="&quot;ALT&quot;">
+          <type href="http://de.imotep.variability/featuremodel#//Group/groupType"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_ooCXAU7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+      </nodes>
+      <edges xmi:id="_d8rnkU7eEeSZwptAIs69ag" source="_VFrxsU7eEeSZwptAIs69ag" target="_RARbgU7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+      </edges>
+      <edges xmi:id="_ebnmUU7eEeSZwptAIs69ag" source="_VFrxsU7eEeSZwptAIs69ag" target="_QtqokU7eEeSZwptAIs69ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Qtqokk7eEeSZwptAIs69ag" origin="_QtqokE7eEeSZwptAIs69ag" image="_QtqokU7eEeSZwptAIs69ag"/>
+    <mappings xmi:id="_RARbgk7eEeSZwptAIs69ag" origin="_RARbgE7eEeSZwptAIs69ag" image="_RARbgU7eEeSZwptAIs69ag"/>
+    <mappings xmi:id="_VFrxsk7eEeSZwptAIs69ag" origin="_VFrxsE7eEeSZwptAIs69ag" image="_VFrxsU7eEeSZwptAIs69ag"/>
+    <mappings xmi:id="_ooCXAk7eEeSZwptAIs69ag" origin="_ooCXAE7eEeSZwptAIs69ag" image="_ooCXAU7eEeSZwptAIs69ag"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_CXGWME7fEeSZwptAIs69ag" name="mainUnit" subUnits="_1lNNgE7dEeSZwptAIs69ag">
+    <parameters xmi:id="_EZkkQE7fEeSZwptAIs69ag" name="fA"/>
+    <parameters xmi:id="_EZkkQU7fEeSZwptAIs69ag" name="fB"/>
+    <parameters xmi:id="_EZkkQk7fEeSZwptAIs69ag" name="ORGroup"/>
+    <parameters xmi:id="_EZkkQ07fEeSZwptAIs69ag" name="excc"/>
+    <parameterMappings xmi:id="_Gq0OIE7fEeSZwptAIs69ag" source="_EZkkQE7fEeSZwptAIs69ag" target="_9fl0sE7eEeSZwptAIs69ag"/>
+    <parameterMappings xmi:id="_Gq0OIk7fEeSZwptAIs69ag" source="_EZkkQU7fEeSZwptAIs69ag" target="_9fl0sU7eEeSZwptAIs69ag"/>
+    <parameterMappings xmi:id="_Gq0OJE7fEeSZwptAIs69ag" source="_EZkkQk7fEeSZwptAIs69ag" target="_GsPm8E7eEeSZwptAIs69ag"/>
+    <parameterMappings xmi:id="_Gq0OJ07fEeSZwptAIs69ag" source="_EZkkQ07fEeSZwptAIs69ag" target="_I1nuQE7eEeSZwptAIs69ag"/>
+  </units>
+</henshin:Module>

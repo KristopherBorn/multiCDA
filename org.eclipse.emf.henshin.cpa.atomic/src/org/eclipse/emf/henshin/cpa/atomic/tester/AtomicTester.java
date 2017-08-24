@@ -22,6 +22,7 @@ import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.Node;
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 
 public class AtomicTester extends Tester {
@@ -30,8 +31,8 @@ public class AtomicTester extends Tester {
 	private Rule first;
 	private Rule second;
 	private Set<MinimalConflictReason> minimalConflictReasons;
-	private Set<InitialConflictReason> initialReasons;
 	private Set<ConflictReason> conflictReasons;
+	private Set<InitialConflictReason> initialReasons;
 	private String checked = "";
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
@@ -41,22 +42,48 @@ public class AtomicTester extends Tester {
 		this(henshin, rule, rule);
 	}
 
+	/**
+	 * Geeignet nur für Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
+	 * 
+	 * @param henshin
+	 */
+	public AtomicTester(String henshin) {
+		this(henshin, null, null);
+	}
+
 	public AtomicTester(String henshin, String firstRule, String secondRule) {
-		System.out.println("\n\t\t  " + firstRule + " --> " + secondRule + "\n\t\t\tAtomic");
-		if (henshin.isEmpty() || firstRule.isEmpty() || secondRule.isEmpty())
+		if (henshin.isEmpty()
+				|| ((firstRule != null && !firstRule.isEmpty()) ^ (secondRule != null && !secondRule.isEmpty())))
 			return;
 		HenshinResourceSet resourceSet = new HenshinResourceSet(henshin.substring(0, henshin.lastIndexOf("/") + 1));
 		Module module = resourceSet.getModule(henshin.substring(henshin.lastIndexOf("/") + 1, henshin.length()), false);
 
-		first = (Rule) module.getUnit(firstRule);
-		second = (Rule) module.getUnit(secondRule);
+		if (firstRule == null || secondRule == "") {
+			firstRule = "All";
+			secondRule = "All";
+			int time = 0;
+			for (Unit u : module.getUnits()) {
+				if (u instanceof Rule) {
+					if (time == 1) {
+						System.err.println("Es gibt mehr als nur eine Regel! Bitte in diesem Fall Regeln angeben!");
+						return;
+					}
+					time = 1;
+					first = (Rule) u;
+					second = (Rule) u;
+				}
+			}
+		} else {
+			first = (Rule) module.getUnit(firstRule);
+			second = (Rule) module.getUnit(secondRule);
+		}
+		System.out.println("\n\t\t  " + firstRule + " --> " + secondRule + "\n\t\t\tAtomic");
 		init();
 		printMCR();
 		printICR();
 		printCR();
 		print();
 	}
-
 
 	public AtomicTester(Rule first, Rule second) {
 		this.first = first;
@@ -69,15 +96,14 @@ public class AtomicTester extends Tester {
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
 		atomic = new ConflictAnalysis(first, second);
 		NAME = "Atomic Tester";
-		
-		
+
 		computedConflictAtoms = atomic.computeConflictAtoms();
 		minimalConflictReasons = atomic.getMinimalConflictReasons();
 		initialReasons = atomic.computeInitialReasons(minimalConflictReasons);
 		conflictReasons = atomic.computeConflictReasons(computedConflictAtoms, initialReasons);
 	}
 
-	public Set<InitialConflictReason> getInitialConflictReasons() {
+	public Set<InitialConflictReason> getInitialReasons() {
 		return initialReasons;
 	}
 
@@ -143,24 +169,50 @@ public class AtomicTester extends Tester {
 		checked = "";
 	}
 
+	public static void printMCR(Set<MinimalConflictReason> mr) {
+		for (MinimalConflictReason minimalReason : mr)
+			System.out.println(
+					"MCR: " + minimalReason.getGraph().getEdges() + "\t| " + minimalReason.getGraph().getNodes());
+	}
+
 	public void printMCR() {
 		for (MinimalConflictReason minimalReason : minimalConflictReasons)
-			print("MCR: " + minimalReason.getGraph().getEdges());
+			print("MCR: " + minimalReason.getGraph().getEdges() + "\t| " + minimalReason.getGraph().getNodes());
+	}
+
+	public static void printICR(Set<InitialConflictReason> ir) {
+		for (InitialConflictReason initialReason : ir)
+			System.out.println(
+					"ICR: " + initialReason.getGraph().getEdges() + "\t| " + initialReason.getGraph().getNodes());
 	}
 
 	public void printICR() {
 		for (InitialConflictReason initialReason : initialReasons)
-			print("ICR: " + initialReason.getGraph().getEdges());
+			print("ICR: " + initialReason.getGraph().getEdges() + "\t| " + initialReason.getGraph().getNodes());
 	}
 
-	private void printCR() {
-		for (ConflictReason conflictReason : conflictReasons) {
-			print("CR: " + conflictReason.getGraph().getEdges());
+	public static void printCR(Set<ConflictReason> cr) {
+		for (ConflictReason conflictReason : cr) {
+			System.out.println(
+					"CR: " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
 		}
 	}
-	
+
+	public void printCR() {
+		for (ConflictReason conflictReason : conflictReasons) {
+			print("CR: " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
+		}
+	}
+
 	public Set<ConflictReason> getConflictReasons() {
 		return conflictReasons;
+	}
+
+	public List<Rule> getRules() {
+		ArrayList<Rule> result = new ArrayList<Rule>();
+		result.add(first);
+		result.add(second);
+		return result;
 	}
 
 	@Override

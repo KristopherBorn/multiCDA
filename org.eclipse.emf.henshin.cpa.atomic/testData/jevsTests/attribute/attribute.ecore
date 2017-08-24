@@ -3,10 +3,13 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Attribute" nsURI="www.attribute.com/0.0" nsPrefix="Attribute">
   <eClassifiers xsi:type="ecore:EClass" name="NodeIn">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//NodeInOut"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//NodeOut"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeOut">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//NodeIn"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeInOut">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

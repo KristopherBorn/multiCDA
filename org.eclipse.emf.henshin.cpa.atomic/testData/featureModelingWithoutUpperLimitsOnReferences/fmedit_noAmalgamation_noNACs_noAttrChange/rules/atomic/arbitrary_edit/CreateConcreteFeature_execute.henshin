@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Tvs9cClTEeSfmulj5g7e3A" name="CreateConcreteFeature" description="Creates a non-abstract mandatory feature in a feature (arbitrary edit)">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Tvs9cSlTEeSfmulj5g7e3A" name="createConcreteFeature_IN_Feature" description="creates one concrete Feature in the context: Feature">
+    <parameters xmi:id="_Tvs9cilTEeSfmulj5g7e3A" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_Tvs9cylTEeSfmulj5g7e3A" name="New">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_Tvs9dClTEeSfmulj5g7e3A" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <lhs xmi:id="_Tvs9dylTEeSfmulj5g7e3A" name="Lhs">
+      <nodes xmi:id="_Tvs9eClTEeSfmulj5g7e3A" name="Selected">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_Tvs9eSlTEeSfmulj5g7e3A" name="Rhs">
+      <nodes xmi:id="_Tvs9eilTEeSfmulj5g7e3A" name="Selected" outgoing="_Tvs9fylTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_Tvs9eylTEeSfmulj5g7e3A" name="New" incoming="_Tvs9fylTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_Tvs9fClTEeSfmulj5g7e3A" value="Name">
+          <type href="http://de.imotep.variability/featuremodel#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_Tvs9fSlTEeSfmulj5g7e3A" value="true">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+        </attributes>
+        <attributes xmi:id="_Tvs9filTEeSfmulj5g7e3A" value="false">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/abstract"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_Tvs9fylTEeSfmulj5g7e3A" source="_Tvs9eilTEeSfmulj5g7e3A" target="_Tvs9eylTEeSfmulj5g7e3A">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Tvs9gClTEeSfmulj5g7e3A" origin="_Tvs9eClTEeSfmulj5g7e3A" image="_Tvs9eilTEeSfmulj5g7e3A"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Tvs9gSlTEeSfmulj5g7e3A" name="mainUnit" subUnits="_Tvs9cSlTEeSfmulj5g7e3A">
+    <parameters xmi:id="_Tvs9gilTEeSfmulj5g7e3A" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_Tvs9gylTEeSfmulj5g7e3A" name="New">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_Tvs9hClTEeSfmulj5g7e3A" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameterMappings xmi:id="_Tvs9hylTEeSfmulj5g7e3A" source="_Tvs9gilTEeSfmulj5g7e3A" target="_Tvs9cilTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_Tvs9iClTEeSfmulj5g7e3A" source="_Tvs9cylTEeSfmulj5g7e3A" target="_Tvs9gylTEeSfmulj5g7e3A"/>
+    <parameterMappings xmi:id="_TvtkgClTEeSfmulj5g7e3A" source="_Tvs9hClTEeSfmulj5g7e3A" target="_Tvs9dClTEeSfmulj5g7e3A"/>
+  </units>
+</henshin:Module>

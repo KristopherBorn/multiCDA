@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.sidiff.difference.symmetric/src" editDirectory="/org.sidiff.difference.symmetric.edit/src"
+    editorDirectory="/org.sidiff.difference.symmetric.editor/src" modelPluginID="org.sidiff.difference.symmetric"
+    modelName="Symmetric" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+  <foreignModel>Symmetric.ecore</foreignModel>
+  <genPackages prefix="Symmetric" basePackage="org.sidiff.difference" disposableProviderFactory="true"
+      ecorePackage="Symmetric.ecore#/">
+    <genClasses provider="Stateful" ecoreClass="Symmetric.ecore#//SymmetricDifference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SymmetricDifference/changes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SymmetricDifference/changeSets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SymmetricDifference/correspondences"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SymmetricDifference/modelA"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SymmetricDifference/modelB"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SymmetricDifference/uriModelA"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SymmetricDifference/uriModelB"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SymmetricDifference/notOverlappings"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference Symmetric.ecore#//SymmetricDifference/unusedChangeSets"/>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/getCorrespondingObjectInA">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/getCorrespondingObjectInA/objectInB"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/getCorrespondingObjectInB">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/getCorrespondingObjectInB/objectInA"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/addCorrespondence">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/addCorrespondence/objectA"/>
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/addCorrespondence/objectB"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/removeCorrespondence">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/removeCorrespondence/correspondence"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/addCorrespondence.1">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/addCorrespondence.1/correspondence"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/addCorrespondence.2">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/addCorrespondence.2/objectA"/>
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/addCorrespondence.2/objectB"/>
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/addCorrespondence.2/reliability"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/getReliability">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/getReliability/objectA"/>
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/getReliability/objectB"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/removeCorrespondenceA">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/removeCorrespondenceA/objectInA"/>
+      </genOperations>
+      <genOperations ecoreOperation="Symmetric.ecore#//SymmetricDifference/removeCorrespondenceB">
+        <genParameters ecoreParameter="Symmetric.ecore#//SymmetricDifference/removeCorrespondenceB/objectInB"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//AddObject">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//AddObject/obj"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//RemoveObject">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//RemoveObject/obj"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//AddReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//AddReference/src"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//AddReference/tgt"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//AddReference/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//RemoveReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//RemoveReference/src"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//RemoveReference/tgt"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//RemoveReference/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Symmetric.ecore#//Change"/>
+    <genClasses ecoreClass="Symmetric.ecore#//SemanticChangeSet">
+      <genFeatures notify="false" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Symmetric.ecore#//SemanticChangeSet/changes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/priority"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/recognitionRName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/refinementLevel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/editRName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SemanticChangeSet/partiallyOverlappings"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SemanticChangeSet/subsets"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SemanticChangeSet/supersets"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//SemanticChangeSet/overlayings"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/numberOfACs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//SemanticChangeSet/numberOfParams"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Symmetric.ecore#//SemanticChangeSet/editRuleMatch"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//Correspondence">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//Correspondence/objA"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//Correspondence/objB"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//Correspondence/reliability"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//AttributeValueChange">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//AttributeValueChange/objA"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//AttributeValueChange/objB"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//AttributeValueChange/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//EString2EObjectSetMap">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Symmetric.ecore#//EString2EObjectSetMap/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Symmetric.ecore#//EString2EObjectSetMap/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//EditRuleMatch">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Symmetric.ecore#//EditRuleMatch/nodeOccurrencesA"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Symmetric.ecore#//EditRuleMatch/nodeOccurrencesB"/>
+    </genClasses>
+    <genClasses ecoreClass="Symmetric.ecore#//EObjectSet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Symmetric.ecore#//EObjectSet/elements"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

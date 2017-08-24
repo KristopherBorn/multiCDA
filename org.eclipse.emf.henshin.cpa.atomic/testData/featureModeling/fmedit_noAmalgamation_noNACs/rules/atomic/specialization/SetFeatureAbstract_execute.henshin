@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_TuYu0ClTEeSfmulj5g7e3A" name="SetFeatureAbstract" description="Sets a Feature abstract (specialization)">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_TuYu0SlTEeSfmulj5g7e3A" name="setFeatureAbstract" description="Sets the EAttribute abstract">
+    <parameters xmi:id="_TuYu0ilTEeSfmulj5g7e3A" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <lhs xmi:id="_TuYu1ClTEeSfmulj5g7e3A" name="Lhs">
+      <nodes xmi:id="_TuYu1SlTEeSfmulj5g7e3A" name="Selected">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_I6HTYGXtEeSnFpbiu1uJOw" value="false">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/abstract"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_TuYu1ilTEeSfmulj5g7e3A" name="Rhs">
+      <nodes xmi:id="_TuYu1ylTEeSfmulj5g7e3A" name="Selected">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_TuYu2ClTEeSfmulj5g7e3A" value="true">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/abstract"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_TuYu2SlTEeSfmulj5g7e3A" origin="_TuYu1SlTEeSfmulj5g7e3A" image="_TuYu1ylTEeSfmulj5g7e3A"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_TuYu2ilTEeSfmulj5g7e3A" name="mainUnit" subUnits="_TuYu0SlTEeSfmulj5g7e3A">
+    <parameters xmi:id="_TuYu2ylTEeSfmulj5g7e3A" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameterMappings xmi:id="_TuYu3SlTEeSfmulj5g7e3A" source="_TuYu2ylTEeSfmulj5g7e3A" target="_TuYu0ilTEeSfmulj5g7e3A"/>
+  </units>
+</henshin:Module>

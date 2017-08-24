@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.Conditions;
-import org.eclipse.emf.henshin.model.ModelElement;
 
 public class Tester {
 	private Class<?> cl;
@@ -158,4 +157,5 @@ public class Tester {
 //			print("Found elements: " + elements + "\t\twith conditions: " + getContent(conditions));
 		return result;
 	}
+	
 }
