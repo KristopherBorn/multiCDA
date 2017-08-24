@@ -37,6 +37,9 @@ public class CPATester extends Tester {
 	public CPATester(List<Rule> rules) {
 		this(true, false, rules, rules);
 	}
+	public CPATester(List<Rule> rules, List<Rule> rules2) {
+		this(true, false, rules, rules2);
+	}
 
 	public CPATester(String henshin, String... first) {
 		this(henshin, true, false, first, first);

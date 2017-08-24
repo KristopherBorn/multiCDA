@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.runner.RulePreparator;
 import org.eclipse.emf.henshin.cpa.atomic.tester.AtomicTester;
 import org.eclipse.emf.henshin.cpa.atomic.tester.CPATester;
 import org.eclipse.emf.henshin.cpa.result.CriticalPair;
@@ -29,6 +30,7 @@ public class FeatureModellTest {
 	private static AtomicTester aTester;
 	private static CPATester cTester;
 	private static List<Rule> rules;
+	private static List<Rule> preserveRules;
 	private static int toTest = 0;
 	private static Map<String, Set<InitialConflictReason>> resultA = new HashMap<String, Set<InitialConflictReason>>();
 	private static Map<String, Set<CriticalPair>> resultE = new HashMap<String, Set<CriticalPair>>();
@@ -49,6 +51,7 @@ public class FeatureModellTest {
 		File folder = new File(pathNoAttr + folders[toTest]);
 		files = folder.listFiles();
 		rules = new ArrayList<Rule>();
+		preserveRules = new ArrayList<Rule>();
 		for (File file : files) {
 			if (file.getPath().endsWith(".henshin")) {
 				String henshin = file.getPath();
@@ -59,19 +62,22 @@ public class FeatureModellTest {
 				Module module = resourceSet.getModule(mFile, false);
 
 				for (Unit u : module.getUnits())
-					if (u instanceof Rule)
-						rules.add((Rule) u);
+					if (u instanceof Rule){
+						Rule prepared = RulePreparator.prepareRule((Rule) u);
+						preserveRules.add(prepared);
+						rules.add(prepared);
+					}
 			}
 		}
 		Set<InitialConflictReason> inits = new HashSet<>();
 		for (Rule r : rules) {
-			for (Rule r2 : rules) {
+			for (Rule r2 : preserveRules) {
 				aTester = new AtomicTester(r, r2);
 				inits.addAll(aTester.getInitialReasons());
 			}
 		}
 		resultA.put(folders[toTest], inits);
-		cTester = new CPATester(rules);
+		cTester = new CPATester(rules, preserveRules);
 		resultE.put(folders[toTest], cTester.getInitialCriticalPairs());
 	}
 
@@ -109,24 +115,24 @@ public class FeatureModellTest {
 	public void test4() {
 		toTest++;
 	}
-
-	@Test
-	public void test5() {
-		toTest++;
-	}
-
-	@Test
-	public void test6() {
-		toTest++;
-	}
-
-	@Test
-	public void test7() {
-		toTest++;
-	}
-
-	@Test
-	public void test8() {
-		toTest++;
-	}
+//
+//	@Test
+//	public void test5() {
+//		toTest++;
+//	}
+//
+//	@Test
+//	public void test6() {
+//		toTest++;
+//	}
+//
+//	@Test
+//	public void test7() {
+//		toTest++;
+//	}
+//
+//	@Test
+//	public void test8() {
+//		toTest++;
+//	}
 }
