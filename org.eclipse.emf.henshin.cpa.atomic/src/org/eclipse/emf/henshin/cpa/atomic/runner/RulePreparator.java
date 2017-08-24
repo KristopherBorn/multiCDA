@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.Mapping;
+import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
@@ -14,6 +15,7 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 public class RulePreparator {
 
 	public static Rule prepareRule(Rule rule) {
+		Module module = rule.getModule();
 		Rule newRule = HenshinFactoryImpl.eINSTANCE.createRule();
 		newRule.setLhs(rule.getLhs());
 		newRule.setRhs(rule.getRhs());
@@ -26,7 +28,8 @@ public class RulePreparator {
 		for (Node node : newRule.getRhs().getNodes()) {
 			node.getAttributes().clear();
 		}
-
+		module.getUnits().remove(rule);
+		module.getUnits().add(newRule);
 		return newRule;
 	}
 }

@@ -61,9 +61,10 @@ public class FeatureModellTest {
 
 				Module module = resourceSet.getModule(mFile, false);
 
-				for (Unit u : module.getUnits())
+				for (Unit u : new ArrayList<>(module.getUnits()))
 					if (u instanceof Rule){
 						Rule prepared = RulePreparator.prepareRule((Rule) u);
+						
 						rules.add(prepared);
 					}
 			}
@@ -91,7 +92,7 @@ public class FeatureModellTest {
 
 			Set<CriticalPair> cp = resultE.get(folder);
 			System.out.println("Found: " + cp.size() + " Initial Critical Pairs");
-			CPATester.printCP(cp);
+//			CPATester.printCP(cp);
 		}
 	}
 
