@@ -51,7 +51,15 @@ public class AtomicTester extends Tester {
 		this(henshin, null, null);
 	}
 
-	public AtomicTester(String henshin, String firstRule, String secondRule) {
+	/**
+	 * Initialisiert und führt die AtomicCoreCPa aus
+	 * 
+	 * @param henshin
+	 * @param firstRule
+	 * @param secondRule
+	 * @param options werden in dieser Reihenfilge akzeptiert: 1:printHeader, 2:printResult
+	 */
+	public AtomicTester(String henshin, String firstRule, String secondRule, boolean... options) {
 		if (henshin.isEmpty()
 				|| ((firstRule != null && !firstRule.isEmpty()) ^ (secondRule != null && !secondRule.isEmpty())))
 			return;
@@ -77,21 +85,25 @@ public class AtomicTester extends Tester {
 			first = (Rule) module.getUnit(firstRule);
 			second = (Rule) module.getUnit(secondRule);
 		}
-		init();
-		printMCR();
-		printICR();
-		printCR();
-		print();
+		init(options);
 	}
 
-	public AtomicTester(Rule first, Rule second) {
+	/**
+	 * Initialisiert und führt die AtomicCoreCPa aus
+	 * 
+	 * @param first
+	 * @param second
+	 * @param options werden in dieser Reihenfilge akzeptiert: 1:printHeader, 2:printResult
+	 */
+	public AtomicTester(Rule first, Rule second, boolean... options) {
 		this.first = first;
 		this.second = second;
-		init();
+		init(options);
 	}
 
-	protected void init() {
-		System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tAtomic");
+	protected void init(boolean... options) {
+		if (options.length >= 1 && options[0])
+			System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tAtomic");
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
 		atomic = new ConflictAnalysis(first, second);
@@ -101,6 +113,12 @@ public class AtomicTester extends Tester {
 		minimalConflictReasons = atomic.getMinimalConflictReasons();
 		initialReasons = atomic.computeInitialReasons(minimalConflictReasons);
 		conflictReasons = atomic.computeConflictReasons(computedConflictAtoms, initialReasons);
+		if (options.length >= 2 && options[1]) {
+			printMCR();
+			printICR();
+			printCR();
+			print();
+		}
 	}
 
 	public Set<InitialConflictReason> getInitialReasons() {
