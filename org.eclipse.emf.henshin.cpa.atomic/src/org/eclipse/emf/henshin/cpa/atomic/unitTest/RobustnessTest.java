@@ -59,6 +59,8 @@ public class RobustnessTest {
 	
 	// TODO: tests for unsupported rules (PAC,NAC, multiRule) with loaded rules -> set up unsupported rules	
 	
+	
+	//TODO: the Exception checks need to be executed on the ConflictAnalysis constructor
 	@Test
 	public void computeConflictAtomsNotNullTest() {		
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
@@ -83,7 +85,8 @@ public class RobustnessTest {
 	
 	@Test
 	public void computeConflictPartCandidatesNotNullTest() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(null,
+				pullUpEncapsulatedAttributeRule);
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		try {					
@@ -105,7 +108,8 @@ public class RobustnessTest {
 
 	@Test
 	public void computeMinimalReasonNotNullTest() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule,
+				decapsulateAttributeRule);
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		

@@ -58,7 +58,7 @@ public class EnumerateDisjointCombinationsTest {
 		Mapping node2InRule1Mapping = henshinFactory.createMapping(commonNodeOfSpan, node2InLhsOfRule1);
 		Mapping node13InRule2Mapping = henshinFactory.createMapping(commonNodeOfSpan, node13InLhsOfRule2);
 
-		atomicCoreCPA = new ConflictAnalysis();
+		atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule);
 		span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
 		pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);

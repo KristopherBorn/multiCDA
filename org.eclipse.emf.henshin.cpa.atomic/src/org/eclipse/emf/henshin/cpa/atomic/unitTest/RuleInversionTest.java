@@ -46,6 +46,7 @@ public class RuleInversionTest {
 		
 		DependencyAnalysis produceUseAtomicCoreCPA = new DependencyAnalysis();
 		
+		//TODO: provide rule inverison function somewhere else than in the 
 		Rule invertedRule = produceUseAtomicCoreCPA.invertRule(ruleToInvert);
 		
 		// check that LHS contains 3 nodes, 3 edges and the nodes are of type :Bank, :Client and :Manager

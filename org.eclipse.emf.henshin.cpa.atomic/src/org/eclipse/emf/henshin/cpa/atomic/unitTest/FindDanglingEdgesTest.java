@@ -57,7 +57,8 @@ public class FindDanglingEdgesTest {
 		Mapping node2InRule1Mapping = henshinFactory.createMapping(commonNodeOfSpan, node2InLhsOfRule1);
 		Mapping node13InRule2Mapping = henshinFactory.createMapping(commonNodeOfSpan, node13InLhsOfRule2);
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
 		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
@@ -104,7 +105,8 @@ public class FindDanglingEdgesTest {
 		Mapping node3InRule1Mapping = henshinFactory.createMapping(commonNodeOfSpan, node3InLhsOfRule1);
 		Mapping node14InRule2Mapping = henshinFactory.createMapping(commonNodeOfSpan, node14InLhsOfRule2);
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node3InRule1Mapping, graphOfSpan, node14InRule2Mapping);
 
 		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
@@ -167,7 +169,8 @@ public class FindDanglingEdgesTest {
 		Mapping node16InRule2Mapping = henshinFactory.createMapping(commonNode6_16OfSpan, node16InLhsOfRule2);
 		rule2Mappings.add(node16InRule2Mapping);
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(rule1Mappings, graphOfSpan, rule2Mappings);
 
 		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,

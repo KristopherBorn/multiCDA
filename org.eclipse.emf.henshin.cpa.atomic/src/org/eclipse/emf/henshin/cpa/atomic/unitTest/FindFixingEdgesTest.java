@@ -55,7 +55,8 @@ public class FindFixingEdgesTest {
 		Mapping node2InRule1Mapping = henshinFactory.createMapping(commonNodeOfSpan, node2InLhsOfRule1);
 		Mapping node13InRule2Mapping = henshinFactory.createMapping(commonNodeOfSpan, node13InLhsOfRule2);
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
 		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,

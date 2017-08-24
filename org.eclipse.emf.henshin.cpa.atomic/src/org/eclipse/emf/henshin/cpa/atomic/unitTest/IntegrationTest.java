@@ -41,27 +41,27 @@ public class IntegrationTest {
 	// erwartet: 2,13:Method , 3,14:Method und 5,15:Parameter - 3 Stück
 	@Test
 	public void conflictAtoms_decapsulateAttr_pullUpEncAttr_Test() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(decapsulateAttributeRule,
-			pullUpEncapsulatedAttributeRule);
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 	assertEquals(3, computedConflictAtoms.size());
 	}
 	
 	// erwartet: 2,2:Method , 3,3:Method und 5,5:Parameter - 3 Stück
 	@Test
 	public void conflictAtoms_decapsulateAttr_decapsulateAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(decapsulateAttributeRule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
 				decapsulateAttributeRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 	assertEquals(3, computedConflictAtoms.size());
 	}
 	
 	//erwartet: 1,11->4,12:variables , 1,11->2,13:methods , 1,11->3,13:methods , 1,11->2,14:methods , 1,11->3,14:methods
 	@Test
 	public void conflictAtoms_pullUpEncAttr_decapsulateAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(pullUpEncapsulatedAttributeRule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule,
 				decapsulateAttributeRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
 			System.out.println(conflictAtom.toShortString());
 		}
@@ -71,9 +71,9 @@ public class IntegrationTest {
 	//erwartet: 11,11->12,12:variables , 11,11->13,13:methods , 11,11->13,14:methods , 11,11->14,14:methods , 11,11->14,13:methods
 	@Test
 	public void conflictAtoms_pullUpEncAttr_pullUpEncAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(pullUpEncapsulatedAttributeRule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule,
 				pullUpEncapsulatedAttributeRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
 			System.out.println(conflictAtom.toShortString());
 		}
@@ -85,7 +85,8 @@ public class IntegrationTest {
 	// erwartet: 2,13:Method , 2,14:Method , 3,13:Method, 3,14:Method und 5,15:Parameter - 5 Stück
 	@Test
 	public void conflictPartCandidates_decapsulateAttr_pullUpEncAttr_Test() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		List<Span> computedConflictPartCandidates = atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule,
 			pullUpEncapsulatedAttributeRule);
 	assertEquals(5, computedConflictPartCandidates.size());
@@ -94,7 +95,8 @@ public class IntegrationTest {
 	// erwartet: 2,2:Method , 2,3:Method , 3,2:Method , 3,3:Method und 5,5:Parameter - 5 Stück
 	@Test
 	public void conflictPartCandidates_decapsulateAttr_decapsulateAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				decapsulateAttributeRule);
 		List<Span> computedConflictPartCandidates = atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule,
 				decapsulateAttributeRule);
 	assertEquals(5, computedConflictPartCandidates.size());
@@ -103,7 +105,8 @@ public class IntegrationTest {
 	//erwartet: 1,11->4,12:variables , 1,11->2,13:methods , 1,11->3,13:methods , 1,11->2,14:methods , 1,11->3,14:methods - 5 Stück
 	@Test
 	public void conflictPartCandidates_pullUpEncAttr_decapsulateAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule,
+				decapsulateAttributeRule);
 		List<Span> computedConflictPartCandidates = atomicCoreCPA.computeAtomCandidates(pullUpEncapsulatedAttributeRule,
 				decapsulateAttributeRule);
 	assertEquals(5, computedConflictPartCandidates.size());
@@ -112,7 +115,8 @@ public class IntegrationTest {
 	//erwartet: 11,11->12,12:variables , 11,11->13,13:methods , 11,11->13,14:methods , 11,11->14,14:methods , 11,11->14,13:methods - 5 Stück
 	@Test
 	public void conflictPartCandidates_pullUpEncAttr_pullUpEncAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		List<Span> computedConflictPartCandidates = atomicCoreCPA.computeAtomCandidates(pullUpEncapsulatedAttributeRule,
 				pullUpEncapsulatedAttributeRule);
 	assertEquals(5, computedConflictPartCandidates.size());
@@ -123,7 +127,8 @@ public class IntegrationTest {
 	// 2.: [1,11->3,14:methods, 3,14->5,15:parameters, 5,15->6,16:type]
 	@Test
 	public void conflictMinReason_decapsulateAttr_pullUpEncAttr_Test() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule,
 				pullUpEncapsulatedAttributeRule);
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
@@ -139,7 +144,8 @@ public class IntegrationTest {
 	// 2.: [1,1->3,3:methods, 3,3->5,5:parameters, 5,5->6,6:type]
 	@Test
 	public void conflictMinReason_decapsulateAttr_decapsulateAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				decapsulateAttributeRule);
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule,
 				decapsulateAttributeRule);
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
@@ -158,7 +164,8 @@ public class IntegrationTest {
 	// 5.: [11,1->14,3:methods]
 	@Test
 	public void conflictMinReason_pullUpEncAttr_decapsulateAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule,
+				decapsulateAttributeRule);
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pullUpEncapsulatedAttributeRule,
 				decapsulateAttributeRule);
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
@@ -177,7 +184,8 @@ public class IntegrationTest {
 	// 5.: [11,11->14,14:methods]
 	@Test
 	public void conflictMinReason_pullUpEncAttr_pullUpEncAttr() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pullUpEncapsulatedAttributeRule,
 				pullUpEncapsulatedAttributeRule);
 		Set<MinimalConflictReason> reasons = new HashSet<>();//

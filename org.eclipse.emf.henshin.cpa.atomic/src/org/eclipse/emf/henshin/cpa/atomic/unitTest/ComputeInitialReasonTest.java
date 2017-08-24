@@ -52,9 +52,9 @@ public class ComputeInitialReasonTest {
 
 	@Test
 		public void compute_decapsulate_pullUp_InitialReasonTest() {
-			ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-			List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(decapsulateAttributeRule,
+			ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
 					pullUpEncapsulatedAttributeRule);
+			List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 			assertEquals(3, computedConflictAtoms.size());
 			
 			Set<ConflictAtom> methodCAs = new HashSet<ConflictAtom>();
@@ -122,8 +122,8 @@ public class ComputeInitialReasonTest {
 
 	@Test
 	public void compute_pullUp_decapsulate_InitialReasonTest() {
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(pullUpEncapsulatedAttributeRule, decapsulateAttributeRule);
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule, decapsulateAttributeRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		assertEquals(5, computedConflictAtoms.size());
 		
 		Set<ConflictAtom> methodCAs = new HashSet<ConflictAtom>();

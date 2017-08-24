@@ -48,7 +48,7 @@ public class FirstTest {
 		Module module = resourceSet.getModule(henshinFileName, false);
 
 		cpa = new CpaByAGG();
-		ccpa = new ConflictAnalysis();
+		
 
 		execute = (Rule) module.getUnit("executeNonLoop");
 
@@ -63,7 +63,8 @@ public class FirstTest {
 	@Test
 	public void test() {
 
-		List<ConflictAtom> ca = ccpa.computeConflictAtoms(execute, execute);
+		ccpa = new ConflictAnalysis(execute, execute);
+		List<ConflictAtom> ca = ccpa.computeConflictAtoms();
 		Set<MinimalConflictReason> mcr = ccpa.getMinimalConflictReasons();
 		
 		List<Span> candidates = ccpa.getCandidates();

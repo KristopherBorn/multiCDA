@@ -44,9 +44,9 @@ public class ComputeConflictAtomsTest {
 
 	@Test
 	public void computeConflictAtomsTest() {
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(decapsulateAttributeRule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
 				pullUpEncapsulatedAttributeRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		assertEquals(3, computedConflictAtoms.size());
 		
 		Set<ConflictAtom> methodCAs = new HashSet<ConflictAtom>();

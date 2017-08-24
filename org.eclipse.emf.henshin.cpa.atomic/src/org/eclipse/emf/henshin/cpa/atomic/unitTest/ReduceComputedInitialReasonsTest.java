@@ -122,8 +122,8 @@ public class ReduceComputedInitialReasonsTest {
 
 	@Test
 	public void compute_pullUp_decapsulate_ConflictReasonTest() {
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(pullUpEncapsulatedAttributeRule, decapsulateAttributeRule);
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pullUpEncapsulatedAttributeRule, decapsulateAttributeRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		assertEquals(5, computedConflictAtoms.size());
 		
 		Set<ConflictAtom> methodCAs = new HashSet<ConflictAtom>();

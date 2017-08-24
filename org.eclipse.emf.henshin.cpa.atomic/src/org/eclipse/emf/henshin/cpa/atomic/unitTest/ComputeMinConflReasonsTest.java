@@ -44,7 +44,8 @@ public class ComputeMinConflReasonsTest {
 	@Test
 	public void refactoringCandidatesDecapsulateEncapsulateTest() {
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule,
 				pullUpEncapsulatedAttributeRule);

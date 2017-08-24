@@ -49,9 +49,8 @@ public class BoundaryNodesTest {
 
 	@Test
 	public void compute_executeNonLoop_MCR_Test() {
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(executeNonLoop,
-				executeNonLoop);
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(executeNonLoop, executeNonLoop);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		Assert.assertEquals(3, computedConflictAtoms.size());
 		
 		Set<Span> allMinimalConflictReasons = new HashSet<Span>();

@@ -50,9 +50,9 @@ public class Survey2webshopConflictTest {
 	//TODO: cofnlcitAtom Test
 	@Test
 	public void computeConflictAtomsTest() {
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(returnOneUnpaidItemRule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(returnOneUnpaidItemRule,
 				findOrderWithThreeOrderItems_incompleteRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		for(ConflictAtom conflAtom : computedConflictAtoms){
 			System.out.println(conflAtom.toString());
 			System.out.println(conflAtom.toShortString());
@@ -71,7 +71,8 @@ public class Survey2webshopConflictTest {
 	@Test
 	public void computeMinimalConflictReasonTest() {
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(returnOneUnpaidItemRule,
+				findOrderWithThreeOrderItems_incompleteRule);
 
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(returnOneUnpaidItemRule,
 				findOrderWithThreeOrderItems_incompleteRule);

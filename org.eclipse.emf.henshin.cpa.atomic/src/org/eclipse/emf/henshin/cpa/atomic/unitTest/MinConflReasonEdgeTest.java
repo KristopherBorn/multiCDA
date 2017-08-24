@@ -92,12 +92,12 @@ public class MinConflReasonEdgeTest {
 		
 		
 //		TODO: atomicConflicts berechnen!
-		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis();
-		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms(pushDownGroupRule, pushDownGroupRulePreserve);
+		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
+		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms();
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
 		
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pushDownGroupRule, pushDownGroupRulePreserve);
 //		System.out.println("HALT");
@@ -191,12 +191,12 @@ public class MinConflReasonEdgeTest {
 		
 		
 //		TODO: atomicConflicts berechnen!
-		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis();
-		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms(pushDownGroupRule, pushDownGroupRulePreserve);
+		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
+		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms();
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
 		
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pushDownGroupRule, pushDownGroupRulePreserve);
 //		System.out.println("HALT");
@@ -292,12 +292,12 @@ public class MinConflReasonEdgeTest {
 		
 		
 //		TODO: atomicConflicts berechnen!
-		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis();
-		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms(pushDownGroupRule, pushDownGroupRulePreserve);
+		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
+		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms();
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
 		
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 
 		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pushDownGroupRule, pushDownGroupRulePreserve);
 //		System.out.println("HALT");

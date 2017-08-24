@@ -38,9 +38,9 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("useAwithB");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
 				useAwithBRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		// should be 0 due to dangling edge condition. First rule deletes a node and second rule requires to have an edge on that node!
 		Assert.assertEquals(0, computedConflictAtoms.size());
 //		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
@@ -80,9 +80,9 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("useA");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
 				useAwithBRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		Assert.assertEquals(1, computedConflictAtoms.size());
 		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
@@ -120,9 +120,9 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("deleteA");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
 				useAwithBRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		Assert.assertEquals(1, computedConflictAtoms.size());
 		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
@@ -165,9 +165,9 @@ public class SimpleTest {
 		Unit useAwithBUnit = module.getUnit("deleteAfromB");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
 		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(deleteARule,
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
 				useAwithBRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 //		Assert.assertEquals(1, computedConflictAtoms.size());
 		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
