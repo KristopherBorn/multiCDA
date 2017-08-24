@@ -155,10 +155,6 @@ public class PushoutResult {
 				// löschen des Knoten "nodeInL2y"
 				Graph graphOfNodeL2 = discardNode.getGraph();
 				boolean removedNode = graphOfNodeL2.removeNode(discardNode);
-<<<<<<< HEAD
-//				System.err.println("removedNode: " + removedNode);
-=======
->>>>>>> dd9130c215467510a5725873183358d318c6c94e
 
 				// löschen der doppelten Kanten
 				if (DELETE_DUPLICATE_EDGES) {
