@@ -52,7 +52,6 @@ public class FeatureModellTest {
 		File folder = new File(pathNoAttr + folders[toTest]);
 		files = folder.listFiles();
 		rules = new ArrayList<Rule>();
-		preserveRules = new ArrayList<Rule>();
 		for (File file : files) {
 			if (file.getPath().endsWith(".henshin")) {
 				String henshin = file.getPath();
