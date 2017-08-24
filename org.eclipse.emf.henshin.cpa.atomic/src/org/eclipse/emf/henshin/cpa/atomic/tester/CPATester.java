@@ -34,6 +34,9 @@ public class CPATester extends Tester {
 	public CPATester(String henshin, String[] first, String[] second) {
 		this(henshin, true, false, first, second);
 	}
+	public CPATester(List<Rule> rules) {
+		this(true, false, rules, rules);
+	}
 
 	public CPATester(String henshin, String... first) {
 		this(henshin, true, false, first, first);
@@ -49,6 +52,37 @@ public class CPATester extends Tester {
 
 	public CPATester(String henshin, boolean essential, String[] first, String[] second) {
 		this(henshin, essential, false, first, second);
+	}
+	
+	public CPATester(boolean essential, boolean dependency, List<Rule> first, List<Rule> second){
+		String ff="", ss="";
+		for (Rule nameF : first)
+			ff += (ff.isEmpty() ? "" : ", ") + nameF.getName();
+		for (Rule nameS : second)
+			ss += (ss.isEmpty() ? "" : ", ") + nameS.getName();
+		ff = ff.isEmpty() ? "All" : ff;
+		ss = ss.isEmpty() ? "All" : ss;
+		System.out.println("\n\t\t  " + ff + " --> " + ss + "\n\t\t\tCPA " + (essential ? "Essential" : ""));
+
+		CPAOptions o = new CPAOptions();
+		o.setEssential(essential);
+		o.setReduceSameRuleAndSameMatch(false);
+		o.setIgnoreSameRules(false);
+
+		cpa = new CpaByAGG();
+		NAME = "CPA Tester";
+		try {
+			cpa.init(first, second, o);
+		} catch (UnsupportedRuleException e) {
+			System.err.println(e.getMessage());
+		}
+		if (dependency)
+			result = cpa.runDependencyAnalysis();
+		else
+			result = cpa.runConflictAnalysis();
+
+		printResult();
+		print();
 	}
 
 	public CPATester(String henshin, boolean essential, boolean dependency, String[] first, String[] second) {

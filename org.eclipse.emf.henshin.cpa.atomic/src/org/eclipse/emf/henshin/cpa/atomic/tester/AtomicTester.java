@@ -77,7 +77,6 @@ public class AtomicTester extends Tester {
 			first = (Rule) module.getUnit(firstRule);
 			second = (Rule) module.getUnit(secondRule);
 		}
-		System.out.println("\n\t\t  " + firstRule + " --> " + secondRule + "\n\t\t\tAtomic");
 		init();
 		printMCR();
 		printICR();
@@ -92,6 +91,7 @@ public class AtomicTester extends Tester {
 	}
 
 	protected void init() {
+		System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tAtomic");
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
 		atomic = new ConflictAnalysis(first, second);
