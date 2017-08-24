@@ -17,10 +17,11 @@ public class RulePreparator {
 	public static Rule prepareRule(Rule rule) {
 		Module module = rule.getModule();
 		Rule newRule = HenshinFactoryImpl.eINSTANCE.createRule();
+		rule.getLhs().setFormula(null);
 		newRule.setLhs(rule.getLhs());
 		newRule.setRhs(rule.getRhs());
 		newRule.getMappings().addAll(rule.getMappings());
-		newRule.setName(rule.getName());
+		newRule.setName(rule.getName() + "x");
 		
 		for (Node node : newRule.getLhs().getNodes()) {
 			node.getAttributes().clear();

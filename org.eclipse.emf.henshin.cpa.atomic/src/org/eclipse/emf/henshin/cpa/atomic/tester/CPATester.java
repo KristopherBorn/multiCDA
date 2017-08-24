@@ -71,6 +71,7 @@ public class CPATester extends Tester {
 		o.setEssential(essential);
 		o.setReduceSameRuleAndSameMatch(false);
 		o.setIgnoreSameRules(false);
+		o.setIgnoreMultiplicities(true);
 
 		cpa = new CpaByAGG();
 		NAME = "CPA Tester";

@@ -74,10 +74,10 @@ public class FeatureModellTest {
 			for (Rule r2 : NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules)) {
 				aTester = new AtomicTester(r, r2);
 				inits.addAll(aTester.getInitialReasons());
+//				cTester = new CPATester(r, r2);
 			}
 		}
 		resultA.put(folders[toTest], inits);
-		cTester = new CPATester(rules, NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules));
 		resultE.put(folders[toTest], cTester.getInitialCriticalPairs());
 	}
 
@@ -88,11 +88,11 @@ public class FeatureModellTest {
 		for (String folder : folders) {
 			Set<InitialConflictReason> cr = resultA.get(folder);
 			System.out.println("\nFolder Tested: " + folder + "\nFound: " + cr.size() + " Initial Conflict Reasons");
-//			AtomicTester.printICR(cr);
+			AtomicTester.printICR(cr);
 
 			Set<CriticalPair> cp = resultE.get(folder);
 			System.out.println("Found: " + cp.size() + " Initial Critical Pairs");
-//			CPATester.printCP(cp);
+			CPATester.printCP(cp);
 		}
 	}
 
@@ -101,20 +101,20 @@ public class FeatureModellTest {
 		toTest++;
 	}
 
-	@Test
-	public void test2() {
-		toTest++;
-	}
-
-	@Test
-	public void test3() {
-		toTest++;
-	}
-
-	@Test
-	public void test4() {
-		toTest++;
-	}
+//	@Test
+//	public void test2() {
+//		toTest++;
+//	}
+//
+//	@Test
+//	public void test3() {
+//		toTest++;
+//	}
+//
+//	@Test
+//	public void test4() {
+//		toTest++;
+//	}
 //
 //	@Test
 //	public void test5() {
