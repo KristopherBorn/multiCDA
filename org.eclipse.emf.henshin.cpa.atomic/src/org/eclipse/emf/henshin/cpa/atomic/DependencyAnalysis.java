@@ -21,8 +21,34 @@ import org.eclipse.emf.henshin.model.MappingList;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
-public class DependencyAnalysis {
+public class DependencyAnalysis implements MultiGranularAnalysis {
 
+	@Override
+	public Span computeResultsBinary() {
+		return hasDependencies();
+	}
+
+	@Override
+	public Set<Span> computeResultsCoarse() {
+		Set<Span> results = new HashSet<Span>();
+		computeMinimalDependencyReasons().forEach(r -> results.add(r));
+		return results;
+	}
+
+	@Override
+	public Set<Span> computeResultsFine() {
+		Set<Span> results = new HashSet<Span>();
+		computeInitialDependencyReasons().forEach(r -> results.add(r));
+		return results;
+	}
+	
+
+	@Override
+	public Set<Span> computeAtoms() {
+		Set<Span> results = new HashSet<Span>();
+		computeDependencyAtoms().forEach(r -> results.add(r));
+		return results;
+	}
 	private Rule rule1;
 	private Rule rule2;
 
@@ -55,7 +81,7 @@ public class DependencyAnalysis {
 	}
 
 
-	public Set<InitialDependencyReason> computeInitialDependencyReasons(Rule rule1, Rule rule2) {
+	public Set<InitialDependencyReason> computeInitialDependencyReasons() {
 		Set<InitialDependencyReason> result = new HashSet<InitialDependencyReason>();
 		Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
@@ -66,7 +92,7 @@ public class DependencyAnalysis {
 		return result;
 	}
 	
-	public Set<MinimalDependencyReason> computeMinimalDependencyReasons(Rule rule1, Rule rule2) {
+	public Set<MinimalDependencyReason> computeMinimalDependencyReasons() {
 		Set<MinimalDependencyReason> result = new HashSet<MinimalDependencyReason>();
 		Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);

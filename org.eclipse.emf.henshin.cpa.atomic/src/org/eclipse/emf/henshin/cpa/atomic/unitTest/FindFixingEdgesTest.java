@@ -3,6 +3,7 @@ package org.eclipse.emf.henshin.cpa.atomic.unitTest;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
@@ -62,7 +63,7 @@ public class FindFixingEdgesTest {
 		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 
-		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesByLHSOfRule1(decapsulateAttributeRule,
+		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesOfRule1(decapsulateAttributeRule,
 				pushoutResult.getMappingsOfRule1());
 
 		assertEquals(2, findDanglingEdges.size());
@@ -93,22 +94,22 @@ public class FindFixingEdgesTest {
 
 		for (Edge danglingEdge : findDanglingEdges) {
 			if (danglingEdge.getType().getName().equals("methods")) {
-				List<Edge> findFixingEdges = atomicCoreCPA.findFixingEdges(decapsulateAttributeRule,
+				Set<Edge> findFixingEdges = atomicCoreCPA.findFixingEdges(decapsulateAttributeRule,
 						pullUpEncapsulatedAttributeRule, span, danglingEdge, pushoutResult.getMappingsOfRule1(),
 						pushoutResult.getMappingsOfRule2());
 				// its expected to get the "methods" edge between from node "1:Class" to node "2:Method"
 				assertEquals(1, findFixingEdges.size());
-				assertEquals("methods", findFixingEdges.get(0).getType().getName());
-				assertEquals(decapsulateAttributeRule.getLhs(), findFixingEdges.get(0).getGraph());
+				assertEquals("methods", findFixingEdges.iterator().next().getType().getName());
+				assertEquals(decapsulateAttributeRule.getLhs(), findFixingEdges.iterator().next().getGraph());
 			}
 			if (danglingEdge.getType().getName().equals("type")) {
-				List<Edge> findFixingEdges = atomicCoreCPA.findFixingEdges(decapsulateAttributeRule,
+				Set<Edge> findFixingEdges = atomicCoreCPA.findFixingEdges(decapsulateAttributeRule,
 						pullUpEncapsulatedAttributeRule, span, danglingEdge, pushoutResult.getMappingsOfRule1(),
 						pushoutResult.getMappingsOfRule2());
 				// its expected to get the "type" edge between from node "2:Method" to node "6:Class"
 				assertEquals(1, findFixingEdges.size());
-				assertEquals("type", findFixingEdges.get(0).getType().getName());
-				assertEquals(decapsulateAttributeRule.getLhs(), findFixingEdges.get(0).getGraph());
+				assertEquals("type", findFixingEdges.iterator().next().getType().getName());
+				assertEquals(decapsulateAttributeRule.getLhs(), findFixingEdges.iterator().next().getGraph());
 			}
 		}
 

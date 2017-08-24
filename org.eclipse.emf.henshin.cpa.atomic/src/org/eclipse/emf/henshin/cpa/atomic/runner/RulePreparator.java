@@ -14,7 +14,7 @@ public class RulePreparator {
   newRule.setLhs(rule.getLhs());
   newRule.setRhs(rule.getRhs());
   newRule.getMappings().addAll(rule.getMappings());
-  newRule.setName(rule.getName() + "x");
+  newRule.setName(rule.getName());
   
   for (Node node : newRule.getLhs().getNodes()) {
    node.getAttributes().clear();

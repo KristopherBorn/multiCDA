@@ -21,7 +21,9 @@ public class FmEditEvalRunner extends EvalRunner {
 
 	private ResourceSetImpl resourceSet;
 
-	public static List<Granularity> granularities = Arrays.asList(Granularity.atoms,Granularity.fine,Granularity.coarse,Granularity.ess,Granularity.essUnfiltered);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse);
+//	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.coarse,Granularity.fine,Granularity.ess);
+//	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.fine,Granularity.coarse,Granularity.ess,Granularity.essUnfiltered);
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
@@ -48,7 +50,7 @@ public class FmEditEvalRunner extends EvalRunner {
 		String subDirectoryPath = "rules\\fmedit";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(7, 8);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(4, 5);
 	}
 	
 
