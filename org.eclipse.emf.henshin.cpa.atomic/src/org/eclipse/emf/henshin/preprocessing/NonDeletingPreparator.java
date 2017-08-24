@@ -1,5 +1,6 @@
 package org.eclipse.emf.henshin.preprocessing;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,5 +48,13 @@ public class NonDeletingPreparator {
 				
 		}
 		return copiesOfRulesWithoutDeletion;
+	}
+	public static List<Rule> prepareNoneDeletingsVersionsRules(List<Rule> rules) {
+		List<Rule> result = new ArrayList<Rule>();
+		List<RulePair> pairs = prepareNonDeletingVersions(rules);
+		for (RulePair rulePair : pairs) {
+			result.add(rulePair.getCopy());
+		}
+		return result;
 	}
 }

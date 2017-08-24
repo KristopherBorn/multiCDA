@@ -18,6 +18,8 @@ import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
+import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
+import org.eclipse.emf.henshin.preprocessing.RulePair;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -30,7 +32,6 @@ public class FeatureModellTest {
 	private static AtomicTester aTester;
 	private static CPATester cTester;
 	private static List<Rule> rules;
-	private static List<Rule> preserveRules;
 	private static int toTest = 0;
 	private static Map<String, Set<InitialConflictReason>> resultA = new HashMap<String, Set<InitialConflictReason>>();
 	private static Map<String, Set<CriticalPair>> resultE = new HashMap<String, Set<CriticalPair>>();
@@ -64,20 +65,19 @@ public class FeatureModellTest {
 				for (Unit u : module.getUnits())
 					if (u instanceof Rule){
 						Rule prepared = RulePreparator.prepareRule((Rule) u);
-						preserveRules.add(prepared);
 						rules.add(prepared);
 					}
 			}
 		}
 		Set<InitialConflictReason> inits = new HashSet<>();
 		for (Rule r : rules) {
-			for (Rule r2 : preserveRules) {
+			for (Rule r2 : NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules)) {
 				aTester = new AtomicTester(r, r2);
 				inits.addAll(aTester.getInitialReasons());
 			}
 		}
 		resultA.put(folders[toTest], inits);
-		cTester = new CPATester(rules, preserveRules);
+		cTester = new CPATester(rules, NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules));
 		resultE.put(folders[toTest], cTester.getInitialCriticalPairs());
 	}
 
