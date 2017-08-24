@@ -105,9 +105,6 @@ public class PushoutResult {
 		for (Node node : s1.getNodes()) {
 			// retarget associated edges
 			// get associated node and mapping in both copies
-			if (s1span.getMappingIntoRule2(node) == null) { // TODO: remove!
-				System.out.println("bla");
-			}
 
 			Node l1node = s1span.getMappingIntoRule1(node).getImage();
 			Node l2node = s1span.getMappingIntoRule2(node).getImage();
@@ -158,7 +155,10 @@ public class PushoutResult {
 				// löschen des Knoten "nodeInL2y"
 				Graph graphOfNodeL2 = discardNode.getGraph();
 				boolean removedNode = graphOfNodeL2.removeNode(discardNode);
+<<<<<<< HEAD
 //				System.err.println("removedNode: " + removedNode);
+=======
+>>>>>>> dd9130c215467510a5725873183358d318c6c94e
 
 				// löschen der doppelten Kanten
 				if (DELETE_DUPLICATE_EDGES) {
@@ -180,10 +180,10 @@ public class PushoutResult {
 
 		// check that NO edges and nodes are remaining in copyOfLhsOfRule2
 		if (l2copy.getEdges().size() > 0) {
-			System.err.println(l2copy.getEdges().size() + " edges reaming in " + l2copy + ", but should be 0");
+			System.err.println(l2copy.getEdges().size() + " edges remaining in " + l2copy + ", but should be 0");
 		}
 		if (l2copy.getNodes().size() > 0) {
-			System.err.println(l2copy.getNodes().size() + " nodes reaming in " + l2copy + ", but should be 0");
+			System.err.println(l2copy.getNodes().size() + " nodes remaining in " + l2copy + ", but should be 0");
 		}
 
 		// check that the number of edges and nodes in edgeInCopyOfLhsOfRule1 is

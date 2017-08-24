@@ -126,8 +126,6 @@ public class ComputeMinConflReasonsTest {
 				fourNodeMinReasonFound = true;
 			}
 
-			System.out.println("NumberOfNodesInMinReason: " + nodesOfMinReason.size());
-			System.out.println(nodesOfMinReason.toString());
 		}
 
 		assertTrue(threeNodeMinReasonFound);

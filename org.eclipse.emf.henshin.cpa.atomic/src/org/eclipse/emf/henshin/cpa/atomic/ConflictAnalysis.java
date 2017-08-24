@@ -71,7 +71,16 @@ public class ConflictAnalysis {
 		return overallMinimalConflictReasons;
 	}
 	
-	public List<ConflictAtom> computeConflictAtoms() {
+	public ConflictAtom hasConflicts() {
+		List<ConflictAtom> cas = computeConflictAtoms(true);
+		if (cas.isEmpty())
+			return null;
+		else 
+			return cas.get(0);
+	}
+
+	
+	public List<ConflictAtom> computeConflictAtoms(boolean... earlyExit) {
 		
 		checkNull(rule1, "rule1");
 		checkNull(rule2, "rule2");
@@ -95,6 +104,10 @@ public class ConflictAnalysis {
 				// TODO: wieso ein Atom die "reasons" benötigt ist mir noch unklar.
 				// Bzw.was die Datenstruktur "Atom" überhaupt umfasst.
 			}
+			
+			
+			if (!result.isEmpty() && earlyExit.length > 0 && earlyExit[0] == true)
+				return result;
 		}
 		return result;
 	}
@@ -701,7 +714,6 @@ public class ConflictAnalysis {
 		PushoutResult pushoutResult = constructPushout(rule1, rule2, s1);
 		List<Edge> danglingEdges = findDanglingEdgesByLHSOfRule1(rule1, pushoutResult.getMappingsOfRule1());
 //		System.out.println(s1.getGraph().getNodes() + " " + s1.getGraph().getEdges());
-	
 		List<Edge> fixingEdges = new LinkedList<>();
 		for (Edge danglingEdge : danglingEdges) {
 			List<Edge> fixingEdges_e = findFixingEdges(rule1, rule2, s1, danglingEdge,
@@ -831,7 +843,6 @@ public class ConflictAnalysis {
 				extSpan.mappingsInRule1.add(newSourceNodeMapping);
 				s1Target = maps.rule1ToS1.get(fixingTarget);
 				s1Existing = s1Target;
-//				System.err.println(" source war baumelnd!");
 			} else
 				// wenn NULL - erstellen von Knoten und Kante in graph, und mapping
 				if (maps.rule1ToS1.get(fixingTarget) == null) {
@@ -844,7 +855,6 @@ public class ConflictAnalysis {
 				extSpan.mappingsInRule1.add(newSourceNodeMapping);
 				s1Source = maps.rule1ToS1.get(fixingSource);
 				s1Existing = s1Source;
-//				System.err.println(" target war baumelnd!");
 			} else {
 				throw new RuntimeException("weder source noch target war baumelnd!");
 			}
@@ -861,12 +871,6 @@ public class ConflictAnalysis {
 			boolean outgoing) {
 		EList<Edge> r2corresponding = findCorrespondingEdges(extSpan, s1Fixing, r2existing, outgoing);
 		for (Edge s2cor : r2corresponding) {
-//			if(outgoing){//TODO: ENTFERNEN!!!!
-//				System.err.println("outgoing situation");
-//			} else {
-//				System.err.println("incoming situation");
-//			}
-//			System.err.println("");
 			Span span = new Span(extSpan, extNode, outgoing ? s2cor.getTarget() : s2cor.getSource());
 		
 			extensions.add(span);
@@ -911,8 +915,7 @@ public class ConflictAnalysis {
 		// für jeden gelöschten Knoten prüfen, dass auch all seine Kanten gelöscht werden.
 		for (Node l1Deleting : l1DeletingNodes) {  
 			Node poDeleting = l1ToOverlap.get(l1Deleting); //(18.04.2017) durch "get()" kann null zurückgegeben werden und es kommt dann im Anschluss zur NPE!
-//			if(poDeleting == null)
-//				System.out.println();
+
 			EList<Edge> poDeletingsEdges = poDeleting.getAllEdges();
 			for (Edge poDeletingsEdge : poDeletingsEdges) {
 				Node poDelSource = poDeletingsEdge.getSource();
@@ -1039,8 +1042,6 @@ public class ConflictAnalysis {
 			}
 		}
 
-//		System.out.println(mappingInRule2.iterator().next().getImage().getGraph().getNodes().size());
-//		System.out.println("found "+danglingEdges.size()+ " dangling edges: "+danglingEdges);
 		return danglingEdges;
 	}
 
@@ -1233,11 +1234,7 @@ public class ConflictAnalysis {
 					if(sameImageInRule1 && sameImageInRule2){
 						nodeInGraph2ToNodeInGraph1.put(nodeOfSpan2, nodeOfSpan1);
 					} else if (sameImageInRule1 ^ sameImageInRule2) {
-//						System.err.println("ERROR!!! - found illegal situation!!!1");
-//						System.err.println("ERROR!!! - found illegal situation!!!2");
-//						System.err.println("ERROR!!! - found illegal situation!!!3");
-//						System.err.println("ERROR!!! - found illegal situation!!!4");
-//						System.err.println("ERROR!!! - found illegal situation!!!5");
+						System.err.println("ERROR!!! - found illegal situation!!!1");
 						return null;
 					}
 				}

@@ -33,6 +33,16 @@ public class DependencyAnalysis {
 	}
 
 
+
+	public DependencyAtom hasDependencies() {
+		Rule invertedRule1 = invertRule(rule1);
+		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
+		 ConflictAtom conflictAtom = ca.hasConflicts();
+		if (conflictAtom != null) {
+			return new DependencyAtom(conflictAtom.getSpan());
+		} else return null;
+	}
+
 	public Set<DependencyAtom> computeDependencyAtoms() {
 		Set<DependencyAtom> result = new HashSet<DependencyAtom>();
 		Rule invertedRule1 = invertRule(rule1);
