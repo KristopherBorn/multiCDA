@@ -45,8 +45,8 @@ public class VererbungsTestOldStyle {
 					secondRule = (Rule) unit;
 			}
 		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(firstRule, secondRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		assertEquals(1, computedConflictAtoms.size());
 		
 		Set<Span> allMinimalConflictReasons = new HashSet<Span>();
@@ -91,8 +91,8 @@ public class VererbungsTestOldStyle {
 					secondRule = (Rule) unit;
 			}
 		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
-		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(firstRule, secondRule);
+		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		assertEquals(1, computedConflictAtoms.size());
 		
 		Set<Span> allMinimalConflictReasons = new HashSet<Span>();

@@ -63,18 +63,16 @@ public class RobustnessTest {
 	//TODO: the Exception checks need to be executed on the ConflictAnalysis constructor
 	@Test
 	public void computeConflictAtomsNotNullTest() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis();
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(null, pullUpEncapsulatedAttributeRule);
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		try {			
-			atomicCoreCPA.computeConflictAtoms(null,
-					pullUpEncapsulatedAttributeRule);
+			atomicCoreCPA.computeConflictAtoms();
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrownOnRule1 = true;
 		}
 		try {			
-			atomicCoreCPA.computeConflictAtoms(decapsulateAttributeRule,
-					null);
+			atomicCoreCPA.computeConflictAtoms();
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrownOnRule2 = true;
 		}
