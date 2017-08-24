@@ -64,7 +64,6 @@ public class FeatureModellTest {
 				for (Unit u : new ArrayList<>(module.getUnits()))
 					if (u instanceof Rule){
 						Rule prepared = RulePreparator.prepareRule((Rule) u);
-						
 						rules.add(prepared);
 					}
 			}
@@ -74,7 +73,11 @@ public class FeatureModellTest {
 			for (Rule r2 : NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules)) {
 				aTester = new AtomicTester(r, r2);
 				inits.addAll(aTester.getInitialReasons());
-//				cTester = new CPATester(r, r2);
+				List<Rule> a = new ArrayList<Rule>();
+				List<Rule> b = new ArrayList<Rule>();
+				a.add(r);
+				b.add(r2);
+				cTester = new CPATester(a, b);
 			}
 		}
 		resultA.put(folders[toTest], inits);
