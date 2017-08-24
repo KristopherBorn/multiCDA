@@ -65,7 +65,6 @@ public class FeatureModellTest {
 					if (u instanceof Rule){
 						Rule prepared = RulePreparator.prepareRule((Rule) u);
 						rules.add(prepared);
-						
 					}
 			}
 		}
