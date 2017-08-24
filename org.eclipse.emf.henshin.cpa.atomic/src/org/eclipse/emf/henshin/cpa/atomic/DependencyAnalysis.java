@@ -23,7 +23,6 @@ import org.eclipse.emf.henshin.model.Rule;
 
 public class DependencyAnalysis {
 
-	Map<Rule, Copier> mappingOfInvertedRuleToRhsToLhsCopier;
 	private Rule rule1;
 	private Rule rule2;
 
@@ -31,7 +30,6 @@ public class DependencyAnalysis {
 	public DependencyAnalysis(Rule rule1, Rule rule2) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
-		mappingOfInvertedRuleToRhsToLhsCopier = new HashMap<>();
 	}
 
 
@@ -79,7 +77,9 @@ public class DependencyAnalysis {
 	 * @param rule1
 	 * @return the
 	 */
-	public Rule invertRule(Rule rule1) {
+	public static Rule invertRule(Rule rule1) {
+		Map<Rule, Copier> mappingOfInvertedRuleToRhsToLhsCopier = new HashMap<>();
+		
 		// TODO: invert first rule
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
