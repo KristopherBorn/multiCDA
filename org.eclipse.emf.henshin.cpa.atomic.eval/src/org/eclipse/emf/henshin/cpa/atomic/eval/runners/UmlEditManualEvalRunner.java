@@ -19,7 +19,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPackage;
 
-public class UmlEditEvalRunner extends EvalRunner {
+public class UmlEditManualEvalRunner extends EvalRunner {
 
 	private ResourceSetImpl resourceSet;
 	
@@ -28,7 +28,7 @@ public class UmlEditEvalRunner extends EvalRunner {
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
-		new UmlEditEvalRunner().run(granularities, type);
+		new UmlEditManualEvalRunner().run(granularities, type);
 	}
 	
 	@Override
@@ -46,10 +46,10 @@ public class UmlEditEvalRunner extends EvalRunner {
 
 	@Override
 	public List<Rule> getRules() {
-		final File f = new File(UmlEditEvalRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		final File f = new File(UmlEditManualEvalRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String filePath = f.toString();
 		String projectPath = filePath.replaceAll("bin", "");
-		String subDirectoryPath = "rules\\umledit\\manual\\DELETE";
+		String subDirectoryPath = "rules\\umledit\\manual\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
 		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
@@ -58,6 +58,6 @@ public class UmlEditEvalRunner extends EvalRunner {
 
 	@Override
 	public String getDomainName() {
-		return "umledit";
+		return "umledit-manual";
 	}
 }
