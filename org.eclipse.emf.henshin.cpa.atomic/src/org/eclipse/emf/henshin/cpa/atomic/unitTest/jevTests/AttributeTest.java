@@ -45,11 +45,8 @@ public class AttributeTest {
 
 	@Test
 	public void AChangeUseAtomic() {
-		System.out.println("\n\t\t1: " + change + " --> " + use);
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(1));
 		AtomicTester tester = new AtomicTester(path, change, use);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons is not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons is not 1", tester.check(new ICR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
