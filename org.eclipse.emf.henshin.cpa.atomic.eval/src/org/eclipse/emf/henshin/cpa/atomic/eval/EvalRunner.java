@@ -92,7 +92,7 @@ public abstract class EvalRunner {
 					LogData kind = (type == Type.conflicts)? Logger.LogData.ESSENTIAL_DELTE_USE_CONFLICTS :
 						Logger.LogData.ESSENTIAL_PRODUCE_USE_DEPENDENCY;
 					Logger deleteUseLogger = new Logger(kind, rules);
-					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger, null, r1, r2.getCopy(), r2.getOriginal());
+					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger, new ArrayList<Rule>(), r1, r2.getCopy(), r2.getOriginal());
 					log(res.getInitialCriticalPairs().size() + " ");
 				}
 				logn("   | "+r1.getName());
@@ -107,7 +107,7 @@ public abstract class EvalRunner {
 					LogData kind = (type == Type.conflicts)? Logger.LogData.ESSENTIAL_DELTE_USE_CONFLICTS :
 						Logger.LogData.ESSENTIAL_PRODUCE_USE_DEPENDENCY;
 					Logger deleteUseLogger = new Logger(kind, rules);
-					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger, null, r1, r2.getCopy(), r2.getOriginal());
+					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger,  new ArrayList<Rule>(), r1, r2.getCopy(), r2.getOriginal());
 					log(res.getCriticalPairs().size() + " ");
 				}
 				logn("   | "+r1.getName());

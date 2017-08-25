@@ -29,7 +29,6 @@ public class CalculateCpaTask implements Callable<CPAResult> {
 	SingleCpaTaskResultContainer taskResultContainer;
 	
 	public CalculateCpaTask(SingleCpaTaskResultContainer taskResultContainer, AnalysisKind analysisKind) {
-		
 		this.taskResultContainer = taskResultContainer;
 		this.analysisKind = analysisKind;
 		

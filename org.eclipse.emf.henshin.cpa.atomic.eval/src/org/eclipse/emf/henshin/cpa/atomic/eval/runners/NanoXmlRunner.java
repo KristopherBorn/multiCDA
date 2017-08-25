@@ -56,7 +56,7 @@ public class NanoXmlRunner extends EvalRunner {
 		String subDirectoryPath = "rules\\nanoxml\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 8);
 	}
 	
 

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -21,8 +22,10 @@ import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPac
 public class UmlEditEvalRunner extends EvalRunner {
 
 	private ResourceSetImpl resourceSet;
+	
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.ess);
+//	public static List<Granularity> granularities =  Arrays.asList(Granularity.fine,Granularity.ess);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse);
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
@@ -50,7 +53,8 @@ public class UmlEditEvalRunner extends EvalRunner {
 		String subDirectoryPath = "rules\\umledit\\manual\\DELETE";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 8);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 1);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> ofInterest.includes(r.name)).collect(Collectors.toList())
 	}
 	
 

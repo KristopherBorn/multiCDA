@@ -36,7 +36,7 @@ public class EssCPARunner {
 		CPAOptions essentialOptions = new CPAOptions();
 		essentialOptions.setEssential(true);
 		essentialOptions.setIgnoreMultiplicities(true);
-
+		essentialOptions.setComplete(true);;
 		
 		String runtime = "";
 		String numberDeleteUse = "";

@@ -37,7 +37,7 @@ public class PushoutResult {
 	 * @return the mappingsOfRule2
 	 */
 	public List<Mapping> getMappingsOfRule2() {
-		return toMappingList(mappingsOfRule1);
+		return toMappingList(mappingsOfRule2);
 	}
 
 	private List<Mapping> toMappingList(HashMap<Node, Node> map) {
@@ -134,15 +134,7 @@ public class PushoutResult {
 
 				List<Edge> l2nodesOutgoing = new LinkedList<Edge>(discardNode.getOutgoing());
 				for (Edge eOut : l2nodesOutgoing) {
-					// hier prüfen, ob es zwischen den beiden Knoten bereits
-					// eine Kante des Typs gibt. Dann keine weitere Kante
-					// erzeugen!
-					if (DELETE_DUPLICATE_EDGES && mergedNode.getOutgoing(eOut.getType(), eOut.getTarget()) != null) {
-						/* löschen der Kante */
-						duplicateEdgesToDelete.add(eOut);
-					} else {
 						eOut.setSource(mergedNode);
-					}
 				}
 
 				mappingsOfRule2.put(l2node, mergedNode);
@@ -152,16 +144,8 @@ public class PushoutResult {
 							+ " are remaining!");
 				}
 
-				// löschen des Knoten "nodeInL2y"
 				Graph graphOfNodeL2 = discardNode.getGraph();
 				boolean removedNode = graphOfNodeL2.removeNode(discardNode);
-
-				// löschen der doppelten Kanten
-				if (DELETE_DUPLICATE_EDGES) {
-					for (Edge edgeToDelete : duplicateEdgesToDelete) {
-						graphOfNodeL2.removeEdge(edgeToDelete);
-					}
-				}
 			}
 		}
 
@@ -190,6 +174,7 @@ public class PushoutResult {
 					+ (pushout.getNodes().size() - numberOfExpectedNodes));
 		}
 		// set copyOfLhsOfRule1 as resultGraph
+		pushout.setName("Pushout");
 		resultGraph = pushout;
 
 	}

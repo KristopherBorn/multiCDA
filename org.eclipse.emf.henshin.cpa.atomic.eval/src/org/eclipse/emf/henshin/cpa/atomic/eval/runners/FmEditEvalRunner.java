@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -20,8 +21,9 @@ import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPac
 public class FmEditEvalRunner extends EvalRunner {
 
 	private ResourceSetImpl resourceSet;
+	List<String> ofInterest = Arrays.asList("addToGroup_features_Feature","removeFromGroup_features_Feature" );
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.fine,Granularity.ess);
 //	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.coarse,Granularity.fine,Granularity.ess);
 //	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.fine,Granularity.coarse,Granularity.ess,Granularity.essUnfiltered);
 	public static Type type = Type.conflicts;
@@ -50,7 +52,10 @@ public class FmEditEvalRunner extends EvalRunner {
 		String subDirectoryPath = "rules\\fmedit";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(4, 5);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 10);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> ofInterest.contains(r.getName())).collect(Collectors.toList());
+
 	}
 	
 

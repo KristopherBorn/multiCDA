@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.poi.ss.formula.ptg.MemErrPtg;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -25,6 +26,7 @@ import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Action;
+import org.eclipse.emf.henshin.model.Action.Type;
 import org.eclipse.emf.henshin.model.Attribute;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -47,7 +49,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public Set<Span> computeResultsCoarse() {
 		Set<Span> results = new HashSet<Span>();
 		computeMinimalConflictReasons().forEach(r -> results.add(r));
-//		results.forEach(r -> System.out.println(r));
+		// results.forEach(r -> System.out.println(r));
 		return results;
 	}
 
@@ -900,208 +902,183 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	private Set<Span> findExtensions(Rule rule1, Rule rule2, Span s1) {
 		PushoutResult pushoutResult = constructPushout(rule1, rule2, s1);
+		CospanMappingToMaps cospanMappings = new CospanMappingToMaps(pushoutResult.getMappingsOfRule1(),
+				pushoutResult.getMappingsOfRule2());
 		List<Edge> danglingEdges = findDanglingEdgesOfRule1(rule1, pushoutResult.getMappingsOfRule1());
 
-		Map<Edge,Set<Edge>> fixingEdges = new HashMap<>();
+		Map<Edge, Set<Edge>> fixingEdgeMap = new HashMap<>();
 		for (Edge danglingEdge : danglingEdges) {
-			Set<Edge> fixingEdges_e = findFixingEdges(rule1, rule2, s1, danglingEdge,
-					pushoutResult.getMappingsOfRule1(), pushoutResult.getMappingsOfRule2());
-			if (!fixingEdges_e.isEmpty()) {
-				for (Edge e : fixingEdges_e) {
-					fixingEdges.put(danglingEdge, fixingEdges_e);
-				}
+			Set<Edge> fixing = findFixingEdges(rule1, rule2, danglingEdge, cospanMappings, s1);
+			if (!fixing.isEmpty()) {
+				fixingEdgeMap.put(danglingEdge, fixing);
 			} else {
 				return new HashSet<Span>();// oder NULL?
 			}
 		}
-		Set<Span> extensions = enumerateExtensions(s1, fixingEdges);
+		Set<Span> extensions = enumerateExtensions(s1, fixingEdgeMap, cospanMappings);
 		return extensions;
 	}
 
-	/*
-	 * Grundidee: die dangling edge hat als einen ihrer beiden Knoten definitiv
-	 * einen Knoten aus dem Graph S1 des Spans! Aus dem Papier: "A naïve
-	 * implementation of this function may enumerate all adjacent edges in L1
-	 * OHNE S1 of e's context node in
-	 * S1" Optimierung aus dem Papier: nur "löschende Kanten" von L_1
-	 * berücksichtigen, da der Knoten auch bereits löschend war. (andernfalls
-	 * wäre es ja nicht zur dangling edge gekommen.) Sollte es keine fixing
-	 * edges geben wird eine leere Menge zurückgegeben. Ansonsten kann es
-	 * antürlich mehrere fixing edges geben. Diese werden ALLE zurückgegeben!
+	/**
 	 * 
+	 * @param rule1
+	 * @param rule2
+	 * @param poDangling
+	 * @param s1
+	 * @param mappingOfRule1InOverlapG
+	 * @param mappingOfRule2InOverlapG
+	 * @return A set of fixing edges, that is, edges in R1 suitable to act as a
+	 *         counterpart for the dangling edge originating from R2.
 	 */
-	// TODO: höchstwahrscheinlich werden noch als zusätzliche Übergabeparameter
-	// die Mappings m_1 und m_2 benötigt
-	// --> Algo anpassen! (ansonsten kann der zugehörige knoten zur dangling
-	// edge nicht eindeutig in S1 bestimmt
-	// werden.)
-	// TODO: die zweite Optimierung haeb ich noch nicht verstanden!
-	// TODO: mwenn (mit Daniel?) geklärt ist, dass die matches notwendig sind,
-	// dann könnte man überlegen die beiden
-	// Listen von mapping edges
-	// und zusätzlich auch noch den Span s1 durch das "pushoutResult" zu
-	// ersetzen, da dieses alle drei kennen
-	// könnte(sollte?)
-	// Alternativ wird das hinfällig wenn eine(/mehrere) zentrale Instanz(en)
-	// die MAppings verwaltet.(Stichwort
-	// "MappingHandler")
-	public Set<Edge> findFixingEdges(Rule rule1, Rule rule2, Span s1, Edge poDangling,
-			List<Mapping> mappingOfRule1InOverlapG, List<Mapping> mappingOfRule2InOverlapG) {
-
-		HashMap<Node, Node> rule1ToOverlap = new HashMap<Node, Node>();
-		HashMap<Node, Node> overlapToRule1 = new HashMap<Node, Node>();
-		for (Mapping mapping : mappingOfRule1InOverlapG) {
-			rule1ToOverlap.put(mapping.getOrigin(), mapping.getImage());
-			overlapToRule1.put(mapping.getImage(), mapping.getOrigin());
-		}
-		HashMap<Node, Node> rule1ToS1 = new HashMap<Node, Node>();
-		HashMap<Node, Node> s1ToRule1 = new HashMap<Node, Node>();
-		for (Mapping mapping : s1.mappingsInRule1) {
-			s1ToRule1.put(mapping.getOrigin(), mapping.getImage());
-			rule1ToS1.put(mapping.getImage(), mapping.getOrigin());
-		}
-
-		// Suitable edges for this purpose are all adjacent edges in L1\S1 of
-		// e's adjacent node in S1
-
-		Set<Edge> fixingEdges = new HashSet<Edge>();
+	public Set<Edge> findFixingEdges(Rule rule1, Rule rule2, Edge poDangling, CospanMappingToMaps comaps, Span s1) {
+		SpanMappings maps = new SpanMappings(s1);
 		Node poDanglingSource = poDangling.getSource();
 		Node poDanglingTarget = poDangling.getTarget();
+		Node r1DanglingSource = comaps.gToRule1.get(poDanglingSource);
+		Node r1DanglingTarget = comaps.gToRule1.get(poDanglingTarget);
 
-		// VORSICHT! vermutlich NPE!!!
-		// Lösung: zweistufiges vorgehen: erst Mapping holen und nur wenn dieses
-		// != null ist darauf zugreifen!
-		Node r1DanglingSource = overlapToRule1.get(poDanglingSource);
-		Node r1DanglingTarget = overlapToRule1.get(poDanglingTarget);
-		Node s1DanglingSource = rule1ToS1.get(r1DanglingSource);
-		Node s1DanglingTarget = rule1ToS1.get(r1DanglingTarget);
-
-		if (s1DanglingSource == null && s1DanglingTarget == null) {
-			throw new RuntimeException("By definition of the pushout, it cannot be the case that both adjacent nodges "
-					+ "of a dangling edge are in S1!");
+		if (r1DanglingSource == null) { // source dangling
+			Set<Edge> r1Candidates = new HashSet<Edge>(r1DanglingTarget.getIncoming(poDangling.getType()));
+			return r1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getSource()) == null)
+					.collect(Collectors.toSet());
+		} else if (r1DanglingTarget == null) { // source dangling
+			Set<Edge> c1Candidates = new HashSet<Edge>(r1DanglingSource.getOutgoing(poDangling.getType()));
+			return c1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getTarget()) == null)
+					.collect(Collectors.toSet());
 		}
-
-		// System.out.println("Current graph: "+s1.getGraph().getNodes() + " "
-		// +s1.getGraph().getEdges());
-
-		if (s1DanglingSource != null) { // target is dangling
-			EList<Edge> r1DanglingSourceOutgoing = r1DanglingSource.getOutgoing(poDangling.getType());
-			for (Edge eOut : r1DanglingSourceOutgoing) {
-				if (eOut.getAction().getType().equals(Action.Type.DELETE) && rule1ToS1.get(eOut.getTarget()) == null)
-					fixingEdges.add(eOut);
-			}
-		} else if (s1DanglingTarget != null) { // source is dangling
-			EList<Edge> r1DanglingTargetIncoming = r1DanglingTarget.getIncoming(poDangling.getType());
-			for (Edge eIn : r1DanglingTargetIncoming) {
-				if (eIn.getAction().getType().equals(Action.Type.DELETE) && rule1ToS1.get(eIn.getSource()) == null)
-					fixingEdges.add(eIn);
-			}
-		} else {
-			System.err.println("Neither source nor target of tangling edge were dangling!");
-		}
-
-		// System.out.println("found "+fixingEdges.size()+ " fixing edges:
-		// "+fixingEdges);
-		return fixingEdges;
+		throw new RuntimeException("Invalid state: neither source nor target were dangling in L1!");
 	}
 
-	public Set<Span> enumerateExtensions(Span s1, Map<Edge,Set<Edge>> fixingEdges) {
-		Set<Span> extensions = new HashSet<Span>(); // LinkedList<Span>();
-		// Choose an arbitary dangling-fixing edge pair and use it to extend the span.
-		// Additional fixing edges might be required to fix additional dangling
-		// edges between the new and old end of the fixing edge.
-		for (Edge danglingEdge : fixingEdges.keySet()) {
-			for (Edge fixingEdge : fixingEdges.get(danglingEdge)) {
-				Span extSpan = new Span(s1);
-				SpanMappings maps = new SpanMappings(extSpan);
+	public Set<Span> enumerateExtensions(Span originalSpan, Map<Edge, Set<Edge>> fixingEdges,
+			CospanMappingToMaps comaps) {
+		Set<Span> extensions = new HashSet<Span>();
+		// Choose an arbitrary dangling-fixing edge pair and use it to extend
+		// the span. Additional fixing edges might be consumed to fix additional
+		// dangling edges between the new and old end of the fixing edge.
+		for (Edge danglingEdgePO : fixingEdges.keySet()) {
+			for (Edge fixingEdgeR1 : fixingEdges.get(danglingEdgePO)) {
+				Span span1 = new Span(originalSpan);
+				SpanMappings maps = new SpanMappings(span1);
+				Node srcR1 = fixingEdgeR1.getSource();
+				Node trgR1 = fixingEdgeR1.getTarget();
+				Node srcR2 = comaps.gToRule2.get(danglingEdgePO.getSource());
+				Node trgR2 = comaps.gToRule2.get(danglingEdgePO.getTarget());
+				Node srcS1 = maps.rule1ToS1.get(srcR1);
+				Node trgS1 = maps.rule1ToS1.get(trgR1);
 
-				Node fixingSource = fixingEdge.getSource();
-				Node fixingTarget = fixingEdge.getTarget();
-				if (maps.rule1ToS1.get(fixingSource) != null && maps.rule1ToS1.get(fixingTarget) != null)
-					throw new RuntimeException("Fixing edge is already present in S1!");
-
-				Node extNode = null;
-				Node s1Existing = null;
-				Node s1Source = null;
-				Node s1Target = null;
-
-				if (maps.rule1ToS1.get(fixingSource) == null) { // source-end is
-																// dangling
-					extNode = henshinFactory.createNode(extSpan.getGraph(), fixingSource.getType(),
-							fixingSource.getName() + "_");
-					s1Source = extNode;
-
-					Mapping newSourceNodeMapping = henshinFactory.createMapping(extNode, fixingSource);
-					extSpan.mappingsInRule1.add(newSourceNodeMapping);
-					s1Target = maps.rule1ToS1.get(fixingTarget);
-					s1Existing = s1Target;
-				} else if (maps.rule1ToS1.get(fixingTarget) == null) { // target-end
-																		// dangling
-					extNode = henshinFactory.createNode(extSpan.getGraph(), fixingTarget.getType(),
-							fixingTarget.getName() + "_");
-					s1Target = extNode;
-
-					Mapping newSourceNodeMapping = henshinFactory.createMapping(extNode, fixingTarget);
-					extSpan.mappingsInRule1.add(newSourceNodeMapping);
-					s1Source = maps.rule1ToS1.get(fixingSource);
-					s1Existing = s1Source;
-				} else {
-					throw new RuntimeException("weder source noch target war baumelnd!");
+				boolean sourceDangling = true;
+				if (srcS1 == null) {
+					srcS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(srcR1, srcR2),
+							srcR1.getName() + "_" + srcR2.getName());
+					span1.mappingsInRule1.add(henshinFactory.createMapping(srcS1, srcR1));
+					span1.mappingsInRule2.add(henshinFactory.createMapping(srcS1, srcR2));
+				} else if (trgS1 == null) {
+					sourceDangling = false;
+					trgS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(trgR1, trgR2),
+							trgR1.getName() + "_" + trgR2.getName());
+					span1.mappingsInRule1.add(henshinFactory.createMapping(trgS1, trgR1));
+					span1.mappingsInRule2.add(henshinFactory.createMapping(trgS1, trgR2));
 				}
-				// create corresponding edge of fixingEdge in graph of span.
-				Edge s1Fixing = henshinFactory.createEdge(s1Source, s1Target, fixingEdge.getType());
-				Node r2existing = maps.s1ToRule2.get(s1Existing);
-				boolean sourceExistsInS1 = (s1Existing == s1Fixing.getSource());
-				
-				// There still may be dangling edges between the existing and the
-				// extended node. We now go through all combinations of fixing them
-				// and create an extension for each of them.
-//				findFixingCombinations(danglingEdge, s1Existing,extNode,sourceExistsInS1,maps,fixingEdges);
-				
-				
-				createExtensions(extensions, extSpan, extNode, s1Fixing, r2existing, sourceExistsInS1, fixingEdges);
+
+				// Treatment of conflict-atom edges
+				EList<Node> preserveNodes = rule1.getActionNodes(new Action(Type.PRESERVE));
+				if (preserveNodes.contains(fixingEdgeR1.getSource()) && preserveNodes.contains(fixingEdgeR1.getTarget())) {
+					Map<Edge, Edge> entry = new HashMap<Edge, Edge>();
+					entry.put(danglingEdgePO, fixingEdgeR1);
+					createExtension(extensions, entry, span1);
+				} else {// Treatment of conflict-atom nodes
+					List<Map<Edge, Edge>> combinations = getFixingFamily(danglingEdgePO, sourceDangling, fixingEdges,
+							span1, comaps);
+					for (Map<Edge, Edge> combination : combinations) {
+						createExtension(extensions, combination, span1);
+					}
+
+				}
 			}
 		}
 		return extensions;
 	}
 
-	private List<List<EdgePair>> findFixingCombinations(Edge danglingEdge, Node s1Existing, Node extNode, boolean outgoing,
-			SpanMappings maps, Map<Edge, Set<Edge>> fixingEdges) {
-		List<List<EdgePair>> result = new ArrayList<List<EdgePair>>();
-		if (outgoing) {
-			Node entryL1 = danglingEdge.getSource();
-			Node extL1 = danglingEdge.getTarget();		
-			List<Edge> brotherEdges = entryL1.getOutgoing().stream().filter(e->e.getTarget() == extL1).collect(Collectors.toList());	
-			brotherEdges.remove(danglingEdge);
-			List<Edge> sisterEdges = entryL1.getIncoming().stream().filter(e->e.getSource() == extL1).collect(Collectors.toList());	
-			List<Edge> siblingEdges = Stream.concat(brotherEdges.stream(), sisterEdges.stream())
-                    .collect(Collectors.toList());			
-			if (!fixingEdges.keySet().containsAll(siblingEdges)) 
-				return result;
-			
-			Map<Edge, Set<Edge>> fixingEdgesView = new HashMap<Edge, Set<Edge>>(fixingEdges);
-			for (Edge dangling : fixingEdges.keySet()) {
-				if (!siblingEdges.contains(dangling)) {
-					fixingEdgesView.remove(dangling);
-				}
-				for (Edge fixing : new HashSet<>(fixingEdges.get(dangling))) {
-					if (brotherEdges.contains(dangling) && fixing.getTarget() != extL1)
-						fixingEdgesView.get(dangling).remove(fixing);
-					if (sisterEdges.contains(dangling) && fixing.getSource() != entryL1)
-						fixingEdgesView.get(dangling).remove(fixing);
-				}
+	private void createExtension(Set<Span> extensions, Map<Edge, Edge> combination, Span span1) {
+		Span span = new Span(span1);
+		SpanMappings maps = new SpanMappings(span);
+		for (Edge fixingEdge : combination.values()) {
+			Node src = maps.rule1ToS1.get(fixingEdge.getSource());
+			Node trg = maps.rule1ToS1.get(fixingEdge.getTarget());
+			henshinFactory.createEdge(src, trg, fixingEdge.getType());
+		}
+		extensions.add(span);
+	}
+
+	private EClass commonSubClass(Node node1, Node node2) {
+		if (node1.getType() == node2.getType())
+			return node1.getType();
+		if (node1.getType().getEAllSuperTypes().contains(node2.getType()))
+			return node1.getType();
+		if (node2.getType().getEAllSuperTypes().contains(node1.getType()))
+			return node2.getType();
+		throw new RuntimeException("Incompatible types!");
+	}
+
+	private List<Map<Edge, Edge>> getFixingFamily(Edge danglingEdgePO, boolean sourceDangling,
+			Map<Edge, Set<Edge>> fixingEdges, Span span1, CospanMappingToMaps comaps) {
+		SpanMappings maps = new SpanMappings(span1);
+		List<Edge> brotherEdges = new ArrayList<Edge>();
+		List<Edge> sisterEdges = new ArrayList<Edge>();
+		Node srcPO = danglingEdgePO.getSource();
+		Node trgPO = danglingEdgePO.getTarget();
+		if (sourceDangling) {
+			brotherEdges = trgPO.getIncoming().stream().filter(e -> e.getSource() == srcPO)
+					.collect(Collectors.toList());
+			sisterEdges = trgPO.getOutgoing().stream().filter(e -> e.getTarget() == srcPO).collect(Collectors.toList());
+		} else {
+			brotherEdges = srcPO.getIncoming().stream().filter(e -> e.getSource() == trgPO)
+					.collect(Collectors.toList());
+			sisterEdges = srcPO.getOutgoing().stream().filter(e -> e.getTarget() == trgPO).collect(Collectors.toList());
+		}
+		Set<Edge> danglingFamilyPO = Stream.concat(brotherEdges.stream(), sisterEdges.stream())
+				.collect(Collectors.toSet());
+		Map<Edge, Set<Edge>> result = new HashMap<Edge, Set<Edge>>();
+
+		for (Edge toFixPO : danglingFamilyPO) {
+			Set<Edge> potentialFixes = fixingEdges.get(toFixPO);
+			Set<Edge> viable = new HashSet<Edge>();
+			Set<Node> requiredMemberNodes = new HashSet<Node>();
+			Node srcToFix = toFixPO.getSource();
+			Node trgToFix = toFixPO.getTarget();
+			requiredMemberNodes.add(maps.s1ToRule1.get(maps.rule2ToS1.get(comaps.gToRule2.get(srcToFix))));
+			requiredMemberNodes.add(maps.s1ToRule1.get(maps.rule2ToS1.get(comaps.gToRule2.get(trgToFix))));
+
+			for (Edge e : potentialFixes) {
+				Set<Node> memberNodes = new HashSet<Node>();
+				memberNodes.add(e.getSource());
+				memberNodes.add(e.getTarget());
+				if (memberNodes.equals(requiredMemberNodes))
+					viable.add(e);
 			}
+			if (viable.isEmpty()) {
+				return new LinkedList<Map<Edge, Edge>>();
+			} else {
+				result.put(toFixPO, viable);
+			}
+		}
 
-	        List<Map<Edge,Edge>> combis  = new LinkedList<Map<Edge,Edge>>();
-			MapOfLSetEnumerator.combinations(fixingEdgesView,combis);
-//			System.out.println(combis);
+		List<Map<Edge, Edge>> list = new LinkedList<Map<Edge, Edge>>();
+		MapOfLSetEnumerator.combinations(result, list);
+		return list;
+	}
 
+	private Map<Edge, Set<Edge>> deepHashMapCopy(Map<Edge, Set<Edge>> map) {
+		Map<Edge, Set<Edge>> result = new HashMap<Edge, Set<Edge>>();
+		for (Edge key : map.keySet()) {
+			HashSet<Edge> entry = new HashSet<Edge>(map.get(key));
+			result.put(key, entry);
 		}
 		return result;
 	}
 
 	private void createExtensions(Set<Span> extensions, Span extSpan, Node extNode, Edge s1Fixing, Node r2existing,
-			boolean outgoing, Map<Edge, Set<Edge>> fixingEdges) {	
+			boolean outgoing, Map<Edge, Set<Edge>> fixingEdges) {
 		EList<Edge> r2corresponding = findCorrespondingEdges(extSpan, s1Fixing, r2existing, outgoing);
 		for (Edge s2cor : r2corresponding) {
 			Span span = new Span(extSpan, extNode, outgoing ? s2cor.getTarget() : s2cor.getSource());
@@ -1619,28 +1596,32 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		}
 		return conflictReasonsDerivedFromInitialReason;
 	}
-	
 
 }
 
 class EdgePair {
 	Edge dangling;
 	Edge fixing;
+
 	public Edge getDangling() {
 		return dangling;
 	}
+
 	public void setDangling(Edge dangling) {
 		this.dangling = dangling;
 	}
+
 	public Edge getFixing() {
 		return fixing;
 	}
+
 	public void setFixing(Edge fixing) {
 		this.fixing = fixing;
 	}
+
 	public EdgePair(Edge dangling, Edge fixing) {
 		super();
 		this.dangling = dangling;
 		this.fixing = fixing;
-	}	
+	}
 }
