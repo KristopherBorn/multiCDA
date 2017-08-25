@@ -41,6 +41,7 @@ public class FmEditEvalRunner extends EvalRunner {
 		resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
 				new EcoreResourceFactoryImpl());
+		
 	}
 
 	@Override

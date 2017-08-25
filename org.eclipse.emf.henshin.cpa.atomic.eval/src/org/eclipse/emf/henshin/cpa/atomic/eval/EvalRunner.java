@@ -37,6 +37,13 @@ public abstract class EvalRunner {
 		List<RulePair> nonDeleting = NonDeletingPreparator.prepareNonDeletingVersions(rules);
 		initLogs();
 		
+		doMultiGranularCDA(granularities, type, rules, nonDeleting);
+		doAggBasedCpa(granularities, type, rules, nonDeleting);
+
+	}
+
+	protected void doMultiGranularCDA(List<Granularity> granularities, Type type, List<Rule> rules,
+			List<RulePair> nonDeleting) {
 		logbn("Starting CDA with " + rules.size() + " rules.");
 
 		if (granularities.contains(Granularity.atoms)) {
@@ -98,7 +105,10 @@ public abstract class EvalRunner {
 			}
 			logbn("");
 		}
+	}
 
+	protected void doAggBasedCpa(List<Granularity> granularities, Type type, List<Rule> rules,
+			List<RulePair> nonDeleting) {
 		if (granularities.contains(Granularity.ess)) {
 			logn("[AGG] Computing essential critical pairs (filtered):");
 			for (Rule r1 : rules) {
@@ -135,10 +145,9 @@ public abstract class EvalRunner {
 			}
 			logbn("");
 		}
-
 	}
 
-	private void initLogs() {
+	protected void initLogs() {
 		try {
 			Files.write(Paths.get( "logs\\time\\"+path), new String().getBytes(), StandardOpenOption.CREATE_NEW);
 			Files.write(Paths.get( "logs\\results\\"+path), new String().getBytes(), StandardOpenOption.CREATE_NEW);
@@ -147,12 +156,12 @@ public abstract class EvalRunner {
 		}
 	}
 
-	private void logbn(String string) {
+	protected void logbn(String string) {
 		log(string+"\n");
 		tlog(string+"\n");
 	}
 
-	private void tlog(String string) {
+	protected void tlog(String string) {
 			try {
 				Files.write(Paths.get( "logs\\time\\"+path), string.getBytes(), StandardOpenOption.APPEND);
 			} catch (IOException e) {
@@ -160,7 +169,7 @@ public abstract class EvalRunner {
 			}
 	}
 	
-	private void log(String string) {
+	protected void log(String string) {
 		System.out.print(string);
 		try {
 			Files.write(Paths.get( "logs\\results\\"+path), string.getBytes(), StandardOpenOption.APPEND);
@@ -169,7 +178,7 @@ public abstract class EvalRunner {
 		}
 	}
 
-	private void logn(String string) {
+	protected void logn(String string) {
 		log(string+ "\n");
 	}
 

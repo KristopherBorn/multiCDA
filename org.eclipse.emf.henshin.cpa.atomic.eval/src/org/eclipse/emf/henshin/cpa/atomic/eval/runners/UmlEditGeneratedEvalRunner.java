@@ -19,7 +19,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPackage;
 
-public class UmlEditComplexRunner extends EvalRunner {
+public class UmlEditGeneratedEvalRunner extends UmlEvalRunner {
 
 	private ResourceSetImpl resourceSet;
 	
@@ -28,7 +28,7 @@ public class UmlEditComplexRunner extends EvalRunner {
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
-		new UmlEditComplexRunner().run(granularities, type);
+		new UmlEditGeneratedEvalRunner().run(granularities, type);
 	}
 	
 	@Override
@@ -46,10 +46,10 @@ public class UmlEditComplexRunner extends EvalRunner {
 
 	@Override
 	public List<Rule> getRules() {
-		final File f = new File(UmlEditComplexRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		final File f = new File(UmlEditGeneratedEvalRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String filePath = f.toString();
 		String projectPath = filePath.replaceAll("bin", "");
-		String subDirectoryPath = "rules\\umledit\\complex";
+		String subDirectoryPath = "rules\\umledit\\generated";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
 		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
@@ -58,6 +58,6 @@ public class UmlEditComplexRunner extends EvalRunner {
 
 	@Override
 	public String getDomainName() {
-		return "umledit-complex";
+		return "umledit-generated";
 	}
 }

@@ -4,27 +4,34 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.emf.henshin.cpa.atomic.eval.EvalRunner;
 import org.eclipse.emf.henshin.cpa.atomic.eval.Granularity;
 import org.eclipse.emf.henshin.cpa.atomic.eval.Type;
+import org.eclipse.emf.henshin.cpa.atomic.eval.util.EssCPARunner;
 import org.eclipse.emf.henshin.cpa.atomic.eval.util.HenshinRuleLoader;
+import org.eclipse.emf.henshin.cpa.atomic.eval.util.Logger;
+import org.eclipse.emf.henshin.cpa.atomic.eval.util.Logger.LogData;
+import org.eclipse.emf.henshin.cpa.atomic.eval.util.RulePair;
+import org.eclipse.emf.henshin.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.uml2.uml.internal.impl.UMLPackageImpl;
 
-import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPackage;
-
-public class UmlEditManualEvalRunner extends EvalRunner {
+public class UmlEditManualEvalRunner extends UmlEvalRunner {
 
 	private ResourceSetImpl resourceSet;
 	
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
+	public static List<Granularity> granularities =  Arrays.asList(
+			//Granularity.coarse,Granularity.fine,
+			Granularity.ess
+//			, Granularity.binary
+			);
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
@@ -35,9 +42,12 @@ public class UmlEditManualEvalRunner extends EvalRunner {
 	public void init() {
 		UMLPackage.eINSTANCE.eClass();
 
-
+		
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
+
+		EPackage.Registry.INSTANCE.put("http://www.eclipse.org/uml2/4.0.0/UML",UMLPackageImpl.eINSTANCE);
+
 		m.put("xmi", new XMIResourceFactoryImpl());
 		resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
@@ -54,6 +64,7 @@ public class UmlEditManualEvalRunner extends EvalRunner {
 		File dir = new File(fullSubDirectoryPath);
 		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
 	}
+	
 	
 
 	@Override
