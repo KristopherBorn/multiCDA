@@ -17,8 +17,11 @@ import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NanoTest {
 
 	private static CPATester eTester;
@@ -47,7 +50,7 @@ public class NanoTest {
 	}
 
 	@Test
-	public void beideRegelnNormal() {
+	public void AbeideRegelnNormal() {
 
 		for (Rule r : rules) {
 			for (Rule r2 : rules) {
@@ -77,7 +80,7 @@ public class NanoTest {
 	}
 
 	@Test
-	public void zweiteNichtLoeschend() {
+	public void BzweiteNichtLoeschend() {
 
 		for (Rule r : rules) {
 			for (Rule r2 : rules) {
