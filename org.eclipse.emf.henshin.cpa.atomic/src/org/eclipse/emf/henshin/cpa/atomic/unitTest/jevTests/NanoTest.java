@@ -29,6 +29,8 @@ public class NanoTest {
 	private static Set<CriticalPair> initspNormal = new HashSet<>();
 	private static Set<Span> initsPreserve = new HashSet<>();
 	private static Set<CriticalPair> initspPreserve = new HashSet<>();
+	private static String resultNormal = "";
+	private static String resultPreserve = "";
 
 	@BeforeClass
 	public static void prepare() {
@@ -52,7 +54,7 @@ public class NanoTest {
 				aTester = new AtomicTester(r, r2, true, false, false, true);
 				initsNormal.addAll(aTester.getInitialReasons());
 				aTester.print();
-				
+
 				List<Rule> a = new ArrayList<Rule>();
 				List<Rule> b = new ArrayList<Rule>();
 				a.add(r);
@@ -60,12 +62,16 @@ public class NanoTest {
 				eTester = new CPATester(a, b, true, true, false, false, true);
 				initspNormal.addAll(eTester.getInitialCriticalPairs());
 				eTester.print();
-				
+
 				int icr = aTester.getInitialReasons().size();
 				int icp = eTester.getInitialCriticalPairs().size();
-				if (icr != icp)
+				if (icr != icp) {
+					resultNormal += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
+							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
+							+ " Initial Critical Pairs\n";
 					System.err.println(
 							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+				}
 			}
 		}
 	}
@@ -78,7 +84,7 @@ public class NanoTest {
 				aTester = new AtomicTester(r, r2, true, false, true, true);
 				initsPreserve.addAll(aTester.getInitialReasons());
 				aTester.print();
-				
+
 				List<Rule> a = new ArrayList<Rule>();
 				List<Rule> b = new ArrayList<Rule>();
 				a.add(r);
@@ -89,19 +95,28 @@ public class NanoTest {
 
 				int icr = aTester.getInitialReasons().size();
 				int icp = eTester.getInitialCriticalPairs().size();
-				if (icr != icp)
+				if (icr != icp) {
+
+					resultPreserve += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
+							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
+							+ " Initial Critical Pairs\n\n";
 					System.err.println(
 							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+				}
 			}
+
 		}
 	}
+
 	@AfterClass
-	public static void after(){
+	public static void after() {
 		System.out.println("_____________________________________________\nNormal second Rules\n");
 		System.out.println("Result of Initial Dependency Reasons [Atomic]: " + initsNormal.size());
 		System.out.println("Result of Initial Dependency Pairs [AGG]: " + initspNormal.size());
 		System.out.println("_____________________________________________\nPreserved second Rules\n");
 		System.out.println("Result of Initial Dependency Reasons [Atomic]: " + initsPreserve.size());
 		System.out.println("Result of Initial Dependency Pairs [AGG]: " + initspPreserve.size());
+		System.err.println("_____________________________________________\nAll Normal Errors:\n" + resultNormal);
+		System.err.println("_____________________________________________\nAll Preserve Errors:\n" + resultPreserve);
 	}
 }
