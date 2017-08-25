@@ -37,7 +37,7 @@ public class FeatureModellTest {
 	private static String[] folders = new String[] { "atomic/arbitrary_edit/", "atomic/generalization/",
 			"atomic/refactoring/", "atomic/specialization/", "complex/arbitrary_edit/", "complex/generalization/",
 			"complex/refactoring/", "complex/specialization/", };
-	private static String pathNoAttr = "testData/featureModelingWithoutUpperLimitsOnReferences/fmedit_noAmalgamation_noNACs_noAttrChange/rules/";
+	private static String pathNoAttr = "testData/featureModeling/fmedit/rules/";
 	private static File[] files;
 
 	@BeforeClass
@@ -67,6 +67,7 @@ public class FeatureModellTest {
 			}
 		}
 		Set<InitialReason> inits = new HashSet<>();
+		Set<CriticalPair> initsp = new HashSet<>();
 		for (Rule r : rules) {
 			for (Rule r2 : NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules)) {
 				aTester = new AtomicTester(r, r2);
@@ -76,10 +77,16 @@ public class FeatureModellTest {
 				a.add(r);
 				b.add(r2);
 				cTester = new CPATester(a, b);
+				initsp.addAll(cTester.getInitialCriticalPairs());
+				int icr = aTester.getInitialConflictReasons().size();
+				int icp = cTester.getInitialCriticalPairs().size();
+				if (icr != icp)
+					System.err.println(
+							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
 			}
 		}
 		resultA.put(folders[toTest], inits);
-		resultE.put(folders[toTest], cTester.getInitialCriticalPairs());
+		resultE.put(folders[toTest], initsp);
 	}
 
 	@AfterClass
@@ -102,38 +109,38 @@ public class FeatureModellTest {
 		toTest++;
 	}
 
-//	@Test
-//	public void test2() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test3() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test4() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test5() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test6() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test7() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test8() {
-//		toTest++;
-//	}
+	@Test
+	public void test2() {
+		toTest++;
+	}
+
+	@Test
+	public void test3() {
+		toTest++;
+	}
+
+	@Test
+	public void test4() {
+		toTest++;
+	}
+
+	@Test
+	public void test5() {
+		toTest++;
+	}
+
+	@Test
+	public void test6() {
+		toTest++;
+	}
+
+	@Test
+	public void test7() {
+		toTest++;
+	}
+
+	@Test
+	public void test8() {
+		toTest++;
+	}
 }

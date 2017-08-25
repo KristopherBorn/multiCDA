@@ -34,11 +34,13 @@ public class CPATester extends Tester {
 	public CPATester(String henshin, String[] first, String[] second) {
 		this(henshin, true, false, first, second);
 	}
-	public CPATester(List<Rule> rules) {
-		this(true, false, rules, rules);
+
+	public CPATester(List<Rule> rules, boolean... options) {
+		this(true, false, rules, rules, options);
 	}
-	public CPATester(List<Rule> rules, List<Rule> rules2) {
-		this(true, false, rules, rules2);
+
+	public CPATester(List<Rule> rules, List<Rule> rules2, boolean... options) {
+		this(true, false, rules, rules2, options);
 	}
 
 	public CPATester(String henshin, String... first) {
@@ -56,16 +58,17 @@ public class CPATester extends Tester {
 	public CPATester(String henshin, boolean essential, String[] first, String[] second) {
 		this(henshin, essential, false, first, second);
 	}
-	
-	public CPATester(boolean essential, boolean dependency, List<Rule> first, List<Rule> second){
-		String ff="", ss="";
+
+	public CPATester(boolean essential, boolean dependency, List<Rule> first, List<Rule> second, boolean... options) {
+		String ff = "", ss = "";
 		for (Rule nameF : first)
 			ff += (ff.isEmpty() ? "" : ", ") + nameF.getName();
 		for (Rule nameS : second)
 			ss += (ss.isEmpty() ? "" : ", ") + nameS.getName();
 		ff = ff.isEmpty() ? "All" : ff;
 		ss = ss.isEmpty() ? "All" : ss;
-		System.out.println("\n\t\t  " + ff + " --> " + ss + "\n\t\t\tCPA " + (essential ? "Essential" : ""));
+		if (options.length >= 1 && options[0])
+			System.out.println("\n\t\t  " + ff + " --> " + ss + "\n\t\t\tCPA " + (essential ? "Essential" : ""));
 
 		CPAOptions o = new CPAOptions();
 		o.setEssential(essential);
@@ -85,8 +88,10 @@ public class CPATester extends Tester {
 		else
 			result = cpa.runConflictAnalysis();
 
-		printResult();
-		print();
+		if (options.length >= 2 && options[1]) {
+			printResult();
+			print();
+		}
 	}
 
 	public CPATester(String henshin, boolean essential, boolean dependency, String[] first, String[] second) {
