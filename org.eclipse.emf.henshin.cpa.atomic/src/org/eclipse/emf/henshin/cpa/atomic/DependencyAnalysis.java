@@ -9,7 +9,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.dependency.DependencyAtom;
 import org.eclipse.emf.henshin.cpa.atomic.dependency.InitialDependencyReason;
@@ -21,8 +21,34 @@ import org.eclipse.emf.henshin.model.MappingList;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
-public class DependencyAnalysis {
+public class DependencyAnalysis implements MultiGranularAnalysis {
 
+	@Override
+	public Span computeResultsBinary() {
+		return hasDependencies();
+	}
+
+	@Override
+	public Set<Span> computeResultsCoarse() {
+		Set<Span> results = new HashSet<Span>();
+		computeMinimalDependencyReasons().forEach(r -> results.add(r));
+		return results;
+	}
+
+	@Override
+	public Set<Span> computeResultsFine() {
+		Set<Span> results = new HashSet<Span>();
+		computeInitialDependencyReasons().forEach(r -> results.add(r));
+		return results;
+	}
+	
+
+	@Override
+	public Set<Span> computeAtoms() {
+		Set<Span> results = new HashSet<Span>();
+		computeDependencyAtoms().forEach(r -> results.add(r));
+		return results;
+	}
 	private Rule rule1;
 	private Rule rule2;
 
@@ -55,18 +81,18 @@ public class DependencyAnalysis {
 	}
 
 
-	public Set<InitialDependencyReason> computeInitialDependencyReasons(Rule rule1, Rule rule2) {
+	public Set<InitialDependencyReason> computeInitialDependencyReasons() {
 		Set<InitialDependencyReason> result = new HashSet<InitialDependencyReason>();
 		Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
-		Set<InitialConflictReason> conflictReasons = ca.computeInitialReasons();
-		for (InitialConflictReason cr : conflictReasons) {
+		Set<InitialReason> conflictReasons = ca.computeInitialReasons();
+		for (InitialReason cr : conflictReasons) {
 			result.add(new InitialDependencyReason(cr));
 		}
 		return result;
 	}
 	
-	public Set<MinimalDependencyReason> computeMinimalDependencyReasons(Rule rule1, Rule rule2) {
+	public Set<MinimalDependencyReason> computeMinimalDependencyReasons() {
 		Set<MinimalDependencyReason> result = new HashSet<MinimalDependencyReason>();
 		Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);

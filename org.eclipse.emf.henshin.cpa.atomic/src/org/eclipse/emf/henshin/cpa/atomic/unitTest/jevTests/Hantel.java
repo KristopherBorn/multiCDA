@@ -2,13 +2,9 @@ package org.eclipse.emf.henshin.cpa.atomic.unitTest.jevTests;
 
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.CpaCdaComparator;
-import org.eclipse.emf.henshin.cpa.atomic.CpaCdaComparator.CompareResult;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.tester.AtomicTester;
 import org.eclipse.emf.henshin.cpa.atomic.tester.CPATester;
-import org.eclipse.emf.henshin.cpa.importer.AggHenshinCriticalPairTranslator;
 import org.eclipse.emf.henshin.cpa.result.CriticalPair;
 import org.junit.AfterClass;
 import org.junit.FixMethodOrder;
@@ -50,7 +46,7 @@ public class Hantel {
 
 	@AfterClass
 	public static void after() {
-		Set<InitialConflictReason> ir = aTester.getInitialReasons();
+		Set<InitialReason> ir = aTester.getInitialConflictReasons();
 		Set<CriticalPair> cp = eTester.getInitialCriticalPairs();
 		AtomicTester.printICR(ir);
 		CPATester.printCP(cp);

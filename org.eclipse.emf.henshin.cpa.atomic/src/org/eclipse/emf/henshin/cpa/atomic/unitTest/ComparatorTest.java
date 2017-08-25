@@ -15,7 +15,7 @@ import org.eclipse.emf.henshin.cpa.atomic.CpaCdaComparator;
 import org.eclipse.emf.henshin.cpa.atomic.CpaCdaComparator.CompareResult;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.result.CPAResult;
@@ -84,12 +84,12 @@ public class ComparatorTest {
 			minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 		}
 		
-		Set<InitialConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<InitialReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(7, computedInitialReason.size());
 		
 		Set<ConflictReason> conflictReasonsDerivedFromInitialReason = new HashSet<ConflictReason>();
 		Set<MinimalConflictReason> originMCRs = new HashSet<MinimalConflictReason>();
-		for(InitialConflictReason initialReason : computedInitialReason){
+		for(InitialReason initialReason : computedInitialReason){
 			System.err.println(initialReason.toShortString());
 			originMCRs.addAll(initialReason.getOriginMCRs());
 			Set<ConflictAtom> byInitialReasonCoveredEdgeConflictAtoms = initialReason.getCoveredEdgeConflictAtoms();

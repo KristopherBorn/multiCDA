@@ -9,7 +9,7 @@ import java.util.Set;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.CR;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.Conditions;
@@ -31,8 +31,8 @@ public class AtomicTester extends Tester {
 	private Rule first;
 	private Rule second;
 	private Set<MinimalConflictReason> minimalConflictReasons;
+	private Set<InitialReason> initialReasons;
 	private Set<ConflictReason> conflictReasons;
-	private Set<InitialConflictReason> initialReasons;
 	private String checked = "";
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
@@ -121,7 +121,7 @@ public class AtomicTester extends Tester {
 		}
 	}
 
-	public Set<InitialConflictReason> getInitialReasons() {
+	public Set<InitialReason> getInitialConflictReasons() {
 		return initialReasons;
 	}
 
@@ -155,7 +155,7 @@ public class AtomicTester extends Tester {
 			return true;
 
 		if (type == Conditions.class || type == InitialConditions.class) {
-			for (InitialConflictReason initialReason : initialReasons) {
+			for (InitialReason initialReason : initialReasons) {
 				Set<ModelElement> elements = initialReason.getDeletionElementsInRule1();
 				// System.out.println(elements);
 				if (!checked.contains("Initial" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
@@ -198,22 +198,15 @@ public class AtomicTester extends Tester {
 			print("MCR: " + minimalReason.getGraph().getEdges() + "\t| " + minimalReason.getGraph().getNodes());
 	}
 
-	public static void printICR(Set<InitialConflictReason> ir) {
-		for (InitialConflictReason initialReason : ir)
+	public static void printICR(Set<InitialReason> ir) {
+		for (InitialReason initialReason : ir)
 			System.out.println(
 					"ICR: " + initialReason.getGraph().getEdges() + "\t| " + initialReason.getGraph().getNodes());
 	}
 
 	public void printICR() {
-		for (InitialConflictReason initialReason : initialReasons)
-			print("ICR: " + initialReason.getGraph().getEdges() + "\t| " + initialReason.getGraph().getNodes());
-	}
-
-	public static void printCR(Set<ConflictReason> cr) {
-		for (ConflictReason conflictReason : cr) {
-			System.out.println(
-					"CR: " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
-		}
+		for (InitialReason initialReason : initialReasons)
+			print("ICR: " + initialReason.getGraph().getEdges());
 	}
 
 	public void printCR() {
