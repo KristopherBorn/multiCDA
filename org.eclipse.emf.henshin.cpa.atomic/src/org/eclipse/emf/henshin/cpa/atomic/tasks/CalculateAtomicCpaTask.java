@@ -67,10 +67,10 @@ public class CalculateAtomicCpaTask implements Callable<List<ConflictAtom>> {
 		for(InitialReason initialReason : initialReasons){
 			Set<Mapping> mappingsInRule1 = initialReason.getMappingsInRule1();
 			Set<Mapping> mappingsInRule2 = initialReason.getMappingsInRule2();
-			List<Edge> danglingEdges = atomicCoreCPA.findDanglingEdgesByLHSOfRule2(mappingsInRule1, secondRule, mappingsInRule2);
-			if(danglingEdges.size() == 0){
-				filteredConflictReasons.add(initialReason);
-			}
+//			List<Edge> danglingEdges = atomicCoreCPA.findDanglingEdgesByLHSOfRule2(mappingsInRule1, secondRule, mappingsInRule2);
+//			if(danglingEdges.size() == 0){
+//				filteredConflictReasons.add(initialReason);
+//			}
 		}
 
 		long conflictReasonEndTime = System.currentTimeMillis();

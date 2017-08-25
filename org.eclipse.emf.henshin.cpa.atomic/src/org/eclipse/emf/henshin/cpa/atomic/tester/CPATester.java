@@ -1,11 +1,14 @@
 package org.eclipse.emf.henshin.cpa.atomic.tester;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.cpa.CPAOptions;
 import org.eclipse.emf.henshin.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.cpa.UnsupportedRuleException;
@@ -21,7 +24,6 @@ import org.eclipse.emf.henshin.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.cpa.result.CriticalElement;
 import org.eclipse.emf.henshin.cpa.result.CriticalPair;
 import org.eclipse.emf.henshin.model.GraphElement;
-import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
@@ -99,6 +101,7 @@ public class CPATester extends Tester {
 		init(f, s, options);
 	}
 
+
 	private void init(List<Rule> first, List<Rule> second, boolean... opt) {
 		options = new Options(opt);
 		String ff = "", ss = "";
@@ -134,16 +137,28 @@ public class CPATester extends Tester {
 		} catch (UnsupportedRuleException e) {
 			System.err.println(e.getMessage());
 		}
+	
+		PrintStream original = System.out;
+		if (options.silent) {
+			System.setOut(new NullPrintStream());
+		}
+		
 		if (options.dependency)
 			result = cpa.runDependencyAnalysis();
 		else
 			result = cpa.runConflictAnalysis();
 
+		if (options.silent)
+			System.setOut(original);
+
+		
 		if (options.printResult) {
 			printResult();
 			print();
 		}
+		
 	}
+
 
 	@Override
 	public boolean check(Class<?> type, Condition... conditions) {
@@ -248,6 +263,7 @@ public class CPATester extends Tester {
 		public boolean noneDeletionSecondRule;
 		public boolean printHeader;
 		public boolean printResult;
+		public boolean silent;
 
 		public Options(boolean... options) {
 			this.essential = options.length >= 1 && options[0] || options.length==0;
@@ -256,7 +272,37 @@ public class CPATester extends Tester {
 			this.noneDeletionSecondRule = options.length >= 4 && options[3];
 			this.printHeader = options.length >= 5 && options[4];
 			this.printResult = options.length >= 6 && options[5];
+			this.silent = options.length >= 7 && options[6];
 		}
 
 	}
 }
+
+
+
+ class NullPrintStream extends PrintStream {
+
+	  public NullPrintStream() {
+	    super(new NullByteArrayOutputStream());
+	  }
+
+	  private static class NullByteArrayOutputStream extends ByteArrayOutputStream {
+
+	    @Override
+	    public void write(int b) {
+	      // do nothing
+	    }
+
+	    @Override
+	    public void write(byte[] b, int off, int len) {
+	      // do nothing
+	    }
+
+	    @Override
+	    public void writeTo(OutputStream out) throws IOException {
+	      // do nothing
+	    }
+
+	  }
+
+	}

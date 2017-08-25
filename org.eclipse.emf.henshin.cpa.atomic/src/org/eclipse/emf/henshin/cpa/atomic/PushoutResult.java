@@ -30,14 +30,14 @@ public class PushoutResult {
 	 * @return the mappingsOfRule1
 	 */
 	public List<Mapping> getMappingsOfRule1() {
-		return toMappingList(mappingsOfRule1);
+		return toMappingList(rule1toPOmap);
 	}
 
 	/**
 	 * @return the mappingsOfRule2
 	 */
 	public List<Mapping> getMappingsOfRule2() {
-		return toMappingList(mappingsOfRule2);
+		return toMappingList(rule2toPOmap);
 	}
 
 	private List<Mapping> toMappingList(HashMap<Node, Node> map) {
@@ -57,8 +57,8 @@ public class PushoutResult {
 
 	Graph resultGraph;
 
-	private HashMap<Node, Node> mappingsOfRule1;
-	private HashMap<Node, Node> mappingsOfRule2;
+	private HashMap<Node, Node> rule1toPOmap;
+	private HashMap<Node, Node> rule2toPOmap;
 
 	@SuppressWarnings("unused")
 	public PushoutResult(Rule rule1, Span s1span, Rule rule2) {
@@ -82,22 +82,22 @@ public class PushoutResult {
 		// Objects.nonNull(rule2); // bringt nichts, nur boolscher Rückgabewert!
 
 		Graph l1 = rule1.getLhs();
-		mappingsOfRule1 = new HashMap<Node, Node>();
-		Copier copierForRule1 = new Copier();
-		Graph pushout = (Graph) copierForRule1.copy(l1);
-		copierForRule1.copyReferences();
+		rule1toPOmap = new HashMap<Node, Node>();
+		Copier copierForRule1Map = new Copier();
+		Graph pushout = (Graph) copierForRule1Map.copy(l1);
+		copierForRule1Map.copyReferences();
 		for (Node node : l1.getNodes()) {
-			Node copyResultNode = (Node) copierForRule1.get(node);
-			mappingsOfRule1.put(node, copyResultNode);
+			Node copyResultNode = (Node) copierForRule1Map.get(node);
+			rule1toPOmap.put(node, copyResultNode);
 		}
 		Graph l2 = rule2.getLhs();
-		mappingsOfRule2 = new HashMap<Node, Node>();
+		rule2toPOmap = new HashMap<Node, Node>();
 		Copier copierForRule2 = new Copier();
 		Graph l2copy = (Graph) copierForRule2.copy(l2);
 		copierForRule2.copyReferences();
 		for (Node node : l2.getNodes()) {
 			Node copyResultNode = (Node) copierForRule2.get(node);
-			mappingsOfRule2.put(node, copyResultNode);
+			rule2toPOmap.put(node, copyResultNode);
 		}
 
 		Graph s1 = s1span.getGraph();
@@ -110,11 +110,10 @@ public class PushoutResult {
 			Node l2node = s1span.getMappingIntoRule2(node).getImage();
 
 			if (l1node == null || l2node == null) {
-				System.out.println("Did not find a L1 or L2 counterpart for one of the nodes in S1!");
-				// TODO: Exception werfen!
+				throw new RuntimeException("Did not find a L1 or L2 counterpart for one of the nodes in S1!");
 			} else {
-				Node mergedNode = mappingsOfRule1.get(l1node);
-				Node discardNode = mappingsOfRule2.get(l2node);
+				Node mergedNode = rule1toPOmap.get(l1node);
+				Node discardNode = rule2toPOmap.get(l2node);
 				mergedNode.setName(mergedNode.getName() + "," + discardNode.getName());
 
 				Set<Edge> duplicateEdgesToDelete = new HashSet<Edge>();
@@ -136,8 +135,11 @@ public class PushoutResult {
 				for (Edge eOut : l2nodesOutgoing) {
 						eOut.setSource(mergedNode);
 				}
-
-				mappingsOfRule2.put(l2node, mergedNode);
+				for (Edge e : duplicateEdgesToDelete) {
+					e.getGraph().getEdges().remove(e);
+				}
+				
+				rule2toPOmap.put(l2node, mergedNode);
 
 				if (discardNode.getAllEdges().size() > 0) {
 					System.err.println("All Edges of should have been removed, but still " + l2node.getAllEdges().size()
@@ -170,9 +172,12 @@ public class PushoutResult {
 		// correct
 		int numberOfExpectedNodes = (l1.getNodes().size() + l2.getNodes().size() - s1.getNodes().size());
 		if (pushout.getNodes().size() != numberOfExpectedNodes) {
-			System.err.println("Amount of nodes in created result graph of pushout not as expected. Difference: "
+			System.err.println("Number of nodes in created result graph of pushout not as expected. Difference: "
 					+ (pushout.getNodes().size() - numberOfExpectedNodes));
 		}
+//		System.out.println();
+//		System.out.println(pushout.getNodes().size() + " N, "+
+//		pushout.getEdges().size() + " E ");
 		// set copyOfLhsOfRule1 as resultGraph
 		pushout.setName("Pushout");
 		resultGraph = pushout;

@@ -24,8 +24,7 @@ public class UmlEditEvalRunner extends EvalRunner {
 	private ResourceSetImpl resourceSet;
 	
 
-//	public static List<Granularity> granularities =  Arrays.asList(Granularity.fine,Granularity.ess);
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
@@ -53,9 +52,12 @@ public class UmlEditEvalRunner extends EvalRunner {
 		String subDirectoryPath = "rules\\umledit\\manual\\DELETE";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 1);
-//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> ofInterest.includes(r.name)).collect(Collectors.toList())
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
 	}
 	
 
+	@Override
+	public String getDomainName() {
+		return "umledit";
+	}
 }

@@ -23,9 +23,8 @@ public class FmEditEvalRunner extends EvalRunner {
 	private ResourceSetImpl resourceSet;
 	List<String> ofInterest = Arrays.asList("addToGroup_features_Feature","removeFromGroup_features_Feature" );
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.fine,Granularity.ess);
-//	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.coarse,Granularity.fine,Granularity.ess);
-//	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.fine,Granularity.coarse,Granularity.ess,Granularity.essUnfiltered);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
+
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
@@ -53,10 +52,12 @@ public class FmEditEvalRunner extends EvalRunner {
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
 		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
-//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 10);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 23);
 //		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> ofInterest.contains(r.getName())).collect(Collectors.toList());
 
 	}
 	
-
+	public String getDomainName() {
+		return "fmedit";
+	}
 }

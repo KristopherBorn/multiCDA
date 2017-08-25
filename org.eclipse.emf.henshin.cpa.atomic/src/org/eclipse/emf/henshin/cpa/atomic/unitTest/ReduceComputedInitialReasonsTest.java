@@ -209,14 +209,14 @@ public class ReduceComputedInitialReasonsTest {
 //					nodesInrule2.add(mapping.getImage());
 //				}
 //			}
-//			if(!skipCR){
-				List<Edge> danglingEdges = atomicCoreCPA.findDanglingEdgesByLHSOfRule2(mappingsInRule1, decapsulateAttributeRule, mappingsInRule2);
-				if(danglingEdges.size()>0){
-					filteredOutResults.add(initialReason);
-				}else {
-					cleanedResults.add(initialReason);
-				}
-//			}
+////			if(!skipCR){
+//				List<Edge> danglingEdges = atomicCoreCPA.findDanglingEdgesByLHSOfRule2(mappingsInRule1, decapsulateAttributeRule, mappingsInRule2);
+//				if(danglingEdges.size()>0){
+//					filteredOutResults.add(initialReason);
+//				}else {
+//					cleanedResults.add(initialReason);
+//				}
+////			}
 		}
 
 		System.err.println("cleanedResults: "+cleanedResults.size());

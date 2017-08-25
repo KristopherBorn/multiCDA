@@ -42,14 +42,18 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	@Override
 	public Span computeResultsBinary() {
-		return hasConflicts().span;
+		ConflictAtom result = hasConflicts();
+		if (result == null)
+			return null;
+		else
+			return result.span;
 	}
 
 	@Override
 	public Set<Span> computeResultsCoarse() {
 		Set<Span> results = new HashSet<Span>();
 		computeMinimalConflictReasons().forEach(r -> results.add(r));
-		// results.forEach(r -> System.out.println(r));
+//		 results.forEach(r -> System.out.println(r));
 		return results;
 	}
 
@@ -129,6 +133,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 			if (!result.isEmpty() && earlyExit.length > 0 && earlyExit[0] == true)
 				return result;
 		}
+		
+//		overallMinimalConflictReasons.stream().forEach(t -> System.out.println(t));
 		return result;
 	}
 
@@ -703,40 +709,12 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 						if (uriOfDeletionEdgeType.toString().equals(uriOfPotentialAssociatedEdgeType.toString()))
 							isHoweverAPreserveEdge = true;
 					}
-				}
-				// try to resolve problems when "FeatureModelPackage.eINSTANCE"
-				// wasnt loaded!
-				// allOutgoing.get(0).getType().eCrossReferences()
-				// getEGenericType().equals(allOutgoing.get(1).getType());
-				// EList<Edge> outgoingWithType =
-				// sourceNodeRhs.getOutgoing(deletionEdge.getType());
-				// URI outgoing0_uri =
-				// EcoreUtil.getURI(allOutgoing.get(0).getType());outgoing0_uri.toString()
-				// URI outgoing1_uri =
-				// EcoreUtil.getURI(allOutgoing.get(1).getType());
-				// URI deleteEdge_uri =
-				// EcoreUtil.getURI(deletionEdge.getType());
-				// System.out.println("HALT");
+				} 
 				if (!isHoweverAPreserveEdge)
 					atomicDeletionEdges.add(deletionEdge);
 			}
 		}
 		return atomicDeletionEdges;
-	}
-
-	private boolean nodeHasAttributeWithDifferingConstantValue(Node el1, EAttribute typeOfComparedAttribute,
-			String valueOfComparedAttribute) {
-		Attribute attribute = el1.getAttribute(typeOfComparedAttribute);
-		if (attribute != null) {
-			if (attributeIsParsable(attribute)) {
-				// TODO: muss hier gegenebenfalls eien Anpassung vorgenommen
-				// werden für variablen (diese sind nciht parsable, können aber
-				// zum Konflikt führen!)
-				if (!attribute.getValue().equals(valueOfComparedAttribute))
-					return true;
-			}
-		}
-		return false;
 	}
 
 	private boolean attributeIsParsable(Attribute attrOfR2) {
@@ -818,22 +796,11 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	private Node addNodeToGraph(Node nodeInRule1, Node nodeInRule2, Graph S1, Set<Mapping> rule1Mappings,
 			Set<Mapping> rule2Mappings) {
-		// to support inheritance the subtype of both nodes must be considered
-		EClass subNodeType = identifySubNodeType(nodeInRule1, nodeInRule2); // TODO:
-																			// might
-																			// return
-																			// null
-																			// -
-																			// Handle
-																			// this!
+		EClass subNodeType = identifySubNodeType(nodeInRule1, nodeInRule2); 
 		Node commonNode = henshinFactory.createNode(S1, subNodeType,
 				nodeInRule1.getName() + "_" + nodeInRule2.getName());
 
-		// TODO: beim Erstellen des Knoten auch ggf. die notwendigen Attribute
-		// mit erstellen!
-		// ?? Alle aus beiden Knoten, oder nur die übereinstimmenden?
-		// ACHTUNG! hier müssen die vier Fälle aus KONST und VAR in Einklang
-		// gebracht werden!
+
 
 		rule1Mappings.add(henshinFactory.createMapping(commonNode, nodeInRule1));
 		rule2Mappings.add(henshinFactory.createMapping(commonNode, nodeInRule2));
@@ -874,24 +841,10 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	private boolean isMinReason(Rule rule1, Rule rule2, Span s1) {
-		// TODO: ist hier der Zusammenhang zwischen C_1 und L_1, also c_1 klar?
 		PushoutResult pushoutResult = constructPushout(rule1, rule2, s1);
-		// TODO: wofür wird G benötigt? Vermutlich nur als Ziel der matches,
-		// oder?
-		// Oder ist das nicht normalerweise das minimale Modell?
-		boolean isMatchM1 = findDanglingEdgesOfRule1(rule1, pushoutResult.getMappingsOfRule1()).isEmpty(); // TODO:
-																											// über
-																											// den
-		// jeweiligen match
-		// sollte doch die
-		// Regel auch
-		// "erreichbar"
-		// sein. Regel als
-		// Parameter daher
-		// überflüssig.
-		// ÜBERFLÜSSIG nach ERKENNTNIS! boolean isMatchM2 =
-		// findDanglingEdges(rule2,
-		// pushoutResult.getMappingsOfRule2()).isEmpty();
+
+		boolean isMatchM1 = findDanglingEdgesOfRule1(rule1, pushoutResult.getMappingsOfRule1()).isEmpty(); 
+
 		return (isMatchM1 /* && isMatchM2 */);
 	}
 
@@ -1077,242 +1030,39 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return result;
 	}
 
-	private void createExtensions(Set<Span> extensions, Span extSpan, Node extNode, Edge s1Fixing, Node r2existing,
-			boolean outgoing, Map<Edge, Set<Edge>> fixingEdges) {
-		EList<Edge> r2corresponding = findCorrespondingEdges(extSpan, s1Fixing, r2existing, outgoing);
-		for (Edge s2cor : r2corresponding) {
-			Span span = new Span(extSpan, extNode, outgoing ? s2cor.getTarget() : s2cor.getSource());
-			extensions.add(span);
-		}
-	}
 
-	private EList<Edge> findCorrespondingEdges(Span newSpan, Edge fixingEdgeInGraphOfSpan, Node r2existing,
-			boolean outgoing) {
-		EList<Edge> potentialUsageEdgesOfFixingEdgeInRule2EList = new BasicEList<Edge>();
-		EList<Edge> edges = outgoing ? r2existing.getOutgoing(fixingEdgeInGraphOfSpan.getType())
-				: r2existing.getIncoming(fixingEdgeInGraphOfSpan.getType());
-		for (Edge e : edges) {
-			boolean found = false;
-			for (Mapping mappingInRule2 : newSpan.mappingsInRule2) {
-				Node node = outgoing ? e.getTarget() : e.getSource();
-				if (node == mappingInRule2.getImage())
-					found = true;
-			}
-			if (!found) {
-				potentialUsageEdgesOfFixingEdgeInRule2EList.add(e);
-			}
-		}
-		return potentialUsageEdgesOfFixingEdgeInRule2EList;
-	}
-
-	public List<Edge> findDanglingEdgesOfRule1(Rule rule, List<Mapping> embedding) {
-		HashMap<Node, Node> l1ToOverlap = new HashMap<Node, Node>();
-		HashMap<Node, Node> overlapToL1 = new HashMap<Node, Node>();
+	public List<Edge> findDanglingEdgesOfRule1(Rule rule1, List<Mapping> embedding) {
+		HashMap<Node, Node> mapL1toG = new HashMap<Node, Node>();
+		HashMap<Node, Node> mapGtoL1 = new HashMap<Node, Node>();
 		for (Mapping mapping : embedding) {
-			l1ToOverlap.put(mapping.getOrigin(), mapping.getImage());
-			overlapToL1.put(mapping.getImage(), mapping.getOrigin());
+			mapL1toG.put(mapping.getOrigin(), mapping.getImage());
+			mapGtoL1.put(mapping.getImage(), mapping.getOrigin());
 		}
 
-		EList<Node> l1DeletingNodes = rule.getActionNodes(new Action(Action.Type.DELETE));
+		EList<Node> l1DeletingNodes = rule1.getActionNodes(new Action(Action.Type.DELETE));
 		List<Edge> danglingEdges = new LinkedList<Edge>();
 
 		for (Node l1Deleting : l1DeletingNodes) {
-			Node poDeleting = l1ToOverlap.get(l1Deleting);
+			Node poDeleting = mapL1toG.get(l1Deleting);
 
 			EList<Edge> poDeletingsEdges = poDeleting.getAllEdges();
 			for (Edge poDeletingsEdge : poDeletingsEdges) {
-				Node poDelSource = poDeletingsEdge.getSource();
-				Node l1DelSource = overlapToL1.get(poDelSource);
+				Node l1DelSource = mapGtoL1.get(poDeletingsEdge.getSource());
 				if (l1DelSource == null) {
 					danglingEdges.add(poDeletingsEdge);
 					continue;
 				}
 
-				Node poDelTarget = poDeletingsEdge.getTarget();
-				Node l1DelTarget = overlapToL1.get(poDelTarget);
+				Node l1DelTarget = mapGtoL1.get(poDeletingsEdge.getTarget());
 				if (l1DelTarget == null) {
 					danglingEdges.add(poDeletingsEdge);
 				}
 			}
+
 		}
 		return danglingEdges;
 	}
 
-	// Spezifikation der Methode: Gibt die Menge der Kanten aus der Regel
-	// zurück, die beim Anwenden auf den overlapGraph
-	// zu einer dangling edge führen würden!
-	public List<Edge> findDanglingEdgesByLHSOfRule2(Set<Mapping> mappingInRule1, Rule rule,
-			Set<Mapping> mappingInRule2) {
-
-		HashMap<Node, Node> l1ToOverlap = new HashMap<Node, Node>();
-		HashMap<Node, Node> overlapToL1 = new HashMap<Node, Node>();
-		for (Mapping mapping : mappingInRule1) { // Hier kommt es zu Problemen,
-													// wenn durch die Mappings
-													// zwei Knoten aus einer
-													// Regel einem Knoten im
-													// Graph zugeordnet sind.
-			// eigentlich dürfte das nicht passieren, da wir injektives matching
-			// vorsehen, aber unsicher ist es dadurch im Fehlerfall dennoch!
-			overlapToL1.put(mapping.getOrigin(), mapping.getImage());
-			l1ToOverlap.put(mapping.getImage(), mapping.getOrigin());
-		}
-
-		HashMap<Node, Node> l2ToOverlap = new HashMap<Node, Node>();
-		HashMap<Node, Node> overlapToL2 = new HashMap<Node, Node>();
-		for (Mapping mapping : mappingInRule2) { // Hier kommt es zu Problemen,
-													// wenn durch die Mappings
-													// zwei Knoten aus einer
-													// Regel einem Knoten im
-													// Graph zugeordnet sind.
-			// eigentlich dürfte das nicht passieren, da wir injektives matching
-			// vorsehen, aber unsicher ist es dadurch im Fehlerfall dennoch!
-			overlapToL2.put(mapping.getOrigin(), mapping.getImage());
-			l2ToOverlap.put(mapping.getImage(), mapping.getOrigin());
-		}
-
-		EList<Node> l2DeletingNodes = rule.getActionNodes(new Action(Action.Type.DELETE));
-		List<Edge> danglingEdges = new LinkedList<Edge>();
-		// für jeden gelöschten Knoten prüfen, dass auch all seine Kanten
-		// gelöscht werden.
-		for (Node l2Deleting : l2DeletingNodes) {
-			Node nodeInOverlapToBeDeletedByRule2 = l2ToOverlap.get(l2Deleting); // (18.04.2017)
-																				// durch
-																				// "get()"
-																				// kann
-																				// null
-																				// zurückgegeben
-																				// werden
-																				// und
-																				// es
-																				// kommt
-																				// dann
-																				// im
-																				// Anschluss
-																				// zur
-																				// NPE!
-			if (nodeInOverlapToBeDeletedByRule2 != null) {
-				EList<Edge> incomingEdgesInOverlapToCheck = nodeInOverlapToBeDeletedByRule2.getIncoming();// getAllEdges();
-				for (Edge potentialDanglingEdgeInOverlap : incomingEdgesInOverlapToCheck) {
-					// Da der Knoten durch die zweite Regel gelöscht wird müssen
-					// auch all seine Kanten
-					// mit denen er im Overlap verbunden ist durch die zweite
-					// REgel gelöscht werden
-					Node sourceNodeOfPotentialDanglingEdgeInOverlap = potentialDanglingEdgeInOverlap.getSource();
-					Node sourceNodeOfPotentialDanglingEdgeInRule2 = overlapToL2
-							.get(sourceNodeOfPotentialDanglingEdgeInOverlap); // könnte
-																				// null
-																				// zurückgeben!
-					if (sourceNodeOfPotentialDanglingEdgeInRule2 != null) {
-						Edge potentialDanglingEdgeInRule2 = sourceNodeOfPotentialDanglingEdgeInRule2
-								.getOutgoing(potentialDanglingEdgeInOverlap.getType(), l2Deleting);
-						if (potentialDanglingEdgeInRule2 == null)
-							danglingEdges.add(potentialDanglingEdgeInOverlap);
-					} else {
-						danglingEdges.add(potentialDanglingEdgeInOverlap);
-					}
-				}
-				EList<Edge> outgoingEdgesInOverlapToCheck = nodeInOverlapToBeDeletedByRule2.getOutgoing();
-				for (Edge potentialDanglingEdgeInOverlap : outgoingEdgesInOverlapToCheck) {
-					// Da der Knoten durch die zweite Regel gelöscht wird müssen
-					// auch all seine Kanten
-					// mit denen er im Overlap verbunden ist durch die zweite
-					// REgel gelöscht werden
-					Node targetNodeOfPotentialDanglingEdgeInOverlap = potentialDanglingEdgeInOverlap.getTarget();
-					Node targetNodeOfPotentialDanglingEdgeInRule2 = overlapToL2
-							.get(targetNodeOfPotentialDanglingEdgeInOverlap); // könnte
-																				// null
-																				// zurückgeben!
-					if (targetNodeOfPotentialDanglingEdgeInRule2 != null) {
-						Edge potentialDanglingEdgeInRule2 = targetNodeOfPotentialDanglingEdgeInRule2
-								.getIncoming(potentialDanglingEdgeInOverlap.getType(), l2Deleting);
-						if (potentialDanglingEdgeInRule2 == null)
-							danglingEdges.add(potentialDanglingEdgeInOverlap);
-					} else {
-						danglingEdges.add(potentialDanglingEdgeInOverlap);
-					}
-				}
-				// TODO: kannes sein, dass hier die asugehenden Kanten der
-				// ersten REgel vernachlässigt werden? Auch diese dürfen nicht
-				// hängend bleiben?
-				// Sobald es durch Regel1 noch weitere ausgehende Kanten gibt,
-				// die nicht durch REgel2 abgedeckt sind kommt es zu eienr
-				// dangling edge und somit invaliden initialReasons
-				// Allerdings din ddie KAnten dabei ausgenommen, die bereits
-				// durch den overlap abgedeckt waren!
-				// Im Umkehrschluss heißt das, dass alle dem Knoten anhängen
-				// Kanten in Regel1 ausgenommen sind, die bereits durch den
-				// Graph abgedeckt sind.
-				Node associatedNodeInRule1 = overlapToL1.get(nodeInOverlapToBeDeletedByRule2);
-				// alle Kanten prüfen, ob diese bereits durch den Graph
-				// abgedeckt sind
-				// oder
-				EList<Edge> allIncomingEdgesInRule1ConnectedToDeletedNodeByRule2 = associatedNodeInRule1.getIncoming();
-				for (Edge incomingEdgeInRule1 : allIncomingEdgesInRule1ConnectedToDeletedNodeByRule2) {
-					// TODO: Wenn eine Kante vom gleichen Typ in gleicher
-					// Richtung an diesem Knoten auch bereits von Regel2
-					// gelöscht wird, so ist diese als potentielle dangling-edge
-					// ausgenommen!
-					EList<Edge> incomingEdgesInRule2OfType = l2Deleting.getIncoming(incomingEdgeInRule1.getType());
-					boolean referenceDeletionByRule2 = false;
-					for (Edge incomingEdgeInRule2OfType : incomingEdgesInRule2OfType) {
-						if (incomingEdgeInRule2OfType.getAction().getType() == Action.Type.DELETE)
-							referenceDeletionByRule2 = true;
-					}
-					if (!referenceDeletionByRule2) {
-						Node sourceOfIncomingInRule1 = incomingEdgeInRule1.getSource();
-						Node sourceNodeInOverlap = l1ToOverlap.get(sourceOfIncomingInRule1);
-						if (sourceNodeInOverlap == null) {
-							// wenn es den verbundenen Knoten der Regel1 nicht
-							// im Overlap gibt, dann kann die zweite Regel nicht
-							// TODO: überprüfen wie es sich verhält, wenn die
-							// zweite REgel einfach das größere löschende Muster
-							// hat und das löschende Muster der ersten Regel nur
-							// ein Teil dessen ist.
-							// Aber dann würde vermutlich die Anwendung von
-							// Regel1 zu dangling Kanten der Regel 2 führen. Wo
-							// ist das abgedeckt?
-							danglingEdges.add(incomingEdgeInRule1);
-						}
-					}
-				}
-				EList<Edge> allOutgoingEdgesInRule1ConnectedToDeletedNodeByRule2 = associatedNodeInRule1.getOutgoing();
-				for (Edge outgoingEdgeInRule1 : allOutgoingEdgesInRule1ConnectedToDeletedNodeByRule2) {
-					// TODO: Wenn eine Kante vom gleichen Typ in gleicher
-					// Richtung an diesem Knoten auch bereits von Regel2
-					// gelöscht wird, so ist diese als potentielle dangling-edge
-					// ausgenommen!
-					EList<Edge> outgoingEdgesInRule2OfType = l2Deleting.getOutgoing(outgoingEdgeInRule1.getType());
-					boolean referenceDeletionByRule2 = false;
-					for (Edge outgoingEdgeInRule2OfType : outgoingEdgesInRule2OfType) {
-						if (outgoingEdgeInRule2OfType.getAction().getType() == Action.Type.DELETE)
-							referenceDeletionByRule2 = true;
-					}
-					if (!referenceDeletionByRule2) {
-						Node targetOfOutgoingInRule1 = outgoingEdgeInRule1.getTarget();
-						Node targetNodeInOverlap = l1ToOverlap.get(targetOfOutgoingInRule1);
-						if (targetNodeInOverlap == null) {
-							// wenn es den verbundenen Knoten der Regel1 nicht
-							// im Overlap gibt, dann kann die zweite Regel nicht
-							// TODO: überprüfen wie es sich verhält, wenn die
-							// zweite REgel einfach das größere löschende Muster
-							// hat und das löschende Muster der ersten Regel nur
-							// ein Teil dessen ist.
-							// Aber dann würde vermutlich die Anwendung von
-							// Regel1 zu dangling Kanten der Regel 2 führen. Wo
-							// ist das abgedeckt?
-							danglingEdges.add(outgoingEdgeInRule1);
-						}
-					}
-				}
-			}
-		}
-
-		return danglingEdges;
-	}
-
-	private enum ConflictAtomKind {
-		DELETE_NODE, DELETE_EDGE, CHANGE_ATTR
-	}
 
 	public Span newSpan(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
 		return new Span(nodeInRule1Mapping, s1, nodeInRule2Mapping);
@@ -1322,19 +1072,9 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return new Span(rule1Mappings, s1, rule2Mappings);
 	}
 
-	// TODO: noch ist unklar ob eine solche Datenstruktur notwendig ist,
-	// oder es sich um Instanzen einer bereits bekannten Datenstruktur handelt.
-	// Je nach Ergebnis löschen oder in eigenständiges class-file auslagern.
-
-	// Generell: Laut Definition 3 ist ein Span z.B. C1<-incl-S1-match->L2
-	// d.h. drei Graphen verbunden über eine Inklusion und einen Match
 
 	public PushoutResult newPushoutResult(Rule rule1, Span span, Rule rule2) {
 		return new PushoutResult(rule1, span, rule2);
-	}
-
-	public class UnsupportedRuleException extends RuntimeException {
-		// TODO
 	}
 
 	// TODO: extract to "ExceptionUtilities" class
