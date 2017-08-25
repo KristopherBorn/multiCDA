@@ -1,5 +1,8 @@
 package org.eclipse.emf.henshin.cpa.atomic.runner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
@@ -22,8 +25,21 @@ public class RulePreparator {
 		for (Node node : newRule.getRhs().getNodes()) {
 			node.getAttributes().clear();
 		}
-		module.getUnits().remove(rule);
-		module.getUnits().add(newRule);
+		if (module != null) {
+			module.getUnits().remove(rule);
+			module.getUnits().add(newRule);
+		}
+		else{
+			System.err.println("Module of the Rule: " + rule + " is null");
+		}
 		return newRule;
+	}
+
+	public static List<Rule> prepareRule(List<Rule> rules) {
+		List<Rule> result = new ArrayList<Rule>();
+		for (Rule rule : rules) {
+			result.add(prepareRule(rule));
+		}
+		return result;
 	}
 }

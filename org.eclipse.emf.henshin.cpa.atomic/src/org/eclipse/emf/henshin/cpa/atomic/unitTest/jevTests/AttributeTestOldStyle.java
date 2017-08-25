@@ -363,7 +363,7 @@ public class AttributeTestOldStyle {
 		tester.ready();
 		
 		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { changeAndConstantFoo }, new String[] { useAndConstantBaa });
+		tester = new CPATester(path, new String[] { changeAndConstantFoo }, new String[] { useAndConstantBaa }, false);
 		tester.print();
 		assertTrue("Critical Pairs are not 0", tester.check(new CP(0)));
 		tester.ready();
@@ -409,7 +409,7 @@ public class AttributeTestOldStyle {
 		tester.ready();
 		
 		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { change }, new String[] { useOne });
+		tester = new CPATester(path, new String[] { change }, new String[] { useOne }, false);
 		tester.print();
 		assertTrue("Critical Pairs are not 0", tester.check(new CP(0)));
 		tester.ready();
@@ -484,7 +484,7 @@ public class AttributeTestOldStyle {
 		tester.ready();
 		
 		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { change }, new String[] { useAndConstantBaa });
+		tester = new CPATester(path, new String[] { change }, new String[] { useAndConstantBaa }, false);
 		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
@@ -559,7 +559,7 @@ public class AttributeTestOldStyle {
 		tester.ready();
 		
 		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { changeAndConstantFoo }, new String[] { use });
+		tester = new CPATester(path, new String[] { changeAndConstantFoo }, new String[] { use }, false);
 		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();

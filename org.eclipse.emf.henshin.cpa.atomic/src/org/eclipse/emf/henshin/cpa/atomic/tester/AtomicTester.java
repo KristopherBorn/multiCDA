@@ -3,14 +3,21 @@ package org.eclipse.emf.henshin.cpa.atomic.tester;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
+import org.eclipse.emf.henshin.cpa.atomic.DependencyAnalysis;
+import org.eclipse.emf.henshin.cpa.atomic.MultiGranularAnalysis;
+import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
+import org.eclipse.emf.henshin.cpa.atomic.dependency.InitialDependencyReason;
+import org.eclipse.emf.henshin.cpa.atomic.dependency.MinimalDependencyReason;
+import org.eclipse.emf.henshin.cpa.atomic.runner.RulePreparator;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.CR;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.Conditions;
 import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.Edge;
@@ -24,31 +31,35 @@ import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
+import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
+import org.eclipse.emf.henshin.preprocessing.testsets.AnalyseAndModifyFeatureModelRefactorings;
 
 public class AtomicTester extends Tester {
 	public boolean PrintFounds = true;
-	private ConflictAnalysis atomic;
+	private MultiGranularAnalysis analyser;
 	private Rule first;
 	private Rule second;
-	private Set<MinimalConflictReason> minimalConflictReasons;
-	private Set<InitialReason> initialReasons;
-	private Set<ConflictReason> conflictReasons;
+	private Set<Span> minimalReasons;
+	private Set<Span> initialReasons;
+	private Set<Span> conflictReasons;
+	private Set<Span> computedAtoms;
 	private String checked = "";
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
-	List<ConflictAtom> computedConflictAtoms;
+	private Options options;
 
-	public AtomicTester(String henshin, String rule) {
-		this(henshin, rule, rule);
+	public AtomicTester(String henshin, String rule, boolean... options) {
+		this(henshin, rule, rule, options);
 	}
 
 	/**
 	 * Geeignet nur für Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
 	 * 
 	 * @param henshin
+	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult
 	 */
-	public AtomicTester(String henshin) {
-		this(henshin, null, null);
+	public AtomicTester(String henshin, boolean... options) {
+		this(henshin, null, null, options);
 	}
 
 	/**
@@ -57,7 +68,7 @@ public class AtomicTester extends Tester {
 	 * @param henshin
 	 * @param firstRule
 	 * @param secondRule
-	 * @param options werden in dieser Reihenfilge akzeptiert: 1:printHeader, 2:printResult
+	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult
 	 */
 	public AtomicTester(String henshin, String firstRule, String secondRule, boolean... options) {
 		if (henshin.isEmpty()
@@ -93,7 +104,7 @@ public class AtomicTester extends Tester {
 	 * 
 	 * @param first
 	 * @param second
-	 * @param options werden in dieser Reihenfilge akzeptiert: 1:printHeader, 2:printResult
+	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult
 	 */
 	public AtomicTester(Rule first, Rule second, boolean... options) {
 		this.first = first;
@@ -101,19 +112,34 @@ public class AtomicTester extends Tester {
 		init(options);
 	}
 
-	protected void init(boolean... options) {
-		if (options.length >= 1 && options[0])
+	protected void init(boolean... opt) {
+		NAME = "Atomic Tester";
+		options = new Options(opt);
+		if (options.printHeader)
 			System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tAtomic");
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
-		atomic = new ConflictAnalysis(first, second);
-		NAME = "Atomic Tester";
 
-		computedConflictAtoms = atomic.computeConflictAtoms();
-		minimalConflictReasons = atomic.getMinimalConflictReasons();
-		initialReasons = atomic.computeInitialReasons(minimalConflictReasons);
-		conflictReasons = atomic.computeConflictReasons(computedConflictAtoms, initialReasons);
-		if (options.length >= 2 && options[1]) {
+		if (options.prepare) {
+			first = RulePreparator.prepareRule(first);
+			second = RulePreparator.prepareRule(second);
+		}
+
+		if (options.noneDeletionSecondRule)
+			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
+
+		if (options.dependency)
+			analyser = new DependencyAnalysis(first, second);
+		else
+			analyser = new ConflictAnalysis(first, second);
+
+		computedAtoms = analyser.computeAtoms();
+		minimalReasons = analyser.computeResultsCoarse();
+		initialReasons = analyser.computeResultsFine();
+		conflictReasons = new HashSet<Span>();
+//		conflictReasons = conflict.computeConflictReasons(computedAtoms, initialReasons);
+
+		if (options.printResult) {
 			printMCR();
 			printICR();
 			printCR();
@@ -121,12 +147,12 @@ public class AtomicTester extends Tester {
 		}
 	}
 
-	public Set<InitialReason> getInitialConflictReasons() {
+	public Set<Span> getInitialReasons() {
 		return initialReasons;
 	}
 
-	public Set<MinimalConflictReason> getMinimalConflictReasons() {
-		return minimalConflictReasons;
+	public Set<Span> getMinimalReasons() {
+		return minimalReasons;
 	}
 
 	@Override
@@ -139,7 +165,7 @@ public class AtomicTester extends Tester {
 					return false;
 				print(condition + " accepted");
 			} else if (condition instanceof MCR) {
-				if (!condition.proove(minimalConflictReasons.size()))
+				if (!condition.proove(minimalReasons.size()))
 					return false;
 				print(condition + " accepted");
 			} else if (condition instanceof CR) {
@@ -155,26 +181,34 @@ public class AtomicTester extends Tester {
 			return true;
 
 		if (type == Conditions.class || type == InitialConditions.class) {
-			for (InitialReason initialReason : initialReasons) {
-				Set<ModelElement> elements = initialReason.getDeletionElementsInRule1();
-				// System.out.println(elements);
-				if (!checked.contains("Initial" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
-					print("Found ICR: " + elements + "\twith " + type.getSimpleName() + " " + getContent(conditions));
-					checked += "Initial" + elements + "\n";
-					iCheckedCounter++;
-					return true;
+			for (Span span : initialReasons) {
+				if (span instanceof InitialReason) {
+					InitialReason initialReason = (InitialReason) span;
+					Set<ModelElement> elements = initialReason.getDeletionElementsInRule1();
+					// System.out.println(elements);
+					if (!checked.contains("Initial" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
+						print("Found ICR: " + elements + "\twith " + type.getSimpleName() + " "
+								+ getContent(conditions));
+						checked += "Initial" + elements + "\n";
+						iCheckedCounter++;
+						return true;
+					}
 				}
 			}
 		}
 		if (type == Conditions.class || type == MinimalConditions.class) {
-			for (MinimalConflictReason minimalReason : minimalConflictReasons) {
-				Set<ModelElement> elements = minimalReason.getDeletionElementsInRule1();
-				// System.out.println(elements);
-				if (!checked.contains("Minimal" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
-					print("Found MCR: " + elements + "\twith " + type.getSimpleName() + " " + getContent(conditions));
-					checked += "Minimal" + elements + "\n";
-					mCheckedCounter++;
-					return true;
+			for (Span span : minimalReasons) {
+				if (span instanceof InitialReason) {
+					MinimalConflictReason minimalReason = (MinimalConflictReason) span;
+					Set<ModelElement> elements = minimalReason.getDeletionElementsInRule1();
+					// System.out.println(elements);
+					if (!checked.contains("Minimal" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
+						print("Found MCR: " + elements + "\twith " + type.getSimpleName() + " "
+								+ getContent(conditions));
+						checked += "Minimal" + elements + "\n";
+						mCheckedCounter++;
+						return true;
+					}
 				}
 			}
 		}
@@ -187,35 +221,43 @@ public class AtomicTester extends Tester {
 		checked = "";
 	}
 
-	public static void printMCR(Set<MinimalConflictReason> mr) {
-		for (MinimalConflictReason minimalReason : mr)
-			System.out.println(
-					"MCR: " + minimalReason.getGraph().getEdges() + "\t| " + minimalReason.getGraph().getNodes());
+	public static void print(Set<? extends Span> spans) {
+		String type = "";
+
+		for (Span span : spans) {
+			if (span instanceof MinimalConflictReason)
+				type = "MCR";
+			else if (span instanceof InitialReason)
+				type = "ICR";
+			else if (span instanceof InitialDependencyReason)
+				type = "IDCR";
+			else if (span instanceof MinimalDependencyReason)
+				type = "MDCR";
+			else if (span instanceof ConflictReason)
+				type = "CR";
+			else
+				type = "SPAN";
+			System.out.println(type + ": " + span.getGraph().getEdges() + "\t| " + span.getGraph().getNodes());
+		}
 	}
 
 	public void printMCR() {
-		for (MinimalConflictReason minimalReason : minimalConflictReasons)
+		for (Span minimalReason : minimalReasons)
 			print("MCR: " + minimalReason.getGraph().getEdges() + "\t| " + minimalReason.getGraph().getNodes());
 	}
 
-	public static void printICR(Set<InitialReason> ir) {
-		for (InitialReason initialReason : ir)
-			System.out.println(
-					"ICR: " + initialReason.getGraph().getEdges() + "\t| " + initialReason.getGraph().getNodes());
-	}
-
 	public void printICR() {
-		for (InitialReason initialReason : initialReasons)
+		for (Span initialReason : initialReasons)
 			print("ICR: " + initialReason.getGraph().getEdges());
 	}
 
 	public void printCR() {
-		for (ConflictReason conflictReason : conflictReasons) {
+		for (Span conflictReason : conflictReasons) {
 			print("CR: " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
 		}
 	}
 
-	public Set<ConflictReason> getConflictReasons() {
+	public Set<Span> getConflictReasons() {
 		return conflictReasons;
 	}
 
@@ -229,7 +271,7 @@ public class AtomicTester extends Tester {
 	@Override
 	public void ready() {
 		int iRest = initialReasons.size() - iCheckedCounter;
-		int mRest = minimalConflictReasons.size() - mCheckedCounter;
+		int mRest = minimalReasons.size() - mCheckedCounter;
 		if (iRest > 0)
 			print("Not all Initial Reasons are tested. " + iRest + (iRest == 1 ? " is" : " are") + " remaining.");
 		if (mRest > 0)
@@ -241,7 +283,30 @@ public class AtomicTester extends Tester {
 
 	@Override
 	public String toString() {
-		return minimalConflictReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size()
+		if(analyser instanceof ConflictAnalysis)
+		return minimalReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size()
 				+ " Initial Conflict Reasons, " + conflictReasons.size() + " Conflict Reasons";
+		if(analyser instanceof DependencyAnalysis)
+			return minimalReasons.size() + " Minimal Dependency Reasons, " + initialReasons.size()
+			+ " Initial Dependency Reasons, " + conflictReasons.size() + " Dependency Reasons";
+		else return super.toString();
+			
+	}
+
+	private static class Options {
+		public boolean dependency;
+		public boolean prepare;
+		public boolean noneDeletionSecondRule;
+		public boolean printHeader;
+		public boolean printResult;
+
+		public Options(boolean... options) {
+			this.dependency = options.length >= 1 && options[0] || options.length == 0;
+			this.prepare = options.length >= 2 && options[1];
+			this.noneDeletionSecondRule = options.length >= 3 && options[2];
+			this.printHeader = options.length >= 4 && options[3];
+			this.printResult = options.length >= 5 && options[4];
+		}
+
 	}
 }

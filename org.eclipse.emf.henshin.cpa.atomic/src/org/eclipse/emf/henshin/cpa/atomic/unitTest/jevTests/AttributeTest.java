@@ -94,26 +94,19 @@ public class AttributeTest {
 
 	@Test
 	public void AChangeUseCPA() {
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { change }, new String[] { use });
-		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { change }, new String[] { use });
-		tester.print();
+		tester = new CPATester(path, new String[] { change }, new String[] { use }, false);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
 
 	@Test
 	public void BChangeUseNAtomic() {
-		System.out.println("\n\t\t2: " + change + " --> " + useN);
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(1));
 		AtomicTester tester = new AtomicTester(path, change, useN);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons is not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons is not 1", tester.check(new ICR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
@@ -122,27 +115,19 @@ public class AttributeTest {
 
 	@Test
 	public void BChangeUseNCPA() {
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { change }, new String[] { useN });
-		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { change }, new String[] { useN });
-		tester.print();
+		tester = new CPATester(path, new String[] { change }, new String[] { useN }, false);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
 
 	@Test
 	public void CChangeNUseAtomic() {
-		System.out.println("\n\t\t3: " + changeN + " --> " + use);
-
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(1));
 		AtomicTester tester = new AtomicTester(path, changeN, use);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons is not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons is not 1", tester.check(new ICR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
@@ -151,26 +136,19 @@ public class AttributeTest {
 
 	@Test
 	public void CChangeNUseCPA() {
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { changeN }, new String[] { use });
-		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { changeN }, new String[] { use });
-		tester.print();
+		tester = new CPATester(path, new String[] { changeN }, new String[] { use }, false);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
 
 	@Test
 	public void DChangeNUseNAtomic() {
-		System.out.println("\n\t\t4: " + changeN + " --> " + useN);
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(1));
-		AtomicTester tester = new AtomicTester(path, changeN, useN);		
-		tester.print();
+		AtomicTester tester = new AtomicTester(path, changeN, useN);	
 		assertTrue("Minimal Conflict Reasons is not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons is not 1", tester.check(new ICR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
@@ -179,15 +157,11 @@ public class AttributeTest {
 
 	@Test
 	public void DChangeNUseNCPA() {
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { changeN }, new String[] { useN });
-		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { changeN }, new String[] { useN });
-		tester.print();
+		tester = new CPATester(path, new String[] { changeN }, new String[] { useN }, false);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 
@@ -195,8 +169,6 @@ public class AttributeTest {
 //__________________________________________________________________________________________________
 	@Test
 	public void EDeleteUseCaseAtomic() {
-		System.out.println("\n\t\t5: " + delete + " --> " + use);
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(1));
 		Conditions _2 = new Conditions(new Node(2));
 		Conditions _3 = new Conditions(new Node(3));
@@ -214,7 +186,6 @@ public class AttributeTest {
 		Conditions _15 = new Conditions(new Node(1),new Node(2), new Node(3), new Node(4));
 		
 		AtomicTester tester = new AtomicTester(pathCases, delete, use);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons is not 4", tester.check(new MCR(4)));
 		assertTrue("Initial Conflict Reasons is not 15", tester.check(new ICR(15)));
 
@@ -239,15 +210,11 @@ public class AttributeTest {
 
 	@Test
 	public void EDeleteUseCaseCPA() {
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(pathCases, new String[] { delete }, new String[] { use });
-		tester.print();
 		assertTrue("Critical Pairs are not 15", tester.check(new CP(15)));
 		tester.ready();
 
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(pathCases, false, new String[] { delete }, new String[] { use });
-		tester.print();
+		tester = new CPATester(pathCases, new String[] { delete }, new String[] { use }, false);
 		assertTrue("Critical Pairs are not 15", tester.check(new CP(15)));
 		tester.ready();
 
@@ -255,10 +222,8 @@ public class AttributeTest {
 	
 	@Test
 	public void FDeleteAttrUseCaseAtomic() {
-		System.out.println("\n\t\t6: " + deleteAttr + " --> " + use);
 		System.out.println("\t\t\tAtomic");
 		AtomicTester tester = new AtomicTester(pathCases, deleteAttr, use);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons is not 0", tester.check(new MCR(0)));
 		assertTrue("Initial Conflict Reasons is not 0", tester.check(new ICR(0)));
 		tester.ready();
@@ -266,15 +231,11 @@ public class AttributeTest {
 
 	@Test
 	public void FDeleteAttrUseCaseCPA() {
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(pathCases, new String[] { deleteAttr }, new String[] { use });
-		tester.print();
 		assertTrue("Critical Pairs are not 0", tester.check(new CP(0)));
 		tester.ready();
 		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(pathCases, false, new String[] { deleteAttr }, new String[] { use });
-		tester.print();
+		tester = new CPATester(pathCases, new String[] { deleteAttr }, new String[] { use }, false);
 		assertTrue("Critical Pairs are not 0", tester.check(new CP(0)));
 		tester.ready();
 

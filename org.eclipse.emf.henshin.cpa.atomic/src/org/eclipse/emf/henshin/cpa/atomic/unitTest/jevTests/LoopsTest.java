@@ -37,7 +37,7 @@ public class LoopsTest {
 	@Ignore
 	public void B() {
 		CP _1 = new CP(49);
-		CPATester tester = new CPATester(path, loop3);
+		CPATester tester = new CPATester(path, new String[]{loop3});
 		assertTrue(_1 + " not correct", tester.check(_1));
 		tester.ready();
 	}
@@ -46,7 +46,7 @@ public class LoopsTest {
 	@Ignore
 	public void B2() {
 		ICP _1 = new ICP(7);
-		CPATester tester = new CPATester(path, loop3);
+		CPATester tester = new CPATester(path, new String[]{loop3});
 		assertTrue(_1 + " not correct", tester.check(_1));
 		tester.ready();
 	}
@@ -55,7 +55,7 @@ public class LoopsTest {
 	@Test
 	@Ignore
 	public void C() {
-		CPATester tester = new CPATester(path, false, loop3);
+		CPATester tester = new CPATester(path, new String[]{loop3}, false);
 		tester.ready();
 	}
 }

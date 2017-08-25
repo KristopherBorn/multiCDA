@@ -25,12 +25,8 @@ public class VererbungsTest {
 
 	@Test
 	public void ASCatomic() {
-		System.out.println("\n\t\t1: " + firstS + " --> " + secondC);
-
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(2));
 		AtomicTester tester = new AtomicTester(path, firstS, secondC);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons are not 1", tester.check(new ICR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
@@ -40,27 +36,19 @@ public class VererbungsTest {
 	@Test
 	public void ASCcpa() {
 
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { firstS }, new String[] { secondC });
-		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
-		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { firstS }, new String[] { secondC });
-		tester.print();
+
+		tester = new CPATester(path, new String[] { firstS }, new String[] { secondC }, true);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
 
 	@Test
 	public void BSSatomic() {
-		System.out.println("\n\t\t2: " + firstS + " --> " + secondS);
-
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(1));
 		AtomicTester tester = new AtomicTester(path, firstS, secondS);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons are not 1", tester.check(new ICR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
@@ -70,27 +58,20 @@ public class VererbungsTest {
 	@Test
 	public void BSScpa() {
 
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { firstS }, new String[] { secondS });
 		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
-		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { firstS }, new String[] { secondS });
-		tester.print();
+
+		tester = new CPATester(path, new String[] { firstS }, new String[] { secondS }, false);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
 
 	@Test
 	public void CCCatomic() {
-		System.out.println("\n\t\t3: " + firstC + " --> " + secondC);
-
-		System.out.println("\t\t\tAtomic");
 		Conditions _1 = new Conditions(new Node(3));
 		AtomicTester tester = new AtomicTester(path, firstC, secondC);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons are not 1", tester.check(new ICR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
@@ -100,26 +81,18 @@ public class VererbungsTest {
 	@Test
 	public void CCCcpa() {
 
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { firstC }, new String[] { secondC });
-		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
-		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { firstC }, new String[] { secondC });
-		tester.print();
+
+		tester = new CPATester(path, new String[] { firstC }, new String[] { secondC }, false);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
 
 	@Test
 	public void DCSatomic() {
-		System.out.println("\n\t\t4: " + firstC + " --> " + secondS);
-
-		System.out.println("\t\t\tAtomic");
 		AtomicTester tester = new AtomicTester(path, firstC, secondS);
-		tester.print();
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
 		assertTrue("Initial Conflict Reasons are not 1", tester.check(new ICR(1)));
 		tester.ready();
@@ -127,16 +100,11 @@ public class VererbungsTest {
 
 	@Test
 	public void DCScpa() {
-
-		System.out.println("\t\t\tCPA Essential");
 		CPATester tester = new CPATester(path, new String[] { firstC }, new String[] { secondS });
-		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
-		
-		System.out.println("\t\t\tCPA");
-		tester = new CPATester(path, false, new String[] { firstC }, new String[] { secondS });
-		tester.print();
+
+		tester = new CPATester(path, new String[] { firstC }, new String[] { secondS }, false);
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}

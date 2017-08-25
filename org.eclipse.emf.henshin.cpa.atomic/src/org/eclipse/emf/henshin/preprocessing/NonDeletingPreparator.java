@@ -57,4 +57,10 @@ public class NonDeletingPreparator {
 		}
 		return result;
 	}
+	public static Rule prepareNoneDeletingsVersionsRules(Rule rule) {
+		List<Rule> result = new ArrayList<Rule>();
+		result.add(rule);
+		List<RulePair> pairs = prepareNonDeletingVersions(result);
+		return pairs.get(0).getCopy();
+	}
 }

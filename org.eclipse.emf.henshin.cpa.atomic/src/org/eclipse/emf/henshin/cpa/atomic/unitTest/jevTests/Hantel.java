@@ -2,7 +2,7 @@ package org.eclipse.emf.henshin.cpa.atomic.unitTest.jevTests;
 
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
+import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.tester.AtomicTester;
 import org.eclipse.emf.henshin.cpa.atomic.tester.CPATester;
 import org.eclipse.emf.henshin.cpa.result.CriticalPair;
@@ -39,16 +39,16 @@ public class Hantel {
 	@Test
 	@Ignore
 	public void C() {
-		CPATester tester = new CPATester(path, false, new String[] { delete }, new String[] { use });
+		CPATester tester = new CPATester(path, new String[] { delete }, new String[] { use }, false);
 		tester.ready();
 
 	}
 
 	@AfterClass
 	public static void after() {
-		Set<InitialReason> ir = aTester.getInitialConflictReasons();
+		Set<Span> ir = aTester.getInitialReasons();
 		Set<CriticalPair> cp = eTester.getInitialCriticalPairs();
-		AtomicTester.printICR(ir);
+		AtomicTester.print(ir);
 		CPATester.printCP(cp);
 	}
 }
