@@ -49,7 +49,7 @@ public class UmlEditGeneratedEvalRunner extends UmlEvalRunner {
 		final File f = new File(UmlEditGeneratedEvalRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String filePath = f.toString();
 		String projectPath = filePath.replaceAll("bin", "");
-		String subDirectoryPath = "rules\\umledit\\generated";
+		String subDirectoryPath = "rules\\umledit\\generated\\DELETE";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
 		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);

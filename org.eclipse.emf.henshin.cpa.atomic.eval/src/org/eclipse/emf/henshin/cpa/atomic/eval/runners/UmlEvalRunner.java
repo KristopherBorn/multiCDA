@@ -24,9 +24,11 @@ public abstract class UmlEvalRunner extends EvalRunner {
 			logn("[AGG] Computing essential critical pairs (filtered):");
 			for (Rule r1 : rules) {
 				for (RulePair r2 : nonDeleting) {
+					long time = System.currentTimeMillis();
 					Logger deleteUseLogger = new Logger(Logger.LogData.ESSENTIAL_DELTE_USE_CONFLICTS, rules);
 					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger, null, r1, r2.getCopy(), r2.getOriginal());
 					log(res.getCriticalPairs().size() + " ");
+					tlog(System.currentTimeMillis() - time + " ");
 				}
 				logn("   | "+r1.getName());
 			}
@@ -37,9 +39,11 @@ public abstract class UmlEvalRunner extends EvalRunner {
 			logn("[AGG] Computing essential critical pairs (unfiltered):");
 			for (Rule r1 : rules) {
 				for (RulePair r2 : nonDeleting) {
+					long time = System.currentTimeMillis();
 					Logger deleteUseLogger = new Logger(Logger.LogData.ESSENTIAL_DELTE_USE_CONFLICTS, rules);
 					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger, null, r1, r2.getCopy(), r2.getOriginal());
 					log(res.getCriticalPairs().size() + " ");
+					tlog(System.currentTimeMillis() - time + " ");
 				}
 				logn("   | "+r1.getName());
 			}
