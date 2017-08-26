@@ -145,6 +145,45 @@ public abstract class EvalRunner {
 			}
 			logbn("");
 		}
+		
+
+
+		if (granularities.contains(Granularity.essSecondDeleting)) {
+			logn("[AGG] Computing essential critical pairs (filtered, second rule deleting):");
+			for (Rule r1 : rules) {
+				for (RulePair r2 : nonDeleting) {
+					long time = System.currentTimeMillis();
+					Set<CriticalPair> initspNormal = new HashSet<>();
+					CPATester eTester = new CPATester(Collections.singletonList(r1),
+							Collections.singletonList(r2.getOriginal()), true, type == Type.dependencies, false, false,
+							false, false, true);
+					initspNormal.addAll(eTester.getInitialCriticalPairs());
+					log(initspNormal.size() + " ");
+					tlog(System.currentTimeMillis() - time + " ");
+				}
+				logbn("   | " + r1.getName());
+			}
+			logbn("");
+		}
+		
+
+		if (granularities.contains(Granularity.full)) {
+			logn("[AGG] Computing essential critical pairs (unfiltered):");
+			for (Rule r1 : rules) {
+				for (RulePair r2 : nonDeleting) {
+					long time = System.currentTimeMillis();
+					Set<CriticalPair> initspNormal = new HashSet<>();
+					CPATester eTester = new CPATester(Collections.singletonList(r1),
+							Collections.singletonList(r2.getCopy()), false, type == Type.conflicts, false, false,
+							false, false, true);
+					initspNormal.addAll(eTester.getCriticalPairs());
+					log(initspNormal.size() + " ");
+					tlog(System.currentTimeMillis() - time + " ");
+				}
+				logbn("   | " + r1.getName());
+			}
+			logbn("");
+		}
 	}
 
 	protected void initLogs() {

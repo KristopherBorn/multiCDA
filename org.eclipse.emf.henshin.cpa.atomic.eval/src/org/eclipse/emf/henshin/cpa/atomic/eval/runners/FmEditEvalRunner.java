@@ -23,7 +23,10 @@ public class FmEditEvalRunner extends EvalRunner {
 	private ResourceSetImpl resourceSet;
 	List<String> ofInterest = Arrays.asList("addToGroup_features_Feature","removeFromGroup_features_Feature" );
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
+	// Start: 10:27
+	
+//	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.essSecondDeleting);
 
 	public static Type type = Type.conflicts;
 	

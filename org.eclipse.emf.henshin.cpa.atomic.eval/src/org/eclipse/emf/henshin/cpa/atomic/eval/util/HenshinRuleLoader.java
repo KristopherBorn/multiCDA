@@ -1,6 +1,7 @@
 package org.eclipse.emf.henshin.cpa.atomic.eval.util;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,10 +31,19 @@ public class HenshinRuleLoader {
 	}
 
 
+	static List<String> filteredNames = Arrays.asList("Generalization_2-6","ExtractALTGroup","Specialization_3-6",
+			"28039_removeChild",
+			"28085_getParent",
+			"28215_setAttribute",
+			"28325_setAttribute",
+			"28364_addChildren"
+);
 	public static List<Rule> loadAllRulesFromFileSystemPaths(File dir) {
 		List<String> pathsToHenshinFiles = inspectDirectoryForHenshinFiles(dir);
 		List<Rule> rules = new LinkedList<Rule>();
 
+		
+		
 		for (String pathToHenshinFiles : pathsToHenshinFiles) {
 			HenshinResourceSet henshinResourceSet = new HenshinResourceSet();
 			Module module = henshinResourceSet.getModule(pathToHenshinFiles);
@@ -41,7 +51,10 @@ public class HenshinRuleLoader {
 				if (unit instanceof Rule) {
 					boolean deactivatedRule = false;
 					if (!deactivatedRule) {
-						rules.add((Rule) unit);
+						if (!filteredNames.contains(unit.getName())) {
+							rules.add((Rule) unit);
+						} else
+							System.out.println("Filtered out "+unit.getName());
 					}
 				}
 			}
