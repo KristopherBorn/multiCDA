@@ -19,6 +19,7 @@ import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.DependencyAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.MultiGranularAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.cc.ConflictAnalysis2;
 import org.eclipse.emf.henshin.cpa.atomic.eval.util.NonDeletingPreparator;
 import org.eclipse.emf.henshin.cpa.atomic.eval.util.RulePair;
 import org.eclipse.emf.henshin.cpa.atomic.runner.RulePreparator;
@@ -225,7 +226,7 @@ public abstract class EvalRunner {
 	private MultiGranularAnalysis getAnalysis(Rule r1, Rule r2, Type type) {
 		switch (type) {
 		case conflicts:
-			return new ConflictAnalysis(r1, r2);
+			return new ConflictAnalysis2(r1, r2);
 		case dependencies:
 			return new DependencyAnalysis(r1, r2);
 		}

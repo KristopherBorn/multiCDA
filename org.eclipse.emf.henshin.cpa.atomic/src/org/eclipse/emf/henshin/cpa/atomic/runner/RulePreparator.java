@@ -3,6 +3,7 @@ package org.eclipse.emf.henshin.cpa.atomic.runner;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.henshin.model.Attribute;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
@@ -11,6 +12,7 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 public class RulePreparator {
 
 	public static Rule prepareRule(Rule rule) {
+		
 		Module module = rule.getModule();
 		Rule newRule = HenshinFactoryImpl.eINSTANCE.createRule();
 		rule.getLhs().setFormula(null);
@@ -19,18 +21,15 @@ public class RulePreparator {
 		newRule.getMappings().addAll(rule.getMappings());
 		newRule.setName(rule.getName());
 
-		for (Node node : newRule.getLhs().getNodes()) {
-			node.getAttributes().clear();
-		}
-		for (Node node : newRule.getRhs().getNodes()) {
-			node.getAttributes().clear();
-		}
+//		for (Node node : newRule.getLhs().getNodes()) {
+//			node.getAttributes().clear();
+//		}
+//		for (Node node : newRule.getRhs().getNodes()) {
+//			node.getAttributes().clear();
+//		}
 		if (module != null) {
 			module.getUnits().remove(rule);
 			module.getUnits().add(newRule);
-		}
-		else{
-			System.err.println("Module of the Rule: " + rule + " is null");
 		}
 		return newRule;
 	}

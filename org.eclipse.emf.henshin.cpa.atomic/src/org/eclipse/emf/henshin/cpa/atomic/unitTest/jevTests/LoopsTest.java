@@ -28,7 +28,7 @@ public class LoopsTest {
 	public void A() {
 
 		ICR _1 = new ICR(7);
-		AtomicTester tester = new AtomicTester(path, loop3);
+		AtomicTester tester = new AtomicTester(path, loop3, false, true, true);
 		assertTrue(_1 + " not correct", tester.check(_1));
 
 	}

@@ -11,6 +11,7 @@ import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.DependencyAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.MultiGranularAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.cc.ConflictAnalysis2;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
@@ -121,8 +122,13 @@ public class AtomicTester extends Tester {
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
 
 		if (options.prepare) {
-			first = RulePreparator.prepareRule(first);
-			second = RulePreparator.prepareRule(second);
+			if (first != second) {
+				first = RulePreparator.prepareRule(first);
+				second = RulePreparator.prepareRule(second);				
+			} else {
+				first = RulePreparator.prepareRule(first);
+				second = first;			
+			}
 		}
 
 		if (options.noneDeletionSecondRule)
@@ -131,9 +137,8 @@ public class AtomicTester extends Tester {
 		if (options.dependency)
 			analyser = new DependencyAnalysis(first, second);
 		else
-			analyser = new ConflictAnalysis(first, second);
+			analyser = new ConflictAnalysis2(first, second);
 
-		computedAtoms = analyser.computeAtoms();
 		minimalReasons = analyser.computeResultsCoarse();
 		initialReasons = analyser.computeResultsFine();
 		conflictReasons = new HashSet<Span>();
@@ -301,7 +306,7 @@ public class AtomicTester extends Tester {
 		public boolean printResult;
 
 		public Options(boolean... options) {
-			this.dependency = options.length >= 1 && options[0] || options.length == 0;
+			this.dependency = options.length >= 1 && options[0];
 			this.prepare = options.length >= 2 && options[1];
 			this.noneDeletionSecondRule = options.length >= 3 && options[2];
 			this.printHeader = options.length >= 4 && options[3];
