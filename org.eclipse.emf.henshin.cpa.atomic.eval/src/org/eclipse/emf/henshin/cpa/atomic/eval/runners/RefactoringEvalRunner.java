@@ -22,7 +22,7 @@ public class RefactoringEvalRunner extends EvalRunner {
 
 	private ResourceSetImpl resourceSet;
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse, Granularity.ess);
 //	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
 	public static Type type = Type.conflicts;
 	

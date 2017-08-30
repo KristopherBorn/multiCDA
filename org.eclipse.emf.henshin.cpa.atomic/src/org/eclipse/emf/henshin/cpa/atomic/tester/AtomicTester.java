@@ -11,8 +11,6 @@ import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.DependencyAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.MultiGranularAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
-import org.eclipse.emf.henshin.cpa.atomic.cc.ConflictAnalysis2;
-import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
@@ -33,7 +31,6 @@ import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
-import org.eclipse.emf.henshin.preprocessing.testsets.AnalyseAndModifyFeatureModelRefactorings;
 
 public class AtomicTester extends Tester {
 	public boolean PrintFounds = true;
@@ -137,7 +134,7 @@ public class AtomicTester extends Tester {
 		if (options.dependency)
 			analyser = new DependencyAnalysis(first, second);
 		else
-			analyser = new ConflictAnalysis2(first, second);
+			analyser = new ConflictAnalysis(first, second);
 
 		minimalReasons = analyser.computeResultsCoarse();
 		initialReasons = analyser.computeResultsFine();

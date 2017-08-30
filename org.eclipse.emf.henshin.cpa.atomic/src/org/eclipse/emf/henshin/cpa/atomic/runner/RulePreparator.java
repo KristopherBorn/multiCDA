@@ -12,6 +12,12 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 public class RulePreparator {
 
 	public static Rule prepareRule(Rule rule) {
+		return prepareRule(rule, true);
+	}
+	
+	
+
+	public static Rule prepareRule(Rule rule, boolean removeAttributes ) {
 		
 		Module module = rule.getModule();
 		Rule newRule = HenshinFactoryImpl.eINSTANCE.createRule();
@@ -21,12 +27,14 @@ public class RulePreparator {
 		newRule.getMappings().addAll(rule.getMappings());
 		newRule.setName(rule.getName());
 
-//		for (Node node : newRule.getLhs().getNodes()) {
-//			node.getAttributes().clear();
-//		}
-//		for (Node node : newRule.getRhs().getNodes()) {
-//			node.getAttributes().clear();
-//		}
+		if (removeAttributes) {
+		for (Node node : newRule.getLhs().getNodes()) {
+			node.getAttributes().clear();
+		}
+		}
+		for (Node node : newRule.getRhs().getNodes()) {
+			node.getAttributes().clear();
+		}
 		if (module != null) {
 			module.getUnits().remove(rule);
 			module.getUnits().add(newRule);
