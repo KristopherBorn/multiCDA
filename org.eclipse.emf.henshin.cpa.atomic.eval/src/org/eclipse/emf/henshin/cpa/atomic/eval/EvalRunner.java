@@ -30,6 +30,9 @@ public abstract class EvalRunner {
 	String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 	String path= getDomainName() + "\\"+timeStamp+ ".log" ;
 		
+	List<List<Integer>> fineResults = new ArrayList<List<Integer>>();
+	List<List<Integer>> essResults = new ArrayList<List<Integer>>();
+	
 	public void run(List<Granularity> granularities, Type type) {
 		init();
 		List<Rule> rules = getRules();
@@ -39,6 +42,9 @@ public abstract class EvalRunner {
 		
 		doMultiGranularCDA(granularities, type, rules, nonDeleting);
 		doAggBasedCpa(granularities, type, rules, nonDeleting);
+		
+		if (granularities.contains(Granularity.fine) && granularities.contains(Granularity.ess))
+			doComparison(rules);
 
 	}
 
@@ -94,12 +100,15 @@ public abstract class EvalRunner {
 		if (granularities.contains(Granularity.fine)) {
 			logn("[MultiCDA] Computing initial " + type.getSingularName() + " reasons:");
 			for (Rule r1 : rules) {
+				List<Integer> resultRow = new ArrayList<Integer>();
+				fineResults.add(resultRow);
 				for (RulePair r2 : nonDeleting) {
 					long time = System.currentTimeMillis();
 					MultiGranularAnalysis ca = getAnalysis(r1, r2.getCopy(), type);
 					Set<Span> result = ca.computeResultsFine();
 					log(result.size() + " ");
 					tlog(System.currentTimeMillis() - time + " ");
+					resultRow.add(result.size());
 				}
 				logbn("   | " + r1.getName());
 			}
@@ -112,6 +121,8 @@ public abstract class EvalRunner {
 		if (granularities.contains(Granularity.ess)) {
 			logn("[AGG] Computing essential critical pairs (filtered):");
 			for (Rule r1 : rules) {
+				List<Integer> resultRow = new ArrayList<Integer>();
+				essResults.add(resultRow);
 				for (RulePair r2 : nonDeleting) {
 					long time = System.currentTimeMillis();
 					Set<CriticalPair> initspNormal = new HashSet<>();
@@ -121,6 +132,7 @@ public abstract class EvalRunner {
 					initspNormal.addAll(eTester.getInitialCriticalPairs());
 					log(initspNormal.size() + " ");
 					tlog(System.currentTimeMillis() - time + " ");
+					resultRow.add(initspNormal.size());
 
 				}
 				logbn("   | " + r1.getName());
@@ -245,5 +257,20 @@ public abstract class EvalRunner {
 	public abstract List<Rule> getRules();
 
 	public abstract String getDomainName();
+
+	private void doComparison(List<Rule> rules) {
+		for (int i=0; i<fineResults.size(); i++) {
+			for (int j=0; j<fineResults.size(); j++) {
+				int comp = fineResults.get(i).get(j) - essResults.get(i).get(j); 
+				if (comp > 0) 
+					System.err.print("+"+" ");
+				else if (comp < 0) 
+					System.err.print("!"+" ");
+				else
+					System.err.print("_"+" ");
+			}
+			System.err.println("    | " +rules.get(i));
+		}
+	}
 	
 }

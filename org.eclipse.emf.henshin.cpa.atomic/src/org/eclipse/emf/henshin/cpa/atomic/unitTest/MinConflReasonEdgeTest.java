@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.InitialReason;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
@@ -97,10 +98,8 @@ public class MinConflReasonEdgeTest {
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
 		
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
-
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pushDownGroupRule, pushDownGroupRulePreserve);
-//		System.out.println("HALT");
+		AtomCandidateComputation candComp = new AtomCandidateComputation(pushDownGroupRule, pushDownGroupRulePreserve);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 		System.err.println("amount of conflictAtomCandidates: "+conflictAtomCandidates.size());
 		
 //		assertEquals(5, conflictAtomCandidates.size());
@@ -110,9 +109,11 @@ public class MinConflReasonEdgeTest {
 //			assertEquals(1, nodesOfCandidate.size());
 //		}
 
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
+
 		Set<MinimalConflictReason> mCRs = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(pushDownGroupRule, pushDownGroupRulePreserve, candidate,
+			atomicCoreCPA.computeMinimalConflictReasons(candidate,
 					mCRs);
 		}
 		System.err.println("amount of MCR: "+mCRs.size());
@@ -196,9 +197,8 @@ public class MinConflReasonEdgeTest {
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
 		
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
-
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pushDownGroupRule, pushDownGroupRulePreserve);
+		AtomCandidateComputation candComp = new AtomCandidateComputation(pushDownGroupRule, pushDownGroupRulePreserve);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 //		System.out.println("HALT");
 		System.err.println("amount of conflictAtomCandidates: "+conflictAtomCandidates.size());
 		
@@ -208,10 +208,13 @@ public class MinConflReasonEdgeTest {
 //			EList<Node> nodesOfCandidate = candidate.getGraph().getNodes();
 //			assertEquals(1, nodesOfCandidate.size());
 //		}
+		
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
+
 
 		Set<MinimalConflictReason> mCRs = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(pushDownGroupRule, pushDownGroupRulePreserve, candidate,
+			atomicCoreCPA.computeMinimalConflictReasons(candidate,
 					mCRs);
 		}
 		System.err.println("amount of MCR: "+mCRs.size());
@@ -297,9 +300,8 @@ public class MinConflReasonEdgeTest {
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
 		
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
-
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pushDownGroupRule, pushDownGroupRulePreserve);
+		AtomCandidateComputation candComp = new AtomCandidateComputation(pushDownGroupRule, pushDownGroupRulePreserve);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 //		System.out.println("HALT");
 		System.err.println("amount of conflictAtomCandidates: "+conflictAtomCandidates.size());
 		
@@ -310,9 +312,11 @@ public class MinConflReasonEdgeTest {
 //			assertEquals(1, nodesOfCandidate.size());
 //		}
 
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
+
 		Set<MinimalConflictReason> mCRs = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(pushDownGroupRule, pushDownGroupRulePreserve, candidate,
+			atomicCoreCPA.computeMinimalConflictReasons(candidate,
 					mCRs);
 		}
 		System.err.println("amount of MCR: "+mCRs.size());

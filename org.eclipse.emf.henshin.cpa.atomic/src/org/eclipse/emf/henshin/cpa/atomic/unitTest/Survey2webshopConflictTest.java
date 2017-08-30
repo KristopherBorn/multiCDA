@@ -9,6 +9,8 @@ import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.computation.AtomCandidateComputation;
+import org.eclipse.emf.henshin.cpa.atomic.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Module;
@@ -24,7 +26,6 @@ import org.junit.Test;
 
 public class Survey2webshopConflictTest {
 
-	
 	final String PATH = "testData/survey2webshopConflict/";
 	final String henshinFileName = "webshop.henshin";
 
@@ -38,64 +39,63 @@ public class Survey2webshopConflictTest {
 
 		returnOneUnpaidItemRule = (Rule) module.getUnit("returnOneUnpaidItem");
 		findOrderWithThreeOrderItems_incompleteRule = (Rule) module.getUnit("findOrderWithThreeOrderItems_incomplete");
-//		for (Unit unit : module.getUnits()) {
-//			if (unit.getName().equals("decapsulateAttribute"))
-//				decapsulateAttributeRule = (Rule) unit;
-//			if (unit.getName().equals("pullUpEncapsulatedAttribute"))
-//				pullUpEncapsulatedAttributeRule = (Rule) unit;
-//		}
+		// for (Unit unit : module.getUnits()) {
+		// if (unit.getName().equals("decapsulateAttribute"))
+		// decapsulateAttributeRule = (Rule) unit;
+		// if (unit.getName().equals("pullUpEncapsulatedAttribute"))
+		// pullUpEncapsulatedAttributeRule = (Rule) unit;
+		// }
 	}
 
-	
-	//TODO: cofnlcitAtom Test
+	// TODO: cofnlcitAtom Test
 	@Test
 	public void computeConflictAtomsTest() {
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(returnOneUnpaidItemRule,
 				findOrderWithThreeOrderItems_incompleteRule);
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
-		for(ConflictAtom conflAtom : computedConflictAtoms){
+		for (ConflictAtom conflAtom : computedConflictAtoms) {
 			System.out.println(conflAtom.toString());
 			System.out.println(conflAtom.toShortString());
 		}
-		
-		
-		//6 conflict atoms
-		// Je 3 CA für die Überlappung der löschenden 'owns' Kante zwischen 'Customer' und dem jeweiligen 'Good' 
-		// Je 3 CA für die Überlappung der 'OrderItem' 
+
+		// 6 conflict atoms
+		// Je 3 CA für die Überlappung der löschenden 'owns' Kante zwischen
+		// 'Customer' und dem jeweiligen 'Good'
+		// Je 3 CA für die Überlappung der 'OrderItem'
 		assertEquals(6, computedConflictAtoms.size());
 
-		//TODO: an dieser Stelle ist noch ein detailiertes testen der Ergebnisse möglich. 
+		// TODO: an dieser Stelle ist noch ein detailiertes testen der
+		// Ergebnisse möglich.
 	}
-	
+
 	// MCR Test!
 	@Test
 	public void computeMinimalConflictReasonTest() {
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(returnOneUnpaidItemRule,
+		AtomCandidateComputation candComp = new AtomCandidateComputation(returnOneUnpaidItemRule,
 				findOrderWithThreeOrderItems_incompleteRule);
 
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(returnOneUnpaidItemRule,
-				findOrderWithThreeOrderItems_incompleteRule);
-
-		System.out.println("HALT");
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 
 		assertEquals(6, conflictAtomCandidates.size());
 
+		;
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(returnOneUnpaidItemRule, findOrderWithThreeOrderItems_incompleteRule, candidate,
-					reasons);
+			new MinimalReasonComputation(returnOneUnpaidItemRule, findOrderWithThreeOrderItems_incompleteRule)
+					.computeMinimalConflictReasons(candidate, reasons);
 		}
 
-		// aus den 6 CA gehen entsprecehnde 6 MCRs hervor 
+		// aus den 6 CA gehen entsprecehnde 6 MCRs hervor
 		assertEquals(6, reasons.size());
-		
-		for(Span mcr : reasons){
+
+		for (Span mcr : reasons) {
 			System.out.println(mcr.toString());
 		}
-		for(Span mcr : reasons){
+		for (Span mcr : reasons) {
 			System.out.println(mcr.toShortString());
 		}
-		//TODO: an dieser Stelle ist noch ein detailiertes testen der Ergebnisse möglich. 
+		// TODO: an dieser Stelle ist noch ein detailiertes testen der
+		// Ergebnisse möglich.
 	}
 }

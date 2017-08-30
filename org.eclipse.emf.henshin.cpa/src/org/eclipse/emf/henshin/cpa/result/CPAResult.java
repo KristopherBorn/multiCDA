@@ -80,7 +80,6 @@ public class CPAResult implements Iterable<CriticalPair> {
 	public List<CriticalPair> getInitialCriticalPairs() {
 		List<CriticalPair> result = new ArrayList();
 		for (CriticalPair pair : getCriticalPairs()) {
-			System.out.println(" === ");
 //			printBoundaryNodes(pair);
 			List<BoundaryNode> isolatedBoundaryNodes = new ArrayList<BoundaryNode>(pair.getBoundaryNodes());
 
@@ -93,10 +92,6 @@ public class CPAResult implements Iterable<CriticalPair> {
 					 criticalEdges.add((Edge) el.elementInSecondRule);
 				 }
 			}
-			for (CriticalElement el : pair.getCriticalElements()) {
-				System.out.println(el.commonElementOfCriticalGraph);
-			}
-
 			for (BoundaryNode bn : pair.getBoundaryNodes()) {
 				org.eclipse.emf.henshin.model.Node n = (org.eclipse.emf.henshin.model.Node) bn.elementInFirstRule;
 				for (Edge e1 : n.getAllEdges()) {

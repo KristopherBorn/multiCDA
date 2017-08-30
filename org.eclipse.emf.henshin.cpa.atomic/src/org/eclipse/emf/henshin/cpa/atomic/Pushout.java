@@ -20,7 +20,7 @@ import org.eclipse.emf.henshin.model.Rule;
 
 // Generell: muss die matches m1 und m2 aus L1 und L2 enthalten und somit auch G.
 // daher kennt es oder referenziert es auch (indirekt?) die beiden Regeln
-public class PushoutResult {
+public class Pushout {
 
 	private static final boolean DELETE_DUPLICATE_EDGES = false;
 
@@ -29,14 +29,14 @@ public class PushoutResult {
 	/**
 	 * @return the mappingsOfRule1
 	 */
-	public List<Mapping> getMappingsOfRule1() {
+	public List<Mapping> getRule1Mappings() {
 		return toMappingList(rule1toPOmap);
 	}
 
 	/**
 	 * @return the mappingsOfRule2
 	 */
-	public List<Mapping> getMappingsOfRule2() {
+	public List<Mapping> getRule2Mappings() {
 		return toMappingList(rule2toPOmap);
 	}
 
@@ -61,7 +61,7 @@ public class PushoutResult {
 	private HashMap<Node, Node> rule2toPOmap;
 
 	@SuppressWarnings("unused")
-	public PushoutResult(Rule rule1, Span s1span, Rule rule2) {
+	public Pushout(Rule rule1, Span s1span, Rule rule2) {
 
 		// TODO: prüfen, dass alle mappings in die beiden Regeln verweisen, bzw.
 		// keine der Regeln NULL ist. Sonst werfen einer Exception!

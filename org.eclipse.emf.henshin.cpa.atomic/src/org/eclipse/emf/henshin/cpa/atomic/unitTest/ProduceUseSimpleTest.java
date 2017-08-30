@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.DependencyAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.dependency.DependencyAtom;
-import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;

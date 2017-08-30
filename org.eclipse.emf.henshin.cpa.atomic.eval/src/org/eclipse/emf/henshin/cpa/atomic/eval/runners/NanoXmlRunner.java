@@ -25,7 +25,8 @@ public class NanoXmlRunner extends EvalRunner {
 
 //	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.essSecondDeleting);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.fine,Granularity.ess);
+//	public static List<Granularity> granularities =  Arrays.asList(Granularity.essSecondDeleting);
 	public static Type type = Type.dependencies;
 	
 	public static void main(String[] args) {

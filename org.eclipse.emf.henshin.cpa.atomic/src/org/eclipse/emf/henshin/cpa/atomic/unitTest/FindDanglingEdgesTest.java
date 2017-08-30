@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
-import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
+import org.eclipse.emf.henshin.cpa.atomic.Pushout;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -61,11 +61,11 @@ public class FindDanglingEdgesTest {
 				pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
-		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
+		Pushout pushoutResult = new Pushout(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 
-		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesOfRule1(decapsulateAttributeRule,
-				pushoutResult.getMappingsOfRule1());
+		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesOfRule1(
+				pushoutResult.getRule1Mappings());
 
 		assertEquals(2, findDanglingEdges.size());
 
@@ -109,11 +109,11 @@ public class FindDanglingEdgesTest {
 				pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node3InRule1Mapping, graphOfSpan, node14InRule2Mapping);
 
-		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
+		Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 
 		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesOfRule1(decapsulateAttributeRule,
-				pushoutResult.getMappingsOfRule1());
+				pushoutResult.getRule1Mappings());
 
 		assertEquals(2, findDanglingEdges.size());
 
@@ -173,11 +173,11 @@ public class FindDanglingEdgesTest {
 				pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(rule1Mappings, graphOfSpan, rule2Mappings);
 
-		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
+		Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 
 		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesOfRule1(decapsulateAttributeRule,
-				pushoutResult.getMappingsOfRule1());
+				pushoutResult.getRule1Mappings());
 
 		assertEquals(0, findDanglingEdges.size());
 	}

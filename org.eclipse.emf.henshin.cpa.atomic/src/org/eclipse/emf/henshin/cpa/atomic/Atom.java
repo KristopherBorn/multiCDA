@@ -2,7 +2,7 @@ package org.eclipse.emf.henshin.cpa.atomic;
 
 public class Atom {
 	
-	protected Span span;
+	public Span span;
 	
 
 	/**

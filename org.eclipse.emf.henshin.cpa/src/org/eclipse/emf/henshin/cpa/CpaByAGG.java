@@ -182,9 +182,9 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 		// its important to instantiate the importer with the original rules, since the created results shall reference elements within the original rules
 		importer = new AggHenshinCriticalPairTranslator(originalRules);
 		
-		// first of all complete the rules by inserting missing EOpposite Edges, since they have to be present in the rule set within AGG
-		// the modification of the rules is negligible since we are working with copies of the original rules.
-		completeRulesByEOppositeEdges();
+//		// first of all complete the rules by inserting missing EOpposite Edges, since they have to be present in the rule set within AGG
+//		// the modification of the rules is negligible since we are working with copies of the original rules.
+//		completeRulesByEOppositeEdges();
 
 		// *.ggx file generation
 		IStatus exportModuleToAGGStatus = exportModuleToAGG(workingPathWOExtension + ".ggx");

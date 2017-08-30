@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
@@ -83,19 +84,17 @@ public class RobustnessTest {
 	
 	@Test
 	public void computeConflictPartCandidatesNotNullTest() {		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(null,
+		AtomCandidateComputation candComp = new AtomCandidateComputation(null,
 				pullUpEncapsulatedAttributeRule);
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		try {					
-			atomicCoreCPA.computeAtomCandidates(null,
-				pullUpEncapsulatedAttributeRule);
+			candComp.computeAtomCandidates();
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrownOnRule1 = true;
 		}
 		try {	
-			atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule,
-					null);
+			candComp.computeAtomCandidates();
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrownOnRule2 = true;
 		}
@@ -111,19 +110,21 @@ public class RobustnessTest {
 		boolean illeagalArgumentExceptionThrownOnRule1 = false;
 		boolean illeagalArgumentExceptionThrownOnRule2 = false;
 		
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(pullUpEncapsulatedAttributeRule,
+		
+		AtomCandidateComputation candComp = new AtomCandidateComputation(pullUpEncapsulatedAttributeRule,
 				decapsulateAttributeRule);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
 			try {		
-				atomicCoreCPA.computeMinimalConflictReasons(null, decapsulateAttributeRule, candidate,
+				atomicCoreCPA.computeMinimalConflictReasons(candidate,
 						reasons);			 
 			} catch (IllegalArgumentException e) {
 				illeagalArgumentExceptionThrownOnRule1 = true;
 			}
 			try {	
 
-				atomicCoreCPA.computeMinimalConflictReasons(pullUpEncapsulatedAttributeRule, null, candidate,
+				atomicCoreCPA.computeMinimalConflictReasons(candidate,
 						reasons);
 			} catch (IllegalArgumentException e) {
 				illeagalArgumentExceptionThrownOnRule2 = true;

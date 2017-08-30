@@ -19,13 +19,13 @@ public class Span {
 	
 	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 	
-	protected Rule rule1;
-	protected Rule rule2;
+	public  Rule rule1;
+	public  Rule rule2;
 
-	protected Set<Mapping> mappingsInRule1;
-	protected Set<Mapping> mappingsInRule2;
+	public Set<Mapping> mappingsInRule1;
+	public Set<Mapping> mappingsInRule2;
 
-	protected Graph graph;
+	public  Graph graph;
 
 	/**
 	 * @return the rule1

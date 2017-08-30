@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.computation.AtomCandidateComputation;
+import org.eclipse.emf.henshin.cpa.atomic.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Module;
@@ -18,7 +20,7 @@ import org.junit.Assert;
 
 public class SimpleTest {
 
-	/** 
+	/**
 	 * Relative path to the test model files.
 	 */
 	public static final String PATH = "testData/simpleTest";
@@ -28,7 +30,7 @@ public class SimpleTest {
 
 		// Create a resource set with a base directory:
 		HenshinResourceSet resourceSet = new HenshinResourceSet(PATH);
-		
+
 		// Load the module:
 		Module module = resourceSet.getModule("simpleTgRules.henshin", false);
 
@@ -37,40 +39,43 @@ public class SimpleTest {
 
 		Unit useAwithBUnit = module.getUnit("useAwithB");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
-		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
-				useAwithBRule);
+
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule, useAwithBRule);
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
-		// should be 0 due to dangling edge condition. First rule deletes a node and second rule requires to have an edge on that node!
+		// should be 0 due to dangling edge condition. First rule deletes a node
+		// and second rule requires to have an edge on that node!
 		Assert.assertEquals(0, computedConflictAtoms.size());
-//		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
-//		for(ConflictAtom conflictAtom : computedConflictAtoms){
-//			System.out.println(conflictAtom);
-//		}
-		
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(deleteARule,
-				useAwithBRule);
+		// System.out.println("number of conflict atoms:
+		// "+computedConflictAtoms.size());
+		// for(ConflictAtom conflictAtom : computedConflictAtoms){
+		// System.out.println(conflictAtom);
+		// }
+
+		AtomCandidateComputation candComp = new AtomCandidateComputation(deleteARule, useAwithBRule);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
+
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(deleteARule, useAwithBRule, candidate,
-					reasons);
+			new MinimalReasonComputation(deleteARule, useAwithBRule).computeMinimalConflictReasons(candidate, reasons);
 		}
-		// should be 0 due to dangling edge condition. First rule deletes a node and second rule requires to have an edge on that node!
+		// should be 0 due to dangling edge condition. First rule deletes a node
+		// and second rule requires to have an edge on that node!
 		Assert.assertEquals(0, reasons.size());
-		
-//		Set<Span> minimalConflictReasons = reasons;
-//		System.out.println("number of minimal conflict reasons: "+minimalConflictReasons.size());
-//		for(Span minimalConflictReason : minimalConflictReasons){
-//			System.out.println(minimalConflictReason);
-//		}
+
+		// Set<Span> minimalConflictReasons = reasons;
+		// System.out.println("number of minimal conflict reasons:
+		// "+minimalConflictReasons.size());
+		// for(Span minimalConflictReason : minimalConflictReasons){
+		// System.out.println(minimalConflictReason);
+		// }
 	}
-	
+
 	@Test
 	public void deleteA_useA() {
 
 		// Create a resource set with a base directory:
 		HenshinResourceSet resourceSet = new HenshinResourceSet(PATH);
-		
+
 		// Load the module:
 		Module module = resourceSet.getModule("simpleTgRules.henshin", false);
 
@@ -79,38 +84,36 @@ public class SimpleTest {
 
 		Unit useAwithBUnit = module.getUnit("useA");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
-		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
-				useAwithBRule);
+
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule, useAwithBRule);
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		Assert.assertEquals(1, computedConflictAtoms.size());
-		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
-		for(ConflictAtom conflictAtom : computedConflictAtoms){
+		System.out.println("number of conflict atoms: " + computedConflictAtoms.size());
+		for (ConflictAtom conflictAtom : computedConflictAtoms) {
 			System.out.println(conflictAtom);
 		}
-		
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(deleteARule,
-				useAwithBRule);
+
+		AtomCandidateComputation candComp = new AtomCandidateComputation(deleteARule, useAwithBRule);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(deleteARule, useAwithBRule, candidate,
-					reasons);
+			new MinimalReasonComputation(deleteARule, useAwithBRule).computeMinimalConflictReasons(candidate, reasons);
 		}
 		Assert.assertEquals(1, reasons.size());
-		
+
 		Set<MinimalConflictReason> minimalConflictReasons = reasons;
-		System.out.println("number of minimal conflict reasons: "+minimalConflictReasons.size());
-		for(Span minimalConflictReason : minimalConflictReasons){
+		System.out.println("number of minimal conflict reasons: " + minimalConflictReasons.size());
+		for (Span minimalConflictReason : minimalConflictReasons) {
 			System.out.println(minimalConflictReason);
 		}
 	}
-	
+
 	@Test
 	public void deleteA_withContainer_deleteA() {
 
 		// Create a resource set with a base directory:
 		HenshinResourceSet resourceSet = new HenshinResourceSet(PATH);
-		
+
 		// Load the module:
 		Module module = resourceSet.getModule("simpleTgRules.henshin", false);
 
@@ -119,43 +122,43 @@ public class SimpleTest {
 
 		Unit useAwithBUnit = module.getUnit("deleteA");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
-		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
-				useAwithBRule);
+
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule, useAwithBRule);
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
 		Assert.assertEquals(1, computedConflictAtoms.size());
-		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
-		for(ConflictAtom conflictAtom : computedConflictAtoms){
+		System.out.println("number of conflict atoms: " + computedConflictAtoms.size());
+		for (ConflictAtom conflictAtom : computedConflictAtoms) {
 			System.out.println(conflictAtom);
 		}
-		
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(deleteARule,
-				useAwithBRule);
+
+		AtomCandidateComputation candComp = new AtomCandidateComputation(deleteARule, useAwithBRule);
+
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(deleteARule, useAwithBRule, candidate,
-					reasons);
+			new MinimalReasonComputation(deleteARule, useAwithBRule).computeMinimalConflictReasons(candidate, reasons);
 		}
 		Assert.assertEquals(1, reasons.size());
-		
+
 		Set<MinimalConflictReason> minimalConflictReasons = reasons;
-		System.out.println("number of minimal conflict reasons: "+minimalConflictReasons.size());
-		for(Span minimalConflictReason : minimalConflictReasons){
+		System.out.println("number of minimal conflict reasons: " + minimalConflictReasons.size());
+		for (Span minimalConflictReason : minimalConflictReasons) {
 			System.out.println(minimalConflictReason);
 		}
-		
-		//TODO: hier den Ansatz zum identifizieren von falschen "over-approximation" Ergebnissen hinzufügen!
-		//TODO: create a Class for that functionality
-//		Set<Span> minimalConflictReasonsWithoutOverapproximation = removeOverapproximation(minimalConflictReasons);
+
+		// TODO: hier den Ansatz zum identifizieren von falschen
+		// "over-approximation" Ergebnissen hinzufügen!
+		// TODO: create a Class for that functionality
+		// Set<Span> minimalConflictReasonsWithoutOverapproximation =
+		// removeOverapproximation(minimalConflictReasons);
 	}
-	
-	
+
 	@Test
 	public void deleteA_withContainer_deleteAfromB() {
 
 		// Create a resource set with a base directory:
 		HenshinResourceSet resourceSet = new HenshinResourceSet(PATH);
-		
+
 		// Load the module:
 		Module module = resourceSet.getModule("simpleTgRules.henshin", false);
 
@@ -164,32 +167,32 @@ public class SimpleTest {
 
 		Unit useAwithBUnit = module.getUnit("deleteAfromB");
 		Rule useAwithBRule = (Rule) useAwithBUnit;
-		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule,
-				useAwithBRule);
+
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(deleteARule, useAwithBRule);
 		List<ConflictAtom> computedConflictAtoms = atomicCoreCPA.computeConflictAtoms();
-//		Assert.assertEquals(1, computedConflictAtoms.size());
-		System.out.println("number of conflict atoms: "+computedConflictAtoms.size());
-		for(ConflictAtom conflictAtom : computedConflictAtoms){
+		// Assert.assertEquals(1, computedConflictAtoms.size());
+		System.out.println("number of conflict atoms: " + computedConflictAtoms.size());
+		for (ConflictAtom conflictAtom : computedConflictAtoms) {
 			System.out.println(conflictAtom);
 		}
-		
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(deleteARule,
-				useAwithBRule);
+
+		AtomCandidateComputation candComp = new AtomCandidateComputation(deleteARule, useAwithBRule);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
+		System.out.println("number of conflict atom candidates: " + conflictAtomCandidates.size());
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(deleteARule, useAwithBRule, candidate,
-					reasons);
+			new MinimalReasonComputation(deleteARule, useAwithBRule).computeMinimalConflictReasons(candidate, reasons);
 		}
 		Assert.assertEquals(1, reasons.size());
-		
+
 		Set<MinimalConflictReason> minimalConflictReasons = reasons;
-		System.out.println("number of minimal conflict reasons: "+minimalConflictReasons.size());
-		for(Span minimalConflictReason : minimalConflictReasons){
+		System.out.println("number of minimal conflict reasons: " + minimalConflictReasons.size());
+		for (Span minimalConflictReason : minimalConflictReasons) {
 			System.out.println(minimalConflictReason);
 		}
-		
-		//TODO: wieso kommt es hier nicht so dem over-approximation Fehler? Welchen unterschied macht das größere LHS Muster der zweiten Regel???
+
+		// TODO: wieso kommt es hier nicht so dem over-approximation Fehler?
+		// Welchen unterschied macht das größere LHS Muster der zweiten Regel???
 	}
 
 }
