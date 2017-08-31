@@ -56,7 +56,7 @@ public class FmEditEvalRunner extends EvalRunner {
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
 		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
-//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(42, 44);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(38, 44);
 //		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
 
 	}

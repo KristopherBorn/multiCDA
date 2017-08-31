@@ -74,17 +74,17 @@ public class SpanMappings {
 		 edgesS1Rule1 = new HashMap<Edge, Edge>();
 		 edgesRule1S1 = new HashMap<Edge, Edge>();
 		EList<Edge> edges = span.getGraph().getEdges();
-		for (Edge eSpan  : edges) {
-			Node sourceRule1 = s1ToRule1.get(eSpan.getSource());
-			Node targetRule1 = s1ToRule1.get(eSpan.getTarget());
+		for (Edge edgeS1  : edges) {
+			Node sourceRule1 = s1ToRule1.get(edgeS1.getSource());
+			Node targetRule1 = s1ToRule1.get(edgeS1.getTarget());
 			Edge counterpart = null;
-			for (Edge eR1 : sourceRule1.getOutgoing(eSpan.getType())) {
+			for (Edge eR1 : sourceRule1.getOutgoing(edgeS1.getType())) {
 				if (eR1.getTarget() == targetRule1)
 					counterpart = eR1;
 			}
 			if (counterpart != null) {
-				edgesS1Rule1.put(eSpan, counterpart);
-				edgesRule1S1.put(counterpart, eSpan);
+				edgesS1Rule1.put(edgeS1, counterpart);
+				edgesRule1S1.put(counterpart, edgeS1);
 			}
 			
 		}
@@ -104,6 +104,5 @@ public class SpanMappings {
 				edgesRule2S1.put(counterpart, eSpan);
 			}
 		}
-		
 	}
 }

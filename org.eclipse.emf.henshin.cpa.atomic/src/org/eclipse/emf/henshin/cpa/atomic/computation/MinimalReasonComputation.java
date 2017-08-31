@@ -6,9 +6,12 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.sound.sampled.TargetDataLine;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -37,9 +40,13 @@ public class MinimalReasonComputation {
 	protected Rule rule1;
 	protected Rule rule2;
 
+	// Performance optimization: Remember spans which have been used to compute MCRs
+	protected Set<Span> checked;
+	
 	public MinimalReasonComputation(Rule rule1, Rule rule2) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
+		checked = new HashSet<Span>();
 	}
 
 	public Set<MinimalConflictReason> computeMinimalConflictReasons() {
@@ -48,28 +55,26 @@ public class MinimalReasonComputation {
 		for (Span candidate : candidates) {
 			computeMinimalConflictReasons(candidate, result);
 		}
-		// for (MinimalConflictReason res : result) {
-		// System.out.println(res.toShortString());
-		// }
 		return result;
 	}
 
 	public void computeMinimalConflictReasons(Span s1, Set<MinimalConflictReason> result) {
-		if (isMinReason(s1)) {
-			result.add(new MinimalConflictReason(s1));
-			return;
-		}
-		Set<Span> extendedSpans = findExtensions(s1);
-		for (Span extendedSpan : extendedSpans) {
-			computeMinimalConflictReasons(extendedSpan, result);
+		if (!checked.contains(s1)) {
+			if (isMinReason(s1)) {
+				result.add(new MinimalConflictReason(s1));
+				return;
+			}
+			Set<Span> extendedSpans = findExtensions(s1);
+			for (Span extendedSpan : extendedSpans) {
+				computeMinimalConflictReasons(extendedSpan, result);
+			}
+			checked.add(s1);
 		}
 	}
 
 	private boolean isMinReason(Span s1) {
 		Pushout pushoutResult = getPushout(s1);
 		boolean rule1EmbeddingIsDanglingFree = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings()).isEmpty();
-		// if (rule1EmbeddingIsDanglingFree)
-		// System.out.println(s1.getGraph().getEdges().size());
 		return rule1EmbeddingIsDanglingFree;
 	}
 
@@ -82,42 +87,48 @@ public class MinimalReasonComputation {
 		return result;
 	}
 
-	public Set<Edge> findDanglingEdgesOfRule1(List<Mapping> embedding) {
+	public Set<DanglingEdge> findDanglingEdgesOfRule1(List<Mapping> embedding) {
 		HashMap<Node, Node> mapL1toG = new HashMap<Node, Node>();
 		HashMap<Node, Node> mapGtoL1 = new HashMap<Node, Node>();
-		Graph pushout = null;
 		for (Mapping mapping : embedding) {
 			mapL1toG.put(mapping.getOrigin(), mapping.getImage());
 			mapGtoL1.put(mapping.getImage(), mapping.getOrigin());
-			pushout = mapping.getImage().getGraph();
 		}
-		Set<Edge> danglingEdges = new HashSet<Edge>();
 
+		Set<DanglingEdge> danglingEdges = new HashSet<DanglingEdge>();
 		EList<Node> l1DeletingNodes = rule1.getActionNodes(new Action(Action.Type.DELETE));
 		for (Node l1Deleting : l1DeletingNodes) {
 
 			Node poDeleting = mapL1toG.get(l1Deleting);
 
-			for (Edge edge : poDeleting.getOutgoing()) {
-				Node l1DelTarget = mapGtoL1.get(edge.getTarget());
-				int countPO = getAllEdges(poDeleting, edge.getTarget(), edge.getType()).size();
-				int countLhs1 = getAllEdges(l1Deleting, l1DelTarget, edge.getType()).size();
-				if (l1DelTarget == null) //  || countLhs1 != countPO)
-					danglingEdges.add(edge);
+			// Since the pushout can have parallel edges with the same type, source,
+			// and target, we compare the number of parallel edges.
+			for (Edge edgePO : poDeleting.getOutgoing()) {
+				Node l1DelTarget = mapGtoL1.get(edgePO.getTarget());
+				int parallelPO = getParallelEdges(poDeleting, edgePO.getTarget(), edgePO.getType()).size();
+				int parallelLhs1 = getParallelEdges(l1Deleting, l1DelTarget, edgePO.getType()).size();
+				if (l1DelTarget == null)
+					danglingEdges.add(new DanglingEdge(edgePO, DanglingCase.targetDangling));
+				else if (parallelLhs1 < parallelPO)
+					danglingEdges.add(new DanglingEdge(edgePO, DanglingCase.unspecifiedEdge));
+
 			}
-			for (Edge edge : poDeleting.getIncoming()) {
-				Node l1DelSource = mapGtoL1.get(edge.getSource());
-				int countPO = getAllEdges(edge.getTarget(), poDeleting, edge.getType()).size();
-				int countLhs1 = getAllEdges(l1DelSource, l1Deleting, edge.getType()).size();
-				if (l1DelSource == null ) // || countLhs1 != countPO)
-					danglingEdges.add(edge);
+			for (Edge edgePO : poDeleting.getIncoming()) {
+				Node l1DelSource = mapGtoL1.get(edgePO.getSource());
+				int parallelPO = getParallelEdges(edgePO.getSource(), poDeleting, edgePO.getType()).size();
+				int parallelLhs1 = getParallelEdges(l1DelSource, l1Deleting, edgePO.getType()).size();
+				if (l1DelSource == null)
+					danglingEdges.add(new DanglingEdge(edgePO, DanglingCase.sourceDangling));
+				else if (parallelLhs1 < parallelPO)
+					danglingEdges.add(new DanglingEdge(edgePO, DanglingCase.unspecifiedEdge));
 			}
 
 		}
+//		System.out.println(danglingEdges);
 		return danglingEdges;
 	}
 
-	private Set<Edge> getAllEdges(Node source, Node target, EReference type) {
+	private Set<Edge> getParallelEdges(Node source, Node target, EReference type) {
 		Set<Edge> result = new HashSet<Edge>();
 		if (source == null || target == null)
 			return result;
@@ -128,14 +139,51 @@ public class MinimalReasonComputation {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param rule1
+	 * @param rule2
+	 * @param poDangling
+	 * @param s1
+	 * @param mappingOfRule1InOverlapG
+	 * @param mappingOfRule2InOverlapG
+	 * @return A set of fixing edges, that is, edges in R1 suitable to act as a
+	 *         counterpart for the dangling edge originating from R2.
+	 */
+	public Set<Edge> findFixingEdges(Rule rule1, Rule rule2, DanglingEdge poDangling, CospanMappingToMaps comaps,
+			Span s1) {
+		SpanMappings maps = new SpanMappings(s1);
+		Node poDanglingSource = poDangling.getEdge().getSource();
+		Node poDanglingTarget = poDangling.getEdge().getTarget();
+		Node r1DanglingSource = comaps.gToRule1.get(poDanglingSource);
+		Node r1DanglingTarget = comaps.gToRule1.get(poDanglingTarget);
+	
+		if (poDangling.danglingCase == DanglingCase.sourceDangling) {
+			Set<Edge> r1Candidates = new HashSet<Edge>(r1DanglingTarget.getIncoming(poDangling.getEdge().getType()));
+			return r1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getSource()) == null)
+					.collect(Collectors.toSet());
+		} else if (poDangling.danglingCase == DanglingCase.targetDangling) {
+			Set<Edge> c1Candidates = new HashSet<Edge>(r1DanglingSource.getOutgoing(poDangling.getEdge().getType()));
+			return c1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getTarget()) == null)
+					.collect(Collectors.toSet());
+		} else if (poDangling.danglingCase == DanglingCase.unspecifiedEdge) {
+			Set<Edge> result = new HashSet<Edge>();
+			Edge e = r1DanglingSource.getOutgoing(poDangling.getEdge().getType(), r1DanglingTarget);
+			if (e != null && maps.getEdgeMappingsRule1S1().get(e) == null)
+				result.add(e);
+			return result;
+		}
+		throw new RuntimeException("Invalid state: neither source nor target were dangling in L1!");
+	}
+
 	private Set<Span> findExtensions(Span s1) {
 		Pushout pushoutResult = getPushout(s1);
 		CospanMappingToMaps cospanMappings = new CospanMappingToMaps(pushoutResult.getRule1Mappings(),
 				pushoutResult.getRule2Mappings());
-		Set<Edge> danglingEdges = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings());
+		Set<DanglingEdge> danglingEdges = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings());
 
-		Map<Edge, Set<Edge>> fixingEdgeMap = new HashMap<>();
-		for (Edge danglingEdge : danglingEdges) {
+		Map<DanglingEdge, Set<Edge>> fixingEdgeMap = new HashMap<>();
+		for (DanglingEdge danglingEdge : danglingEdges) {
 			Set<Edge> fixing = findFixingEdges(rule1, rule2, danglingEdge, cospanMappings, s1);
 			if (!fixing.isEmpty()) {
 				fixingEdgeMap.put(danglingEdge, fixing);
@@ -147,55 +195,88 @@ public class MinimalReasonComputation {
 		return extensions;
 	}
 
-	public Set<Span> enumerateExtensions(Span originalSpan, Map<Edge, Set<Edge>> fixingEdges,
+	public Set<Span> enumerateExtensions(Span originalSpan, Map<DanglingEdge, Set<Edge>> fixingEdges,
 			CospanMappingToMaps comaps) {
 		Set<Span> extensions = new HashSet<Span>();
-		// Choose an arbitrary dangling-fixing edge pair and use it to extend
-		// the span. Additional fixing edges might be consumed to fix additional
-		// dangling edges between the new and old end of the fixing edge.
-		for (Edge danglingEdgePO : fixingEdges.keySet()) {
-			for (Edge fixingEdgeR1 : fixingEdges.get(danglingEdgePO)) {
-				Span span1 = new Span(originalSpan);
-				SpanMappings maps = new SpanMappings(span1);
-				Node srcR1 = fixingEdgeR1.getSource();
-				Node trgR1 = fixingEdgeR1.getTarget();
-				Node srcR2 = comaps.gToRule2.get(danglingEdgePO.getSource());
-				Node trgR2 = comaps.gToRule2.get(danglingEdgePO.getTarget());
-				Node srcS1 = maps.rule1ToS1.get(srcR1);
-				Node trgS1 = maps.rule1ToS1.get(trgR1);
-
-				boolean sourceDangling = true;
-				if (srcS1 == null) {
-					srcS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(srcR1, srcR2),
-							srcR1.getName() + "_" + srcR2.getName());
-					span1.mappingsInRule1.add(henshinFactory.createMapping(srcS1, srcR1));
-					span1.mappingsInRule2.add(henshinFactory.createMapping(srcS1, srcR2));
-				} else if (trgS1 == null) {
-					sourceDangling = false;
-					trgS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(trgR1, trgR2),
-							trgR1.getName() + "_" + trgR2.getName());
-					span1.mappingsInRule1.add(henshinFactory.createMapping(trgS1, trgR1));
-					span1.mappingsInRule2.add(henshinFactory.createMapping(trgS1, trgR2));
-				}
-
-				// Treatment of conflict-atom edges
-				EList<Node> preserveNodes = rule1.getActionNodes(new Action(Type.PRESERVE));
-				if (preserveNodes.contains(fixingEdgeR1.getSource())
-						&& preserveNodes.contains(fixingEdgeR1.getTarget())) {
-					Map<Edge, Edge> entry = new HashMap<Edge, Edge>();
-					entry.put(danglingEdgePO, fixingEdgeR1);
-					createExtension(extensions, entry, span1);
-				} else {// Treatment of conflict-atom nodes
-					List<Map<Edge, Edge>> combinations = getFixingFamily(danglingEdgePO, sourceDangling, fixingEdges,
-							span1, comaps);
-					for (Map<Edge, Edge> combination : combinations) {
-						createExtension(extensions, combination, span1);
-					}
-
-				}
+		for (DanglingEdge danglingEdge : fixingEdges.keySet()) {
+			if (danglingEdge.getDanglingCase() == DanglingCase.sourceDangling
+					|| danglingEdge.getDanglingCase() == DanglingCase.targetDangling) {
+				enumerateNodeExtensions(originalSpan, danglingEdge, fixingEdges, comaps, extensions);
+			} else if (danglingEdge.getDanglingCase() == DanglingCase.unspecifiedEdge) {
+				enumerateEdgeExtensions(originalSpan, danglingEdge, fixingEdges.get(danglingEdge), extensions);
 			}
 		}
 		return extensions;
+	}
+
+
+	private void enumerateEdgeExtensions(Span originalSpan, DanglingEdge danglingEdge, Set<Edge> set,
+			Set<Span> extensions) {
+		for (Edge fixingEdgeR1  : set) {
+			Span span1 = new Span(originalSpan);
+			SpanMappings maps = new SpanMappings(span1);
+			Node srcR1 = fixingEdgeR1.getSource();
+			Node trgR1 = fixingEdgeR1.getTarget();
+			Node srcS1 = maps.rule1ToS1.get(srcR1);
+			Node trgS1 = maps.rule1ToS1.get(trgR1);
+			Node srcR2 = maps.s1ToRule2.get(srcS1);
+			Node trgR2 = maps.s1ToRule2.get(trgS1);
+			
+			Edge fixingR2 = srcR2.getOutgoing(fixingEdgeR1.getType(), trgR2);
+			if (fixingR2 != null) {
+				HenshinFactory.eINSTANCE.createEdge(srcS1, trgS1, fixingEdgeR1.getType());
+				extensions.add(span1);
+			}
+		}
+		
+	}
+
+	private void enumerateNodeExtensions(Span originalSpan, DanglingEdge danglingEdge,
+			Map<DanglingEdge, Set<Edge>> fixingEdges, CospanMappingToMaps comaps, Set<Span> extensions) {
+		// Choose an arbitrary fixing edge and use it to extend
+		// the span with its source or target node. Additional fixing edges
+		// might be consumed to fix additional dangling edges between the new
+		// and old end of the fixing edge.
+		Edge danglingEdgePO = danglingEdge.getEdge();
+		for (Edge fixingEdgeR1 : fixingEdges.get(danglingEdge)) {
+			Span span1 = new Span(originalSpan);
+			SpanMappings maps = new SpanMappings(span1);
+			Node srcR1 = fixingEdgeR1.getSource();
+			Node trgR1 = fixingEdgeR1.getTarget();
+			Node srcR2 = comaps.gToRule2.get(danglingEdgePO.getSource());
+			Node trgR2 = comaps.gToRule2.get(danglingEdgePO.getTarget());
+			Node srcS1 = maps.rule1ToS1.get(srcR1);
+			Node trgS1 = maps.rule1ToS1.get(trgR1);
+
+			boolean sourceDangling = true;
+			if (srcS1 == null) {
+				srcS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(srcR1, srcR2),
+						srcR1.getName() + "_" + srcR2.getName());
+				span1.mappingsInRule1.add(henshinFactory.createMapping(srcS1, srcR1));
+				span1.mappingsInRule2.add(henshinFactory.createMapping(srcS1, srcR2));
+			} else if (trgS1 == null) {
+				sourceDangling = false;
+				trgS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(trgR1, trgR2),
+						trgR1.getName() + "_" + trgR2.getName());
+				span1.mappingsInRule1.add(henshinFactory.createMapping(trgS1, trgR1));
+				span1.mappingsInRule2.add(henshinFactory.createMapping(trgS1, trgR2));
+			}
+
+			// Treatment of conflict-atom edges
+			EList<Node> preserveNodes = rule1.getActionNodes(new Action(Type.PRESERVE));
+			if (preserveNodes.contains(fixingEdgeR1.getSource()) && preserveNodes.contains(fixingEdgeR1.getTarget())) {
+				Map<Edge, Edge> entry = new HashMap<Edge, Edge>();
+				entry.put(danglingEdgePO, fixingEdgeR1);
+				createExtension(extensions, entry, span1);
+			} else {// Treatment of conflict-atom nodes
+				List<Map<Edge, Edge>> combinations = getFixingFamily(danglingEdgePO, sourceDangling, fixingEdges, span1,
+						comaps);
+				for (Map<Edge, Edge> combination : combinations) {
+					createExtension(extensions, combination, span1);
+				}
+
+			}
+		}
 	}
 
 	private EClass commonSubClass(Node node1, Node node2) {
@@ -220,7 +301,8 @@ public class MinimalReasonComputation {
 	}
 
 	private List<Map<Edge, Edge>> getFixingFamily(Edge danglingEdgePO, boolean sourceDangling,
-			Map<Edge, Set<Edge>> fixingEdges, Span span1, CospanMappingToMaps comaps) {
+			Map<DanglingEdge, Set<Edge>> fixingEdges, Span span1, CospanMappingToMaps comaps) {
+		Map<Edge,Set<Edge>> theFixingEdges = flattenFixingSet(fixingEdges); 
 		SpanMappings maps = new SpanMappings(span1);
 		List<Edge> brotherEdges = new ArrayList<Edge>();
 		List<Edge> sisterEdges = new ArrayList<Edge>();
@@ -240,7 +322,7 @@ public class MinimalReasonComputation {
 		Map<Edge, Set<Edge>> result = new HashMap<Edge, Set<Edge>>();
 
 		for (Edge toFixPO : danglingFamilyPO) {
-			Set<Edge> potentialFixes = fixingEdges.get(toFixPO);
+			Set<Edge> potentialFixes = theFixingEdges.get(toFixPO);
 			Set<Edge> viable = new HashSet<Edge>();
 			Set<Node> requiredMemberNodes = new HashSet<Node>();
 			Node srcToFix = toFixPO.getSource();
@@ -267,35 +349,76 @@ public class MinimalReasonComputation {
 		return list;
 	}
 
-	/**
-	 * 
-	 * @param rule1
-	 * @param rule2
-	 * @param poDangling
-	 * @param s1
-	 * @param mappingOfRule1InOverlapG
-	 * @param mappingOfRule2InOverlapG
-	 * @return A set of fixing edges, that is, edges in R1 suitable to act as a
-	 *         counterpart for the dangling edge originating from R2.
-	 */
-	public Set<Edge> findFixingEdges(Rule rule1, Rule rule2, Edge poDangling, CospanMappingToMaps comaps, Span s1) {
-		SpanMappings maps = new SpanMappings(s1);
-		Node poDanglingSource = poDangling.getSource();
-		Node poDanglingTarget = poDangling.getTarget();
-		Node r1DanglingSource = comaps.gToRule1.get(poDanglingSource);
-		Node r1DanglingTarget = comaps.gToRule1.get(poDanglingTarget);
-
-		if (r1DanglingSource == null) { // source dangling
-			Set<Edge> r1Candidates = new HashSet<Edge>(r1DanglingTarget.getIncoming(poDangling.getType()));
-			return r1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getSource()) == null)
-					.collect(Collectors.toSet());
-		} else if (r1DanglingTarget == null) { // source dangling
-			Set<Edge> c1Candidates = new HashSet<Edge>(r1DanglingSource.getOutgoing(poDangling.getType()));
-			return c1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getTarget()) == null)
-					.collect(Collectors.toSet());
+	private Map<Edge, Set<Edge>> flattenFixingSet(Map<DanglingEdge, Set<Edge>> fixingEdges) {
+		Map<Edge, Set<Edge>> result = new HashMap<Edge, Set<Edge>>();
+		for (Entry<DanglingEdge, Set<Edge>> entry : fixingEdges.entrySet()) {
+			result.put(entry.getKey().getEdge(), entry.getValue());
 		}
-		return new HashSet<Edge>();
-//		throw new RuntimeException("Invalid state: neither source nor target were dangling in L1!");
+		return result;
+	}
+}
+
+enum DanglingCase {
+	sourceDangling, targetDangling, unspecifiedEdge
+}
+
+class DanglingEdge {
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((danglingCase == null) ? 0 : danglingCase.hashCode());
+		result = prime * result + ((edge == null) ? 0 : edge.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DanglingEdge other = (DanglingEdge) obj;
+		if (danglingCase != other.danglingCase)
+			return false;
+		if (edge == null) {
+			if (other.edge != null)
+				return false;
+		} else if (!edge.equals(other.edge))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "DanglingEdge [edge=" + edge + ", danglingCase=" + danglingCase + "]";
+	}
+
+	Edge edge;
+	DanglingCase danglingCase;
+
+	public DanglingEdge(Edge edge, DanglingCase danglingCase) {
+		super();
+		this.edge = edge;
+		this.danglingCase = danglingCase;
+	}
+
+	public Edge getEdge() {
+		return edge;
+	}
+
+	public void setEdge(Edge edge) {
+		this.edge = edge;
+	}
+
+	public DanglingCase getDanglingCase() {
+		return danglingCase;
+	}
+
+	public void setDanglingCase(DanglingCase danglingCase) {
+		this.danglingCase = danglingCase;
 	}
 
 }

@@ -28,7 +28,10 @@ public class UmlEditManualEvalRunner extends UmlEvalRunner {
 
 	private ResourceSetImpl resourceSet;
 
-	public static List<Granularity> granularities = Arrays.asList(Granularity.coarse, Granularity.fine, Granularity.ess
+	public static List<Granularity> granularities = Arrays.asList(
+//			Granularity.coarse, 
+			Granularity.fine
+			, Granularity.ess
 	// , Granularity.binary
 	);
 	
@@ -67,8 +70,9 @@ public class UmlEditManualEvalRunner extends UmlEvalRunner {
 		String subDirectoryPath = "rules\\umledit\\manual\\delete\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
 //		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 5);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
 
 	}
 
