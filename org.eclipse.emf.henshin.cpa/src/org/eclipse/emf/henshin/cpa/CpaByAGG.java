@@ -314,6 +314,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 
 		if (fileName.endsWith(".ggx")) {
 			XMLHelper h = new XMLHelper();
+			
 			if (h.read_from_xml(fileName)) {
 				GraGra gra = new GraGra(true);
 				h.getTopObject(gra);
