@@ -31,14 +31,6 @@ public class HenshinRuleLoader {
 	}
 
 
-	static List<String> filteredNames = Arrays.asList(
-//			"Generalization_2-6","ExtractALTGroup","Specialization_3-6",
-//			"28039_removeChild",
-//			"28085_getParent",
-//			"28215_setAttribute",
-//			"28325_setAttribute",
-//			"28364_addChildren"
-);
 	public static List<Rule> loadAllRulesFromFileSystemPaths(File dir) {
 		List<String> pathsToHenshinFiles = inspectDirectoryForHenshinFiles(dir);
 		List<Rule> rules = new LinkedList<Rule>();
@@ -52,10 +44,7 @@ public class HenshinRuleLoader {
 				if (unit instanceof Rule) {
 					boolean deactivatedRule = false;
 					if (!deactivatedRule) {
-						if (!filteredNames.contains(unit.getName())) {
 							rules.add((Rule) unit);
-						} else
-							System.out.println("Filtered out "+unit.getName());
 					}
 				}
 			}

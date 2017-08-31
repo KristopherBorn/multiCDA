@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -14,16 +15,7 @@ import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
-// TODO: noch ist unklar ob eine solche Datenstruktur notwendig ist,
-// oder es sich um Instanzen einer bereits bekannten Datenstruktur handelt.
-// Je nach Ergebnis löschen oder in eigenständiges class-file auslagern.
-
-// Generell: muss die matches m1 und m2 aus L1 und L2 enthalten und somit auch G.
-// daher kennt es oder referenziert es auch (indirekt?) die beiden Regeln
 public class Pushout {
-
-	private static final boolean DELETE_DUPLICATE_EDGES = false;
-
 	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
 	/**
@@ -52,36 +44,119 @@ public class Pushout {
 	 * @return the resultGraph
 	 */
 	public Graph getResultGraph() {
-		return resultGraph;
+		return graph;
 	}
 
-	Graph resultGraph;
+	Graph graph;
 
 	private HashMap<Node, Node> rule1toPOmap;
 	private HashMap<Node, Node> rule2toPOmap;
 
-	@SuppressWarnings("unused")
-	public Pushout(Rule rule1, Span s1span, Rule rule2) {
+	private Graph shadowGraph;
 
-		// TODO: prüfen, dass alle mappings in die beiden Regeln verweisen, bzw.
-		// keine der Regeln NULL ist. Sonst werfen einer Exception!
-		// throw new IllegalStateException("blabla")
-		// ggf. in "static" Methode (Span) s1span.isValid() auslagern die eine
-		// "IllegalStateException" wirft
-		// s1span.validate(rule1, rule2);
+	public Pushout(Rule rule1, Span s1span, Rule rule2) {
 		ConflictAnalysis.checkNull(rule1);
 		ConflictAnalysis.checkNull(s1span);
 		ConflictAnalysis.checkNull(rule2);
 		if (!s1span.validate(rule1, rule2))
 			throw new IllegalArgumentException("Span is in invalide state.");
-
-		// Predicate<Object> a = Objects::nonNull; // AHA Prädikate - keine
-		// Ahnung!
-		// Objects::nonNull(rule1); // bringt nichts, nur boolscher
-		// Rückgabewert!
-		// Objects.nonNull(rule2); // bringt nichts, nur boolscher Rückgabewert!
-
 		Graph l1 = rule1.getLhs();
+		Graph l2 = rule2.getLhs();
+
+		graph = preparePushoutGraph(l1);
+		HashMap shadow2Rule2 = prepareShadowPushoutGraph(l2);
+
+		Graph s1 = s1span.getGraph();
+		for (Node node : s1.getNodes()) {
+			glue(s1span, new SpanMappings(s1span), node, shadow2Rule2);
+		}
+
+		moveShadowContentsToPushout(graph, shadowGraph);
+
+		validatePushout(l1, l2, s1);
+		graph.setName("Pushout");
+
+	}
+
+	@SuppressWarnings("unused")
+	private void glue(Span s1span, SpanMappings spanMappings, Node node, HashMap shadow2Rule2) {
+		Node l1node = s1span.getMappingIntoRule1(node).getImage();
+		Node l2node = s1span.getMappingIntoRule2(node).getImage();
+
+		if (l1node == null || l2node == null) {
+			throw new RuntimeException("Did not find a L1 or L2 counterpart for one of the nodes in S1!");
+		} else {
+			Node glueNode = rule1toPOmap.get(l1node);
+			Node discardNode = rule2toPOmap.get(l2node);
+			glueNode.setName(glueNode.getName() + "," + discardNode.getName());
+
+			List<Edge> l2nodesIncoming = new LinkedList<Edge>(discardNode.getIncoming());
+			for (Edge eIn : l2nodesIncoming) {
+				if (spanMappings.getEdgeMappingsRule2S1().get(shadow2Rule2.get(eIn)) == null) {
+					eIn.setTarget(glueNode);
+				} else {
+					eIn.getGraph().removeEdge(eIn);
+				}
+			}
+
+			List<Edge> l2nodesOutgoing = new LinkedList<Edge>(discardNode.getOutgoing());
+			for (Edge eOut : l2nodesOutgoing) {
+				if (spanMappings.getEdgeMappingsRule2S1().get(shadow2Rule2.get(eOut)) == null) {
+					eOut.setSource(glueNode);
+				} else {
+					eOut.getGraph().removeEdge(eOut);
+				}
+			}
+
+			rule2toPOmap.put(l2node, glueNode);
+
+			if (discardNode.getAllEdges().size() > 0) {
+				System.err.println("All Edges of should have been removed, but still " + l2node.getAllEdges().size()
+						+ " are remaining!");
+			}
+
+			Graph graphOfNodeL2 = discardNode.getGraph();
+			boolean removedNode = graphOfNodeL2.removeNode(discardNode);
+		}
+	}
+
+	private void moveShadowContentsToPushout(Graph pushout, Graph shadowpushout) {
+		List<Node> nodesInCopyOfLhsOfRule2 = new LinkedList<Node>(shadowpushout.getNodes());
+		for (Node nodeInCopyOfLhsOfRule2 : nodesInCopyOfLhsOfRule2) {
+			nodeInCopyOfLhsOfRule2.setGraph(pushout);
+		}
+		List<Edge> edgesInCopyOfLhsOfRule2 = new LinkedList<Edge>(shadowpushout.getEdges());
+		for (Edge edgeInCopyOfLhsOfRule2 : edgesInCopyOfLhsOfRule2) {
+			edgeInCopyOfLhsOfRule2.setGraph(pushout);
+		}
+
+		if (shadowpushout.getEdges().size() > 0) {
+			System.err.println(
+					shadowpushout.getEdges().size() + " edges remaining in " + shadowpushout + ", but should be 0");
+		}
+		if (shadowpushout.getNodes().size() > 0) {
+			System.err.println(
+					shadowpushout.getNodes().size() + " nodes remaining in " + shadowpushout + ", but should be 0");
+		}
+	}
+
+	private HashMap prepareShadowPushoutGraph(Graph l2) {
+		rule2toPOmap = new HashMap<Node, Node>();
+		Copier copierForRule2 = new Copier();
+		 shadowGraph = (Graph) copierForRule2.copy(l2);
+		copierForRule2.copyReferences();
+		for (Node node : l2.getNodes()) {
+			Node copyResultNode = (Node) copierForRule2.get(node);
+			rule2toPOmap.put(node, copyResultNode);
+		}
+		HashMap<EObject,EObject> shadow2Rule2 = new HashMap<EObject, EObject>();
+		for (EObject o : copierForRule2.keySet()) {
+			shadow2Rule2.put(copierForRule2.get(o), o);
+		}
+		return shadow2Rule2;
+	}
+
+	private Graph preparePushoutGraph(Graph l1) {
 		rule1toPOmap = new HashMap<Node, Node>();
 		Copier copierForRule1Map = new Copier();
 		Graph pushout = (Graph) copierForRule1Map.copy(l1);
@@ -90,106 +165,22 @@ public class Pushout {
 			Node copyResultNode = (Node) copierForRule1Map.get(node);
 			rule1toPOmap.put(node, copyResultNode);
 		}
-		Graph l2 = rule2.getLhs();
-		rule2toPOmap = new HashMap<Node, Node>();
-		Copier copierForRule2 = new Copier();
-		Graph l2copy = (Graph) copierForRule2.copy(l2);
-		copierForRule2.copyReferences();
-		for (Node node : l2.getNodes()) {
-			Node copyResultNode = (Node) copierForRule2.get(node);
-			rule2toPOmap.put(node, copyResultNode);
-		}
-
-		Graph s1 = s1span.getGraph();
-		// replace common nodes in copyOfRule2 with the one in copyOfRule1
-		for (Node node : s1.getNodes()) {
-			// retarget associated edges
-			// get associated node and mapping in both copies
-
-			Node l1node = s1span.getMappingIntoRule1(node).getImage();
-			Node l2node = s1span.getMappingIntoRule2(node).getImage();
-
-			if (l1node == null || l2node == null) {
-				throw new RuntimeException("Did not find a L1 or L2 counterpart for one of the nodes in S1!");
-			} else {
-				Node mergedNode = rule1toPOmap.get(l1node);
-				Node discardNode = rule2toPOmap.get(l2node);
-				mergedNode.setName(mergedNode.getName() + "," + discardNode.getName());
-
-				Set<Edge> duplicateEdgesToDelete = new HashSet<Edge>();
-
-				List<Edge> l2nodesIncoming = new LinkedList<Edge>(discardNode.getIncoming());
-				for (Edge eIn : l2nodesIncoming) {
-					// hier prüfen, ob es zwischen den beiden Knoten bereits
-					// eine Kante des Typs gibt. Dann keine weitere Kante
-					// erzeugen!
-					if (DELETE_DUPLICATE_EDGES && mergedNode.getIncoming(eIn.getType(), eIn.getSource()) != null) {
-						/* löschen der Kante */
-						duplicateEdgesToDelete.add(eIn);
-					} else {
-						eIn.setTarget(mergedNode);
-					}
-				}
-
-				List<Edge> l2nodesOutgoing = new LinkedList<Edge>(discardNode.getOutgoing());
-				for (Edge eOut : l2nodesOutgoing) {
-						eOut.setSource(mergedNode);
-				}
-				for (Edge e : duplicateEdgesToDelete) {
-					e.getGraph().getEdges().remove(e);
-				}
-				
-				rule2toPOmap.put(l2node, mergedNode);
-
-				if (discardNode.getAllEdges().size() > 0) {
-					System.err.println("All Edges of should have been removed, but still " + l2node.getAllEdges().size()
-							+ " are remaining!");
-				}
-
-				Graph graphOfNodeL2 = discardNode.getGraph();
-				boolean removedNode = graphOfNodeL2.removeNode(discardNode);
-			}
-		}
-
-		List<Node> nodesInCopyOfLhsOfRule2 = new LinkedList<Node>(l2copy.getNodes());
-		for (Node nodeInCopyOfLhsOfRule2 : nodesInCopyOfLhsOfRule2) {
-			nodeInCopyOfLhsOfRule2.setGraph(pushout);
-		}
-		List<Edge> edgesInCopyOfLhsOfRule2 = new LinkedList<Edge>(l2copy.getEdges());
-		for (Edge edgeInCopyOfLhsOfRule2 : edgesInCopyOfLhsOfRule2) {
-			edgeInCopyOfLhsOfRule2.setGraph(pushout);
-		}
-
-		// check that NO edges and nodes are remaining in copyOfLhsOfRule2
-		if (l2copy.getEdges().size() > 0) {
-			System.err.println(l2copy.getEdges().size() + " edges remaining in " + l2copy + ", but should be 0");
-		}
-		if (l2copy.getNodes().size() > 0) {
-			System.err.println(l2copy.getNodes().size() + " nodes remaining in " + l2copy + ", but should be 0");
-		}
-
-		// check that the number of edges and nodes in edgeInCopyOfLhsOfRule1 is
-		// correct
-		int numberOfExpectedNodes = (l1.getNodes().size() + l2.getNodes().size() - s1.getNodes().size());
-		if (pushout.getNodes().size() != numberOfExpectedNodes) {
-			System.err.println("Number of nodes in created result graph of pushout not as expected. Difference: "
-					+ (pushout.getNodes().size() - numberOfExpectedNodes));
-		}
-//		System.out.println();
-//		System.out.println(pushout.getNodes().size() + " N, "+
-//		pushout.getEdges().size() + " E ");
-		// set copyOfLhsOfRule1 as resultGraph
-		pushout.setName("Pushout");
-		resultGraph = pushout;
-
+		return pushout;
 	}
 
-	private Mapping getMappingOfOrigin(List<Mapping> mappingsOfRules, Node origin) {
-		for (Mapping mapping : mappingsOfRules) {
-			if (mapping.getOrigin() == origin)
-				return mapping;
+	private void validatePushout(Graph l1, Graph l2, Graph s1) {
+		int numberOfExpectedNodes = (l1.getNodes().size() + l2.getNodes().size() - s1.getNodes().size());
+		if (graph.getNodes().size() != numberOfExpectedNodes) {
+			System.err.println("Number of nodes in created result graph (" + graph.getNodes().size()
+					+ ") not as expected (" + numberOfExpectedNodes + "). Difference: "
+					+ (graph.getNodes().size() - numberOfExpectedNodes));
 		}
-		return null;
+		int numberOfExpectedEdges = (l1.getEdges().size() + l2.getEdges().size() - s1.getEdges().size());
+		if (graph.getEdges().size() != numberOfExpectedEdges) {
+			System.err.println("Number of edges in created result graph (" + graph.getEdges().size()
+					+ ") not as expected (" + numberOfExpectedEdges + "). Difference: "
+					+ (graph.getEdges().size() - numberOfExpectedEdges));
+		}
 	}
 
 }

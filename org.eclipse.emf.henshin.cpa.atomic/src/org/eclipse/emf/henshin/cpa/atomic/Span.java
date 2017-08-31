@@ -152,10 +152,10 @@ public class Span {
 				return false;
 		
 		// Are same edges in rules 1 and 2 used?
-		Map<Edge, Edge> edgeMapS1R1 = spanMap.computeEdgeMappingsS1Rule1();
-		Map<Edge, Edge> edgeMapS1R2 = spanMap.computeEdgeMappingsS1Rule2();
-		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.computeEdgeMappingsS1Rule1();
-		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.computeEdgeMappingsS1Rule2();
+		Map<Edge, Edge> edgeMapS1R1 = spanMap.getEdgeMappingsS1Rule1();
+		Map<Edge, Edge> edgeMapS1R2 = spanMap.getEdgeMappingsS1Rule2();
+		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.getEdgeMappingsS1Rule1();
+		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.getEdgeMappingsS1Rule2();
 		
 		Set<Edge> edgesRule1 = new HashSet<Edge>(edgeMapS1R1.values());
 		Set<Edge> edgesRule2 = new HashSet<Edge>(edgeMapS1R2.values());

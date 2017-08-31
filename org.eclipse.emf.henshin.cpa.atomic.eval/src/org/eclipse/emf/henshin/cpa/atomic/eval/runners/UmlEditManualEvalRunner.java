@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -12,6 +13,7 @@ import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.henshin.cpa.atomic.eval.Granularity;
 import org.eclipse.emf.henshin.cpa.atomic.eval.Type;
+import org.eclipse.emf.henshin.cpa.atomic.eval.UmlEvalRunner;
 import org.eclipse.emf.henshin.cpa.atomic.eval.util.EssCPARunner;
 import org.eclipse.emf.henshin.cpa.atomic.eval.util.HenshinRuleLoader;
 import org.eclipse.emf.henshin.cpa.atomic.eval.util.Logger;
@@ -25,29 +27,30 @@ import org.eclipse.uml2.uml.internal.impl.UMLPackageImpl;
 public class UmlEditManualEvalRunner extends UmlEvalRunner {
 
 	private ResourceSetImpl resourceSet;
-	
 
-	public static List<Granularity> granularities =  Arrays.asList(
-			Granularity.coarse,
-			Granularity.fine,
-			Granularity.ess
-//			, Granularity.binary
-			);
-	public static Type type = Type.conflicts;
+	public static List<Granularity> granularities = Arrays.asList(Granularity.coarse, Granularity.fine, Granularity.ess
+	// , Granularity.binary
+	);
 	
+	
+	List<String> subset = Arrays.asList(
+	"DELETE_Association_Navigable_Property_BOTH_Class_FROM_Package"
+	);
+	
+	public static Type type = Type.conflicts;
+
 	public static void main(String[] args) {
 		new UmlEditManualEvalRunner().run(granularities, type);
 	}
-	
+
 	@Override
 	public void init() {
 		UMLPackage.eINSTANCE.eClass();
 
-		
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 
-		EPackage.Registry.INSTANCE.put("http://www.eclipse.org/uml2/4.0.0/UML",UMLPackageImpl.eINSTANCE);
+		EPackage.Registry.INSTANCE.put("http://www.eclipse.org/uml2/4.0.0/UML", UMLPackageImpl.eINSTANCE);
 
 		m.put("xmi", new XMIResourceFactoryImpl());
 		resourceSet = new ResourceSetImpl();
@@ -57,16 +60,17 @@ public class UmlEditManualEvalRunner extends UmlEvalRunner {
 
 	@Override
 	public List<Rule> getRules() {
-		final File f = new File(UmlEditManualEvalRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		final File f = new File(
+				UmlEditManualEvalRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String filePath = f.toString();
 		String projectPath = filePath.replaceAll("bin", "");
-		String subDirectoryPath = "rules\\umledit\\manual\\";
+		String subDirectoryPath = "rules\\umledit\\manual\\delete\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 5);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
+
 	}
-	
-	
 
 	@Override
 	public String getDomainName() {

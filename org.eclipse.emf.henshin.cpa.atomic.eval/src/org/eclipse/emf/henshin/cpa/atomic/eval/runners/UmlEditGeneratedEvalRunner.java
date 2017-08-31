@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.henshin.cpa.atomic.eval.EvalRunner;
 import org.eclipse.emf.henshin.cpa.atomic.eval.Granularity;
 import org.eclipse.emf.henshin.cpa.atomic.eval.Type;
+import org.eclipse.emf.henshin.cpa.atomic.eval.UmlEvalRunner;
 import org.eclipse.emf.henshin.cpa.atomic.eval.util.HenshinRuleLoader;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.uml2.uml.UMLPackage;

@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.henshin.cpa.atomic.CospanMappingToMaps;
 import org.eclipse.emf.henshin.cpa.atomic.MapOfLSetEnumerator;
 import org.eclipse.emf.henshin.cpa.atomic.Pushout;
@@ -21,6 +22,7 @@ import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Action.Type;
 import org.eclipse.emf.henshin.model.Edge;
+import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
@@ -30,8 +32,8 @@ public class MinimalReasonComputation {
 	static Action deleteAction = new Action(Action.Type.DELETE);
 	static Action preserveAction = new Action(Action.Type.PRESERVE);
 	static HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
-	Map<Span,Pushout> span2pushout = new HashMap<Span, Pushout>();
-	
+	Map<Span, Pushout> span2pushout = new HashMap<Span, Pushout>();
+
 	protected Rule rule1;
 	protected Rule rule2;
 
@@ -46,6 +48,9 @@ public class MinimalReasonComputation {
 		for (Span candidate : candidates) {
 			computeMinimalConflictReasons(candidate, result);
 		}
+		// for (MinimalConflictReason res : result) {
+		// System.out.println(res.toShortString());
+		// }
 		return result;
 	}
 
@@ -63,9 +68,10 @@ public class MinimalReasonComputation {
 	private boolean isMinReason(Span s1) {
 		Pushout pushoutResult = getPushout(s1);
 		boolean rule1EmbeddingIsDanglingFree = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings()).isEmpty();
+		// if (rule1EmbeddingIsDanglingFree)
+		// System.out.println(s1.getGraph().getEdges().size());
 		return rule1EmbeddingIsDanglingFree;
 	}
-
 
 	private Pushout getPushout(Span s1) {
 		Pushout result = span2pushout.get(s1);
@@ -76,43 +82,57 @@ public class MinimalReasonComputation {
 		return result;
 	}
 
-	public List<Edge> findDanglingEdgesOfRule1(List<Mapping> embedding) {
+	public Set<Edge> findDanglingEdgesOfRule1(List<Mapping> embedding) {
 		HashMap<Node, Node> mapL1toG = new HashMap<Node, Node>();
 		HashMap<Node, Node> mapGtoL1 = new HashMap<Node, Node>();
+		Graph pushout = null;
 		for (Mapping mapping : embedding) {
 			mapL1toG.put(mapping.getOrigin(), mapping.getImage());
 			mapGtoL1.put(mapping.getImage(), mapping.getOrigin());
+			pushout = mapping.getImage().getGraph();
 		}
-	
+		Set<Edge> danglingEdges = new HashSet<Edge>();
+
 		EList<Node> l1DeletingNodes = rule1.getActionNodes(new Action(Action.Type.DELETE));
-		List<Edge> danglingEdges = new LinkedList<Edge>();
-	
 		for (Node l1Deleting : l1DeletingNodes) {
+
 			Node poDeleting = mapL1toG.get(l1Deleting);
-	
-			EList<Edge> poDeletingsEdges = poDeleting.getAllEdges();
-			for (Edge poDeletingsEdge : poDeletingsEdges) {
-				Node l1DelSource = mapGtoL1.get(poDeletingsEdge.getSource());
-				if (l1DelSource == null) {
-					danglingEdges.add(poDeletingsEdge);
-					continue;
-				}
-	
-				Node l1DelTarget = mapGtoL1.get(poDeletingsEdge.getTarget());
-				if (l1DelTarget == null) {
-					danglingEdges.add(poDeletingsEdge);
-				}
+
+			for (Edge edge : poDeleting.getOutgoing()) {
+				Node l1DelTarget = mapGtoL1.get(edge.getTarget());
+				int countPO = getAllEdges(poDeleting, edge.getTarget(), edge.getType()).size();
+				int countLhs1 = getAllEdges(l1Deleting, l1DelTarget, edge.getType()).size();
+				if (l1DelTarget == null) //  || countLhs1 != countPO)
+					danglingEdges.add(edge);
 			}
-	
+			for (Edge edge : poDeleting.getIncoming()) {
+				Node l1DelSource = mapGtoL1.get(edge.getSource());
+				int countPO = getAllEdges(edge.getTarget(), poDeleting, edge.getType()).size();
+				int countLhs1 = getAllEdges(l1DelSource, l1Deleting, edge.getType()).size();
+				if (l1DelSource == null ) // || countLhs1 != countPO)
+					danglingEdges.add(edge);
+			}
+
 		}
 		return danglingEdges;
+	}
+
+	private Set<Edge> getAllEdges(Node source, Node target, EReference type) {
+		Set<Edge> result = new HashSet<Edge>();
+		if (source == null || target == null)
+			return result;
+		for (Edge edge : source.getOutgoing()) {
+			if (edge.getTarget() == target && edge.getType() == type)
+				result.add(edge);
+		}
+		return result;
 	}
 
 	private Set<Span> findExtensions(Span s1) {
 		Pushout pushoutResult = getPushout(s1);
 		CospanMappingToMaps cospanMappings = new CospanMappingToMaps(pushoutResult.getRule1Mappings(),
 				pushoutResult.getRule2Mappings());
-		List<Edge> danglingEdges = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings());
+		Set<Edge> danglingEdges = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings());
 
 		Map<Edge, Set<Edge>> fixingEdgeMap = new HashMap<>();
 		for (Edge danglingEdge : danglingEdges) {
@@ -274,7 +294,8 @@ public class MinimalReasonComputation {
 			return c1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getTarget()) == null)
 					.collect(Collectors.toSet());
 		}
-		throw new RuntimeException("Invalid state: neither source nor target were dangling in L1!");
+		return new HashSet<Edge>();
+//		throw new RuntimeException("Invalid state: neither source nor target were dangling in L1!");
 	}
 
 }

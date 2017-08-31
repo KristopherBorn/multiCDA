@@ -153,4 +153,13 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public Span newSpan(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
 		return new Span(rule1Mappings, s1, rule2Mappings);
 	}
+
+	public List<Span> getCandidates() {
+		return new AtomCandidateComputation(rule1, rule2).computeAtomCandidates();
+	}
+
+	public Set<MinimalConflictReason> getMinimalConflictReasons() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
