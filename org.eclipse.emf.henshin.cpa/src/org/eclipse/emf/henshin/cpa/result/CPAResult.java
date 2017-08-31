@@ -111,61 +111,6 @@ public class CPAResult implements Iterable<CriticalPair> {
 		return result;
 	}
 
-	//
-	// /**
-	// * Returns the list of critical pairs.
-	// *
-	// * @return The list of critical pairs.
-	// */
-	// public List<CriticalPair> getInitialCriticalPairs() {
-	// List<CriticalPair> result = new ArrayList<>();
-	// for (CriticalPair pair : getCriticalPairs()) {
-	// List<Node> isolatedBoundaryNodes = new ArrayList<Node>();
-	//
-	// Set<Edge> criticalEdges = new HashSet<Edge>();
-	// Set<Node> boundaryNodes = new HashSet<Node>();
-	// for (CriticalElement el : pair.getCriticalElements()) {
-	// if (el.elementInFirstRule instanceof Edge) {
-	// Edge edge = (Edge) el.elementInFirstRule;
-	// criticalEdges.add(edge);
-	// if (edge.getSource().getActionNode().getAction().getType() ==
-	// Type.PRESERVE)
-	// boundaryNodes.add(edge.getSource());
-	// if (edge.getTarget().getActionNode().getAction().getType() ==
-	// Type.PRESERVE)
-	// boundaryNodes.add(edge.getTarget());
-	//
-	// }
-	// if (el.elementInSecondRule instanceof Edge) {
-	// criticalEdges.add((Edge) el.elementInSecondRule);
-	// }
-	// }
-	// for (Node bn : boundaryNodes) {
-	// boolean isolated = true;
-	// for (Edge e1 : bn.getAllEdges()) {
-	// if (criticalEdges.contains(e1))
-	// isolated = false;
-	// }
-	// if (isolated)
-	// isolatedBoundaryNodes.add(bn);
-	// }
-	//
-	// if (isolatedBoundaryNodes.isEmpty()) {
-	// result.add(pair);
-	//// printCriticalElements(pair);
-	// }
-	// }
-	// return result;
-	// }
-
-	private void printBoundaryNodes(CriticalPair pair) {
-		System.out.print("Boundary nodes (" + pair.getBoundaryNodes().size() + "): {");
-		for (BoundaryNode br : pair.getBoundaryNodes()) {
-			System.out.print(br.commonElementOfCriticalGraph + " ");
-		}
-		System.out.println("}");
-	}
-
 	private void printCriticalElements(CriticalPair pair) {
 		System.out.print("Critical elements: {");
 		for (CriticalElement cr : pair.getCriticalElements()) {

@@ -214,78 +214,6 @@ public class AggHenshinCriticalPairTranslator {
 		// post-process the match: remove rule parameters
 		rule2CopyMatch.removeAllParameter(rule2Henshin.getParameters());
 
-		// List<BoundaryNode> boundaryNodes = new ArrayList<BoundaryNode>();
-		// for (int i = 0; i < morph1OriginObjects1.size(); i++) {
-		// GraphObject morph1Image = morph1ImageObjects1.elementAt(i);
-		// for (int j = 0; j < morph2OriginObjects2.size(); j++) {
-		// GraphObject morph2Image = morph2ImageObjects2.elementAt(j);
-		// if (morph1Image == morph2Image) {
-		// GraphObject morph1Origin = morph1OriginObjects1.elementAt(i);
-		// GraphObject morph2Origin = morph2OriginObjects2.elementAt(j);
-		// if (morph1Origin instanceof Arc) {
-		//
-		// Node rule1NodeHenshin = lhs1AGGtoHenshin.get(morph1Origin);
-		// Node rule2NodeHenshin = secondRuleLhsMapping.get(morph2Origin);
-		// if (rule1NodeHenshin == null || rule2NodeHenshin == null) {
-		// throw new RuntimeException("Using null elements as Henshin nodes!");
-		// }
-		// BoundaryNode bn = new BoundaryNode(morph1Image, rule1NodeHenshin,
-		// rule2NodeHenshin);
-		// boundaryNodes.add(bn);
-		// }
-		//
-		// }
-		// }
-		// }
-		//
-		// Map<Node, GraphObject> lhs1HenshinToAgg =
-		// reverseMapping(lhs1AGGtoHenshin);
-		// Set<Node> preserveNodesHenshin =
-		// lhs1HenshinToAgg.keySet().stream().filter(x ->
-		// x.getAction().getType() ==
-		// Action.Type.PRESERVE).collect(Collectors.toSet());
-		// Set<Edge> deleteEdgesHenshin =
-		// lhs1HenshinToAgg.keySet().stream().filter(x ->
-		// x.getAction().getType() ==
-		// Action.Type.PRESERVE).collect(Collectors.toSet());//
-		// Set<Node> preserveNodesHenshin =
-		// lhs1HenshinToAgg.keySet().stream().filter(x ->
-		// x.getAction().getType() ==
-		// Action.Type.PRESERVE).collect(Collectors.toSet());
-		// Set<GraphObject> preserveNodes = new HashSet<GraphObject>();
-		// preserveNodesHenshin.forEach(x ->
-		// preserveNodes.add(lhs1HenshinToAgg.get(x)));
-		//
-		// System.err.println(
-		// "::" + morph1OriginObjects1.stream().filter(x -> x instanceof
-		// Arc).collect(Collectors.toSet()).size()
-		// + " vs. " +
-		//
-		// morph2OriginObjects2.stream().filter(x -> x instanceof
-		// Arc).collect(Collectors.toSet()).size());
-		//
-		// List<BoundaryNode> boundaryNodes = new ArrayList<BoundaryNode>();
-		// for (int i = 0; i < morph1OriginObjects1.size(); i++) {
-		// GraphObject morph1Origin = morph1OriginObjects1.elementAt(i);
-		// GraphObject morph1Image = morph1ImageObjects1.elementAt(i);
-		//
-		// for (int j = 0; j < morph2OriginObjects2.size(); j++) {
-		// GraphObject morph2Origin = morph2OriginObjects2.elementAt(j);
-		// GraphObject morph2Image = morph2ImageObjects2.elementAt(j);
-		// if (morph1Image == morph2Image &&
-		// preserveNodes.contains(morph1Origin)) {
-		// Node henshinNodeRule1 = lhs1AGGtoHenshin.get(morph1Origin);
-		// Node henshinNodeRule2 = secondRuleLhsMapping.get(morph2Origin);
-		// if (henshinNodeRule1 == null || henshinNodeRule2 == null) {
-		// throw new RuntimeException("Using null elements as Henshin nodes!");
-		// }
-		// BoundaryNode bn = new BoundaryNode(morph1Image, henshinNodeRule1,
-		// henshinNodeRule2);
-		// boundaryNodes.add(bn);
-		// }
-		// }
-		// }
-
 		if (validCriticalPair) {
 			// rename back from hash
 			rename(hashToName, cpaEPackage);
@@ -295,14 +223,12 @@ public class AggHenshinCriticalPairTranslator {
 						transformCriticalKindOfDependency(cpd));
 
 				dep.addCriticalElements(criticalElements);
-				// dep.addBoundaryNodes(boundaryNodes);
 				result.addResult(dep);
 			} else if (criticalPairType == CPType.Conflict) {
 				Conflict conf = new Conflict(rule1Henshin, rule2Henshin, cpaEPackage, rule1CopyMatch, rule2CopyMatch,
 						transformCriticalKindOfConflict(cpd));
 
 				conf.addCriticalElements(criticalElements);
-				// conf.addBoundaryNodes(boundaryNodes);
 				result.addResult(conf);
 			}
 		}
@@ -698,14 +624,6 @@ public class AggHenshinCriticalPairTranslator {
 		if (!cpaEPackage.getEClassifiers().contains(targetEClass)) {
 			cpaEPackage.getEClassifiers().add(targetEClass);
 		}
-	}
-
-	private Map<Node, GraphObject> reverseMapping(Map<GraphObject, Node> mapping) {
-		Map<Node, GraphObject> result = new HashMap<>();
-		for (Map.Entry<GraphObject, Node> entry : mapping.entrySet()) {
-			result.put(entry.getValue(), entry.getKey());
-		}
-		return result;
 	}
 
 	private org.eclipse.emf.henshin.model.Rule getResultRule(String ruleName) {
