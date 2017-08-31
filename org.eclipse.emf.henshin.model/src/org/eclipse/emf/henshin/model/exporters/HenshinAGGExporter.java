@@ -578,14 +578,7 @@ public class HenshinAGGExporter implements HenshinModelExporter {
 			Element nodeElem = newElement("Node", graphElem, true);
 			nodeElem.setAttribute("type", nodeTypeIDs.get(node.getType())); //TODO: (10.04.2017) wenn nodeTypeIDs.get() NULL zurück gibt, so schient der Type nicht korrekt exportiert worden zu sein. Dies führt im Anschluss zu falschen Ergebnissen!
 			if(nodeTypeIDs.get(node.getType()) == null ){
-				System.err.println("Export Failure !!!1!");
-				System.err.println("Export Failure !!!2!");
-				System.err.println("Export Failure !!!3!");
-				System.err.println("Export Failure !!!4!");
-				System.err.println("Export Failure !!!5!");
-//				TODO: Exception?
-				// TODO: Das sollte auch in der check() Methode die innerhalb der init()-Methode der Klasse CpaByAgg aufgerufen wird überprüft werden!!!
-				//			offen ist/bleibt, ob die eigentliche Ursache nicht in verschiedenen Metamodell / eCore-Modellen liegt. z.B. auch, weil bei dynamischem EMF die lokalen Pfade unterschiedlich sind!  
+				throw new RuntimeException("Error during transformation of a graph: could not find a type node for "+node.getType());
 			}
 			graphNodeIDs.put(node, nodeElem.getAttribute("ID"));
 
@@ -644,6 +637,16 @@ public class HenshinAGGExporter implements HenshinModelExporter {
 			edgeElem.setAttribute("type", edgeTypeIDs.get(edge.getType()));
 			edgeElem.setAttribute("source", graphNodeIDs.get(edge.getSource()));
 			edgeElem.setAttribute("target", graphNodeIDs.get(edge.getTarget()));
+			if( edgeTypeIDs.get(edge.getType()) == null ){
+				throw new RuntimeException("Error during transformation of a graph: could not find the edge type "+edge.getType());
+			}
+			if(graphNodeIDs.get(edge.getSource()) == null){
+				throw new RuntimeException("Error during transformation of a graph: could not find a source for an edge of type "+edge.getType());
+			}
+			if(graphNodeIDs.get(edge.getTarget()) == null){
+				throw new RuntimeException("Error during transformation of a graph: could not find a target for an edge of type "+edge.getType());
+			}
+		
 		}
 
 	}

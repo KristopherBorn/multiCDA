@@ -29,7 +29,7 @@ public class EssCPARunner {
 	public static CPAResult runEssCPA(Logger essCpaLogger, List<Rule> skippedRules,
 			Rule rule1, Rule rule2,  Rule originalRule2) {
 		PrintStream original = System.out;
-		System.setOut(new NullPrintStream());
+//		System.setOut(new NullPrintStream());
 		
 		CPAResult result =  new CPAResult();
 		boolean canceled = false;

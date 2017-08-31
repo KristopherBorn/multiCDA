@@ -24,7 +24,9 @@ public class UmlEditGeneratedEvalRunner extends UmlEvalRunner {
 	private ResourceSetImpl resourceSet;
 	
 
-	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
+	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess
+//			,Granularity.binary
+			);
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
@@ -52,7 +54,7 @@ public class UmlEditGeneratedEvalRunner extends UmlEvalRunner {
 		String subDirectoryPath = "rules\\umledit\\generated\\DELETE";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(2, 4);
 	}
 	
 

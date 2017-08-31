@@ -28,7 +28,8 @@ public class UmlEditManualEvalRunner extends UmlEvalRunner {
 	
 
 	public static List<Granularity> granularities =  Arrays.asList(
-			//Granularity.coarse,Granularity.fine,
+			Granularity.coarse,
+			Granularity.fine,
 			Granularity.ess
 //			, Granularity.binary
 			);

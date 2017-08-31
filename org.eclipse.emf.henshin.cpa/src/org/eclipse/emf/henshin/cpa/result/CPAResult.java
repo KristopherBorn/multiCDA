@@ -14,15 +14,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.henshin.cpa.result.CriticalPair.AppliedAnalysis;
 import org.eclipse.emf.henshin.model.Edge;
-import org.eclipse.emf.henshin.model.GraphElement;
-import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.model.*;
-
-import agg.xt_basis.GraphObject;
-import agg.xt_basis.Node;
+import org.eclipse.emf.henshin.model.Node;
+import org.eclipse.emf.henshin.model.Action.Type;
 
 /**
  * This class stores all the <code>CriticalPair</code>s as a result of a
@@ -78,35 +76,87 @@ public class CPAResult implements Iterable<CriticalPair> {
 	 * @return The list of critical pairs.
 	 */
 	public List<CriticalPair> getInitialCriticalPairs() {
-		List<CriticalPair> result = new ArrayList();
+		List<CriticalPair> result = new ArrayList<>();
 		for (CriticalPair pair : getCriticalPairs()) {
-//			printBoundaryNodes(pair);
-			List<BoundaryNode> isolatedBoundaryNodes = new ArrayList<BoundaryNode>(pair.getBoundaryNodes());
-
-			Set<Edge> criticalEdges = new HashSet<Edge>();
+			// Only retain those CPs without isolated boundary nodes.
+			// Since the set of isolated boundary nodes is hard to compute
+			// directly
+			// based on the available data structures, we just compute their
+			// number instead.
+			Set<Node> boundaryNodes = new HashSet<Node>();
 			for (CriticalElement el : pair.getCriticalElements()) {
-				 if (el.elementInFirstRule instanceof Edge) {
-					 criticalEdges.add((Edge) el.elementInFirstRule);
-				 }
-				 if (el.elementInSecondRule instanceof Edge) {
-					 criticalEdges.add((Edge) el.elementInSecondRule);
-				 }
-			}
-			for (BoundaryNode bn : pair.getBoundaryNodes()) {
-				org.eclipse.emf.henshin.model.Node n = (org.eclipse.emf.henshin.model.Node) bn.elementInFirstRule;
-				for (Edge e1 : n.getAllEdges()) {
-					if (criticalEdges.contains(e1))
-						isolatedBoundaryNodes.remove(bn);
+				if (el.elementInFirstRule instanceof Edge) {
+					Edge edge = (Edge) el.elementInFirstRule;
+					if (edge.getSource().getActionNode().getAction().getType() == Type.PRESERVE)
+						boundaryNodes.add(edge.getSource());
+					if (edge.getTarget().getActionNode().getAction().getType() == Type.PRESERVE)
+						boundaryNodes.add(edge.getTarget());
 				}
 			}
-			
-			if (isolatedBoundaryNodes.isEmpty()) {
+			int boundaryNodeCount = boundaryNodes.size();
+
+			EPackage overlap = (EPackage) pair.getMinimalModel();
+			int overlapSize = overlap.getEClassifiers().size();
+			int graph1Size = pair.getCriticalElements().get(0).elementInFirstRule.getGraph().getNodes().size();
+			int graph2Size = pair.getCriticalElements().get(0).elementInSecondRule.getGraph().getNodes().size();
+			Set<CriticalElement> criticalNodes = pair.getCriticalElements().stream()
+					.filter(c -> c.elementInFirstRule instanceof Node).collect(Collectors.toSet());
+			int criticalNodeCount = criticalNodes.size();
+
+			int isolatedBoundaryNodeCount = graph1Size + graph2Size - overlapSize - criticalNodeCount
+					- boundaryNodeCount;
+			if (isolatedBoundaryNodeCount == 0)
 				result.add(pair);
-//				printCriticalElements(pair);
-			}
 		}
 		return result;
 	}
+
+	//
+	// /**
+	// * Returns the list of critical pairs.
+	// *
+	// * @return The list of critical pairs.
+	// */
+	// public List<CriticalPair> getInitialCriticalPairs() {
+	// List<CriticalPair> result = new ArrayList<>();
+	// for (CriticalPair pair : getCriticalPairs()) {
+	// List<Node> isolatedBoundaryNodes = new ArrayList<Node>();
+	//
+	// Set<Edge> criticalEdges = new HashSet<Edge>();
+	// Set<Node> boundaryNodes = new HashSet<Node>();
+	// for (CriticalElement el : pair.getCriticalElements()) {
+	// if (el.elementInFirstRule instanceof Edge) {
+	// Edge edge = (Edge) el.elementInFirstRule;
+	// criticalEdges.add(edge);
+	// if (edge.getSource().getActionNode().getAction().getType() ==
+	// Type.PRESERVE)
+	// boundaryNodes.add(edge.getSource());
+	// if (edge.getTarget().getActionNode().getAction().getType() ==
+	// Type.PRESERVE)
+	// boundaryNodes.add(edge.getTarget());
+	//
+	// }
+	// if (el.elementInSecondRule instanceof Edge) {
+	// criticalEdges.add((Edge) el.elementInSecondRule);
+	// }
+	// }
+	// for (Node bn : boundaryNodes) {
+	// boolean isolated = true;
+	// for (Edge e1 : bn.getAllEdges()) {
+	// if (criticalEdges.contains(e1))
+	// isolated = false;
+	// }
+	// if (isolated)
+	// isolatedBoundaryNodes.add(bn);
+	// }
+	//
+	// if (isolatedBoundaryNodes.isEmpty()) {
+	// result.add(pair);
+	//// printCriticalElements(pair);
+	// }
+	// }
+	// return result;
+	// }
 
 	private void printBoundaryNodes(CriticalPair pair) {
 		System.out.print("Boundary nodes (" + pair.getBoundaryNodes().size() + "): {");

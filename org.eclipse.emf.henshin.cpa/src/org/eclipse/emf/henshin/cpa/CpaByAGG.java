@@ -187,6 +187,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 //		completeRulesByEOppositeEdges();
 
 		// *.ggx file generation
+
 		IStatus exportModuleToAGGStatus = exportModuleToAGG(workingPathWOExtension + ".ggx");
 		if(exportModuleToAGGStatus.getSeverity() == IStatus.ERROR){
 			throw new UnsupportedRuleException(UnsupportedRuleException.exportFailed+" "+exportModuleToAGGStatus.getMessage()); 

@@ -1,5 +1,6 @@
 package org.eclipse.emf.henshin.cpa.atomic.eval.runners;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.henshin.cpa.atomic.eval.EvalRunner;
@@ -23,12 +24,15 @@ public abstract class UmlEvalRunner extends EvalRunner {
 		if (granularities.contains(Granularity.ess)) {
 			logn("[AGG] Computing essential critical pairs (filtered):");
 			for (Rule r1 : rules) {
+				List<Integer> resultRow = new ArrayList<Integer>();
+				essResults.add(resultRow);
 				for (RulePair r2 : nonDeleting) {
 					long time = System.currentTimeMillis();
 					Logger deleteUseLogger = new Logger(Logger.LogData.ESSENTIAL_DELTE_USE_CONFLICTS, rules);
 					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger, null, r1, r2.getCopy(), r2.getOriginal());
-					log(res.getCriticalPairs().size() + " ");
+					log(res.getInitialCriticalPairs().size() + " ");
 					tlog(System.currentTimeMillis() - time + " ");
+					resultRow.add(res.getInitialCriticalPairs().size());
 				}
 				logn("   | "+r1.getName());
 			}

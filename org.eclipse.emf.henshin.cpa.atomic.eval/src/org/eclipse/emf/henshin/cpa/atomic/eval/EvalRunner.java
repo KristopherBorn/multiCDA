@@ -1,8 +1,6 @@
 package org.eclipse.emf.henshin.cpa.atomic.eval;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -30,8 +28,8 @@ public abstract class EvalRunner {
 	String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 	String path= getDomainName() + "\\"+timeStamp+ ".log" ;
 		
-	List<List<Integer>> fineResults = new ArrayList<List<Integer>>();
-	List<List<Integer>> essResults = new ArrayList<List<Integer>>();
+	protected List<List<Integer>> fineResults = new ArrayList<List<Integer>>();
+	protected List<List<Integer>> essResults = new ArrayList<List<Integer>>();
 	
 	public void run(List<Granularity> granularities, Type type) {
 		init();
