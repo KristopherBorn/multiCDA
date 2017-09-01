@@ -72,8 +72,8 @@ public class NanoTest {
 					resultNormal += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
 							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
 							+ " Initial Critical Pairs\n";
-					System.err.println(
-							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+//					System.err.println(
+//							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
 				}
 			}
 		}
@@ -103,8 +103,8 @@ public class NanoTest {
 					resultPreserve += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
 							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
 							+ " Initial Critical Pairs\n\n";
-					System.err.println(
-							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+//					System.err.println(
+//							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
 				}
 			}
 
@@ -119,7 +119,7 @@ public class NanoTest {
 		System.out.println("_____________________________________________\nPreserved second Rules\n");
 		System.out.println("Result of Initial Dependency Reasons [Atomic]: " + initsPreserve.size());
 		System.out.println("Result of Initial Dependency Pairs [AGG]: " + initspPreserve.size());
-		System.err.println("_____________________________________________\nAll Normal Errors:\n" + resultNormal);
+		System.err.println("\n_____________________________________________\nAll Normal Errors:\n" + resultNormal);
 		System.err.println("_____________________________________________\nAll Preserve Errors:\n" + resultPreserve);
 	}
 }
