@@ -32,12 +32,14 @@ public class UmlEditManualEvalRunner extends UmlEvalRunner {
 //			Granularity.coarse, 
 			Granularity.fine
 			, Granularity.ess
+			, Granularity.essUnfiltered
+			
 	// , Granularity.binary
 	);
 	
 	
 	List<String> subset = Arrays.asList(
-	"DELETE_Association_Navigable_Property_BOTH_Class_FROM_Package"
+	"deleteParameter_IN_Operation"
 	);
 	
 	public static Type type = Type.conflicts;
@@ -70,9 +72,9 @@ public class UmlEditManualEvalRunner extends UmlEvalRunner {
 		String subDirectoryPath = "rules\\umledit\\manual\\delete\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
 //		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 5);
-//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
 
 	}
 

@@ -9,11 +9,10 @@
  */
 package org.eclipse.emf.henshin.cpa.result;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.henshin.model.Rule;
 
 /**
@@ -75,7 +74,7 @@ public abstract class CriticalPair {
 		this.r1 = r1;
 		this.r2 = r2;
 		this.minimalModel = minimalModel;
-		criticalElements = new LinkedList<CriticalElement>();
+		criticalElements = new ArrayList<CriticalElement>();
 	}
 
 	/**
@@ -114,7 +113,7 @@ public abstract class CriticalPair {
 	 */
 	public boolean addCriticalElements(List<CriticalElement> newCriticalElements) {
 		if (criticalElements == null)
-			criticalElements = new LinkedList<CriticalElement>();
+			criticalElements = new ArrayList<CriticalElement>();
 
 		boolean allCriticalElementsComplete = true;
 

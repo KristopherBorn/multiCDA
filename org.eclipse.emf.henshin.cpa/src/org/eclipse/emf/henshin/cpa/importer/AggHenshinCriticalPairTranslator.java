@@ -9,8 +9,9 @@
  */
 package org.eclipse.emf.henshin.cpa.importer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -143,7 +144,7 @@ public class AggHenshinCriticalPairTranslator {
 	 * @throws Exception
 	 */
 	private void processAGGresultOfRulePair(CPAResult result, Rule rule1, Rule rule2, CriticalPairData cpd) {
-		criticalElements = new LinkedList<CriticalElement>();
+		criticalElements = new ArrayList<CriticalElement>();
 		boolean validCriticalPair = true;
 
 		cpaEPackage = ecoreFactory.createEPackage();
@@ -180,8 +181,8 @@ public class AggHenshinCriticalPairTranslator {
 		// for the processing of the critical elements]
 		Map<GraphObject, GraphElement> rule1AGGtoHenshin = new HashMap<GraphObject, GraphElement>();
 		Map<GraphObject, GraphElement> rule2AGGtoHenshin = new HashMap<GraphObject, GraphElement>();
-		List<Node> henshinRuleLhsNodes = new LinkedList<Node>();
-		List<Node> henshinRuleRhsNodes = new LinkedList<Node>();
+		List<Node> henshinRuleLhsNodes = new ArrayList<Node>();
+		List<Node> henshinRuleRhsNodes = new ArrayList<Node>();
 
 		CriticalGraphMapping criticalGraphMapping = new CriticalGraphMapping();
 		for (int i = 0; i < morph1OriginObjects.size(); i++) {
@@ -199,7 +200,7 @@ public class AggHenshinCriticalPairTranslator {
 		Vector<GraphObject> morph2OriginObjects2 = morph2.getDomainObjects();
 		Vector<GraphObject> morph2ImageObjects2 = morph2.getCodomainObjects();
 		HashMap<GraphObject, GraphElement> secondRuleLhsMapping = new HashMap<GraphObject, GraphElement>();
-		List<Node> processedLhsNodes = new LinkedList<Node>();
+		List<Node> processedLhsNodes = new ArrayList<Node>();
 		boolean edgeProcessingOfSecondRuleBegun = false;
 		for (int i = 0; i < morph2OriginObjects2.size(); i++) {
 			try {
@@ -236,25 +237,25 @@ public class AggHenshinCriticalPairTranslator {
 
 	private boolean processRule2Element(CriticalPairData cpd, org.eclipse.emf.henshin.model.Rule rule2Henshin,
 			ExtendedMatchImpl rule2CopyMatch, CriticalGraphMapping criticalGraphMapping,
-			boolean edgeProcessingOfSecondRuleBegun, Vector<GraphObject> morph2OriginObjects2,
+			boolean edgeProcessingOfSecondRuleBegun, Vector<GraphObject> morph2OriginObjects,
 			Vector<GraphObject> morph2ImageObjects2, HashMap<GraphObject, GraphElement> secondRuleLhsMapping,
 			List<Node> processedLhsNodes, int i) throws Exception {
-		GraphObject morph2SourceObject = morph2OriginObjects2.elementAt(i);
-		GraphObject morph2TargetObject = morph2ImageObjects2.elementAt(i);
+		GraphObject morph2OriginObject = morph2OriginObjects.elementAt(i);
+		GraphObject morph2ImageObject = morph2ImageObjects2.elementAt(i);
 
 		org.eclipse.emf.henshin.model.Graph rule2lhs = rule2Henshin.getLhs();
 
 		Node henshinNodeLhs = null;
 		Node henshinNodeNac = null;
 
-		if (morph2TargetObject.isNode()) {
-			String sourceName = morph2SourceObject.getType().getName();
+		if (morph2ImageObject.isNode()) {
+			String sourceName = morph2OriginObject.getType().getName();
 			EList<Node> nodes = rule2lhs.getNodes();
 			for (Node fnode : nodes) {
 				if (fnode.getType().getName().equals(sourceName) && !processedLhsNodes.contains(fnode)) {
 					henshinNodeLhs = fnode;
 					processedLhsNodes.add(fnode);
-					secondRuleLhsMapping.put(morph2SourceObject, henshinNodeLhs);
+					secondRuleLhsMapping.put(morph2OriginObject, henshinNodeLhs);
 					break;
 				}
 			}
@@ -281,33 +282,33 @@ public class AggHenshinCriticalPairTranslator {
 			}
 
 			if (henshinNodeLhs != null) {
-				criticalGraphMapping.addSecondRuleMapping(morph2TargetObject, henshinNodeLhs);
+				criticalGraphMapping.addSecondRuleMapping(morph2ImageObject, henshinNodeLhs);
 			} else if (henshinNodeLhs == null && henshinNodeNac != null) {
-				criticalGraphMapping.addSecondRuleMapping(morph2TargetObject, henshinNodeNac);
+				criticalGraphMapping.addSecondRuleMapping(morph2ImageObject, henshinNodeNac);
 			}
 
 			// add node to graph (when not yet added by rule1) and into
 			// Match
 			EClass targetEClass = null;
-			if (hashToName.containsKey(morph2TargetObject.hashCode())) {
-				targetEClass = (EClass) cpaEPackage.getEClassifier("" + morph2TargetObject.hashCode());
+			if (hashToName.containsKey(morph2ImageObject.hashCode())) {
+				targetEClass = (EClass) cpaEPackage.getEClassifier("" + morph2ImageObject.hashCode());
 			} else {
 				targetEClass = ecoreFactory.createEClass();
-				targetEClass.setName("" + morph2TargetObject.hashCode());
-				if (morph2TargetObject.isCritical()) {
-					hashToName.put(morph2TargetObject.hashCode(), "#" + morph2TargetObject.getType().getName() + "#");
+				targetEClass.setName("" + morph2ImageObject.hashCode());
+				if (morph2ImageObject.isCritical()) {
+					hashToName.put(morph2ImageObject.hashCode(), "#" + morph2ImageObject.getType().getName() + "#");
 				} else {
-					hashToName.put(morph2TargetObject.hashCode(), morph2TargetObject.getType().getName());
+					hashToName.put(morph2ImageObject.hashCode(), morph2ImageObject.getType().getName());
 				}
 			}
 
-			if (morph2TargetObject.isCritical()) {
-				processCriticalElementOfSecondRule(cpd, morph2TargetObject, henshinNodeLhs, henshinNodeNac);
+			if (morph2ImageObject.isCritical()) {
+				processCriticalElementOfSecondRule(cpd, morph2ImageObject, henshinNodeLhs, henshinNodeNac);
 			}
 			// TODO: how shall the critical element be processed beforehand
 			// (wich might be an attribute) and the
 			// attributes are just afterwards being processed?
-			processAttributesOfMorphism(morph2TargetObject, targetEClass);
+			processAttributesOfMorphism(morph2ImageObject, targetEClass);
 
 			if (henshinNodeLhs != null) {
 				rule2CopyMatch.setNodeTarget(henshinNodeLhs, targetEClass);
@@ -322,7 +323,7 @@ public class AggHenshinCriticalPairTranslator {
 
 		}
 
-		else if (morph2TargetObject.isArc()) {
+		else if (morph2ImageObject.isArc()) {
 
 			if (!edgeProcessingOfSecondRuleBegun) {
 				extractNodeAssignmentsOfNestedConditions(SequentialRule.SecondRule, rule2lhs.getNestedConditions(),
@@ -330,8 +331,8 @@ public class AggHenshinCriticalPairTranslator {
 				edgeProcessingOfSecondRuleBegun = true;
 			}
 
-			boolean arcIsCritical = morph2SourceObject.isCritical() || morph2TargetObject.isCritical();
-			processEdgeOfAGGResult(morph2TargetObject, SequentialRule.SecondRule, arcIsCritical, criticalGraphMapping);
+			boolean arcIsCritical = morph2OriginObject.isCritical() || morph2ImageObject.isCritical();
+			processEdgeOfAGGResult(morph2ImageObject, SequentialRule.SecondRule, arcIsCritical, criticalGraphMapping);
 		}
 		return edgeProcessingOfSecondRuleBegun;
 	}

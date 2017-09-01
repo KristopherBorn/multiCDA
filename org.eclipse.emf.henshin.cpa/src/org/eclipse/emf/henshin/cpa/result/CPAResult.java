@@ -84,6 +84,7 @@ public class CPAResult implements Iterable<CriticalPair> {
 			// based on the available data structures, we just compute their
 			// number instead.
 			Set<Node> boundaryNodes = new HashSet<Node>();
+			Set<Node> criticalBoundaryNodes = new HashSet<Node>();
 			for (CriticalElement el : pair.getCriticalElements()) {
 				if (el.elementInFirstRule instanceof Edge) {
 					Edge edge = (Edge) el.elementInFirstRule;
@@ -91,9 +92,13 @@ public class CPAResult implements Iterable<CriticalPair> {
 						boundaryNodes.add(edge.getSource());
 					if (edge.getTarget().getActionNode().getAction().getType() == Type.PRESERVE)
 						boundaryNodes.add(edge.getTarget());
+				} else if (el.elementInFirstRule instanceof Node) {
+					Node node = (Node) el.elementInFirstRule;
+					if (node.getActionNode().getAction().getType() == Type.PRESERVE)
+						criticalBoundaryNodes.add(node);
 				}
 			}
-			int boundaryNodeCount = boundaryNodes.size();
+			int boundaryNodeCount = boundaryNodes.size() - criticalBoundaryNodes.size();
 
 			EPackage overlap = (EPackage) pair.getMinimalModel();
 			int overlapSize = overlap.getEClassifiers().size();
