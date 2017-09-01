@@ -9,11 +9,10 @@
  */
 package org.eclipse.emf.henshin.cpa.result;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.henshin.model.Rule;
 
 /**
@@ -71,16 +70,11 @@ public abstract class CriticalPair {
 	 */
 	private List<CriticalElement> criticalElements;
 
-	/**
-	 * The boundary nodes, which are non-deleting nodes from the overlap.
-	 */
-	private List<BoundaryNode> boundaryNodes;
-
 	protected CriticalPair(Rule r1, Rule r2, EObject minimalModel) {
 		this.r1 = r1;
 		this.r2 = r2;
 		this.minimalModel = minimalModel;
-		criticalElements = new LinkedList<CriticalElement>();
+		criticalElements = new ArrayList<CriticalElement>();
 	}
 
 	/**
@@ -119,7 +113,7 @@ public abstract class CriticalPair {
 	 */
 	public boolean addCriticalElements(List<CriticalElement> newCriticalElements) {
 		if (criticalElements == null)
-			criticalElements = new LinkedList<CriticalElement>();
+			criticalElements = new ArrayList<CriticalElement>();
 
 		boolean allCriticalElementsComplete = true;
 
@@ -138,33 +132,6 @@ public abstract class CriticalPair {
 	}
 
 
-	/**
-	 * Adds boundary nodes to the list of boundary nodes of this critical pair, given that each critical pair is
-	 * complete.
-	 * 
-	 * @param nodes new boundary nodes of this critical pair.
-	 * @return <code>true</code> if all the boundary nodes were complete and thus could be all added.
-	 */
-	public boolean addBoundaryNodes(List<BoundaryNode> nodes) {
-		if (boundaryNodes == null)
-			boundaryNodes = new LinkedList<BoundaryNode>();
-
-		boolean allBoundaryNodesComplete = true;
-
-		for (BoundaryNode boundaryNode : nodes) {
-			if (boundaryNode.commonElementOfCriticalGraph == null || boundaryNode.elementInFirstRule == null
-					|| boundaryNode.elementInSecondRule == null) {
-				allBoundaryNodesComplete = false;
-				// es muss auch möglich sein critical elements hinzuzufügen ohne das Element aus AGG - wie erknant durch das laden persitierter CPs
-				// TODO: entsprechend muss die JavaDoc bzw. der Rückgabewert der MEthode angepasst werden.
-				boundaryNodes.add(boundaryNode);
-			} else {
-				allBoundaryNodesComplete &= boundaryNodes.add(boundaryNode);
-			}
-		}
-		return allBoundaryNodesComplete;
-	}
-	
 	/**
 	 * Returns a List of critical elements of this critical pair.
 	 * 
@@ -187,10 +154,6 @@ public abstract class CriticalPair {
 	 */
 	public void setAppliedAnalysis(AppliedAnalysis appliedAnalysis) {
 		this.appliedAnalysis = appliedAnalysis;
-	}
-
-	public List<BoundaryNode> getBoundaryNodes() {
-		return boundaryNodes;
 	}
 
 }

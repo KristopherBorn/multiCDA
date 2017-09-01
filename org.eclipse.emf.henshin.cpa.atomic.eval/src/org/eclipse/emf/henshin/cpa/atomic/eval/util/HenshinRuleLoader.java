@@ -1,6 +1,7 @@
 package org.eclipse.emf.henshin.cpa.atomic.eval.util;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class HenshinRuleLoader {
 		List<String> pathsToHenshinFiles = inspectDirectoryForHenshinFiles(dir);
 		List<Rule> rules = new LinkedList<Rule>();
 
+		
+		
 		for (String pathToHenshinFiles : pathsToHenshinFiles) {
 			HenshinResourceSet henshinResourceSet = new HenshinResourceSet();
 			Module module = henshinResourceSet.getModule(pathToHenshinFiles);
@@ -41,7 +44,7 @@ public class HenshinRuleLoader {
 				if (unit instanceof Rule) {
 					boolean deactivatedRule = false;
 					if (!deactivatedRule) {
-						rules.add((Rule) unit);
+							rules.add((Rule) unit);
 					}
 				}
 			}

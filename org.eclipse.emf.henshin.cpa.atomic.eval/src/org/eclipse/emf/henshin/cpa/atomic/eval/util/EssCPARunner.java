@@ -61,7 +61,7 @@ public class EssCPARunner {
 		SingleCpaTaskResultContainer singleCpaTaskResultContainer = new SingleCpaTaskResultContainer(firstRuleList, secondRuleList, essentialOptions);
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		try {
-			executor.submit(new CalculateCpaTask(singleCpaTaskResultContainer, analysisKind)).get(1, TimeUnit.MINUTES);
+			executor.submit(new CalculateCpaTask(singleCpaTaskResultContainer, analysisKind)).get(60, TimeUnit.MINUTES);
 		} catch (NullPointerException | InterruptedException | ExecutionException e) {
 			System.err.println("Timeout!");
 			executor.shutdown();

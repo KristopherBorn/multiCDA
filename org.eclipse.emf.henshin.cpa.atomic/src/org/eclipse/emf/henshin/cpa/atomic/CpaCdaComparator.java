@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
+import org.eclipse.emf.henshin.cpa.atomic.Pushout;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.ConflictReason;
 import org.eclipse.emf.henshin.cpa.result.Conflict;
 import org.eclipse.emf.henshin.cpa.result.CriticalPair;
@@ -64,7 +64,7 @@ public class CpaCdaComparator {
 			for(CriticalPair cp : essentialCPs){
 				for(ConflictReason cr : conflictReasons){
 					
-					PushoutResult pr = cr.getPushoutResult();
+					Pushout pr = cr.getPushoutResult();
 					
 					// Load the instance into an EGraph:
 //					EObject minimalModelOfCP = cp.getMinimalModel();

@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
+import org.eclipse.emf.henshin.cpa.atomic.Pushout;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.SpanMappings;
 import org.eclipse.emf.henshin.cpa.result.Conflict;

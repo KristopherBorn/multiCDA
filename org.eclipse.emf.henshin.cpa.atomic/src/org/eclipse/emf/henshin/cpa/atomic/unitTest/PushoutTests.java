@@ -3,7 +3,7 @@ package org.eclipse.emf.henshin.cpa.atomic.unitTest;
 import static org.junit.Assert.*;
 
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
-import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
+import org.eclipse.emf.henshin.cpa.atomic.Pushout;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.HenshinFactory;
@@ -54,7 +54,7 @@ public class PushoutTests {
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
-		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
+		Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 		Graph resultGraph = pushoutResult.getResultGraph();
 
@@ -79,7 +79,7 @@ public class PushoutTests {
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
-		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
+		Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 		Graph resultGraph = pushoutResult.getResultGraph();
 
@@ -104,7 +104,7 @@ public class PushoutTests {
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule);
 		Span span = atomicCoreCPA.newSpan(node2InRule1Mapping, graphOfSpan, node13InRule2Mapping);
 
-		PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
+		Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 		Graph resultGraph = pushoutResult.getResultGraph();
 
@@ -132,7 +132,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(null, span,
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(null, span,
 					pullUpEncapsulatedAttributeRule);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
@@ -160,7 +160,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, null, pullUpEncapsulatedAttributeRule);
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, null, pullUpEncapsulatedAttributeRule);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
 		}
@@ -187,7 +187,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, null);
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, null);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
 		}
@@ -212,7 +212,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
 		}
@@ -237,7 +237,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
 		}
@@ -263,7 +263,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
 		}
@@ -289,7 +289,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
 		}
@@ -322,7 +322,7 @@ public class PushoutTests {
 
 		boolean illeagalArgumentExceptionThrown = false;
 		try {			
-			PushoutResult pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
+			Pushout pushoutResult = atomicCoreCPA.newPushoutResult(decapsulateAttributeRule, span, pullUpEncapsulatedAttributeRule);
 		} catch (IllegalArgumentException e) {
 			illeagalArgumentExceptionThrown = true;
 		}

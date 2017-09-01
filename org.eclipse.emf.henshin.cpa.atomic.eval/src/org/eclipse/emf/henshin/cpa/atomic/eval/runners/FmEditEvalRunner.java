@@ -21,11 +21,13 @@ import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPac
 public class FmEditEvalRunner extends EvalRunner {
 
 	private ResourceSetImpl resourceSet;
-	List<String> ofInterest = Arrays.asList("addToGroup_features_Feature","removeFromGroup_features_Feature" );
-
+//	List<String> subset = Arrays.asList("addToGroup_features_Feature","removeFromGroup_features_Feature" );
+//	List<String> subset = Arrays.asList("Specialization_3-6","removeFromGroup_features_Feature" );
+	
+	// Start: 10:27
+	
 	public static List<Granularity> granularities =  Arrays.asList(Granularity.fine,Granularity.ess);
-//	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.coarse,Granularity.fine,Granularity.ess);
-//	public static List<Granularity> granularities =  Arrays.asList(Granularity.atoms,Granularity.fine,Granularity.coarse,Granularity.ess,Granularity.essUnfiltered);
+
 	public static Type type = Type.conflicts;
 	
 	public static void main(String[] args) {
@@ -42,6 +44,7 @@ public class FmEditEvalRunner extends EvalRunner {
 		resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
 				new EcoreResourceFactoryImpl());
+		
 	}
 
 	@Override
@@ -53,10 +56,12 @@ public class FmEditEvalRunner extends EvalRunner {
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
 		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
-//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 10);
-//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> ofInterest.contains(r.getName())).collect(Collectors.toList());
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(38, 44);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
 
 	}
 	
-
+	public String getDomainName() {
+		return "fmedit";
+	}
 }

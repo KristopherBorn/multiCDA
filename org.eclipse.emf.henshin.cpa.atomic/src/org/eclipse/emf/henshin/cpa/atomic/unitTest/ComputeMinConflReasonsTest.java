@@ -9,6 +9,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.cpa.atomic.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -44,11 +45,10 @@ public class ComputeMinConflReasonsTest {
 	@Test
 	public void refactoringCandidatesDecapsulateEncapsulateTest() {
 
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
-				pullUpEncapsulatedAttributeRule);
 
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule,
+		AtomCandidateComputation candComp = new AtomCandidateComputation(decapsulateAttributeRule,
 				pullUpEncapsulatedAttributeRule);
+		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 
 		System.out.println("HALT");
 
@@ -59,9 +59,11 @@ public class ComputeMinConflReasonsTest {
 			assertEquals(1, nodesOfCandidate.size());
 		}
 
+		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule,
+				pullUpEncapsulatedAttributeRule);
 		Set<MinimalConflictReason> reasons = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule, candidate,
+			atomicCoreCPA.computeMinimalConflictReasons(candidate,
 					reasons);
 		}
 

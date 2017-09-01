@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.cpa.atomic.ConflictAnalysis;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
+import org.eclipse.emf.henshin.cpa.atomic.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
@@ -40,9 +41,9 @@ public class ComputeCandidatesTest {
 	@Test
 	public void refactoringCandidatesDecapsulateEncapsulateTest() {
 		
-		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule);
+		AtomCandidateComputation atomicCoreCPA = new AtomCandidateComputation(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule);
 		
-		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates(decapsulateAttributeRule, pullUpEncapsulatedAttributeRule);
+		List<Span> conflictAtomCandidates = atomicCoreCPA.computeAtomCandidates();
 				
 		assertEquals(5, conflictAtomCandidates.size());
 		

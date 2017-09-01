@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.cpa.atomic.PushoutResult;
+import org.eclipse.emf.henshin.cpa.atomic.Pushout;
 import org.eclipse.emf.henshin.cpa.atomic.Span;
 import org.eclipse.emf.henshin.cpa.atomic.SpanMappings;
 import org.eclipse.emf.henshin.model.Edge;
@@ -96,10 +96,10 @@ public class ConflictReason extends InitialReason {
 //		return AtomicCoreCPA.this;
 //	}
 
-	public PushoutResult getPushoutResult() {
+	public Pushout getPushoutResult() {
 		// TODO vielleicht einführen eines Feldes, womit das einmal erzeugte PoR gehalten wird (anstelle es wiederholt zu erzeugen) 
 		// 		- Notwendig für die häufig Nutzung mit dem Comparator
-		return new PushoutResult(rule1, this, rule2);
+		return new Pushout(rule1, this, rule2);
 	}
 
 

@@ -182,11 +182,12 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 		// its important to instantiate the importer with the original rules, since the created results shall reference elements within the original rules
 		importer = new AggHenshinCriticalPairTranslator(originalRules);
 		
-		// first of all complete the rules by inserting missing EOpposite Edges, since they have to be present in the rule set within AGG
-		// the modification of the rules is negligible since we are working with copies of the original rules.
-		completeRulesByEOppositeEdges();
+//		// first of all complete the rules by inserting missing EOpposite Edges, since they have to be present in the rule set within AGG
+//		// the modification of the rules is negligible since we are working with copies of the original rules.
+//		completeRulesByEOppositeEdges();
 
 		// *.ggx file generation
+
 		IStatus exportModuleToAGGStatus = exportModuleToAGG(workingPathWOExtension + ".ggx");
 		if(exportModuleToAGGStatus.getSeverity() == IStatus.ERROR){
 			throw new UnsupportedRuleException(UnsupportedRuleException.exportFailed+" "+exportModuleToAGGStatus.getMessage()); 
@@ -313,6 +314,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 
 		if (fileName.endsWith(".ggx")) {
 			XMLHelper h = new XMLHelper();
+			
 			if (h.read_from_xml(fileName)) {
 				GraGra gra = new GraGra(true);
 				h.getTopObject(gra);

@@ -65,9 +65,9 @@ public class FirstTest {
 
 		ccpa = new ConflictAnalysis(execute, execute);
 		List<ConflictAtom> ca = ccpa.computeConflictAtoms();
-		Set<MinimalConflictReason> mcr = ccpa.getMinimalConflictReasons();
+		Set<MinimalConflictReason> mcr = ccpa.computeMinimalConflictReasons();
 		
-		List<Span> candidates = ccpa.getCandidates();
+		List<Span> candidates = ccpa.computeConflictAtomCandidates();
 		
 		//Alle 3 Schleifen liefern das gleiche Ergebnis
 		for(Span span : candidates) {

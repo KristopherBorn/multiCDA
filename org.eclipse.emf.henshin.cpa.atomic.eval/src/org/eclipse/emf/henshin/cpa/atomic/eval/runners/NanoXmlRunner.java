@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -23,9 +24,23 @@ import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPac
 
 public class NanoXmlRunner extends EvalRunner {
 
-	private ResourceSetImpl resourceSet;
+//	public static List<Granularity> granularities =  Arrays.asList(Granularity.coarse,Granularity.fine,Granularity.ess,Granularity.binary);
 
-	public static List<Granularity> granularities = Arrays.asList(Granularity.fine,Granularity.ess);
+	public static List<Granularity> granularities =  Arrays.asList(
+			Granularity.fine,
+			Granularity.ess
+//			,Granularity.essUnfiltered
+			);
+//	public static List<Granularity> granularities =  Arrays.asList(Granularity.essSecondDeleting);
+
+	List<String> subset = Arrays.asList(
+	"28039_removeChild",
+	"28085_getParent",
+	"28215_setAttribute",
+	"28325_setAttribute"
+	,"28364_addChildren"
+	);
+	
 	public static Type type = Type.dependencies;
 	
 	public static void main(String[] args) {
@@ -34,18 +49,7 @@ public class NanoXmlRunner extends EvalRunner {
 	
 	@Override
 	public void init() {
-		EcorePackage.eINSTANCE.eClass();
-
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("xmi", new XMIResourceFactoryImpl());
-		resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
-				new EcoreResourceFactoryImpl());
-		URI fileURI = URI.createURI("rules\\nanoxml\\nanoXML.ecore");
-		Resource res = resourceSet.getResource(fileURI, true);
-		EPackage pack = (EPackage) res.getContents().get(0);
-		EPackage.Registry.INSTANCE.put(pack.getNsURI(), pack);
+//
 	}
 
 	@Override
@@ -56,7 +60,15 @@ public class NanoXmlRunner extends EvalRunner {
 		String subDirectoryPath = "rules\\nanoxml\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 8);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(4, 8);
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
+
+	}
+
+	@Override
+	public String getDomainName() {
+		return "nanoxml";
 	}
 	
 

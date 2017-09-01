@@ -19,13 +19,13 @@ public class Span {
 	
 	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 	
-	protected Rule rule1;
-	protected Rule rule2;
+	public  Rule rule1;
+	public  Rule rule2;
 
-	protected Set<Mapping> mappingsInRule1;
-	protected Set<Mapping> mappingsInRule2;
+	public Set<Mapping> mappingsInRule1;
+	public Set<Mapping> mappingsInRule2;
 
-	protected Graph graph;
+	public  Graph graph;
 
 	/**
 	 * @return the rule1
@@ -152,10 +152,10 @@ public class Span {
 				return false;
 		
 		// Are same edges in rules 1 and 2 used?
-		Map<Edge, Edge> edgeMapS1R1 = spanMap.computeEdgeMappingsS1Rule1();
-		Map<Edge, Edge> edgeMapS1R2 = spanMap.computeEdgeMappingsS1Rule2();
-		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.computeEdgeMappingsS1Rule1();
-		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.computeEdgeMappingsS1Rule2();
+		Map<Edge, Edge> edgeMapS1R1 = spanMap.getEdgeMappingsS1Rule1();
+		Map<Edge, Edge> edgeMapS1R2 = spanMap.getEdgeMappingsS1Rule2();
+		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.getEdgeMappingsS1Rule1();
+		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.getEdgeMappingsS1Rule2();
 		
 		Set<Edge> edgesRule1 = new HashSet<Edge>(edgeMapS1R1.values());
 		Set<Edge> edgesRule2 = new HashSet<Edge>(edgeMapS1R2.values());
@@ -300,18 +300,10 @@ public class Span {
 		return null;
 	}
 
-	//superfluous
-//	private AtomicCoreCPA getOuterType() {
-//		return AtomicCoreCPA.this;
-//	}
 
-	//TODO: prüfen, dass es zu jedem Knoten im Graph des Span zwei Mappings gibt, die dem Span-Knoten jeweils einen Knoten in der LHS der Regel1 und Regel2 zuordnet
-	//		FRAGE: auch prüfen, dass die Kanten im Span auch in den beiden Regeln vorhanden sind?
 	public boolean validate(Rule rule1, Rule rule2) {
-		//missing or superfluous mappings or nodes in the graph of the span
 		if(mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
 			return false;
-		// check all nodes of the graph of the span for valid mappings in the rules
 		for(Node node : graph.getNodes()){
 			Mapping mappingIntoRule1 = getMappingIntoRule1(node);
 			if(mappingIntoRule1.getImage() == null)
@@ -319,22 +311,14 @@ public class Span {
 			Node imageInRule1 = mappingIntoRule1.getImage();
 			if(imageInRule1.eContainer() != rule1.getLhs())
 				return false;
-//			if(imageInRule1.getType() !=  node.getType()) //TODO: fix this regarding inheritance!
-//				return false;
-				//TODO: muss gleicher, sub oder supertype sein
 			Mapping mappingIntoRule2 = getMappingIntoRule2(node);
 			if(mappingIntoRule2.getImage() == null)
 				return false;
 			Node imageInRule2 = mappingIntoRule2.getImage();
 			if(imageInRule2.eContainer() != rule2.getLhs())
 				return false;
-//			if(imageInRule2.getType() !=  node.getType()) //TODO: fix this regarding inheritance!
-//				return false;
-			//TODO: muss gleicher, sub oder supertype sein
 			
 		}
-		// Edges of the graph could be checked additionally.
-		// If this is done some tests should be set up as negative examples for such situations.
 		return true;
 	}
 
