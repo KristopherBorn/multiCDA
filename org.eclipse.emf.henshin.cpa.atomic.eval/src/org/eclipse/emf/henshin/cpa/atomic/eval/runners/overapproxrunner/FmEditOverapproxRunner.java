@@ -56,6 +56,6 @@ public class FmEditOverapproxRunner extends OverapproxEvalRunner {
 	}
 	
 	public String getDomainName() {
-		return "fmedit";
+		return "overapprox\\fmedit";
 	}
 }

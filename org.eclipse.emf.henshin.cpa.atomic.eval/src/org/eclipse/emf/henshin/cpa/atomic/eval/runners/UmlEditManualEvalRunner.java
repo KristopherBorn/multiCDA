@@ -72,9 +72,9 @@ public class UmlEditManualEvalRunner extends UmlEvalRunner {
 		String subDirectoryPath = "rules\\umledit\\manual\\delete\\";
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		File dir = new File(fullSubDirectoryPath);
-//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
+		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir);
 //		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).subList(0, 5);
-		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
+//		return HenshinRuleLoader.loadAllRulesFromFileSystemPaths(dir).stream().filter(r -> subset.contains(r.getName())).collect(Collectors.toList());
 
 	}
 
