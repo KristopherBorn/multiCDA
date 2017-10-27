@@ -10,6 +10,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ICR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
+import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -36,11 +37,11 @@ public class VererbungsTest {
 	@Test
 	public void ASCcpa() {
 
-		CPATester tester = new CPATester(path, new String[] { firstS }, new String[] { secondC });
+		CPATester tester = new CPATester(path, new String[] { firstS }, new String[] { secondC }, new Options(Options.ESSENTIAL));
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 
-		tester = new CPATester(path, new String[] { firstS }, new String[] { secondC }, true);
+		tester = new CPATester(path, new String[] { firstS }, new String[] { secondC });
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
@@ -58,12 +59,12 @@ public class VererbungsTest {
 	@Test
 	public void BSScpa() {
 
-		CPATester tester = new CPATester(path, new String[] { firstS }, new String[] { secondS });
+		CPATester tester = new CPATester(path, new String[] { firstS }, new String[] { secondS }, new Options(Options.ESSENTIAL));
 		tester.print();
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 
-		tester = new CPATester(path, new String[] { firstS }, new String[] { secondS }, false);
+		tester = new CPATester(path, new String[] { firstS }, new String[] { secondS });
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
@@ -81,11 +82,11 @@ public class VererbungsTest {
 	@Test
 	public void CCCcpa() {
 
-		CPATester tester = new CPATester(path, new String[] { firstC }, new String[] { secondC });
+		CPATester tester = new CPATester(path, new String[] { firstC }, new String[] { secondC }, new Options(Options.ESSENTIAL));
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 
-		tester = new CPATester(path, new String[] { firstC }, new String[] { secondC }, false);
+		tester = new CPATester(path, new String[] { firstC }, new String[] { secondC });
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}
@@ -100,11 +101,11 @@ public class VererbungsTest {
 
 	@Test
 	public void DCScpa() {
-		CPATester tester = new CPATester(path, new String[] { firstC }, new String[] { secondS });
+		CPATester tester = new CPATester(path, new String[] { firstC }, new String[] { secondS }, new Options(Options.ESSENTIAL));
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 
-		tester = new CPATester(path, new String[] { firstC }, new String[] { secondS }, false);
+		tester = new CPATester(path, new String[] { firstC }, new String[] { secondS });
 		assertTrue("Critical Pairs are not 1", tester.check(new CP(1)));
 		tester.ready();
 	}

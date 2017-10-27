@@ -183,7 +183,13 @@ public class Tester {
 			state += (options.length >= 7 && options[6]) || options.length < 7 ? +SILENT : 0;
 		}
 
+		/**
+		 * Default is printHeader, printResults and silent on.
+		 * 
+		 * @param options 1:dependency, 2:essential, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
+		 */
 		public Options(int flags) {
+			this();
 			if (flags <= ALL && flags >= 0)
 				state = flags;
 		}

@@ -14,12 +14,15 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.runner.RulePreparator;
 import org.eclipse.emf.henshin.multicda.cda.tester.CDATester;
 import org.eclipse.emf.henshin.multicda.cda.tester.CPATester;
+import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import agg.gui.options.OptionGUI;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NanoTest {
@@ -54,7 +57,7 @@ public class NanoTest {
 
 		for (Rule r : rules) {
 			for (Rule r2 : rules) {
-				aTester = new CDATester(r, r2, true, false, false, true);
+				aTester = new CDATester(r, r2, new Options(Options.DEPENDENCY));
 				initsNormal.addAll(aTester.getInitialReasons());
 				aTester.print();
 
@@ -62,7 +65,7 @@ public class NanoTest {
 				List<Rule> b = new ArrayList<Rule>();
 				a.add(r);
 				b.add(r2);
-				eTester = new CPATester(a, b, true, true, false, false, true);
+				eTester = new CPATester(a, b, new Options(Options.DEPENDENCY + Options.ESSENTIAL));
 				initspNormal.addAll(eTester.getInitialCriticalPairs());
 				eTester.print();
 
@@ -84,7 +87,7 @@ public class NanoTest {
 
 		for (Rule r : rules) {
 			for (Rule r2 : rules) {
-				aTester = new CDATester(r, r2, true, false, true, true);
+				aTester = new CDATester(r, r2, new Options(true, true, false, true));
 				initsPreserve.addAll(aTester.getInitialReasons());
 				aTester.print();
 
@@ -92,7 +95,7 @@ public class NanoTest {
 				List<Rule> b = new ArrayList<Rule>();
 				a.add(r);
 				b.add(r2);
-				eTester = new CPATester(a, b, true, true, false, true, true);
+				eTester = new CPATester(a, b, new Options(true, true, false, true));
 				initspPreserve.addAll(eTester.getInitialCriticalPairs());
 				eTester.print();
 

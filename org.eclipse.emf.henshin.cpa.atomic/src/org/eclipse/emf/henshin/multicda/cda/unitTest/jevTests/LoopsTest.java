@@ -9,6 +9,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ICP;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ICR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 //import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.MinimalConditions;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -28,7 +29,7 @@ public class LoopsTest {
 	public void A() {
 
 		ICR _1 = new ICR(7);
-		CDATester tester = new CDATester(path, loop3, false, true, true);
+		CDATester tester = new CDATester(path, loop3, new Options(true, false, true, true));
 		assertTrue(_1 + " not correct", tester.check(_1));
 
 	}
@@ -55,7 +56,7 @@ public class LoopsTest {
 	@Test
 	@Ignore
 	public void C() {
-		CPATester tester = new CPATester(path, new String[]{loop3}, false);
+		CPATester tester = new CPATester(path, new String[]{loop3});
 		tester.ready();
 	}
 }

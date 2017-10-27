@@ -7,6 +7,7 @@ import org.eclipse.emf.henshin.cpa.result.CriticalPair;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.tester.CDATester;
 import org.eclipse.emf.henshin.multicda.cda.tester.CPATester;
+import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 import org.junit.AfterClass;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -26,13 +27,13 @@ public class Hantel {
 
 	@Test
 	public void A() {
-		aTester = new CDATester(path, delete, use, false, false, false, true, true);
+		aTester = new CDATester(path, delete, use);
 		aTester.ready();
 	}
 
 	@Test
 	public void B() {
-		eTester = new CPATester(path, new String[] { delete }, new String[] { use }, true, false, false, false, true, true);
+		eTester = new CPATester(path, new String[] { delete }, new String[] { use }, new Options().add(Options.ESSENTIAL));
 //		Conditions _1 = new CriticalConditions(new Edge(3, 4));
 //		assertTrue(_1 + " was not found", eTester.check(_1));
 		eTester.ready();
@@ -41,7 +42,7 @@ public class Hantel {
 	@Test
 //	@Ignore
 	public void C() {
-		CPATester tester = new CPATester(path, new String[] { delete }, new String[] { use }, false);
+		CPATester tester = new CPATester(path, new String[] { delete }, new String[] { use });
 		tester.ready();
 
 	}
