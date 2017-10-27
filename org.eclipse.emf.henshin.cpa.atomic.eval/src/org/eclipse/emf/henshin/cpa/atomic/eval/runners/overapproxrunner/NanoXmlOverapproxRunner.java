@@ -21,12 +21,12 @@ import org.eclipse.emf.henshin.model.Rule;
 
 import de.imotep.featuremodel.variability.metamodel.FeatureModel.FeatureModelPackage;
 
-public class NanoXmlRunner extends OverapproxEvalRunner {
+public class NanoXmlOverapproxRunner extends OverapproxEvalRunner {
 
 	public static Type type = Type.dependencies;
 	
 	public static void main(String[] args) {
-		new NanoXmlRunner().run(type);
+		new NanoXmlOverapproxRunner().run(type);
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class NanoXmlRunner extends OverapproxEvalRunner {
 
 	@Override
 	public List<Rule> getRules() {
-		final File f = new File(NanoXmlRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		final File f = new File(NanoXmlOverapproxRunner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String filePath = f.toString();
 		String projectPath = filePath.replaceAll("bin", "");
 		String subDirectoryPath = "rules\\nanoxml\\";
@@ -48,7 +48,7 @@ public class NanoXmlRunner extends OverapproxEvalRunner {
 
 	@Override
 	public String getDomainName() {
-		return "overapprox\\refactoring";
+		return "overapprox\\nanoxml";
 	}
 	
 

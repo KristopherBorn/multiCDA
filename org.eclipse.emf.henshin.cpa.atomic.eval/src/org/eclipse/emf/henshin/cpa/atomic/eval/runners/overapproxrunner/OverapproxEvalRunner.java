@@ -29,7 +29,10 @@ import org.eclipse.emf.henshin.model.Rule;
 public abstract class OverapproxEvalRunner {
 	String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 	String path= getDomainName() + "\\"+timeStamp+ ".log" ;
-		
+
+	protected List<List<Integer>> essNonDeletingResults = new ArrayList<List<Integer>>();
+	protected List<List<Integer>> essDeletingResults = new ArrayList<List<Integer>>();
+
 	public void run(Type type) {
 		init();
 		List<Rule> rules = getRules();
@@ -43,8 +46,11 @@ public abstract class OverapproxEvalRunner {
 	
 	protected void doAggBasedCpa(Type type, List<Rule> rules,
 			List<RulePair> nonDeleting) {
-			logn("[AGG] Computing essential critical pairs (R2 deleting):");
+			logbn("[AGG] Computing essential critical pairs (R2 deleting):");
 			for (Rule r1 : rules) {
+				List<Integer> resultRow = new ArrayList<Integer>();
+				essDeletingResults.add(resultRow);
+
 				for (RulePair r2 : nonDeleting) {
 					long time = System.currentTimeMillis();
 					Set<CriticalPair> initspNormal = new HashSet<>();
@@ -54,14 +60,17 @@ public abstract class OverapproxEvalRunner {
 					initspNormal.addAll(eTester.getInitialCriticalPairs());
 					log(initspNormal.size() + " ");
 					tlog(System.currentTimeMillis() - time + " ");
+					resultRow.add(initspNormal.size());
 
 				}
 				logbn("   | " + r1.getName());
 			}
 			logbn("");
 
-			logn("[AGG] Computing essential critical pairs (R2 non-deleting):");
+			logbn("[AGG] Computing essential critical pairs (R2 non-deleting):");
 			for (Rule r1 : rules) {
+				List<Integer> resultRow = new ArrayList<Integer>();
+				essNonDeletingResults.add(resultRow);
 				for (RulePair r2 : nonDeleting) {
 					long time = System.currentTimeMillis();
 					Set<CriticalPair> initspNormal = new HashSet<>();
@@ -71,10 +80,13 @@ public abstract class OverapproxEvalRunner {
 					initspNormal.addAll(eTester.getInitialCriticalPairs());
 					log(initspNormal.size() + " ");
 					tlog(System.currentTimeMillis() - time + " ");
+					resultRow.add(initspNormal.size());
 				}
 				logbn("   | " + r1.getName());
 			}
 			logbn("");
+			
+			doComparison(rules);
 	}
 
 	protected void initLogs() {
@@ -89,6 +101,12 @@ public abstract class OverapproxEvalRunner {
 	protected void logbn(String string) {
 		log(string+"\n");
 		tlog(string+"\n");
+	}
+	
+
+	protected void logb(String string) {
+		log(string);
+		tlog(string);
 	}
 
 	protected void tlog(String string) {
@@ -136,5 +154,30 @@ public abstract class OverapproxEvalRunner {
 	public abstract List<Rule> getRules();
 
 	public abstract String getDomainName();
-	
+
+	private void doComparison(List<Rule> rules) {
+		int correct = 0;
+		int incorrect = 0;
+		logbn("");
+		for (int i=0; i<essNonDeletingResults.size(); i++) {
+			for (int j=0; j<essDeletingResults.size(); j++) {
+				int comp = essDeletingResults.get(i).get(j) - essNonDeletingResults.get(i).get(j); 
+				if (comp > 0) {
+					logb("+"+" "); 
+					incorrect++;
+				}
+				else if (comp < 0)  {
+					logb("!"+" ");
+					incorrect++;
+				}
+				else {
+					logb("_"+" ");
+					correct++;
+					}
+			}
+			logbn("    | " +rules.get(i));
+		}
+		logbn("");
+		logbn("Intestigated "+(correct+incorrect)+" rule pairs, "+correct+" correct. Precision = "+((double) correct/(double) (correct+incorrect)));
+	}
 }

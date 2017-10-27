@@ -55,6 +55,6 @@ public class RefactoringOverapproxRunner extends OverapproxEvalRunner {
 
 	@Override
 	public String getDomainName() {
-		return "refactoring";
+		return "overapprox\\refactoring";
 	}
 }
