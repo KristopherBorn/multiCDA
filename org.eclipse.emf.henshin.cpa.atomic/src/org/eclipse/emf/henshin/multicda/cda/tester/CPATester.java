@@ -28,6 +28,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CriticalRightCondit
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ICP;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
+import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
 public class CPATester extends Tester {
@@ -36,13 +37,13 @@ public class CPATester extends Tester {
 	private String checked = "";
 	private int checkedCounter = 0;
 	private int checkedRightCounter = 0;
-	private TesterOptions options;
+	private Options options = new Options();
 
-	public CPATester(String henshin, String[] rules, TesterOptions options) {
+	public CPATester(String henshin, String[] rules, Options... options) {
 		this(henshin, rules, rules, options);
 	}
 
-	public CPATester(List<Rule> rules, TesterOptions options) {
+	public CPATester(List<Rule> rules, Options... options) {
 		this(rules, rules, options);
 	}
 
@@ -50,9 +51,9 @@ public class CPATester extends Tester {
 	 * All rules in the Henshin file will be analyzed with each other.
 	 * 
 	 * @param henshin path to the Henshin file.
-	 * @param options 1:essential, 2:dependency, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
+	 * @param options 1:dependency, 2:essential, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
 	 */
-	public CPATester(String henshin, TesterOptions options) {
+	public CPATester(String henshin, Options... options) {
 		this(henshin, new String[] {}, new String[] {}, options);
 	}
 
@@ -61,9 +62,9 @@ public class CPATester extends Tester {
 	 * 
 	 * @param first the first rules as list of Rules
 	 * @param second the second rules as list of Rules
-	 * @param options 1:essential, 2:dependency, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
+	 * @param options 1:dependency, 2:essential, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
 	 */
-	public CPATester(List<Rule> first, List<Rule> second, TesterOptions options) {
+	public CPATester(List<Rule> first, List<Rule> second, Options... options) {
 		init(first, second, false, false, options);
 	}
 
@@ -74,9 +75,9 @@ public class CPATester extends Tester {
 	 * @param henshin Path to the henshin file
 	 * @param first the first rule as string array
 	 * @param second the second rule as string array
-	 * @param options 1:essential, 2:dependency, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
+	 * @param options 1:dependency, 2:essential, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
 	 */
-	public CPATester(String henshin, String[] first, String[] second, TesterOptions options) {
+	public CPATester(String henshin, String[] first, String[] second, Options... options) {
 
 		String r = henshin.substring(0, henshin.lastIndexOf("/") + 1);
 		String m = henshin.substring(henshin.lastIndexOf("/") + 1, henshin.length());
@@ -114,8 +115,9 @@ public class CPATester extends Tester {
 		init(f, s, firstAll, secondAll, options);
 	}
 
-	private void init(List<Rule> first, List<Rule> second, boolean firstAll, boolean secondALl, TesterOptions options) {
-		this.options = options;
+	private void init(List<Rule> first, List<Rule> second, boolean firstAll, boolean secondALl, Options... opt) {
+		if(opt.length!=0)
+			options = opt[0];
 		String ff = "", ss = "";
 		if (firstAll)
 			ff = "All";
@@ -126,12 +128,12 @@ public class CPATester extends Tester {
 			ss = "All";
 		for (Rule nameS : second)
 			ss += (ss.isEmpty() ? "" : ", ") + nameS.getName();
-		if (options.printHeader)
+		if (options.is(Options.PRINT_HEADER))
 			System.out.println(
-					"\n\t\t  " + ff + " --> " + ss + "\n\t\t\tCPA " + (this.options.essential ? "Essential" : ""));
+					"\n\t\t  " + ff + " --> " + ss + "\n\t\t\tCPA " + (options.is(Options.ESSENTIAL) ? "Essential" : ""));
 
 		CPAOptions o = new CPAOptions();
-		o.setEssential(this.options.essential);
+		o.setEssential(options.is(Options.ESSENTIAL));
 		o.setReduceSameRuleAndSameMatch(false);
 		o.setIgnoreSameRules(false);
 		o.setIgnoreMultiplicities(true);
@@ -140,13 +142,13 @@ public class CPATester extends Tester {
 		NAME = "CPA Tester";
 		try {
 
-			if (options.prepare) {
+			if (options.is(Options.PREPARE)) {
 				List<Rule> r1 = RulePreparator.prepareRule(first);
 				first = r1;
 				List<Rule> r2 = RulePreparator.prepareRule(second);
 				second = r2;
 			}
-			if (options.noneDeletionSecondRule)
+			if (options.is(Options.NONE_DELETION_SECOND_RULE))
 				second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 			cpa.init(first, second, o);
 		} catch (UnsupportedRuleException e) {
@@ -154,24 +156,24 @@ public class CPATester extends Tester {
 		}
 
 		PrintStream original = System.out;
-		if (options.silent) {
+		if (options.is(Options.SILENT)) {
 			System.setOut(new NullPrintStream());
 		}
 
-		if (options.dependency)
+		if (options.is(Options.DEPENDENCY))
 			result = cpa.runDependencyAnalysis();
 		else
 			result = cpa.runConflictAnalysis();
 
-		if (options.silent)
+		if (options.is(Options.SILENT))
 			System.setOut(original);
 
 		print(options + "\n");
-		if (options.printResult) {
+		if (options.is(Options.PRINT_RESULT)) {
 			printResult();
 			print();
 		}
-
+		System.out.println();
 	}
 
 	@Override
@@ -254,7 +256,7 @@ public class CPATester extends Tester {
 
 	@Override
 	public String toString() {
-		if (!options.dependency)
+		if (!options.is(Options.DEPENDENCY))
 			return getInitialCriticalPairs().size() + " Initial Critical Pairs. " + getCriticalPairs().size()
 					+ " Critical Pairs";
 		else

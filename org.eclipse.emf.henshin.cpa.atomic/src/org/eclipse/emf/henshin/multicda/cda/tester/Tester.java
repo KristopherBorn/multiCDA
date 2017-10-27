@@ -157,43 +157,70 @@ public class Tester {
 		return result;
 	}
 
-	public static class TesterOptions {
-		public boolean essential;
-		public boolean dependency;
-		public boolean prepare;
-		public boolean noneDeletionSecondRule;
-		public boolean printHeader;
-		public boolean printResult;
-		public boolean silent;
+	public static class Options {
+		public final static int DEPENDENCY = 1;
+		public final static int ESSENTIAL = 2;
+		public final static int PREPARE = 4;
+		public final static int NONE_DELETION_SECOND_RULE = 8;
+		public final static int PRINT_HEADER = 16;
+		public final static int PRINT_RESULT = 32;
+		public final static int SILENT = 64;
+		public final static int ALL = 127;
+		private int state = 0;
 
 		/**
+		 * Default is printHeader, printResults and silent on.
 		 * 
-		 * 
-		 * @param options 1:essential, 2:dependency, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
+		 * @param options 1:dependency, 2:essential, 3:prepare, 4:noneDeletionSecondRule, 5:printHeader, 6:printResults, 7:silent
 		 */
-		public TesterOptions(boolean... options) {
-			this.essential = options.length >= 1 && options[0] || options.length == 0;
-			this.dependency = options.length >= 2 && options[1];
-			this.prepare = options.length >= 3 && options[2];
-			this.noneDeletionSecondRule = options.length >= 4 && options[3];
-			this.printHeader = options.length >= 5 && options[4];
-			this.printResult = options.length >= 6 && options[5];
-			this.silent = options.length >= 7 && options[6];
+		public Options(boolean... options) {
+			state += options.length >= 1 && options[0] ? +DEPENDENCY : 0;
+			state += options.length >= 2 && options[1] ? +ESSENTIAL : 0;
+			state += options.length >= 3 && options[2] ? +PREPARE : 0;
+			state += options.length >= 4 && options[3] ? +NONE_DELETION_SECOND_RULE : 0;
+			state += (options.length >= 5 && options[4]) || options.length < 5 ? +PRINT_HEADER : 0;
+			state += (options.length >= 6 && options[5]) || options.length < 6 ? +PRINT_RESULT : 0;
+			state += (options.length >= 7 && options[6]) || options.length < 7 ? +SILENT : 0;
+		}
+
+		public Options(int flags) {
+			if (flags <= ALL && flags >= 0)
+				state = flags;
+		}
+
+		public boolean is(int flag) {
+			return (state & flag) == flag;
+		}
+
+		public Options add(int flags) {
+			state = state | flags;
+			return this;
+		}
+		public Options remove(int flags) {
+			state = state & (ALL-flags);
+			return this;
 		}
 
 		public String toCDAString() {
-			String result = "Options: " + (dependency ? "Dependency, " : "") + (prepare ? "Prepared, " : "")
-					+ (noneDeletionSecondRule ? "Second rule none deletion, " : "")
-					+ (printHeader ? "With header, " : "") + (printResult ? "With results, " : "");
+			String result = "Options: " + ((state & DEPENDENCY) == DEPENDENCY ? "Dependency, " : "")
+					+ ((state & PREPARE) == PREPARE ? "Prepared, " : "")
+					+ ((state & NONE_DELETION_SECOND_RULE) == NONE_DELETION_SECOND_RULE ? "Second rule none deletion, "
+							: "")
+					+ ((state & PRINT_HEADER) == PRINT_HEADER ? "With header, " : "")
+					+ ((state & PRINT_RESULT) == PRINT_RESULT ? "With results, " : "");
 			return result.substring(0, result.length() - 2) + ".";
 		}
 
 		@Override
 		public String toString() {
-			String result = "Options: " + (essential ? "Essential, " : "") + (dependency ? "Dependency, " : "")
-					+ (prepare ? "Prepared, " : "") + (noneDeletionSecondRule ? "Second rule none deletion, " : "")
-					+ (printHeader ? "With header, " : "") + (printResult ? "With results, " : "")
-					+ (silent ? "Without AGG output, " : "");
+			String result = "Options: " + ((state & DEPENDENCY) == DEPENDENCY ? "Dependency, " : "")
+					+ ((state & ESSENTIAL) == ESSENTIAL ? "Essential, " : "")
+					+ ((state & PREPARE) == PREPARE ? "Prepared, " : "")
+					+ ((state & NONE_DELETION_SECOND_RULE) == NONE_DELETION_SECOND_RULE ? "Second rule none deletion, "
+							: "")
+					+ ((state & PRINT_HEADER) == PRINT_HEADER ? "With header, " : "")
+					+ ((state & PRINT_RESULT) == PRINT_RESULT ? "With results, " : "")
+					+ ((state & SILENT) == SILENT ? "Ignore AGG output, " : "");
 			return result.substring(0, result.length() - 2) + ".";
 		}
 	}

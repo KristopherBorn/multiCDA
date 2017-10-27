@@ -31,6 +31,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.InitialConditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MinimalConditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
+import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
 public class CDATester extends Tester {
@@ -45,9 +46,9 @@ public class CDATester extends Tester {
 	private String checked = "";
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
-	private TesterOptions options;
+	private Options options;
 
-	public CDATester(String henshin, String rule, TesterOptions options) {
+	public CDATester(String henshin, String rule, Options... options) {
 		this(henshin, rule, rule, options);
 	}
 
@@ -57,7 +58,7 @@ public class CDATester extends Tester {
 	 * @param henshin
 	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
 	 */
-	public CDATester(String henshin, TesterOptions options) {
+	public CDATester(String henshin, Options... options) {
 		this(henshin, null, null, options);
 	}
 
@@ -69,7 +70,7 @@ public class CDATester extends Tester {
 	 * @param secondRule name of the second rule
 	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
 	 */
-	public CDATester(String henshin, String firstRule, String secondRule, TesterOptions options) {
+	public CDATester(String henshin, String firstRule, String secondRule, Options... options) {
 		if (henshin.isEmpty()
 				|| ((firstRule != null && !firstRule.isEmpty()) ^ (secondRule != null && !secondRule.isEmpty())))
 			return;
@@ -105,20 +106,23 @@ public class CDATester extends Tester {
 	 * @param second
 	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
 	 */
-	public CDATester(Rule first, Rule second, TesterOptions options) {
+	public CDATester(Rule first, Rule second, Options... options) {
 		this.first = first;
 		this.second = second;
 		init(options);
 	}
 
-	protected void init(TesterOptions options) {
+	protected void init(Options... opt) {
+		Options options = new Options();
+		if(opt.length!=0)
+			options = opt[0];
 		NAME = "CDA Tester";
-		if (options.printHeader)
+		if (options.is(Options.PRINT_HEADER))
 			System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tCDA");
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
 
-		if (options.prepare) {
+		if (options.is(Options.PREPARE)) {
 			if (first != second) {
 				first = RulePreparator.prepareRule(first);
 				second = RulePreparator.prepareRule(second);
@@ -128,10 +132,10 @@ public class CDATester extends Tester {
 			}
 		}
 
-		if (options.noneDeletionSecondRule)
+		if (options.is(Options.NONE_DELETION_SECOND_RULE))
 			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
-		if (options.dependency)
+		if (options.is(Options.DEPENDENCY))
 			analyser = new DependencyAnalysis(first, second);
 		else
 			analyser = new ConflictAnalysis(first, second);
@@ -142,12 +146,13 @@ public class CDATester extends Tester {
 		conflictReasons = new HashSet<>();
 
 		print(options.toCDAString()+"\n");
-		if (options.printResult) {
+		if (options.is(Options.PRINT_RESULT)) {
 			printMCR();
 			printICR();
 //			printCR();
 			print();
 		}
+		System.out.println();
 	}
 
 	public Set<Span> getInitialReasons() {

@@ -18,6 +18,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 import org.eclipse.emf.henshin.multicda.cda.runner.RulePreparator;
 import org.eclipse.emf.henshin.multicda.cda.tester.CDATester;
 import org.eclipse.emf.henshin.multicda.cda.tester.CPATester;
+import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -71,13 +72,13 @@ public class FeatureModellTest {
 		Set<CriticalPair> initsp = new HashSet<>();
 		for (Rule r : rules) {
 			for (Rule r2 : NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules)) {
-				aTester = new CDATester(r, r2, true);
+				aTester = new CDATester(r, r2, new Options(true));
 				inits.addAll(aTester.getInitialReasons());
 				List<Rule> a = new ArrayList<Rule>();
 				List<Rule> b = new ArrayList<Rule>();
 				a.add(r);
 				b.add(r2);
-				cTester = new CPATester(a, b, true);
+				cTester = new CPATester(a, b, new Options(true));
 				initsp.addAll(cTester.getInitialCriticalPairs());
 				int icr = aTester.getInitialReasons().size();
 				int icp = cTester.getInitialCriticalPairs().size();
