@@ -53,7 +53,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Geeignet nur für Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
+	 * Geeignet nur fï¿½r Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
 	 * 
 	 * @param henshin
 	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
@@ -63,7 +63,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Initialisiert und führt die multiCDA aus
+	 * Initialisiert und fï¿½hrt die multiCDA aus
 	 * 
 	 * @param henshin path to the henshin file
 	 * @param firstRule name of the first rule
@@ -100,7 +100,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Initialisiert und führt die multiCDA aus
+	 * Initialisiert und fï¿½hrt die multiCDA aus
 	 * 
 	 * @param first
 	 * @param second
@@ -132,7 +132,7 @@ public class CDATester extends Tester {
 			}
 		}
 
-		if (options.is(Options.NONE_DELETION_SECOND_RULE))
+		if (options.is(Options.NONE_DELETION_SECOND_RULE)){
 			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
 		if (options.is(Options.DEPENDENCY))
@@ -152,7 +152,9 @@ public class CDATester extends Tester {
 //			printCR();
 			print();
 		}
-		System.out.println();
+		System.out.println();}
+		else
+		System.out.println("NonDeletion-Option for second rule is not enabled.");
 	}
 
 	public Set<Span> getInitialReasons() {
