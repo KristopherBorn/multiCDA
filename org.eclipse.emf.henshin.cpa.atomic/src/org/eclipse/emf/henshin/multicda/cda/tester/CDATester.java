@@ -53,10 +53,13 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Geeignet nur f�r Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
+	 * Geeignet nur f�r Henshin Dateien mit nur einer Regel! Denn es wird nur
+	 * diese eine Regel mit sich selbst analysiert!
 	 * 
 	 * @param henshin
-	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
+	 * @param options
+	 *            1:dependency, 2:prepare, 3:nonDeletionSecondRule,
+	 *            4:printHeader, 5:printResult, 6:silent
 	 */
 	public CDATester(String henshin, Options... options) {
 		this(henshin, null, null, options);
@@ -65,10 +68,15 @@ public class CDATester extends Tester {
 	/**
 	 * Initialisiert und f�hrt die multiCDA aus
 	 * 
-	 * @param henshin path to the henshin file
-	 * @param firstRule name of the first rule
-	 * @param secondRule name of the second rule
-	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
+	 * @param henshin
+	 *            path to the henshin file
+	 * @param firstRule
+	 *            name of the first rule
+	 * @param secondRule
+	 *            name of the second rule
+	 * @param options
+	 *            1:dependency, 2:prepare, 3:nonDeletionSecondRule,
+	 *            4:printHeader, 5:printResult, 6:silent
 	 */
 	public CDATester(String henshin, String firstRule, String secondRule, Options... options) {
 		if (henshin.isEmpty()
@@ -104,7 +112,9 @@ public class CDATester extends Tester {
 	 * 
 	 * @param first
 	 * @param second
-	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
+	 * @param options
+	 *            1:dependency, 2:prepare, 3:nonDeletionSecondRule,
+	 *            4:printHeader, 5:printResult, 6:silent
 	 */
 	public CDATester(Rule first, Rule second, Options... options) {
 		this.first = first;
@@ -114,7 +124,7 @@ public class CDATester extends Tester {
 
 	protected void init(Options... opt) {
 		Options options = new Options();
-		if(opt.length!=0)
+		if (opt.length != 0)
 			options = opt[0];
 		NAME = "CDA Tester";
 		if (options.is(Options.PRINT_HEADER))
@@ -132,29 +142,29 @@ public class CDATester extends Tester {
 			}
 		}
 
-		if (options.is(Options.NONE_DELETION_SECOND_RULE)){
+		if (options.is(Options.NONE_DELETION_SECOND_RULE)) {
 			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
-		if (options.is(Options.DEPENDENCY))
-			analyser = new DependencyAnalysis(first, second);
-		else
-			analyser = new ConflictAnalysis(first, second);
+			if (options.is(Options.DEPENDENCY))
+				analyser = new DependencyAnalysis(first, second);
+			else
+				analyser = new ConflictAnalysis(first, second);
 
-		minimalReasons = analyser.computeResultsCoarse();
-		initialReasons = analyser.computeResultsFine();
-		computedAtoms = analyser.computeAtoms();
-		conflictReasons = new HashSet<>();
+			minimalReasons = analyser.computeResultsCoarse();
+			initialReasons = analyser.computeResultsFine();
+			computedAtoms = analyser.computeAtoms();
+			conflictReasons = new HashSet<>();
 
-		print(options.toCDAString()+"\n");
-		if (options.is(Options.PRINT_RESULT)) {
-			printMCR();
-			printICR();
-//			printCR();
-			print();
-		}
-		System.out.println();}
-		else
-		System.out.println("NonDeletion-Option for second rule is not enabled.");
+			print(options.toCDAString() + "\n");
+			if (options.is(Options.PRINT_RESULT)) {
+				printMCR();
+				printICR();
+				// printCR();
+				print();
+			}
+			System.out.println();
+		} else
+			System.out.println("NonDeletion-Option for second rule is not enabled.");
 	}
 
 	public Set<Span> getInitialReasons() {
@@ -253,20 +263,22 @@ public class CDATester extends Tester {
 
 	public void printMCR() {
 		CDATester.print(minimalReasons);
-//		for (Span minimalReason : minimalReasons)
-//			print("MCR: " + minimalReason.getGraph().getEdges() + "\t| " + minimalReason.getGraph().getNodes());
+		// for (Span minimalReason : minimalReasons)
+		// print("MCR: " + minimalReason.getGraph().getEdges() + "\t| " +
+		// minimalReason.getGraph().getNodes());
 	}
 
 	public void printICR() {
 		CDATester.print(initialReasons);
-//		for (Span initialReason : initialReasons)
-//			print("ICR: " + initialReason.getGraph().getEdges());
+		// for (Span initialReason : initialReasons)
+		// print("ICR: " + initialReason.getGraph().getEdges());
 	}
 
 	public void printCR() {
 		CDATester.print(conflictReasons);
-//		for (Span conflictReason : conflictReasons)
-//			print("CR: " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
+		// for (Span conflictReason : conflictReasons)
+		// print("CR: " + conflictReason.getGraph().getEdges() + "\t| " +
+		// conflictReason.getGraph().getNodes());
 
 	}
 

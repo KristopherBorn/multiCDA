@@ -121,6 +121,10 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public Set<InitialReason> computeInitialReasons() {
 		return new InitialReasonComputation(rule1, rule2).computeInitialReasons();
 	}
+	
+	public Set<DeleteReadConflictReasons> deleteReadConflictReasons(){
+		return new DeleteReadConflictReasons(rule1, rule2).computeDeleteReadConflictReasons();
+	};
 
 	public Set<InitialReason> computeInitialReasons(Set<MinimalConflictReason> minimalConflictReasons) {
 		return new InitialReasonComputation(rule1, rule2).computeInitialReasons(minimalConflictReasons);
