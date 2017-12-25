@@ -37,6 +37,7 @@ import org.eclipse.emf.henshin.multicda.cda.computation.InitialReasonComputation
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReasons;
 import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 
@@ -45,7 +46,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private Rule rule1;
 	private Rule rule2;
 	HenshinFactory henshinFactory = new HenshinFactoryImpl();
-	
+
 	public ConflictAnalysis(Rule rule1, Rule rule2) {
 		checkNull(rule1);
 		checkNull(rule2);
@@ -118,18 +119,22 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
 	}
 
+	/**
+	 * @return null
+	 * @author vincentcuccu
+	 */
+	public Set<DeleteReadConflictReasons> deleteReadConflictReasons() {
+		// TODO[VC]: fill method.
+		return null;
+	};
+
 	public Set<InitialReason> computeInitialReasons() {
 		return new InitialReasonComputation(rule1, rule2).computeInitialReasons();
 	}
-	
-	public Set<DeleteReadConflictReasons> deleteReadConflictReasons(){
-		return new DeleteReadConflictReasons(rule1, rule2).computeDeleteReadConflictReasons();
-	};
 
 	public Set<InitialReason> computeInitialReasons(Set<MinimalConflictReason> minimalConflictReasons) {
 		return new InitialReasonComputation(rule1, rule2).computeInitialReasons(minimalConflictReasons);
 	}
-
 
 	public boolean isRuleSupported(Rule rule) {
 		if (rule.getMultiRules().size() > 0) {

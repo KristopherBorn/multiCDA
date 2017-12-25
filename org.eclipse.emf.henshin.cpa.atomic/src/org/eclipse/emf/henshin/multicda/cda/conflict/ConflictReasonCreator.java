@@ -32,6 +32,10 @@ import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
 public class ConflictReasonCreator /*extends InitialConflictReason */{
 	
 
+	/**
+	 * @param cp
+	 * @return
+	 */
 	public static ConflictReason createConflictReason(Conflict cp){
 		
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
@@ -82,16 +86,16 @@ public class ConflictReasonCreator /*extends InitialConflictReason */{
 								
 									
 									
-									//TODO: zur Sicherheit hier prüfen, ob beide Knoten im gleichen Graph der LHS von R1 liegen 
+									//TODO: zur Sicherheit hier prï¿½fen, ob beide Knoten im gleichen Graph der LHS von R1 liegen 
 									//	(andernfalls liegt ein Programmierfehler vor)
 									
 
 
-	//								über alle Knoten die für den S1 erstellt wurden iterieren
-	//								prüfen, ob es in der Regel1 Kanten zu diesem Knoten gibt.
-	//								prüfen, ob es auch in der Regel2 zwischen den beiden zugeordneten Knoten eine Kante des gelichen Typs gibt
-	//								prüfen, ob im CPA overlap eine Kante mit dem Namensschema gibt (HenshinExporter Methode nutzen!)
-									// (besser/einfacher ging das natürlich wenn man nur über die EReferences im ECore Modell geht, 
+	//								ï¿½ber alle Knoten die fï¿½r den S1 erstellt wurden iterieren
+	//								prï¿½fen, ob es in der Regel1 Kanten zu diesem Knoten gibt.
+	//								prï¿½fen, ob es auch in der Regel2 zwischen den beiden zugeordneten Knoten eine Kante des gelichen Typs gibt
+	//								prï¿½fen, ob im CPA overlap eine Kante mit dem Namensschema gibt (HenshinExporter Methode nutzen!)
+									// (besser/einfacher ging das natï¿½rlich wenn man nur ï¿½ber die EReferences im ECore Modell geht, 
 									// 	aber dort ist wieder das Problem der Zuordnung der EReferences zu den Kantentypen die im, 
 									// 	den Regeln zugrundeliegenden, ECore Modell definiert sind (auch EReferences) ))
 									for(Node nodeInS1 : graph.getNodes()){
@@ -126,7 +130,7 @@ public class ConflictReasonCreator /*extends InitialConflictReason */{
 																	e.printStackTrace();
 																}
 																if(uniqueReferenceNameOfOverlap.equals(uniqueReferenceNameOfR1) && uniqueReferenceNameOfOverlap.equals(uniqueReferenceNameOfR2)){
-																	// Kante in Überlappungsgraph mit zugehörigen Kanten in den Regeln entdeckt.
+																	// Kante in ï¿½berlappungsgraph mit zugehï¿½rigen Kanten in den Regeln entdeckt.
 																	// ggf vereinfachen mit reinem abgelich der Namen der KAnten.
 //																	TODO: aus den bekannten Knoten und Kanten den passenden Knoten im overlap suchen!
 																	henshinFactory.createEdge(createdNode, potentialConnectedNodeInR1, outgoingEdgeOfL1Node.getType());
