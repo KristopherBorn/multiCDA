@@ -33,11 +33,12 @@ import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
+import org.eclipse.emf.henshin.multicda.cda.computation.DeleteReadConflictReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.InitialReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReasons;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 
@@ -119,14 +120,9 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
 	}
 
-	/**
-	 * @return null
-	 * @author vincentcuccu
-	 */
-	public Set<DeleteReadConflictReasons> deleteReadConflictReasons() {
-		// TODO[VC]: fill method.
-		return null;
-	};
+	public Set<DeleteReadConflictReason> computeDeleteReadConflictReasons() {
+		return new DeleteReadConflictReasonComputation(rule1, rule2).computeDeleteReadConflictReason();
+	}
 
 	public Set<InitialReason> computeInitialReasons() {
 		return new InitialReasonComputation(rule1, rule2).computeInitialReasons();
@@ -170,5 +166,13 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public Set<MinimalConflictReason> getMinimalConflictReasons() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Set<Span> computeDRCR() {
+		Set<Span> results = new HashSet<Span>();
+		computeDeleteReadConflictReasons().forEach(r -> results.add(r));
+		return results;
+
 	}
 }

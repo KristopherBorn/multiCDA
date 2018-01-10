@@ -17,8 +17,10 @@ public class DeleteReadConflictReason extends Span{
 		super(s1);
 		// TODO Auto-generated constructor stub
 	}
+
+
+
 	
-	//TODO: constructor!
 
 	
 

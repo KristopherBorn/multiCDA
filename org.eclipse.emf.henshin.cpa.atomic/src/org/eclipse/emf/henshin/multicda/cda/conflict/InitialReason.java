@@ -34,6 +34,7 @@ public class InitialReason extends Span {
 		result = prime * result + ((originMCRs == null) ? 0 : originMCRs.hashCode());
 		return result;
 	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -107,11 +108,11 @@ public class InitialReason extends Span {
 	private Set<ModelElement> getDeletionElementsOfSpan(Set<Mapping> mappingsOfSpanInRule1, Graph graph,
 			Set<Mapping> mappingsOfSpanInRule2) {
 		Set<ModelElement> deletionElements = new HashSet<ModelElement>();
-		// alle Elemente im Graph des Span müssen geprüft werden, ob es sich
-		// dabei um löschende Elemente der ersten Regel handelt!
-		// Kanten im Graph sind (für delete-use) immer löschende Elemente (Das
+		// alle Elemente im Graph des Span mï¿½ssen geprï¿½ft werden, ob es sich
+		// dabei um lï¿½schende Elemente der ersten Regel handelt!
+		// Kanten im Graph sind (fï¿½r delete-use) immer lï¿½schende Elemente (Das
 		// geht aus der Definition der ConflictAtoms und MCR hervor)
-		// dafür ist es schwieriger die Kanten zu identifizieren!
+		// dafï¿½r ist es schwieriger die Kanten zu identifizieren!
 		// check Nodes to be deletionElements
 		for (Mapping mapping : mappingsOfSpanInRule1) {
 			if (mapping.getImage().getAction().getType().equals(Action.Type.DELETE))
@@ -177,19 +178,19 @@ public class InitialReason extends Span {
 	public Set<ConflictReason> getAllDerivedConflictReasons(Set<ConflictAtom> uncoveredConflictAtoms) {
 		Set<ConflictReason> result = new HashSet<ConflictReason>();
 		/*
-		 * über jedes uncoveredCA iterieren jeweils für beide Knoten abarbeiten
-		 * für jeden Knoten jeweils alle 'use'-Knoten der zweiten Regel finden!
-		 * (auch Attr. berücksichtigen!) An jeder Position rekursiv versuchen
-		 * auch weitere Überlappungskombinationen zu bilden! iteriere über
-		 * Kombinationen für Knoten 1 - "Nullposition" ist ebenfalls gültig und
+		 * ï¿½ber jedes uncoveredCA iterieren jeweils fï¿½r beide Knoten abarbeiten
+		 * fï¿½r jeden Knoten jeweils alle 'use'-Knoten der zweiten Regel finden!
+		 * (auch Attr. berï¿½cksichtigen!) An jeder Position rekursiv versuchen
+		 * auch weitere ï¿½berlappungskombinationen zu bilden! iteriere ï¿½ber
+		 * Kombinationen fï¿½r Knoten 1 - "Nullposition" ist ebenfalls gï¿½ltig und
 		 * behandelt den Fall, dass Knoten 2 nciht mit einbezogen ist iteriere
-		 * über Positionen für Knoten 2 - "Nullposition" ist ebenfalls gültig
+		 * ï¿½ber Positionen fï¿½r Knoten 2 - "Nullposition" ist ebenfalls gï¿½ltig
 		 * und behandelt den Fall,d ass Knoten 1 nciht mit einbezogen ist bei
 		 * jeder Kombination noch versuchen rekursiv ein weiteres uncoveredCA
 		 * miteinzubeziehen!
 		 * 
 		 * Kombinationen beider Knoten sind erlaubt, solange es keien Kante des
-		 * zu löschenden Typs zwischen diesen gibt!
+		 * zu lï¿½schenden Typs zwischen diesen gibt!
 		 * 
 		 */
 
@@ -199,29 +200,29 @@ public class InitialReason extends Span {
 			result.add(conflictReasonWithoutBA);
 		}
 
-		// über jedes uncoveredCA iterieren
+		// ï¿½ber jedes uncoveredCA iterieren
 		for (ConflictAtom uncoveredCA : uncoveredConflictAtoms) {
 			Set<Node> usedR1 = getUsedNodesOfR1();
 			Set<Node> usedR2 = getUsedNodesOfR2();
 
-			// TODO: bisher wird vererbung nicht berücksichtigt! Können boundary
-			// atoms auch bei Vererbung entstehen? Muss geprüft und ggf.
+			// TODO: bisher wird vererbung nicht berï¿½cksichtigt! Kï¿½nnen boundary
+			// atoms auch bei Vererbung entstehen? Muss geprï¿½ft und ggf.
 			// angepasst werden!
 			EList<Node> nodesOfUncoveredCA = uncoveredCA.getSpan().getGraph().getNodes();
 			Node node1 = nodesOfUncoveredCA.get(0);
 			Node node2 = nodesOfUncoveredCA.get(1);
 
-			// jeweils für beide Knoten abarbeiten
-			// für jeden Knoten jeweils alle 'use'-Knoten der zweiten Regel
-			// finden! (auch Attr. berücksichtigen!)
+			// jeweils fï¿½r beide Knoten abarbeiten
+			// fï¿½r jeden Knoten jeweils alle 'use'-Knoten der zweiten Regel
+			// finden! (auch Attr. berï¿½cksichtigen!)
 			// An jeder Position rekursiv versuchen auch weitere
-			// Überlappungskombinationen zu bilden!
-			// iteriere über Kombinationen für Knoten 1 - "Nullposition" ist
-			// ebenfalls gültig und behandelt den Fall, dass Knoten 2 nciht mit
+			// ï¿½berlappungskombinationen zu bilden!
+			// iteriere ï¿½ber Kombinationen fï¿½r Knoten 1 - "Nullposition" ist
+			// ebenfalls gï¿½ltig und behandelt den Fall, dass Knoten 2 nciht mit
 			// einbezogen ist
 			List<Node> potentialUsesN1R2 = new LinkedList<Node>(rule2.getLhs().getNodes(node1.getType()));
 			potentialUsesN1R2.removeAll(usedR2);
-			// Knoten aus R1 dürfen nicht mehrfach in ein CR involviert sein!
+			// Knoten aus R1 dï¿½rfen nicht mehrfach in ein CR involviert sein!
 			boolean node1UsedInR1 = usedR1.contains(uncoveredCA.getSpan().getMappingIntoRule1(node1).getImage());
 			boolean node1UsedInR2 = usedR2.contains(uncoveredCA.getSpan().getMappingIntoRule2(node1).getImage());
 			if (!node1UsedInR1 && !node1UsedInR2) {
@@ -233,7 +234,7 @@ public class InitialReason extends Span {
 
 			List<Node> potentialUseNodesN2AloneR2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
 			potentialUsesN1R2.removeAll(usedR2);
-			// Knoten aus R2 dürfen nicht mehrfach in ein CR involviert sein!
+			// Knoten aus R2 dï¿½rfen nicht mehrfach in ein CR involviert sein!
 			boolean node2AlreadyUsedInR1 = usedR1.contains(uncoveredCA.getSpan().getMappingIntoRule1(node2).getImage());
 			boolean node2AlreadyUsedInR2 = usedR2.contains(uncoveredCA.getSpan().getMappingIntoRule2(node2).getImage());
 			if (!node2AlreadyUsedInR1 & !node2AlreadyUsedInR2) {
@@ -272,7 +273,7 @@ public class InitialReason extends Span {
 
 	private void processPotentialUsesN1R2(Set<ConflictAtom> uncoveredCAs, ConflictAtom uncoveredCA, Node node1,
 			Node node2, Set<Node> usedR2, Node potentialUseN1R2, Set<ConflictReason> result) {
-		// hier zuerst den Fall für node1 alleine (ohne node2) behandeln!
+		// hier zuerst den Fall fï¿½r node1 alleine (ohne node2) behandeln!
 		// bei jeder Kombination noch versuchen rekursiv ein weiteres
 		// uncoveredCA miteinzubeziehen!
 		// TODO: extract three times equal code to common method!
@@ -282,8 +283,8 @@ public class InitialReason extends Span {
 
 		if (extendedCR != null) {
 
-			// iteriere über Positionen für Knoten 2 - "Nullposition" ist
-			// ebenfalls gültig und behandelt den Fall, dass Knoten 1 nicht mit
+			// iteriere ï¿½ber Positionen fï¿½r Knoten 2 - "Nullposition" ist
+			// ebenfalls gï¿½ltig und behandelt den Fall, dass Knoten 1 nicht mit
 			// einbezogen ist
 			List<Node> potentialUsesN2R2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
 			potentialUsesN2R2.removeAll(usedR2);
@@ -297,14 +298,14 @@ public class InitialReason extends Span {
 				boolean usedInR2 = usedR2ExtendedCR.contains(potentialUseN2N2);
 				if (!usedInR1 && !usedInR2) {
 					// Kombinationen beider Knoten sind erlaubt, solange es
-					// keine Kante des zu löschenden Typs zwischen diesen gibt!
+					// keine Kante des zu lï¿½schenden Typs zwischen diesen gibt!
 					boolean node1MatchedOnCAOrigin = uncoveredCA.getSpan().getMappingIntoRule2(node1)
 							.getImage() == potentialUseN1R2;
 					boolean node2MatchedOnCAOrigin = uncoveredCA.getSpan().getMappingIntoRule2(node2)
 							.getImage() == potentialUseN2N2;
 					// check that its not exactly the pattern on which the
 					// conflict atom is based on
-					// das heißt, dass node1 und node2 genau so in Regel zwei
+					// das heiï¿½t, dass node1 und node2 genau so in Regel zwei
 					// abgebildet werden wie im CA
 					if (!(node1MatchedOnCAOrigin && node2MatchedOnCAOrigin)) {
 						// blocking should happen once per uncoveredCA
@@ -354,19 +355,19 @@ public class InitialReason extends Span {
 		boolean secondUncoveredCANodeIsAlreadyPresent = false;
 
 		// wenn "this" kein ConflictReason (sondern ein ICR), dann ist es
-		// ohnehin hinfällig.
-		// TODO: für den zweiten Teil stimmt das doch nciht mehr, oder?!!
+		// ohnehin hinfï¿½llig.
+		// TODO: fï¿½r den zweiten Teil stimmt das doch nciht mehr, oder?!!
 		if (this instanceof ConflictReason) {
-			// Sonst muss geprüft werden,
+			// Sonst muss geprï¿½ft werden,
 			// 1. dass der use-Knoten noch nicht durch ein
 			// additionalConflictAtom referenziert wird
-			// (dieses würde sonst zum vollständigen CA und zu Duplikaten in der
-			// Ergebnissen führen)
+			// (dieses wï¿½rde sonst zum vollstï¿½ndigen CA und zu Duplikaten in der
+			// Ergebnissen fï¿½hren)
 			Set<Node> lhsNodesOfR2UsedByAdditionalCAs = ((ConflictReason) this).getLhsNodesOfR2UsedByAdditionalCAs();
 			if (lhsNodesOfR2UsedByAdditionalCAs.contains(potentialUseInR2))
 				potentialUseNodeCompletesContainedBA = true;
 
-			// 2. dass für das neue uncovered CA der zweite Knoten noch nicht
+			// 2. dass fï¿½r das neue uncovered CA der zweite Knoten noch nicht
 			// vorhanden ist
 			/*
 			 * d.h. hier je nach potential use node darf der andere noch nicht

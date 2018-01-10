@@ -47,6 +47,7 @@ public class CDATester extends Tester {
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
 	private Options options;
+	private Set<Span> deleteReadCR;
 
 	public CDATester(String henshin, String rule, Options... options) {
 		this(henshin, rule, rule, options);
@@ -142,7 +143,7 @@ public class CDATester extends Tester {
 			}
 		}
 
-		if (options.is(Options.NONE_DELETION_SECOND_RULE)) {
+		if ( options.is(Options.NONE_DELETION_SECOND_RULE)) { 
 			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
 			if (options.is(Options.DEPENDENCY))
@@ -152,6 +153,7 @@ public class CDATester extends Tester {
 
 			minimalReasons = analyser.computeResultsCoarse();
 			initialReasons = analyser.computeResultsFine();
+			deleteReadCR = analyser.computeDRCR();
 			computedAtoms = analyser.computeAtoms();
 			conflictReasons = new HashSet<>();
 
@@ -280,6 +282,10 @@ public class CDATester extends Tester {
 		// print("CR: " + conflictReason.getGraph().getEdges() + "\t| " +
 		// conflictReason.getGraph().getNodes());
 
+	}
+
+	public void printDRCR() {
+		CDATester.print(deleteReadCR);
 	}
 
 	public Set<Span> getConflictReasons() {

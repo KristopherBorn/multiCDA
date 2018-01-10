@@ -104,10 +104,10 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 	}
 	
 	/**
-	 * TODO: add information here z.B.: - welche Regel-features unterstützt
+	 * TODO: add information here z.B.: - welche Regel-features unterstï¿½tzt
 	 * werden - wie wird damit umgeganen, wenn die Knoten oder Mappings nicht
-	 * erstellt wurde? - wird NULL zurück gegeben, oder wird eine Exception
-	 * geworfen? - sollte es eine Möglichkeit vorab geben zu prüfen, ob die
+	 * erstellt wurde? - wird NULL zurï¿½ck gegeben, oder wird eine Exception
+	 * geworfen? - sollte es eine Mï¿½glichkeit vorab geben zu prï¿½fen, ob die
 	 * Regel invertierbar ist?
 	 * 
 	 * @param rule1
@@ -119,8 +119,8 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		// TODO: invert first rule
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
-		// erstellen einer Regel mit ursprünglichem Namen + "_INV"
-		// TODO: In welches MODULe kommt die Regel überhaupt ????
+		// erstellen einer Regel mit ursprï¿½nglichem Namen + "_INV"
+		// TODO: In welches MODULe kommt die Regel ï¿½berhaupt ????
 		// eigenes? Imports? Copy?
 		Rule invRule1 = henshinFactory.createRule(rule1.getName() + "_INV");
 
@@ -140,7 +140,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		invRule1.setRhs(newRhs);
 
 		// notwendige Mappings erstellen. Dazu alle Mappings durchgehen und
-		// ausgehend von den Nodes in der ursprünglichen Regel über den copier
+		// ausgehend von den Nodes in der ursprï¿½nglichen Regel ï¿½ber den copier
 		// die Nodes in der neuen regel identifizieren!
 		MappingList mappingsOfOriginalRule1 = rule1.getMappings();
 		for (Mapping mappingInOriginalRule1 : mappingsOfOriginalRule1) {
@@ -162,9 +162,15 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		}
 
 		// ggf. als Datei speichern?
-		// ABER(!): auch prüfen, ob es rein programmatisch geht!
+		// ABER(!): auch prï¿½fen, ob es rein programmatisch geht!
 
 		return invRule1;
+	}
+
+	@Override
+	public Set<Span> computeDRCR() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

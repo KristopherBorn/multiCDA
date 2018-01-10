@@ -9,4 +9,5 @@ public interface MultiGranularAnalysis {
 	public Set<Span> computeResultsCoarse();
 	public Set<Span> computeResultsFine();
 	public Set<Span> computeAtoms();
+	public Set<Span> computeDRCR();
 }
