@@ -327,8 +327,8 @@ public class CDATester extends Tester {
 	@Override
 	public String toString() {
 		if (analyser instanceof ConflictAnalysis)
-			return minimalReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size()
-					+ " Initial Conflict Reasons, " + conflictReasons.size() + " Conflict Reasons";
+			return minimalReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size() 
+					+ " Initial Conflict Reasons, " + deleteReadCR.size() + " Delete-Read Conflict Reasons, " + conflictReasons.size() + " Conflict Reasons";
 		if (analyser instanceof DependencyAnalysis)
 			return minimalReasons.size() + " Minimal Dependency Reasons, " + initialReasons.size()
 					+ " Initial Dependency Reasons, " + conflictReasons.size() + " Dependency Reasons";

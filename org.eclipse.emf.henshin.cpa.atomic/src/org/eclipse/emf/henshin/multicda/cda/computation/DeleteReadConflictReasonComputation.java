@@ -89,6 +89,8 @@ public class DeleteReadConflictReasonComputation {
 		
 		if (findEmbeddingS1toK2(initialReason)){// If (there exists embedding S1 -> K2 with S1 -> K2 -> L2 = mappingsInRule2) {
 		
+			
+			// TODO brauch man das?
 		s1tol1 = computeMappings(s1Nodes, lhs1Nodes); // s1' = extendSpan(s1,c1: C1 --> L1) //after extension: (s1': L1 <-- C1 <-- S1 --> L2)
 		
 		Pushout pushout = new Pushout(rule1, initialReason, rule2);// Compute (L1 -m1-> G <-m2- L2) as PO of s1'
