@@ -74,7 +74,7 @@ public class MinimalReasonComputation {
 
 	private boolean isMinReason(Span s1) {
 		Pushout pushoutResult = getPushout(s1);
-		boolean rule1EmbeddingIsDanglingFree = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings()).isEmpty();
+		boolean rule1EmbeddingIsDanglingFree = findDanglingEdgesOfRule1(rule1, pushoutResult.getRule1Mappings()).isEmpty();
 		return rule1EmbeddingIsDanglingFree;
 	}
 
@@ -87,7 +87,8 @@ public class MinimalReasonComputation {
 		return result;
 	}
 
-	public Set<DanglingEdge> findDanglingEdgesOfRule1(List<Mapping> embedding) {
+	// TODO Jevgenij: Methode muss in Rule verschoben werden!!!!
+	public Set<DanglingEdge> findDanglingEdgesOfRule1(Rule rule, List<Mapping> embedding) {
 		HashMap<Node, Node> mapL1toG = new HashMap<Node, Node>();
 		HashMap<Node, Node> mapGtoL1 = new HashMap<Node, Node>();
 		for (Mapping mapping : embedding) {
@@ -96,7 +97,7 @@ public class MinimalReasonComputation {
 		}
 
 		Set<DanglingEdge> danglingEdges = new HashSet<DanglingEdge>();
-		EList<Node> l1DeletingNodes = rule1.getActionNodes(new Action(Action.Type.DELETE));
+		EList<Node> l1DeletingNodes = rule.getActionNodes(new Action(Action.Type.DELETE));
 		for (Node l1Deleting : l1DeletingNodes) {
 
 			Node poDeleting = mapL1toG.get(l1Deleting);
@@ -180,7 +181,7 @@ public class MinimalReasonComputation {
 		Pushout pushoutResult = getPushout(s1);
 		CospanMappingToMaps cospanMappings = new CospanMappingToMaps(pushoutResult.getRule1Mappings(),
 				pushoutResult.getRule2Mappings());
-		Set<DanglingEdge> danglingEdges = findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings());
+		Set<DanglingEdge> danglingEdges = findDanglingEdgesOfRule1(rule1, pushoutResult.getRule1Mappings());
 
 		Map<DanglingEdge, Set<Edge>> fixingEdgeMap = new HashMap<>();
 		for (DanglingEdge danglingEdge : danglingEdges) {

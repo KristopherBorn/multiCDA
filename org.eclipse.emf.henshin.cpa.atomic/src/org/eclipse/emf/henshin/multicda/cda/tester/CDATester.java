@@ -144,8 +144,8 @@ public class CDATester extends Tester {
 			}
 		}
 
-		if ( options.is(Options.NONE_DELETION_SECOND_RULE)) { 
-			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
+		if (true || options.is(Options.NONE_DELETION_SECOND_RULE)) { //TODO Testing
+//			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
 			if (options.is(Options.DEPENDENCY))
 				analyser = new DependencyAnalysis(first, second);

@@ -76,70 +76,41 @@ public class DeleteReadConflictReasonComputation {
 	}
 
 	private void computeDeleteReadConflictReason(InitialReason initialReason, Set<DeleteReadConflictReason> result) {
-		Graph lhs1 = initialReason.getRule1().getLhs();
+		initialReason.getRule1().getLhs();
 		Rule rule1 = initialReason.getRule1();
 		Rule rule2 = initialReason.getRule2();
-		//Graph lhs2 = RulePreparator.prepareRule(initialReason.getRule2()).getLhs();
-		//Set<ModelElement> c1 = initialReason.getDeletionElementsInRule1();
-		Graph s1 = initialReason.getGraph();
-		ArrayList<Mapping> s1tol1 = new ArrayList<Mapping>();
-		EList<Node> s1Nodes = s1.getNodes();
-		EList<Node> lhs1Nodes = lhs1.getNodes();
-		EList<Node> k2Nodes = rule2.getRootRule().getLhs().getNodes();
+		initialReason.getGraph();
+		new ArrayList<Mapping>();
+		MinimalReasonComputation minHelper = new MinimalReasonComputation(rule1, rule2);
 		
 		if (findEmbeddingS1toK2(initialReason)){// If (there exists embedding S1 -> K2 with S1 -> K2 -> L2 = mappingsInRule2) {
 		
-			
 			// TODO brauch man das?
-		s1tol1 = computeMappings(s1Nodes, lhs1Nodes); // s1' = extendSpan(s1,c1: C1 --> L1) //after extension: (s1': L1 <-- C1 <-- S1 --> L2)
-		
-		Pushout pushout = new Pushout(rule1, initialReason, rule2);// Compute (L1 -m1-> G <-m2- L2) as PO of s1'
-				if (fullfillDanglingG(pushout)) {// If (r1,m1:L1 --> G) and (r2,m2: L2 --> G) fulfill the dangling condition{
-				result.add(new DeleteReadConflictReason(initialReason));// Then
-																		// add
-																		// s1 to
-																		// DRCR
+			// s1tol1 = computeMappings(s1Nodes, lhs1Nodes); // s1' =
+			// extendSpan(s1,c1: C1 --> L1) //after extension: (s1': L1 <-- C1
+			// <-- S1 --> L2)
+
+			Pushout pushout = new Pushout(rule1, initialReason, rule2);
+			if (minHelper.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
+					&& minHelper.findDanglingEdgesOfRule1(rule2, pushout.getRule2Mappings()).isEmpty()) { // fullfillDanglingG(pushout)
+				result.add(new DeleteReadConflictReason(initialReason));
 			}
 		}
 	}
 
-	/**
-	 * @param pushout 
-	 * @return
-	 */
-	private boolean fullfillDanglingG(Pushout pushout) {
-		List<Mapping> m1 = pushout.getRule1Mappings();
-		List<Mapping> m2 = pushout.getRule2Mappings();
-		
-		for (Mapping mapping : m1){
-			if (mapping.getOrigin() == null || mapping.getImage() == null){
-				Exception exception = new Exception(mapping + "is not dangling free!");
-				return false;
-			}
-		}
-		
-		for (Mapping mapping : m2){
-			if (mapping.getOrigin() == null || mapping.getImage() == null){
-				Exception exception = new Exception(mapping + "is not dangling free!");
-				return false;
-			}
-		}
-		
-		return true;
-	}
-
+	
 	private boolean findEmbeddingS1toK2(InitialReason initialReason) {
-		// TODO Auto-generated method stub
-		// If (there exists embedding S1 -> K2 with S1 -> K2 -> L2 = mappingsInRule2)
-		Rule rule1 = initialReason.getRule1();
+		initialReason.getRule1();
 		Rule rule2 = initialReason.getRule2();
 		Graph s1 = initialReason.getGraph();
 		Graph l2 = rule2.getLhs();
-		Graph r2 = rule2.getRhs();
-		Graph k2 = generateK(rule2, l2, r2);
+		rule2.getRhs();
+//		Graph k2 = generateK(rule2, l2, r2);
+		EList<Node> k2nodes =  rule2.getActionNodes(new Action(Action.Type.PRESERVE));
+		System.out.println(k2nodes);
 
 		// S1 -> K2
-		ArrayList<Mapping> s1tok2 = computeMappings(s1.getNodes(), k2.getNodes());
+		ArrayList<Mapping> s1tok2 = computeMappings(s1.getNodes(), k2nodes);
 		// S1 -> L2
 		ArrayList<Mapping> s1tol2 = computeMappings(s1.getNodes(), l2.getNodes());
 		
@@ -226,7 +197,7 @@ public class DeleteReadConflictReasonComputation {
 			k.removeNode(node);
 		}
 
-		k.setName("KernelRule");
+//		k.setName("KernelRule");
 		return k;
 	}
 
