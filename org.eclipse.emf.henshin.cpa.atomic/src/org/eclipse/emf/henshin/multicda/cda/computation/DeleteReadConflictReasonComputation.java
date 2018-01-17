@@ -69,8 +69,8 @@ public class DeleteReadConflictReasonComputation {
 		for (InitialReason initalReason : initialReasons) {
 			computeDeleteReadConflictReason(initalReason, result);
 		}
-		
-		System.out.println(result);
+
+		// System.out.println(result);
 		return result;
 
 	}
