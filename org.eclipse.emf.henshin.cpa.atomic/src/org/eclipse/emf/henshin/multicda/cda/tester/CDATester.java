@@ -18,6 +18,7 @@ import org.eclipse.emf.henshin.multicda.cda.DependencyAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.InitialDependencyReason;
@@ -132,7 +133,7 @@ public class CDATester extends Tester {
 			System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tCDA");
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
-
+				
 		if (options.is(Options.PREPARE)) {
 			if (first != second) {
 				first = RulePreparator.prepareRule(first);
@@ -161,12 +162,21 @@ public class CDATester extends Tester {
 			if (options.is(Options.PRINT_RESULT)) {
 				printMCR();
 				printICR();
-				// printCR();
+				printDRCR();
+				//printCR();
 				print();
 			}
 			System.out.println();
 		} else
 			System.out.println("NonDeletion-Option for second rule is not enabled.");
+	}
+
+	public Set<Span> getDeleteReadCR() {
+		return deleteReadCR;
+	}
+
+	public void setDeleteReadCR(Set<Span> deleteReadCR) {
+		this.deleteReadCR = deleteReadCR;
 	}
 
 	public Set<Span> getInitialReasons() {
@@ -257,6 +267,8 @@ public class CDATester extends Tester {
 				type = "MDCR";
 			else if (span instanceof ConflictReason)
 				type = "CR";
+			else if (span instanceof DeleteReadConflictReason)
+				type = "DRCR";
 			else
 				type = "SPAN";
 			System.out.println(type + ": " + span.getGraph().getEdges() + "\t| " + span.getGraph().getNodes());

@@ -72,7 +72,7 @@ public interface Rule extends Unit {
 	 * @generated
 	 */
 	Graph getRhs();
-
+	
 	/**
 	 * Sets the value of the '{@link org.eclipse.emf.henshin.model.Rule#getRhs <em>Rhs</em>}' containment reference.
 	 * <!-- begin-user-doc -->
