@@ -120,6 +120,9 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
 	}
 
+	/**
+	 * @return
+	 */
 	public Set<DeleteReadConflictReason> computeDeleteReadConflictReasons() {
 		return new DeleteReadConflictReasonComputation(rule1, rule2).computeDeleteReadConflictReason();
 	}
@@ -164,7 +167,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public Set<MinimalConflictReason> getMinimalConflictReasons() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
