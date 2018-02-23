@@ -137,7 +137,7 @@ public class CPAUtility {
 			String formatedNumberForRulePair = new DecimalFormat("00").format(numberForRulePair);
 
 			String numberedNameOfCPKind = "(" + formatedNumberForRulePair + ") " + criticalPairKind;
-			//TODO: hier die typen der kritischen Elemente hinzufügen
+			//TODO: hier die typen der kritischen Elemente hinzufï¿½gen
 			String criticalElements = ""; //TODO: better naming! 
 //			cp.getCriticalElements()
 
@@ -165,7 +165,7 @@ public class CPAUtility {
 //			String pathToFile = rulesAndAssociatedFileNames.get(cp.getFirstRule());			
 //			IFile firstRuleContainingFile = new File(pathToFile);
 //			URI firstRuleDiagramURI = addDIAGRAMtoFileName(newCriticalPairNode.getFirstRuleURI());
-//			// persist diagramFile: URI der zu persistiertenden Regel, Datei mit Regel. diagram Datei veruschen selbstständig zu finden.
+//			// persist diagramFile: URI der zu persistiertenden Regel, Datei mit Regel. diagram Datei veruschen selbststï¿½ndig zu finden.
 			URI uriOfDiagramRule1 = persistDiagramFile(uriOfOriginalFirstRuleFile, newCriticalPairNode.getFirstRuleURI(), cp.getFirstRule()); //TODO:
 			URI uriOfDiagramRule2 = persistDiagramFile(uriOfOriginalSecondRuleFile, newCriticalPairNode.getSecondRuleURI(), cp.getSecondRule());
 //			
@@ -196,7 +196,6 @@ public class CPAUtility {
 		try {
 			netUriOfFirstRule = new java.net.URI(uriOfFirstRuleFile.toString());
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		IPath potentialHenshinFilePath = new Path(netUriOfFirstRule.getSchemeSpecificPart());
@@ -214,7 +213,7 @@ public class CPAUtility {
 		try {
 			netUriOfDiagram = new java.net.URI(uriOfPotentialDiagramFile.toString());
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		IPath potentialDiagramFilePath = new Path(netUriOfDiagram.getSchemeSpecificPart());
@@ -229,7 +228,7 @@ public class CPAUtility {
 		try {
 			diagram = DiagramIOUtil.load(editingDomain, potentialDiagramFile, true,	null/*PrograssMonitor*/);
 		} catch (CoreException e2) {
-			// TODO Auto-generated catch block
+			// 
 			e2.printStackTrace();
 		}
 		if (diagram != null) {
@@ -245,7 +244,7 @@ public class CPAUtility {
 			}
 		}
 		
-		// erstellen der Henshin Datei für die Visualissierung einer regel
+		// erstellen der Henshin Datei fï¿½r die Visualissierung einer regel
 		String fileNameOfSavedRule = uriForSavingSingleRule.lastSegment();
 		String fileNameForSavingDiagramRule = fileNameOfSavedRule.replace(".henshin", "_DIAG.henshin");
 		URI uriForSavingDiagramRule = uriForSavingSingleRule.trimSegments(1).appendSegment(fileNameForSavingDiagramRule);
@@ -259,10 +258,10 @@ public class CPAUtility {
 //		try {
 //			eResource2.save(null);
 //		} catch (IOException e2) {
-//			// TODO Auto-generated catch block
+//			// 
 //			e2.printStackTrace();
 //		}		
-		// TODO: Zielspeicherpfad für diagram file erstellen
+		// TODO: Zielspeicherpfad fï¿½r diagram file erstellen
 
 //		String fileNameOfSavedRule = uriForSavingSingleRule.lastSegment();
 		String fileNameForSavingDiagram = fileNameOfSavedRule.replace(".henshin", "_DIAG.henshin_diagram");
@@ -271,7 +270,7 @@ public class CPAUtility {
 		try {
 			netUriOfNewDiagram = new java.net.URI(uriForSavingDiagram.toString());
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		
@@ -286,7 +285,7 @@ public class CPAUtility {
 		try {
 			project.refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (CoreException e4) {
-			// TODO Auto-generated catch block
+			// 
 			e4.printStackTrace();
 		}
 		IPath removeFirstSegments = path.removeFirstSegments(1);
@@ -303,7 +302,7 @@ public class CPAUtility {
 		try {
 			file.create(is, true, null);
 		} catch (CoreException e3) {
-			// TODO Auto-generated catch block
+			// 
 			e3.printStackTrace();
 		}
 		IFile file2 = project.getFile(removeFirstSegments);
@@ -330,14 +329,14 @@ public class CPAUtility {
 //				try {
 //					potentialDiagramFile.copy(newDiagramFilePath, true, null);
 //				} catch (CoreException e3) {
-//					// TODO Auto-generated catch block
+//					// 
 //					e3.printStackTrace();
 //				}//.getProject().getFile(netUriOfNewDiagram.getRawPath()); //getFile(newDiagramFilePath);
 //		resourceSetForCopySaveTest.
 //		getFile(new Path(uri.toPlatformResourceString(true))) 
 //		IFile newHenshinDiagramFileForCopySaveTest = FileBuffers.getWorkspaceFileAtLocation(newDiagramFilePath);
 //		IFile newHenshinDiagramFileForCopySaveTest = FileBuffers.getWorkspaceFileAtLocation(newDiagramFilePath);
-		// Datei muss zuerst erzeugt werden bevor diese anschließend mit dem Diagramm beschrieben werden kann!
+		// Datei muss zuerst erzeugt werden bevor diese anschlieï¿½end mit dem Diagramm beschrieben werden kann!
 		
 //				IFile newHenshinDiagramFileForCopySaveTest = FileBuffers.getWorkspaceFileAtLocation(newDiagramFilePath);
 				
@@ -346,8 +345,8 @@ public class CPAUtility {
 				
 				InputStream fis = null;
 				
-				// TEMPORÄRDEAKTIVIERT UMD FREI NCIHTUNTER DEM geSCHIWNDIGKEITSNACHTEIL ZU LEIDEN!!!!
-		// LÖSCHEN DER ÜBERFLÜSSGEN VIEWS (und Rules -> move in front of rule saving!)
+				// TEMPORï¿½RDEAKTIVIERT UMD FREI NCIHTUNTER DEM geSCHIWNDIGKEITSNACHTEIL ZU LEIDEN!!!!
+		// Lï¿½SCHEN DER ï¿½BERFLï¿½SSGEN VIEWS (und Rules -> move in front of rule saving!)
 			if(ADAPT_DIAGRAMS){
 				View viewToKeep = null;
 				List<View> viewsToDelete = new LinkedList<View>();
@@ -361,7 +360,7 @@ public class CPAUtility {
 						String type = view.getType();
 						System.err.println("type of view '"+view.toString()+"' is: "+type+" and has "+children.size()+" children");
 						EObject element = view.getElement(); // hier sind die Regeln, also entspricht jede der Views einer Regel!
-	//					String string = element.getClass().toString(); // kann zu NPE führen (getClass() = null). vllt. im Fall von Notizen?
+	//					String string = element.getClass().toString(); // kann zu NPE fï¿½hren (getClass() = null). vllt. im Fall von Notizen?
 						System.err.println("the views ");
 						
 						
@@ -417,7 +416,7 @@ public class CPAUtility {
 			try {
 				eResource2.save(null);
 			} catch (IOException e2) {
-				// TODO Auto-generated catch block
+				// 
 				e2.printStackTrace();
 			}	
 				
@@ -428,7 +427,7 @@ public class CPAUtility {
 		try {
 			DiagramIOUtil.save(editingDomain, newHenshinDiagramFileForCopySaveTest, diagram, null);
 		} catch (CoreException e1) {
-			// TODO Auto-generated catch block
+			// 
 			e1.printStackTrace();
 		}
 		
@@ -547,7 +546,7 @@ public class CPAUtility {
 		String fileNameRule1 = "(1)" + firstRule.getName() + ".henshin";
 		String fullPathRule1 = pathForCurrentCriticalPair + fileNameRule1;
 		URI firstRuleURI = saveRuleInFileSystem(commonResourceSet, firstRule, fullPathRule1);
-		//TODO: hier das Speichern der grafischen Repräsentation der Regel hinzufügen!
+		//TODO: hier das Speichern der grafischen Reprï¿½sentation der Regel hinzufï¿½gen!
 
 		// save the minimal model in the file system
 		String fileNameMinimalModel = "minimal-model" + ".ecore";
@@ -559,8 +558,8 @@ public class CPAUtility {
 		String fileNameRule2 = "(2)" + secondRule.getName() + ".henshin";
 		String fullPathRule2 = pathForCurrentCriticalPair + fileNameRule2;
 		URI secondRuleURI = saveRuleInFileSystem(commonResourceSet, secondRule, fullPathRule2);
-		//TODO: hier das Speichern der grafischen Repräsentation der Regel hinzufügen!
-		// TODO: was wird an Daten benötigt?
+		//TODO: hier das Speichern der grafischen Reprï¿½sentation der Regel hinzufï¿½gen!
+		// TODO: was wird an Daten benï¿½tigt?
 			/* 	- Pfad: "fullPathRule2"
 			 *  - ???
 			 */
@@ -584,26 +583,26 @@ public class CPAUtility {
 		// rename the Nodes of the rules back to have the original rule for the renaming for the next processed critical
 		// pair.
 		for (Node node : renameMap.keySet()) {
-//			node.setName(renameMap.get(node)); //deaktiviert für case study!
+//			node.setName(renameMap.get(node)); //deaktiviert fï¿½r case study!
 		}
 
 		
-		// TEMPORÄR FÜR TEST DER EssentialCriticalPairError
+		// TEMPORï¿½R Fï¿½R TEST DER EssentialCriticalPairError
 		if(cp.getAppliedAnalysis().equals(AppliedAnalysis.ESSENTIAL)){
 			return new EssentialCriticalPairError("Test", firstRuleURI, secondRuleURI, overlapURI,
 					criticalPairURI);
 		}
 		
 					//TODO: vermutlich erweitern der CriticalPairNode Klasse, 
-							//so dass auch die URI der grafischen Repräsentationen hinterlegt werden.   
+							//so dass auch die URI der grafischen Reprï¿½sentationen hinterlegt werden.   
 		return new CriticalPairNode(numberedNameOfCriticalPair, firstRuleURI, secondRuleURI, overlapURI,
 				criticalPairURI);
 	}
 	
 	
 	
-//	TODO: zuerst duplizieren der Methode und ein "simples" generelles Speichern für atomic Conflicts ableiten 
-//	später eine Vereinheitlichung mit umbenennung anstreben (wenn die Ergebnisse für die Beispiele bekannt sind!)
+//	TODO: zuerst duplizieren der Methode und ein "simples" generelles Speichern fï¿½r atomic Conflicts ableiten 
+//	spï¿½ter eine Vereinheitlichung mit umbenennung anstreben (wenn die Ergebnisse fï¿½r die Beispiele bekannt sind!)
 	/**
 	 * Persists a single critical pair (<code>cp</code>) in the file system.
 	 * 
@@ -713,14 +712,14 @@ public class CPAUtility {
 		String fileNameRule1 = "(1)" + firstRule.getName() + ".henshin";
 		String fullPathRule1 = pathForCurrentCriticalPair + fileNameRule1;
 		URI firstRuleURI = saveRuleInFileSystem(commonResourceSet, firstRule, fullPathRule1);
-		//TODO: hier das Speichern der grafischen Repräsentation der Regel hinzufügen!
+		//TODO: hier das Speichern der grafischen Reprï¿½sentation der Regel hinzufï¿½gen!
 	
 		// save the minimal model in the file system
 //		String fileNameMinimalModel = "minimal-model" + ".ecore";
 		String fullPathMinimalModel = pathForCurrentCriticalPair; // + fileNameMinimalModel;
 	
 //		TODO: speichern des Graph () der zentraler Teil des Spans ist!
-//		URI overlapURI = saveMinimalModelAsEcoreInstanceInFileSystem(commonResourceSet, minimalModelAsEcoreInstance, fullPathMinimalModel); // ÜBERFLÜSSIG!
+//		URI overlapURI = saveMinimalModelAsEcoreInstanceInFileSystem(commonResourceSet, minimalModelAsEcoreInstance, fullPathMinimalModel); // ï¿½BERFLï¿½SSIG!
 		HenshinResourceSet resourceSet = new HenshinResourceSet(fullPathMinimalModel);
 		Graph graph = (Graph) cp.getMinimalModel();
 		resourceSet.saveEObject(graph, "minimal-model.xmi");
@@ -730,8 +729,8 @@ public class CPAUtility {
 		String fileNameRule2 = "(2)" + secondRule.getName() + ".henshin";
 		String fullPathRule2 = pathForCurrentCriticalPair + fileNameRule2;
 		URI secondRuleURI = saveRuleInFileSystem(commonResourceSet, secondRule, fullPathRule2);
-		//TODO: hier das Speichern der grafischen Repräsentation der Regel hinzufügen!
-		// TODO: was wird an Daten benötigt?
+		//TODO: hier das Speichern der grafischen Reprï¿½sentation der Regel hinzufï¿½gen!
+		// TODO: was wird an Daten benï¿½tigt?
 			/* 	- Pfad: "fullPathRule2"
 			 *  - ???
 			 */
@@ -759,14 +758,14 @@ public class CPAUtility {
 //		}
 //	
 //		
-//		// TEMPORÄR FÜR TEST DER EssentialCriticalPairError
+//		// TEMPORï¿½R Fï¿½R TEST DER EssentialCriticalPairError
 //		if(cp.getAppliedAnalysis().equals(AppliedAnalysis.ESSENTIAL)){
 //			return new EssentialCriticalPairError("Test", firstRuleURI, secondRuleURI, overlapURI,
 //					criticalPairURI);
 //		}
 //		
 					//TODO: vermutlich erweitern der CriticalPairNode Klasse, 
-							//so dass auch die URI der grafischen Repräsentationen hinterlegt werden. 
+							//so dass auch die URI der grafischen Reprï¿½sentationen hinterlegt werden. 
 		URI overlapURI = firstRuleURI.trimSegments(1).appendSegment("minimal-model.xmi"); //TODO: name as class constant!
 		return new CriticalPairNode(numberedNameOfCriticalPair, firstRuleURI, secondRuleURI, overlapURI,
 				criticalPairURI);
@@ -774,7 +773,7 @@ public class CPAUtility {
 	
 	
 	
-	//temporär deaktiviert für user study!
+	//temporï¿½r deaktiviert fï¿½r user study!
 //	/**
 //	 * Renames the nodes of the minimal model based on the names of the rules.
 //	 * 
@@ -797,10 +796,10 @@ public class CPAUtility {
 	for (EClassifier eclass : eclasses) {
 		String name = eclass.getName();
 		String newName = hashValueToNameMapping.get(eclass.hashCode()) + ":" + name;
-//		eclass.setName(newName); // für survey deaktiviert!
-		// funktioniert nur für survey:
-		// einfügen des trennenden ":" zwischen Namenskombination und Type-Namen
-		// finde letzte Zahl oder "_". Je nachdem was größer ist an dieser Stelle das Symbol ":" einfügen
+//		eclass.setName(newName); // fï¿½r survey deaktiviert!
+		// funktioniert nur fï¿½r survey:
+		// einfï¿½gen des trennenden ":" zwischen Namenskombination und Type-Namen
+		// finde letzte Zahl oder "_". Je nachdem was grï¿½ï¿½er ist an dieser Stelle das Symbol ":" einfï¿½gen
 //		name.*(?:\D|^)(\d+)
 		int lastIndexOfNumber = 0; //name.lastIndexOf(".*(?<=\\D)(\\d+)\\D*");name.split(".*(?<=\\D)(\\d+)\\D*");
 		
@@ -930,7 +929,7 @@ public class CPAUtility {
 						String newName = "";
 						//TODO: check if name allready contains assosciated
 						
-						//behandelt den Fall, dass der erste Namenteil bereits vorhanden ist und fügt den zweiten Namensteil ein. (wenn es sich um die LHS der zweiten Regel handelt)
+						//behandelt den Fall, dass der erste Namenteil bereits vorhanden ist und fï¿½gt den zweiten Namensteil ein. (wenn es sich um die LHS der zweiten Regel handelt)
 						if(!isFirstRule){
 							int indexOf_ = formerName.indexOf("_");
 							StringBuffer strBuffer = new StringBuffer();
@@ -941,7 +940,7 @@ public class CPAUtility {
 							strBuffer.append(formerName.substring(indexOf_+1));//trailingPart
 							newName = strBuffer.toString();
 						}
-						//behandelt den Fall, dass der erste Namensteil noch nicht vorhanden ist und fügt den ersten Namensteil und den trennen "_" ein. (wenn es sich um die LHS der ersten Regel handelt) 
+						//behandelt den Fall, dass der erste Namensteil noch nicht vorhanden ist und fï¿½gt den ersten Namensteil und den trennen "_" ein. (wenn es sich um die LHS der ersten Regel handelt) 
 						else {
 							StringBuffer strBuffer = new StringBuffer();
 							strBuffer.append(elem.getName());
@@ -952,14 +951,14 @@ public class CPAUtility {
 						
 						
 //						elem.getName() // der Name des Knoten aus dem Graph
-						// EGAL!!//prüfen, ob der Name des Knotens schon enthalten ist. Geht nur, wenn der Name nciht teil von TypNamen ist!
-						//	wenn nicht: prüfen ob ein "_" als Trenner zwischen NAmen der ersten REgel und der zweiten REgel bereits enthalten ist.
+						// EGAL!!//prï¿½fen, ob der Name des Knotens schon enthalten ist. Geht nur, wenn der Name nciht teil von TypNamen ist!
+						//	wenn nicht: prï¿½fen ob ein "_" als Trenner zwischen NAmen der ersten REgel und der zweiten REgel bereits enthalten ist.
 						// wenn nicht: name der ersten Regel
 						
 						
 						eClass.setName(newName);;
-//						nodeInOverlapEcoreGraph.eContainingFeature().getName() //überflüssig?
-						String currentNameOfEclass = nodeInOverlapEcoreGraph.eClass().getName(); //überflüssig?
+//						nodeInOverlapEcoreGraph.eContainingFeature().getName() //ï¿½berflï¿½ssig?
+						String currentNameOfEclass = nodeInOverlapEcoreGraph.eClass().getName(); //ï¿½berflï¿½ssig?
 						System.err.println("new name: "+eClass.getName());
 					}
 				}

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.model.Action;
@@ -41,6 +43,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.tester.DDSpan;
 
 public class ConflictAnalysis implements MultiGranularAnalysis {
 
@@ -176,5 +179,23 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		computeDeleteReadConflictReasons().forEach(r -> results.add(r));
 		return results;
 
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeDDCR()
+	 */
+	@Override
+	public Set<DDSpan> computeDDCR() {
+		// TODO Vincent Compute
+		Set<DDSpan> result = new HashSet<DDSpan>();
+		computeDeleteDeleteConflictReasons().forEach(r -> result.add(r));
+		return result;
+	}
+
+	/**
+	 * @return
+	 */
+	private Set<DDSpan> computeDeleteDeleteConflictReasons() {
+		return new DeleteDeleteConflictReasonComputation(rule1, rule2).computeDeleteDeleteConflictReason();
 	}
 }

@@ -120,13 +120,13 @@ public class ConflictReasonCreator /*extends InitialConflictReason */{
 																try {
 																	uniqueReferenceNameOfR1 = HenshinAGGExporter.getUniqueReferenceName(outgoingEdgeOfL1Node.getType());
 																} catch (Exception e) {
-																	// TODO Auto-generated catch block
+																	// 
 																	e.printStackTrace();
 																}
 																try {
 																	uniqueReferenceNameOfR2 = HenshinAGGExporter.getUniqueReferenceName(outgoingEdgeOfL2Node.getType());
 																} catch (Exception e) {
-																	// TODO Auto-generated catch block
+																	// 
 																	e.printStackTrace();
 																}
 																if(uniqueReferenceNameOfOverlap.equals(uniqueReferenceNameOfR1) && uniqueReferenceNameOfOverlap.equals(uniqueReferenceNameOfR2)){

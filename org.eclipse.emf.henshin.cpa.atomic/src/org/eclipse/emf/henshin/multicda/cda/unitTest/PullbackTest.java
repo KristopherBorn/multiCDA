@@ -54,14 +54,14 @@ public class PullbackTest {
 			cpaByAGG.init(rules, cpaOptions);
 			essCPs = cpaByAGG.runConflictAnalysis();
 		} catch (UnsupportedRuleException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		List<CriticalPair> criticalPairs = essCPs.getCriticalPairs();
 		
 		
 		Assert.assertEquals(49, criticalPairs.size());
-		// die 29 Ergebnisse sind die verbleibenden Ergebnisse der ursprünglich 49 Ergebnsise,
+		// die 29 Ergebnisse sind die verbleibenden Ergebnisse der ursprï¿½nglich 49 Ergebnsise,
 		// nach Abzug der Ergebnisse mit parallelen Kanten
 		
 		

@@ -116,14 +116,14 @@ public class EssentialCpaOnFeatureModelRunner {
 //		try {
 //			cpaByAGG.init(allLoadedRules, options);
 //		} catch (UnsupportedRuleException e) {
-//			// TODO Auto-generated catch block
+//			// 
 //			e.printStackTrace();
 //		}
 		
 //		TODO: introduce a method to set "options" on AGG CPA!
 		Runner runner = new Runner();
 		runner.setAnalysisKinds(false, false, true, false, false, false);
-		List<String> deactivatedRules = new LinkedList<String>(); //TODO(11.04.2017): langfristig diesen störenden Parameter per Refactoring entfernen
+		List<String> deactivatedRules = new LinkedList<String>(); //TODO(11.04.2017): langfristig diesen stï¿½renden Parameter per Refactoring entfernen
 		runner.run(fullSubDirectoryPath, deactivatedRules);
 		
 		CPAResult essentialCpaResults = runner.getEssentialCpaResults();
@@ -208,7 +208,7 @@ public class EssentialCpaOnFeatureModelRunner {
 		}
 		
 		
-		// (10.04.2017) scheint als statische Methode zu Problemen beim laden/auflösen der imports eines Moduls zu führen!
+		// (10.04.2017) scheint als statische Methode zu Problemen beim laden/auflï¿½sen der imports eines Moduls zu fï¿½hren!
 //		private List<Rule> loadAllRulesFromFileSystemPaths(List<String> pathsToHenshinFiles) {
 //			List<Rule> allEditRulesWithoutAmalgamation = new LinkedList<Rule>();
 //

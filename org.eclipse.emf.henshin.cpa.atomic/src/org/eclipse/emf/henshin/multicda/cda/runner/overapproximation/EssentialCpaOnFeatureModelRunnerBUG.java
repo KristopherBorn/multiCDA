@@ -99,7 +99,7 @@ public class EssentialCpaOnFeatureModelRunnerBUG {
 		try {
 			cpaByAGG.init(rules, options);
 		} catch (UnsupportedRuleException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		

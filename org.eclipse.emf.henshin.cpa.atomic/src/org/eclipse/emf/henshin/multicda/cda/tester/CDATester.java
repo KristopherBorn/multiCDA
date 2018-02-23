@@ -49,6 +49,7 @@ public class CDATester extends Tester {
 	private int mCheckedCounter = 0;
 	private Options options;
 	private Set<Span> deleteReadCR;
+	private Set<DDSpan> deleteDeleteCR;
 
 	public CDATester(String henshin, String rule, Options... options) {
 		this(henshin, rule, rule, options);
@@ -155,7 +156,8 @@ public class CDATester extends Tester {
 			minimalReasons = analyser.computeResultsCoarse();
 			initialReasons = analyser.computeResultsFine();
 			deleteReadCR = analyser.computeDRCR();
-			computedAtoms = analyser.computeAtoms();
+			deleteDeleteCR = analyser.computeDDCR();
+			setComputedAtoms(analyser.computeAtoms());
 			conflictReasons = new HashSet<>();
 
 			print(options.toCDAString() + "\n");
@@ -163,6 +165,7 @@ public class CDATester extends Tester {
 				printMCR();
 				printICR();
 				printDRCR();
+				//printDDCR();
 				//printCR();
 				print();
 			}
@@ -170,6 +173,7 @@ public class CDATester extends Tester {
 		} else
 			System.out.println("NonDeletion-Option for second rule is not enabled.");
 	}
+
 
 	public Set<Span> getDeleteReadCR() {
 		return deleteReadCR;
@@ -253,6 +257,7 @@ public class CDATester extends Tester {
 		checked = "";
 	}
 
+	//TODO Vincent PrintMethode Für DD erweitern
 	public static void print(Set<? extends Span> spans) {
 		String type = "";
 
@@ -335,6 +340,22 @@ public class CDATester extends Tester {
 		else
 			return super.toString();
 
+	}
+
+	public Options getOptions() {
+		return options;
+	}
+
+	public void setOptions(Options options) {
+		this.options = options;
+	}
+
+	public Set<Span> getComputedAtoms() {
+		return computedAtoms;
+	}
+
+	public void setComputedAtoms(Set<Span> computedAtoms) {
+		this.computedAtoms = computedAtoms;
 	}
 
 }

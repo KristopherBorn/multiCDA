@@ -21,8 +21,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 
 /**
  * 
- * @author vincentcuccu
- * 17.12.2017
+ * @author vincentcuccu 17.12.2017
  */
 public class DeleteReadConflictReasonComputation {
 
@@ -32,6 +31,7 @@ public class DeleteReadConflictReasonComputation {
 
 	/**
 	 * constructor
+	 * 
 	 * @param rule1
 	 * @param rule2
 	 */
@@ -59,6 +59,7 @@ public class DeleteReadConflictReasonComputation {
 
 	/**
 	 * the Method to encounter the delete read conflict reasons
+	 * 
 	 * @param initialReason
 	 * @param result
 	 */
@@ -71,7 +72,7 @@ public class DeleteReadConflictReasonComputation {
 		MinimalReasonComputation minHelper = new MinimalReasonComputation(rule1, rule2);
 
 		if (findEmbeddingS1toK2(initialReason)) {// If (there exists embedding
-													// S1 -> K2 with S1 -> K2 ->
+													// S1 to K2 with S1 to K2 to
 													// L2 = mappingsInRule2) {
 
 			Pushout pushout = new Pushout(rule1, initialReason, rule2);
@@ -83,7 +84,9 @@ public class DeleteReadConflictReasonComputation {
 	}
 
 	/**
-	 * returns true, if there is a match from S1 to K2, which is equal to the match of S1 to lhs of rule 2
+	 * returns true, if there is a match from S1 to K2, which is equal to the
+	 * match of S1 to lhs of rule 2
+	 * 
 	 * @param initialReason
 	 * @return boolean
 	 */
@@ -169,6 +172,7 @@ public class DeleteReadConflictReasonComputation {
 	/**
 	 * 
 	 * void
+	 * 
 	 * @param checked
 	 */
 	public void setChecked(HashSet<Span> checked) {

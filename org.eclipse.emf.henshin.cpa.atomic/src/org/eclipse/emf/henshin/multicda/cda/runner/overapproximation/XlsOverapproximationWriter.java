@@ -29,7 +29,7 @@ public class XlsOverapproximationWriter {
 	private String lastRowOfFormula;
 	private String lastColumnLetter;
 
-	//TODO: ggf. Rückgabewert anpassen. z.B. erzeugtes File Objekt.
+	//TODO: ggf. Rï¿½ckgabewert anpassen. z.B. erzeugtes File Objekt.
 	public void export(Logger2 normalLogger, Logger2 modifiedPreserveLogger, File resultFile) {
 		
 
@@ -54,7 +54,7 @@ public class XlsOverapproximationWriter {
 			wb.write(out);
 			out.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -188,7 +188,7 @@ public class XlsOverapproximationWriter {
 		overapproximationDescriptionCell.setCellValue("overAppr [%]");
 		Cell overapproximationResultCell = overapproximationResultRow.createCell(1);
 		String currentRowOfFormula = String.valueOf(firstRules.size()+2);
-		// Berechnung der Überapproximation
+		// Berechnung der ï¿½berapproximation
 		String overapproximationResultFormula = "(("+MODIFIEDessDelUseConflSheetName+"!B"+currentRowOfFormula+" / "+essDelUseConflSheetName+"!B"+currentRowOfFormula+")-1)*100";
 		overapproximationResultCell.setCellFormula(overapproximationResultFormula);
 		
@@ -196,7 +196,7 @@ public class XlsOverapproximationWriter {
 		Cell intendedAmountDescriptionCell = intededAmountRow.createCell(0);
 		intendedAmountDescriptionCell.setCellValue("intended amount of RP with del-use-confl.:");
 		Cell intededAmountResultCell = intededAmountRow.createCell(1);
-		// Berechnung der Überapproximation
+		// Berechnung der ï¿½berapproximation
 		String intededAmountResultFormula = essDelUseConflSheetName+"!B"+String.valueOf(firstRules.size()+7);
 		intededAmountResultCell.setCellFormula(intededAmountResultFormula);		
 		
@@ -204,7 +204,7 @@ public class XlsOverapproximationWriter {
 		Cell qualErrorDescriptionCell = qualErrorRow.createCell(0);
 		qualErrorDescriptionCell.setCellValue("amount of qual. Errors(unintended RPs):");
 		Cell qualErrorResultCell = qualErrorRow.createCell(1);
-		// Berechnung der Überapproximation
+		// Berechnung der ï¿½berapproximation
 		String qualErrorResultFormula = "COUNTIF(B2 : "+lastColumnLetter+lastRowOfFormula+", \"QualErr\")";
 		qualErrorResultCell.setCellFormula(qualErrorResultFormula);
 		
@@ -216,7 +216,7 @@ public class XlsOverapproximationWriter {
 		Cell quantErrorDescriptionCell = quantErrorRow.createCell(0);
 		quantErrorDescriptionCell.setCellValue("amount of RP with quant. errors:");
 		Cell quantErrorResultCell = quantErrorRow.createCell(1);
-		// Berechnung der Überapproximation
+		// Berechnung der ï¿½berapproximation
 		String quantErrorResultFormula = overapproximationMedianSheetName+"!B"+String.valueOf(amountOfFirstRules+4);
 		quantErrorResultCell.setCellFormula(quantErrorResultFormula);
 	}

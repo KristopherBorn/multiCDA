@@ -112,11 +112,11 @@ public class ComputeInitialReasonTest {
 			Assert.assertEquals(3, computeInitialReason.size());
 			
 			
-	//		TODO: Prüfen!
-	//		Es sollten die beiden bekannten minimal conflict reason enthalten sein (Siehe auch Übersichtsgrafik. Dort ist notiert, dass jedes MCR auch ein CR ist)
-	//		Außerdem sollte die zusätzliche Kombination entstehen!
-	//		Für zusätzliche Kombination prüfen, dass der Graph fünf Knoten hat. zweimal Class, zweimal Method und einmal PArameter
-	//		Außerdem die jeweiligen Mappings prüfen!
+	//		TODO: Prï¿½fen!
+	//		Es sollten die beiden bekannten minimal conflict reason enthalten sein (Siehe auch ï¿½bersichtsgrafik. Dort ist notiert, dass jedes MCR auch ein CR ist)
+	//		Auï¿½erdem sollte die zusï¿½tzliche Kombination entstehen!
+	//		Fï¿½r zusï¿½tzliche Kombination prï¿½fen, dass der Graph fï¿½nf Knoten hat. zweimal Class, zweimal Method und einmal PArameter
+	//		Auï¿½erdem die jeweiligen Mappings prï¿½fen!
 			
 		}
 
@@ -179,8 +179,8 @@ public class ComputeInitialReasonTest {
 		// Das sind jeweils diejenigen, die die beiden folgenden Conflict Atoms enhalten:
 		// 11_1 --> 13_3
 		// 11_1 --> 14_2
-		// dies könnte sich ggf. über ein "isApplicable" der zweiten Regel (hier 'decapsulate...') identifizieren
-		// ABER: dazu müsste zuerst aus den ConflictREasons jeweils ein vollständiger Overlap als Instanz erzeugt werden.
+		// dies kï¿½nnte sich ggf. ï¿½ber ein "isApplicable" der zweiten Regel (hier 'decapsulate...') identifizieren
+		// ABER: dazu mï¿½sste zuerst aus den ConflictREasons jeweils ein vollstï¿½ndiger Overlap als Instanz erzeugt werden.
 		// SEHR AUFWENDIG!!!
 		
 	}
@@ -205,7 +205,7 @@ public class ComputeInitialReasonTest {
 			amountOfEssConflicts = runConflictAnalysis.getCriticalPairs().size();
 			System.err.println("amount of ess CPs: " + amountOfEssConflicts);
 		} catch (UnsupportedRuleException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		assertEquals(3, amountOfEssConflicts);
