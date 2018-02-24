@@ -134,7 +134,7 @@ public class CDATester extends Tester {
 			System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tCDA");
 		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
 		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
-				
+
 		if (options.is(Options.PREPARE)) {
 			if (first != second) {
 				first = RulePreparator.prepareRule(first);
@@ -145,8 +145,8 @@ public class CDATester extends Tester {
 			}
 		}
 
-		if (true || options.is(Options.NONE_DELETION_SECOND_RULE)) { //TODO Testing
-//			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
+		if (true || options.is(Options.NONE_DELETION_SECOND_RULE)) { 
+			// second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second); TODO Peperator hier doof
 
 			if (options.is(Options.DEPENDENCY))
 				analyser = new DependencyAnalysis(first, second);
@@ -165,15 +165,14 @@ public class CDATester extends Tester {
 				printMCR();
 				printICR();
 				printDRCR();
-				//printDDCR();
-				//printCR();
+				// printDDCR();
+				// printCR();
 				print();
 			}
 			System.out.println();
 		} else
 			System.out.println("NonDeletion-Option for second rule is not enabled.");
 	}
-
 
 	public Set<Span> getDeleteReadCR() {
 		return deleteReadCR;
@@ -257,7 +256,7 @@ public class CDATester extends Tester {
 		checked = "";
 	}
 
-	//TODO Vincent PrintMethode Für DD erweitern
+	// TODO Vincent PrintMethode Für DD erweitern
 	public static void print(Set<? extends Span> spans) {
 		String type = "";
 
@@ -332,8 +331,9 @@ public class CDATester extends Tester {
 	@Override
 	public String toString() {
 		if (analyser instanceof ConflictAnalysis)
-			return minimalReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size() 
-					+ " Initial Conflict Reasons, " + deleteReadCR.size() + " Delete-Read Conflict Reasons, " + conflictReasons.size() + " Conflict Reasons";
+			return minimalReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size()
+					+ " Initial Conflict Reasons, " + deleteReadCR.size() + " Delete-Read Conflict Reasons, "
+					+ conflictReasons.size() + " Conflict Reasons";
 		if (analyser instanceof DependencyAnalysis)
 			return minimalReasons.size() + " Minimal Dependency Reasons, " + initialReasons.size()
 					+ " Initial Dependency Reasons, " + conflictReasons.size() + " Dependency Reasons";

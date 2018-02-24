@@ -90,7 +90,7 @@ public class DeleteReadConflictReasonComputation {
 	 * @param initialReason
 	 * @return boolean
 	 */
-	private boolean findEmbeddingS1toK2(InitialReason initialReason) {
+	public static boolean findEmbeddingS1toK2(InitialReason initialReason) {
 		initialReason.getRule1();
 		Rule rule2 = initialReason.getRule2();
 		Graph s1 = initialReason.getGraph();
@@ -140,7 +140,7 @@ public class DeleteReadConflictReasonComputation {
 	 * @param graphNodes2
 	 * @return
 	 */
-	private ArrayList<Mapping> computeMappings(EList<Node> graphNodes1, EList<Node> graphNodes2) {
+	private static ArrayList<Mapping> computeMappings(EList<Node> graphNodes1, EList<Node> graphNodes2) {
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE; // wird zur
 																	// Erstellung
 																	// der
