@@ -51,8 +51,8 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 	protected void addDeleteUseAtomCandidates(Rule rule1, Rule rule2, List<Span> result, ModelElement el1) {
 		List<ModelElement> atomicUsageElements = new LinkedList<ModelElement>();
 		if (el1 instanceof Node) {
-			// nach sub- und super-typ überprüfen!
-			// TODO: überprüfen, ob es Attribute mit abweichenden konstanten
+			// nach sub- und super-typ ï¿½berprï¿½fen!
+			// TODO: ï¿½berprï¿½fen, ob es Attribute mit abweichenden konstanten
 			// Werten gibt!
 			for (Node nodeInLhsOfR2 : rule2.getLhs().getNodes()) {
 				boolean r1NodeIsSuperTypeOfR2Node = false;
@@ -72,19 +72,19 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 				Span S1span = new Span(rule1Mappings, S1, rule2Mappings);
 
 				if (r1NodeIsSuperTypeOfR2Node || r2NodeIsSuperTypeOfR1Node || identicalType) {
-					// Für jedes Attribut der beiden Knoten muss geprüft
+					// Fï¿½r jedes Attribut der beiden Knoten muss geprï¿½ft
 					// werden, ob es eine Konstante ist String und Zahlen.
-					// Wenn es eine Konstante ist, dann muss überprüft
-					// werden, ob diese übereinstimmen.
+					// Wenn es eine Konstante ist, dann muss ï¿½berprï¿½ft
+					// werden, ob diese ï¿½bereinstimmen.
 					// Wenn es eine Variable ist, so ist der potentielle
-					// Konflikt nur vorhanden wenn die Variable für das
+					// Konflikt nur vorhanden wenn die Variable fï¿½r das
 					// entsprechende Attribut beider Knoten und somit den
 					// Span identisch sind.
 					// boolean differingAttributeConstantsLhsR1 = false;
 					// boolean differingAttributeConstantsRhsR1 = false;
 					Node el1InRhsOfR1 = rule1.getMappings().getImage((Node) el1, rule1.getRhs());
 					boolean nodeInR1IsDeleted = (el1InRhsOfR1 == null);
-					// TODO: hinzufügen und hier gebrauchen machen von einer
+					// TODO: hinzufï¿½gen und hier gebrauchen machen von einer
 					// "Steuervariablen" um das einbeziehen von Attributen
 					// zu de-/aktivieren
 
@@ -98,16 +98,16 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 						if (!differingConstants) {
 							Attribute attrOfSameTypeInLhsOfR1 = ((Node) el1).getAttribute(attrOfR2.getType());
 
-							// prüfen, ob es sich beim Attr in R1 um eine
+							// prï¿½fen, ob es sich beim Attr in R1 um eine
 							// Konstanten handelt
 							boolean attrOfR2IsConstant = isAttrValueAConstant(attrOfR2, rule2);
 							if (attrOfSameTypeInLhsOfR1 != null) {
-								// prüfen, ob es sich beim Attr in R1 um
+								// prï¿½fen, ob es sich beim Attr in R1 um
 								// eine Konstanten handelt
 								boolean attrOfSameTypeInLhsOfR1IsConstant = isAttrValueAConstant(
 										attrOfSameTypeInLhsOfR1, rule1);
 								if (attrOfR2IsConstant && attrOfSameTypeInLhsOfR1IsConstant) {
-									// prüfen ob die Werte gleich sind.
+									// prï¿½fen ob die Werte gleich sind.
 									boolean valuesIdentical = attrOfR2.getValue()
 											.equals(attrOfSameTypeInLhsOfR1.getValue());
 									if (valuesIdentical) { // Situation:
@@ -163,7 +163,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 									// //wrong code
 									henshinFactory.createAttribute(newNodeInS1Graph, attrOfR2.getType(),
 											attrOfR2.getValue());
-								// TODO: wenn für das EAttribute nur eine
+								// TODO: wenn fï¿½r das EAttribute nur eine
 								// VARiable in R2 vorliegt diese auch in den
 								// S1-Graph aufnehmen?
 							}
@@ -190,7 +190,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 									henshinFactory.createAttribute(newNodeInS1Graph, attrOfR1Node.getType(),
 											attrOfR1Node.getValue());
 								}
-								// TODO: wenn für das EAttribute nur eine
+								// TODO: wenn fï¿½r das EAttribute nur eine
 								// VARiable in R1 vorliegt diese auch in den
 								// S1-Graph aufnehmen?
 							}
@@ -218,8 +218,8 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 			// S1, rule1Mappings, rule2Mappings);
 			// Span S1span = new Span(rule1Mappings, S1, rule2Mappings);
 			// result.add(S1span);
-			// //TODO: newNodeInS1Graph müssen noch die jeweiligen Attribute
-			// hinzugefügt werden!
+			// //TODO: newNodeInS1Graph mï¿½ssen noch die jeweiligen Attribute
+			// hinzugefï¿½gt werden!
 			// // um diese erneut zu ermitteln wird der S-Graph bereits oben
 			// erzeugt!
 			//
@@ -255,16 +255,16 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 		// IDENTIFIKATION potentieller nutzender Knoten! (fuer
 		// change-use-confl.)
 		// abarbeitung jedes einzelnen Elements mit einem AttrChange!
-		// TODO TODO TODO TODO
-		// seperation of concern! Es handelt sich um zwei unterschiedliche Fälle
-		// die zwar Ähnlichkeiten aufweisen,
+		// TODO 
+		// seperation of concern! Es handelt sich um zwei unterschiedliche Fï¿½lle
+		// die zwar ï¿½hnlichkeiten aufweisen,
 		// aber im Programmcode nicht miteinander vermischt werden sollten!
-		// subroutinene die identisch sind können auch als gemeinsame Methode
+		// subroutinene die identisch sind kï¿½nnen auch als gemeinsame Methode
 		// existieren.
-		// (Dazu die Sub-Methoden sauber definieren um mögliche Unterschiede zu
+		// (Dazu die Sub-Methoden sauber definieren um mï¿½gliche Unterschiede zu
 		// identifizieren!)
 
-		// nach sub- und super-typ überprüfen!
+		// nach sub- und super-typ ï¿½berprï¿½fen!
 		for (Node nodeInLhsOfR2 : rule2.getLhs().getNodes()) {
 			boolean r1NodeIsSuperTypeOfR2Node = false;
 			boolean r2NodeIsSuperTypeOfR1Node = false;
@@ -273,7 +273,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 						.contains(nodeInLhsOfR2.getType());
 			boolean identicalType = nodeInLhsOfR2.getType().equals((((Node) el1).getType()));
 
-			// TODO: hier schon den möglichen S-Graph mit dem passenden
+			// TODO: hier schon den mï¿½glichen S-Graph mit dem passenden
 			// Knoten erzeugen!
 			// dabei den Typ des weiter unten in der Vererbungshierarchie
 			// stehenden Knotens nutzen!
@@ -286,12 +286,12 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 
 			if (r1NodeIsSuperTypeOfR2Node || r2NodeIsSuperTypeOfR1Node || identicalType) {
 
-				// Für jedes Attribut muss geprüft werden, ob es eine
+				// Fï¿½r jedes Attribut muss geprï¿½ft werden, ob es eine
 				// Konstante ist String und Zahlen.
-				// Genrell sind je Attribut folgende Fälle zu unterscheiden.
-				// 1. Attr wird von R1 geändert und von R2 benutzt
-				// (verändern kann create&delete des Attr sein, sowie
-				// Wertänderung über Konstanten und Variablen. Kurz gesagt:
+				// Genrell sind je Attribut folgende Fï¿½lle zu unterscheiden.
+				// 1. Attr wird von R1 geï¿½ndert und von R2 benutzt
+				// (verï¿½ndern kann create&delete des Attr sein, sowie
+				// Wertï¿½nderung ï¿½ber Konstanten und Variablen. Kurz gesagt:
 				// LHS Value != RHS Value)
 				// Ursache des change-use Konflikts -> In Ordnung
 				// Im S1-Graph muss der Wert beider LHS sein. Ist eines von
@@ -302,16 +302,16 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 				// 2. Attr ist nur in einer von beiden Regeln (d.h. das Attr
 				// taucht in LHS von R2 oder in beiden Seiten von R1 nicht
 				// auf)
-				// 3. Attr ist in beiden Regeln und ändert sich in R1 nicht.
+				// 3. Attr ist in beiden Regeln und ï¿½ndert sich in R1 nicht.
 				// Wenn es sich in lhsR1 und lhsR2 und Konstanten handelt
-				// müssen diese übereisntimmen.
+				// mï¿½ssen diese ï¿½bereisntimmen.
 				// Andernfalls handelt es sich nicht um einen relevanten
 				// 'use' Knoten
 				// handelt es sich bei einem der beiden (oder beiden) um
 				// eine Variable, so ist es irrelevant
 
 				Node el1InRhsOfR1 = rule1.getMappings().getImage((Node) el1, rule1.getRhs());
-				// TODO: hinzufügen und hier gebrauchen machen von einer
+				// TODO: hinzufï¿½gen und hier gebrauchen machen von einer
 				// "Steuervariablen" um das einbeziehen von Attributen zu
 				// de-/aktivieren
 
@@ -331,28 +331,28 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 				for (Attribute attrOfR2 : nodeInLhsOfR2.getAttributes()) {
 					if (!differingConstants) {
 						Attribute attrOfSameTypeInLhsOfR1 = ((Node) el1).getAttribute(attrOfR2.getType());
-						// prüfen, ob es sich beim Attr in R1 um eine
+						// prï¿½fen, ob es sich beim Attr in R1 um eine
 						// Konstanten handelt
 						boolean attrOfR2IsConstant = isAttrValueAConstant(attrOfR2, rule2);
 						if (attrOfSameTypeInLhsOfR1 != null) {
 
-							// Fälle:
+							// Fï¿½lle:
 							// R1KONST R2KONST
 							// !equals: "differingConstants = true;" ->
 							// break early
 							//
-							// prüfen ob bei R1 eine Änderung vorliegt
+							// prï¿½fen ob bei R1 eine ï¿½nderung vorliegt
 							// (r1LHS.getValue 1= r1HRS.getValue)
 							// -> "changeAttrIsUsed = true;"
 							// & generell setzen des Konst Wertes oder einer
 							// Variablenkombination in S1Graph
 
-							// prüfen, ob es sich beim Attr in R1 um eine
+							// prï¿½fen, ob es sich beim Attr in R1 um eine
 							// Konstanten handelt
 							boolean attrOfSameTypeInLhsOfR1IsConstant = isAttrValueAConstant(attrOfSameTypeInLhsOfR1,
 									rule1);
 							if (attrOfR2IsConstant && attrOfSameTypeInLhsOfR1IsConstant) {
-								// prüfen ob die Werte gleich sind.
+								// prï¿½fen ob die Werte gleich sind.
 								boolean valuesIdentical = attrOfR2.getValue()
 										.equals(attrOfSameTypeInLhsOfR1.getValue());
 								if (valuesIdentical) { // Situation: KONST -
@@ -402,7 +402,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 
 								// handelt es sich bei dem R1Attr um einen
 								// change?
-								// wenn die erste Regel das Attr löscht, so
+								// wenn die erste Regel das Attr lï¿½scht, so
 								// handelt es sich auch um einen Attr
 								// Change!
 								Attribute attrInRhsOfR1 = el1InRhsOfR1.getAttribute(attrOfSameTypeInLhsOfR1.getType());
@@ -410,7 +410,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 										|| !attrOfSameTypeInLhsOfR1.getValue().equals(attrInRhsOfR1.getValue())) {
 									changeAttrIsUsed = true;
 								}
-								// TODO: für VAR-VAR muss noch das Attribute
+								// TODO: fï¿½r VAR-VAR muss noch das Attribute
 								// im S1-Graph erstellt werden.
 								if (!attrOfR2IsConstant && !attrOfSameTypeInLhsOfR1IsConstant) {
 									String valueForAttr = attrOfSameTypeInLhsOfR1.getValue() + "_"
@@ -432,7 +432,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 								// //wrong code
 								henshinFactory.createAttribute(newNodeInS1Graph, attrOfR2.getType(),
 										attrOfR2.getValue());
-							// TODO: wenn für das EAttribute nur eine
+							// TODO: wenn fï¿½r das EAttribute nur eine
 							// VARiable in R2 vorliegt diese auch in den
 							// S1-Graph aufnehmen?
 						}
@@ -459,7 +459,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 								henshinFactory.createAttribute(newNodeInS1Graph, attrOfR1Node.getType(),
 										attrOfR1Node.getValue());
 							}
-							// TODO: wenn für das EAttribute nur eine
+							// TODO: wenn fï¿½r das EAttribute nur eine
 							// VARiable in R1 vorliegt diese auch in den
 							// S1-Graph aufnehmen?
 						}
@@ -475,16 +475,16 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 	/*
 	 * Was ist schlimmer: Wenn eine Konstante nicht als solche erkannt wird?
 	 * Oder wenn eine Variable als Konstante eingeordnet wird? Generell muss es
-	 * doch ähnliche Prüfungen bzw. Behanldungen auch bereits im Kern bzw.
+	 * doch ï¿½hnliche Prï¿½fungen bzw. Behanldungen auch bereits im Kern bzw.
 	 * Interpreter von Henshin geben. siehe auch
 	 * "HenshinValidator.validateAttributeCondition_conditionAllParametersAreDeclared"
-	 * für eine entsprechende statische Prüfung!
+	 * fï¿½r eine entsprechende statische Prï¿½fung!
 	 */
 	private boolean isAttrValueAConstant(Attribute attr, Rule rule) {
 		/*
 		 * Vorgehen um AttrValue als Konstante zu identifizieren. - Konstante
 		 * geht nur bei entsprechendem Datentyp - Bei EString sollte es
-		 * Anführungszeichen haben und davon abgesehen parsable sein. - bei
+		 * Anfï¿½hrungszeichen haben und davon abgesehen parsable sein. - bei
 		 * numerischen Datentypen solte es entsprechend parsable sein.
 		 * 
 		 */
@@ -494,7 +494,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 			}
 		}
 
-		// TODO: hier kann/sollte noch geprüft werden, ob es auch einen
+		// TODO: hier kann/sollte noch geprï¿½ft werden, ob es auch einen
 		// passenden Regelparameter gibt.
 		// EList<Parameter> parameters = rule.getParameters();
 		// for(Parameter parameter : parameters){
@@ -564,7 +564,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 		EDataType eAttributeType = type.getEAttributeType();
 		if (eAttributeType != null) {
 			System.err.println("eAttributeType.getName() " + eAttributeType.getName());
-			// TODO: muss noch vervollständigt werden um (String, Char, Int,
+			// TODO: muss noch vervollstï¿½ndigt werden um (String, Char, Int,
 			// Double, Long) zu identifizieren.
 			if (eAttributeType.getName().equals("EInt"))
 				return true;
@@ -584,7 +584,7 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 		Set<Node> atomicChangeNodes = new HashSet<Node>();
 
 		// ATTRIBUTE deletion or change (also attribute change -
-		// change-use-conflicts) - (sammeln preserve Knoten mit geänderten
+		// change-use-conflicts) - (sammeln preserve Knoten mit geï¿½nderten
 		// Attributen von R1)
 		for (Node lhsNode : rule1.getActionNodes(preserveAction)) {
 			// System.out.println("lhsNode.getGraph().toString()
@@ -615,11 +615,11 @@ public class AttributedAtomCandidateComputation extends AtomCandidateComputation
 				}
 
 			}
-			// an dieser Stelle wurde zwar identifiziert, dass es eine Änderung
+			// an dieser Stelle wurde zwar identifiziert, dass es eine ï¿½nderung
 			// des Attributwertes durch die
 			// erste Regel in einem preserve Knoten gibt. Ob ein Knoten dieses
-			// Typs aber überhaupt in der zweiten
-			// Regel genutzt wird ist hier noch nicht geklärt
+			// Typs aber ï¿½berhaupt in der zweiten
+			// Regel genutzt wird ist hier noch nicht geklï¿½rt
 		}
 		return atomicChangeNodes;
 	}

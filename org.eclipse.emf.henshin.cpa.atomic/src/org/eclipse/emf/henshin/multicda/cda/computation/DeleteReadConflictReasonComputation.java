@@ -69,15 +69,15 @@ public class DeleteReadConflictReasonComputation {
 		Rule rule2 = initialReason.getRule2();
 		initialReason.getGraph();
 		new ArrayList<Mapping>();
-		MinimalReasonComputation minHelper = new MinimalReasonComputation(rule1, rule2);
+		MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
 
 		if (findEmbeddingS1toK2(initialReason)) {// If (there exists embedding
 													// S1 to K2 with S1 to K2 to
 													// L2 = mappingsInRule2) {
 
 			Pushout pushout = new Pushout(rule1, initialReason, rule2);
-			if (minHelper.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
-					&& minHelper.findDanglingEdgesOfRule1(rule2, pushout.getRule2Mappings()).isEmpty()) { // fullfillDanglingG(pushout)
+			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
+					&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, pushout.getRule2Mappings()).isEmpty()) { // fullfillDanglingG(pushout)
 				result.add(new DeleteReadConflictReason(initialReason));
 			}
 		} //TODO Vincent ELSE DELETE DELETE
