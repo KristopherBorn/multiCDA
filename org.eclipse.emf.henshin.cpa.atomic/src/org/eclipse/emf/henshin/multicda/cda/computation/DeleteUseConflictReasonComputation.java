@@ -23,7 +23,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
  * 
  * @author vincentcuccu 17.12.2017
  */
-public class DeleteReadConflictReasonComputation {
+public class DeleteUseConflictReasonComputation {
 
 	private Rule rule1;
 	private Rule rule2;
@@ -35,7 +35,7 @@ public class DeleteReadConflictReasonComputation {
 	 * @param rule1
 	 * @param rule2
 	 */
-	public DeleteReadConflictReasonComputation(Rule rule1, Rule rule2) {
+	public DeleteUseConflictReasonComputation(Rule rule1, Rule rule2) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
 		setChecked(new HashSet<Span>());
@@ -46,7 +46,7 @@ public class DeleteReadConflictReasonComputation {
 	 * 
 	 * @return result
 	 */
-	public Set<DeleteReadConflictReason> computeDeleteReadConflictReason() {
+	public Set<DeleteReadConflictReason> computeDeleteUseConflictReason() {
 		Set<DeleteReadConflictReason> result = new HashSet<DeleteReadConflictReason>();
 		Set<InitialReason> initialReasons = new InitialReasonComputation(rule1, rule2).computeInitialReasons();
 		for (InitialReason initalReason : initialReasons) {

@@ -36,7 +36,7 @@ import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.DeleteDeleteConflictReasonComputation;
-import org.eclipse.emf.henshin.multicda.cda.computation.DeleteReadConflictReasonComputation;
+import org.eclipse.emf.henshin.multicda.cda.computation.DeleteUseConflictReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.InitialReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
@@ -135,7 +135,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	 * @return
 	 */
 	public Set<DeleteReadConflictReason> computeDeleteReadConflictReasons() {
-		return new DeleteReadConflictReasonComputation(rule1, rule2).computeDeleteReadConflictReason();
+		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason();
 	}
 
 	public Set<InitialReason> computeInitialReasons() {

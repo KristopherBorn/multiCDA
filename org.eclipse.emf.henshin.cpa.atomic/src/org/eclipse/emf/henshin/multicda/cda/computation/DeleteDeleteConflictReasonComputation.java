@@ -88,7 +88,7 @@ public class DeleteDeleteConflictReasonComputation {
 	 */
 	private void computeDeleteDeleteConflictReason(InitialReason initialReason, Set<DDSpan> result) {
 
-		if (!DeleteReadConflictReasonComputation.findEmbeddingS1toK2(initialReason)) {
+		if (!DeleteUseConflictReasonComputation.findEmbeddingS1toK2(initialReason)) {
 			DeleteUseConflictReason DD = ConstructDeleteDeleteSet(initialReason);
 			if (true) {
 
