@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.eclipse.emf.henshin.multicda.cda;
+package org.eclipse.emf.henshin.multicda.cda.computation;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,10 +18,9 @@ import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.multicda.cda.computation.DeleteReadConflictReasonComputation;
-import org.eclipse.emf.henshin.multicda.cda.computation.InitialReasonComputation;
-import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
+import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 import org.eclipse.emf.henshin.multicda.cda.tester.DDSpan;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;

@@ -15,6 +15,7 @@ import org.eclipse.emf.henshin.model.MappingList;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.InitialReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyAtom;
@@ -168,7 +169,16 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<Span> computeDeleteUse() {
+	public Set<DeleteUseConflictReason> computeDeleteUse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeResultsFineBackwards()
+	 */
+	@Override
+	public Set<Span> computeResultsFineBackwards() {
 		// TODO Auto-generated method stub
 		return null;
 	}
