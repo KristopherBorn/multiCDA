@@ -4,21 +4,20 @@
 package org.eclipse.emf.henshin.multicda.cda;
 
 /**
- * @author vincentcuccu
- * 23.02.2018
+ * @author vincentcuccu 23.02.2018
  */
 public class DeleteUseConflictReason {
-	
+
 	private Span span1;
 	private Span span2;
-	
+
 	/**
 	 * 
 	 * @return
 	 */
 	@SuppressWarnings("javadoc")
 	public boolean isEmpty() {
-		if (getSpan1().equals(null)&&getSpan2().equals(null)){
+		if (getSpan1().equals(null) && getSpan2().equals(null)) {
 			return true;
 		}
 		return false;
@@ -32,7 +31,8 @@ public class DeleteUseConflictReason {
 	}
 
 	/**
-	 * @param span1 the span1 to set
+	 * @param span1
+	 *            the span1 to set
 	 */
 	public void setSpan1(Span span1) {
 		this.span1 = span1;
@@ -46,29 +46,24 @@ public class DeleteUseConflictReason {
 	}
 
 	/**
-	 * @param span2 the span2 to set
+	 * @param span2
+	 *            the span2 to set
 	 */
 	public void setSpan2(Span span2) {
 		this.span2 = span2;
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void print() {
 		if (span2 != null) {
-			System.out.println(
-					"DDCR: <(\t" + span1.getGraph().getEdges() + "\t| " + span1.getGraph().getNodes() + "\t)" +
-					"(\t" + span2.getGraph().getEdges() + "\t| " + span2.getGraph().getNodes() + "\t)>"
-					);
+			System.out.println("DDCR: <(\t" + span1.getGraph().getEdges() + "\t| " + span1.getGraph().getNodes() + "\t)"
+					+ "(\t" + span2.getGraph().getEdges() + "\t| " + span2.getGraph().getNodes() + "\t)>");
 		} else {
-			System.out.println(
-					"DRCR: <(\t" + span1.getGraph().getEdges() + "\t| " + span1.getGraph().getNodes() + "\t)" +
-					"(\t)>"
-					);
+			System.out.println("DRCR: <(\t" + span1.getGraph().getEdges() + "\t| " + span1.getGraph().getNodes() + "\t)"
+					+ "(\t)>");
 		}
 	}
-	
-	
 
 }

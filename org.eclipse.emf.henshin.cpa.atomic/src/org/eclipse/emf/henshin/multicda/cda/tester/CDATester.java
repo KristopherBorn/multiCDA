@@ -156,8 +156,8 @@ public class CDATester extends Tester {
 			minimalReasons = analyser.computeResultsCoarse();
 			initialReasons = analyser.computeResultsFine();
 			initialReasonsFromRule2ToRule1 = analyser.computeResultsFineBackwards(); //TODO Mit Preserve!!!
-			deleteUseConflictReasons = analyser.computeDRCR();
-			analyser.computeDDCR();
+			deleteUseConflictReasons = analyser.computeDeleteUse();
+			//analyser.computeDeleteUse();
 			conflictReasons = new HashSet<>();
 
 			print(options.toCDAString() + "\n");
@@ -330,7 +330,7 @@ public class CDATester extends Tester {
 	public String toString() {
 		if (analyser instanceof ConflictAnalysis)
 			return minimalReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size()
-					+ " Initial Conflict Reasons, " + deleteUseConflictReasons.size() + " Delete-Read Conflict Reasons, "
+					+ " Initial Conflict Reasons, " + deleteUseConflictReasons.size() + " Delete-Use Conflict Reasons, "
 					+ conflictReasons.size() + " Conflict Reasons";
 		if (analyser instanceof DependencyAnalysis)
 			return minimalReasons.size() + " Minimal Dependency Reasons, " + initialReasons.size()

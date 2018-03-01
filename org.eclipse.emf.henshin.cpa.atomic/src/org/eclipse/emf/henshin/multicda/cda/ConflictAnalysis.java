@@ -184,23 +184,23 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<DeleteUseConflictReason> computeDRCR() {
+	public Set<DeleteUseConflictReason> computeDeleteUse() {
 		Set<DeleteUseConflictReason> results = new HashSet<DeleteUseConflictReason>();
 		computeDeleteReadConflictReasons().forEach(r -> results.add(r));
 		return results;
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeDDCR()
-	 */
-	@Override
-	public Set<DDSpan> computeDDCR() {
-		// TODO Vincent Compute
-		Set<DDSpan> result = new HashSet<DDSpan>();
-		computeDeleteDeleteConflictReasons().forEach(r -> result.add(r));
-		return result;
-	}
+//	/* (non-Javadoc)
+//	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeDDCR()
+//	 */
+//	@Override
+//	public Set<DDSpan> computeDDCR() {
+//		// TODO Vincent Compute
+//		Set<DDSpan> result = new HashSet<DDSpan>();
+//		computeDeleteDeleteConflictReasons().forEach(r -> result.add(r));
+//		return result;
+//	}
 
 	/**
 	 * @return

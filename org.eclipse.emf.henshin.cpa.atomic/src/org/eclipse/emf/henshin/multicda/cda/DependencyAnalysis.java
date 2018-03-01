@@ -168,7 +168,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<Span> computeDRCR() {
+	public Set<Span> computeDeleteUse() {
 		// TODO Auto-generated method stub
 		return null;
 	}
