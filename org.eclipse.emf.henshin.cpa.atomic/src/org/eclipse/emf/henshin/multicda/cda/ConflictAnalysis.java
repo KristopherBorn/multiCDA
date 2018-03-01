@@ -87,6 +87,12 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		computeInitialReasons().forEach(r -> results.add(r));
 		return results;
 	}
+	
+	public Set<Span> computeResultsFineBackwards() {
+		Set<Span> results = new HashSet<Span>();
+		computeInitialReasonsFromRule2ToRule1().forEach(r -> results.add(r));
+		return results;
+	}
 
 	public ConflictAtom hasConflicts() {
 		List<ConflictAtom> cas = computeConflictAtoms(true);
@@ -132,6 +138,10 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	public Set<InitialReason> computeInitialReasons() {
 		return new InitialReasonComputation(rule1, rule2).computeInitialReasons();
+	}
+	
+	public Set<InitialReason> computeInitialReasonsFromRule2ToRule1() {
+		return new InitialReasonComputation(rule2, rule1).computeInitialReasons();
 	}
 
 	public Set<InitialReason> computeInitialReasons(Set<MinimalConflictReason> minimalConflictReasons) {

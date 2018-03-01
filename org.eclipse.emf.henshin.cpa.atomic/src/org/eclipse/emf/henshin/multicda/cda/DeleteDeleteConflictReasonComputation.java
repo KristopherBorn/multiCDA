@@ -88,17 +88,14 @@ public class DeleteDeleteConflictReasonComputation {
 	 * @param result
 	 */
 	private void computeDeleteDeleteConflictReason(InitialReason initialReason, Set<DDSpan> result) {
-		
-		
-		if (!DeleteReadConflictReasonComputation.findEmbeddingS1toK2(initialReason)){
-			DDSet DD = ConstructDeleteDeleteSet(rule1, rule2, initialReason.getGraph());
-			if (true){
-				
+
+		if (!DeleteReadConflictReasonComputation.findEmbeddingS1toK2(initialReason)) {
+			DDSet DD = ConstructDeleteDeleteSet(initialReason);
+			if (true) {
+
 			}
 		}
-		
-			
-		
+
 	}
 
 	/**
@@ -107,61 +104,99 @@ public class DeleteDeleteConflictReasonComputation {
 	 * @param graph
 	 * @return
 	 */
-	private DDSet ConstructDeleteDeleteSet(Rule r1, Rule r2, Graph s1) {
+	private DDSet ConstructDeleteDeleteSet(InitialReason initialReason) {
+		Rule r1 = initialReason.getRule1();
+		Rule r2 = initialReason.getRule2();
 		DDSet dd = new DDSet();
-		Graph c1 = createC1(r1);
+		//Graph c1 = createC1(r1);
+		//ExtendedSpan extSpan = extendSpan(initialReason, c1);
+		Set<Mapping> S1toL1 = initialReason.mappingsInRule1;
+		Set<Mapping> S1toL2 = initialReason.mappingsInRule2;
 		
-		//TODO Vincent extendSpan
 		return dd;
 	}
 
-	/**
-	 * @param r1
-	 * @return 
-	 */
-	private Graph createC1(Rule r1) {
-		Action delete = new Action(Action.Type.DELETE);
-		EList<Edge> c1Edges = r1.getActionEdges(delete);
-		EList<Node> c1Nodes = r1.getActionNodes(delete);
-		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
-		Graph c1 = r1.getLhs();
-		
-		ArrayList<Node> nodesToBeDeleted = new ArrayList<Node>();
-		ArrayList<Edge> edgesToBeDeleted = new ArrayList<Edge>();
-		
-		for (Node node : c1Nodes){
-			if(!node.getType().equals(delete)){
-				nodesToBeDeleted.add(node);
-			}
-		}
-		
-		for (Edge edge : c1Edges) {
-			if(!edge.getType().equals(delete)){
-				edgesToBeDeleted.add(edge);				
-			}
-		}
-		
-		for (Edge edge : edgesToBeDeleted) {
-			c1.removeEdge(edge);
-		}
-		for (Node node : nodesToBeDeleted) {
-			c1.removeNode(node);
-		}
-		
-		edgesToBeDeleted.clear();
-		
-		for (Edge edge : c1.getEdges()) {
-			if (nodesToBeDeleted.contains(edge.getTarget())||nodesToBeDeleted.contains(edge.getSource())) {
-				edgesToBeDeleted.add(edge);
-			}
-		}
-		for (Edge edge : edgesToBeDeleted) {
-			c1.removeEdge(edge);
-		}
-		
-		return c1;
-	}
 	
-	
-	
+
+//	/**
+//	 * @param r1
+//	 * @return
+//	 */
+//	private Graph createC1(Rule r1) {
+//		Action delete = new Action(Action.Type.DELETE);
+//		EList<Edge> c1Edges = r1.getLhs().getEdges();
+//		EList<Node> c1Nodes = r1.getLhs().getNodes();
+//		System.out.println("C1Nodes: " + c1Nodes);
+//		//HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
+//		Graph c1 = r1.getLhs();
+//
+//		//System.out.println(c1.getNodes());
+//		//System.out.println(c1.getEdges());
+//		ArrayList<Node> nodesToBeDeleted = new ArrayList<Node>();
+//		//System.out.println("Knoten die gelöscht werden vorher: " + nodesToBeDeleted);
+//		ArrayList<Edge> edgesToBeDeleted = new ArrayList<Edge>();
+//		//System.out.println("Kanten die gelöscht werden vorher: " + edgesToBeDeleted);
+//		for (Node node : c1Nodes) {
+//			//System.out.println(node + " : " + node.getAction().toString()); //TODO
+//			if (!node.getAction().equals(delete)) {
+//				
+//				if (!hasActionIncoming(delete, node) && !hasActionOutgoing(delete, node)) {
+//					nodesToBeDeleted.add(node);
+//				}
+//			}
+//		}
+//		//System.out.println("Knoten die gelöscht werden nachher: " + nodesToBeDeleted);
+//
+//
+//		for (Edge edge : c1Edges) {
+//			if (!edge.getAction().equals(delete)) {
+//				edgesToBeDeleted.add(edge);
+//			}
+//		}
+//		//System.out.println("Kanten die gelöscht werden nachher: " + edgesToBeDeleted);
+//
+//
+//		for (Edge edge : edgesToBeDeleted) {
+//			c1.removeEdge(edge);
+//		}
+//
+//		for (Node node : nodesToBeDeleted) {
+//			c1.removeNode(node);
+//		}
+//
+//		//System.out.println("C1E: " + c1.getEdges());
+//		//System.out.println("C1N: " + c1.getNodes());
+//		return c1;
+//	}
+//
+//	/**
+//	 * @param delete
+//	 * @param node
+//	 */
+//	private boolean hasActionOutgoing(Action delete, Node node) {
+//		for (Edge edgeOut : node.getOutgoing()) {// Prüfe jede ausgehende Kante
+//													// ob sie Löschend ist
+//			if (edgeOut.getAction().equals(delete)) {
+//				return true;
+//			}
+//
+//		}
+//		return false;
+//	}
+//
+//	/**
+//	 * @param delete
+//	 * @param node
+//	 */
+//	private boolean hasActionIncoming(Action delete, Node node) {
+//		for (Edge edgeIn : node.getIncoming()) { // Prüfe jede eingehende Kante
+//													// ob diese Löschen ist
+//			if (edgeIn.getAction().equals(delete)) {
+//				return true;
+//			}
+//
+//		}
+//		return false;
+//	}
+
 }

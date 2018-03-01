@@ -42,6 +42,7 @@ public class CDATester extends Tester {
 	private Rule second;
 	private Set<Span> minimalReasons;
 	private Set<Span> initialReasons;
+	private Set<Span> initialReasonsFromRule2ToRule1;
 	private Set<Span> conflictReasons;
 	private Set<Span> computedAtoms;
 	private String checked = "";
@@ -155,6 +156,7 @@ public class CDATester extends Tester {
 
 			minimalReasons = analyser.computeResultsCoarse();
 			initialReasons = analyser.computeResultsFine();
+			initialReasonsFromRule2ToRule1 = analyser.computeResultsFineBackwards(); //TODO Mit Preserve!!!
 			deleteReadCR = analyser.computeDRCR();
 			deleteDeleteCR = analyser.computeDDCR();
 			setComputedAtoms(analyser.computeAtoms());

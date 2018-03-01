@@ -98,7 +98,7 @@ public class DeleteReadConflictReasonComputation {
 		rule2.getRhs();
 		// Get KernelRule
 		EList<Node> k2nodes = rule2.getActionNodes(new Action(Action.Type.PRESERVE));
-		System.out.println(k2nodes);
+		//System.out.println(k2nodes);
 
 		// S1 -> K2
 		ArrayList<Mapping> s1tok2 = computeMappings(s1.getNodes(), k2nodes);
