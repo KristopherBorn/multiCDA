@@ -80,7 +80,7 @@ public class DeleteReadConflictReasonComputation {
 					&& minHelper.findDanglingEdgesOfRule1(rule2, pushout.getRule2Mappings()).isEmpty()) { // fullfillDanglingG(pushout)
 				result.add(new DeleteReadConflictReason(initialReason));
 			}
-		}
+		} //TODO Vincent ELSE DELETE DELETE
 	}
 
 	/**

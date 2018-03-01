@@ -147,7 +147,7 @@ public class CDATester extends Tester {
 		}
 
 		if (true || options.is(Options.NONE_DELETION_SECOND_RULE)) { 
-			// second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second); TODO Peperator hier doof
+			// second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second); //TODO VC 
 
 			if (options.is(Options.DEPENDENCY))
 				analyser = new DependencyAnalysis(first, second);
@@ -159,7 +159,6 @@ public class CDATester extends Tester {
 			initialReasonsFromRule2ToRule1 = analyser.computeResultsFineBackwards(); //TODO Mit Preserve!!!
 			deleteReadCR = analyser.computeDRCR();
 			deleteDeleteCR = analyser.computeDDCR();
-			setComputedAtoms(analyser.computeAtoms());
 			conflictReasons = new HashSet<>();
 
 			print(options.toCDAString() + "\n");
