@@ -90,7 +90,7 @@ public class DeleteDeleteConflictReasonComputation {
 	private void computeDeleteDeleteConflictReason(InitialReason initialReason, Set<DDSpan> result) {
 
 		if (!DeleteReadConflictReasonComputation.findEmbeddingS1toK2(initialReason)) {
-			DDSet DD = ConstructDeleteDeleteSet(initialReason);
+			DeleteUseConflictReason DD = ConstructDeleteDeleteSet(initialReason);
 			if (true) {
 
 			}
@@ -104,10 +104,10 @@ public class DeleteDeleteConflictReasonComputation {
 	 * @param graph
 	 * @return
 	 */
-	private DDSet ConstructDeleteDeleteSet(InitialReason initialReason) {
+	private DeleteUseConflictReason ConstructDeleteDeleteSet(InitialReason initialReason) {
 		Rule r1 = initialReason.getRule1();
 		Rule r2 = initialReason.getRule2();
-		DDSet dd = new DDSet();
+		DeleteUseConflictReason dd = new DeleteUseConflictReason();
 		//Graph c1 = createC1(r1);
 		//ExtendedSpan extSpan = extendSpan(initialReason, c1);
 		Set<Mapping> S1toL1 = initialReason.mappingsInRule1;

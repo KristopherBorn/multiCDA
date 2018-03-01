@@ -11,7 +11,7 @@ public interface MultiGranularAnalysis {
 	public Set<Span> computeResultsCoarse();
 	public Set<Span> computeResultsFine();
 	public Set<Span> computeAtoms();
-	public Set<Span> computeDRCR();
+	public Set<DeleteUseConflictReason> computeDRCR();
 	public Set<DDSpan> computeDDCR();
 	/**
 	 * @return

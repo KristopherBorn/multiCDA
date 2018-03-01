@@ -78,9 +78,11 @@ public class DeleteReadConflictReasonComputation {
 			Pushout pushout = new Pushout(rule1, initialReason, rule2);
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, pushout.getRule2Mappings()).isEmpty()) { // fullfillDanglingG(pushout)
-				result.add(new DeleteReadConflictReason(initialReason));
+				DeleteReadConflictReason res = new DeleteReadConflictReason();
+				res.setSpan1(initialReason);
+				result.add(res);
 			}
-		} //TODO Vincent ELSE DELETE DELETE
+		} // TODO Vincent ELSE DELETE DELETE
 	}
 
 	/**
@@ -98,7 +100,7 @@ public class DeleteReadConflictReasonComputation {
 		rule2.getRhs();
 		// Get KernelRule
 		EList<Node> k2nodes = rule2.getActionNodes(new Action(Action.Type.PRESERVE));
-		//System.out.println(k2nodes);
+		// System.out.println(k2nodes);
 
 		// S1 -> K2
 		ArrayList<Mapping> s1tok2 = computeMappings(s1.getNodes(), k2nodes);

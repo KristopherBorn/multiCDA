@@ -14,6 +14,7 @@ import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
+import org.eclipse.emf.henshin.multicda.cda.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.DependencyAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Span;
@@ -49,9 +50,7 @@ public class CDATester extends Tester {
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
 	private Options options;
-	private Set<Span> deleteReadCR;
-	private Set<DDSpan> deleteDeleteCR;
-
+	private Set<DeleteUseConflictReason> deleteUseConflictReasons;
 	public CDATester(String henshin, String rule, Options... options) {
 		this(henshin, rule, rule, options);
 	}
@@ -157,8 +156,8 @@ public class CDATester extends Tester {
 			minimalReasons = analyser.computeResultsCoarse();
 			initialReasons = analyser.computeResultsFine();
 			initialReasonsFromRule2ToRule1 = analyser.computeResultsFineBackwards(); //TODO Mit Preserve!!!
-			deleteReadCR = analyser.computeDRCR();
-			deleteDeleteCR = analyser.computeDDCR();
+			deleteUseConflictReasons = analyser.computeDRCR();
+			analyser.computeDDCR();
 			conflictReasons = new HashSet<>();
 
 			print(options.toCDAString() + "\n");
@@ -175,12 +174,12 @@ public class CDATester extends Tester {
 			System.out.println("NonDeletion-Option for second rule is not enabled.");
 	}
 
-	public Set<Span> getDeleteReadCR() {
-		return deleteReadCR;
+	public Set<DeleteUseConflictReason> getDeleteReadCR() {
+		return deleteUseConflictReasons;
 	}
 
-	public void setDeleteReadCR(Set<Span> deleteReadCR) {
-		this.deleteReadCR = deleteReadCR;
+	public void setDeleteReadCR(Set<DeleteUseConflictReason> deleteReadCR) {
+		this.deleteUseConflictReasons = deleteReadCR;
 	}
 
 	public Set<Span> getInitialReasons() {
@@ -272,8 +271,6 @@ public class CDATester extends Tester {
 				type = "MDCR";
 			else if (span instanceof ConflictReason)
 				type = "CR";
-			else if (span instanceof DeleteReadConflictReason)
-				type = "DRCR";
 			else
 				type = "SPAN";
 			System.out.println(type + ": " + span.getGraph().getEdges() + "\t| " + span.getGraph().getNodes());
@@ -302,7 +299,7 @@ public class CDATester extends Tester {
 	}
 
 	public void printDRCR() {
-		CDATester.print(deleteReadCR);
+		deleteUseConflictReasons.forEach(x -> x.print());
 	}
 
 	public Set<Span> getConflictReasons() {
@@ -333,7 +330,7 @@ public class CDATester extends Tester {
 	public String toString() {
 		if (analyser instanceof ConflictAnalysis)
 			return minimalReasons.size() + " Minimal Conflict Reasons, " + initialReasons.size()
-					+ " Initial Conflict Reasons, " + deleteReadCR.size() + " Delete-Read Conflict Reasons, "
+					+ " Initial Conflict Reasons, " + deleteUseConflictReasons.size() + " Delete-Read Conflict Reasons, "
 					+ conflictReasons.size() + " Conflict Reasons";
 		if (analyser instanceof DependencyAnalysis)
 			return minimalReasons.size() + " Minimal Dependency Reasons, " + initialReasons.size()

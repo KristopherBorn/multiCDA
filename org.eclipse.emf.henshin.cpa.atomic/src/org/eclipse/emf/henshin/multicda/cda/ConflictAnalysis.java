@@ -184,8 +184,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<Span> computeDRCR() {
-		Set<Span> results = new HashSet<Span>();
+	public Set<DeleteUseConflictReason> computeDRCR() {
+		Set<DeleteUseConflictReason> results = new HashSet<DeleteUseConflictReason>();
 		computeDeleteReadConflictReasons().forEach(r -> results.add(r));
 		return results;
 
