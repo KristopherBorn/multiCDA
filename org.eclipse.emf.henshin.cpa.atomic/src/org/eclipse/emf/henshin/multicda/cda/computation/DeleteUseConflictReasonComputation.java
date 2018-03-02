@@ -14,6 +14,7 @@ import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
@@ -30,6 +31,8 @@ public class DeleteUseConflictReasonComputation {
 	private HashSet<Span> checked;
 	private Set<InitialReason> initialReasonsR2R1NonDel;
 	private Set<InitialReason> initialReasonsR1R2NonDel;
+	private ConflictAnalysis analyser;
+	private Set<Mapping> L1S1L2;
 
 	/**
 	 * constructor
@@ -53,7 +56,7 @@ public class DeleteUseConflictReasonComputation {
 		this.initialReasonsR2R1NonDel = initialReasonsR2R1NonDel;
 		Set<DeleteReadConflictReason> result = new HashSet<DeleteReadConflictReason>();
 		Set<InitialReason> initialReasons = new InitialReasonComputation(rule1, rule2).computeInitialReasons();
-		for (InitialReason initalReason : initialReasons) {
+		for (InitialReason initalReason : initialReasonsR1R2NonDel) {
 			computeDeleteReadConflictReason(initalReason, result);
 		}
 
@@ -71,6 +74,8 @@ public class DeleteUseConflictReasonComputation {
 		initialReason.getRule1().getLhs();
 		Rule rule1 = initialReason.getRule1();
 		Rule rule2 = initialReason.getRule2();
+		L1S1L2 = initialReason.mappingsInRule1;
+		//System.out.println("Mappings in Rule 1: " + L1S1L2);
 		initialReason.getGraph();
 		new ArrayList<Mapping>();
 		MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
@@ -86,7 +91,43 @@ public class DeleteUseConflictReasonComputation {
 				res.setSpan1(initialReason);
 				result.add(res);
 			}
-		} // TODO Vincent ELSE DELETE DELETE
+		} else {
+			Object DeleteDeleteSet = ConstructDeleteDeleteSet(initialReason);
+			 
+				     // If DD(s1) is nonEmpty  
+				           //DD(s1) empty cannot occur since s1 would be a SDUCR then
+				     // Then For each pair s2 in DD(s1):
+				                //  Add (s1,s2) to DDCR
+		}
+	}
+
+	/**
+	 * @param rule12
+	 * @param rule22
+	 * @param initialReason
+	 * @return
+	 */
+	private Object ConstructDeleteDeleteSet(InitialReason initialReason) {
+		
+		for (Span span : initialReasonsR2R1NonDel) {
+			Set<Mapping> L2S2L1 = span.mappingsInRule2;
+			Object sSmall = compatibleSpans(L1S1L2,L2S2L1);
+			
+			//TODO Vincent Nach compatible hier weiter!!!!
+		}
+		
+		return null;
+	}
+
+	/**
+	 * @param l1s1l22
+	 * @param l2s2l1
+	 * @return
+	 */
+	private Object compatibleSpans(Set<Mapping> l1s1l2, Set<Mapping> l2s2l1) {
+		System.out.println("l1s1l2: " + l1s1l2);
+		System.out.println("l2s2l1: " + l2s2l1);
+		return null;
 	}
 
 	/**

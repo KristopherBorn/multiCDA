@@ -90,11 +90,11 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return results;
 	}
 	
-	public Set<Span> computeResultsFineBackwards(Rule r1, Rule r2) {
-		Set<Span> results = new HashSet<Span>();
-		computeInitialReasonsWithRulesDeclared(r1, r2).forEach(r -> results.add(r));
-		return results;
-	}
+//	public Set<Span> computeResultsFineBackwards(Rule r1, Rule r2) {
+//		Set<Span> results = new HashSet<Span>();
+//		computeInitialReasonsWithRulesDeclared(r1, r2).forEach(r -> results.add(r));
+//		return results;
+//	}
 
 	public ConflictAtom hasConflicts() {
 		List<ConflictAtom> cas = computeConflictAtoms(true);
