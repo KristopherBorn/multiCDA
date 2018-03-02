@@ -1,4 +1,4 @@
-package org.eclipse.emf.henshin.multicda.cda.unitTest;
+package org.eclipse.emf.henshin.multicda.cda.computation;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +16,6 @@ import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Span;
-import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.junit.Before;
 import org.junit.Test;

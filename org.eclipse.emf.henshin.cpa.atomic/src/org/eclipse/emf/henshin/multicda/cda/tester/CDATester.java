@@ -220,7 +220,6 @@ public class CDATester extends Tester {
 				if (span instanceof InitialReason) {
 					InitialReason initialReason = (InitialReason) span;
 					Set<ModelElement> elements = initialReason.getDeletionElementsInRule1();
-					// System.out.println(elements);
 					if (!checked.contains("Initial" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
 						print("Found ICR: " + elements + "\twith " + type.getSimpleName() + " "
 								+ getContent(conditions));
@@ -236,7 +235,6 @@ public class CDATester extends Tester {
 				if (span instanceof InitialReason) {
 					MinimalConflictReason minimalReason = (MinimalConflictReason) span;
 					Set<ModelElement> elements = minimalReason.getDeletionElementsInRule1();
-					// System.out.println(elements);
 					if (!checked.contains("Minimal" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
 						print("Found MCR: " + elements + "\twith " + type.getSimpleName() + " "
 								+ getContent(conditions));
@@ -256,7 +254,6 @@ public class CDATester extends Tester {
 		checked = "";
 	}
 
-	// TODO Vincent PrintMethode Für DD erweitern
 	public static void print(Set<? extends Span> spans) {
 		String type = "";
 

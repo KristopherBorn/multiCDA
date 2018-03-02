@@ -1,4 +1,4 @@
-package org.eclipse.emf.henshin.multicda.cda.unitTest;
+package org.eclipse.emf.henshin.multicda.cda.computation;
 
 import static org.junit.Assert.*;
 
@@ -93,7 +93,7 @@ public class ComputeConflictAtomsTest {
 		Assert.assertTrue(minimalConflictReasonOfMethod_3_14_Atom.equals(minimalConflictReasonOfParameter_5_15_Atom));
 	}
 	
-	// TODO: hier einen Test hinzufügen für die PushDownGroup Regel aus dem FeatureModelRefactoring Beispiel.
+	// TODO: hier einen Test hinzufï¿½gen fï¿½r die PushDownGroup Regel aus dem FeatureModelRefactoring Beispiel.
 
 }
 

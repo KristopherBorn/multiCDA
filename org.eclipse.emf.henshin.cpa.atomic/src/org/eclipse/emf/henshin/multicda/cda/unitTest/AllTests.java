@@ -1,5 +1,9 @@
 package org.eclipse.emf.henshin.multicda.cda.unitTest;
 
+import org.eclipse.emf.henshin.multicda.cda.computation.ComputeCandidatesTest;
+import org.eclipse.emf.henshin.multicda.cda.computation.ComputeConflictAtomsTest;
+import org.eclipse.emf.henshin.multicda.cda.computation.ComputeInitialReasonTest;
+import org.eclipse.emf.henshin.multicda.cda.computation.ComputeMinConflReasonsTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;

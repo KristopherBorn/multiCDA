@@ -1,4 +1,4 @@
-package org.eclipse.emf.henshin.multicda.cda.unitTest;
+package org.eclipse.emf.henshin.multicda.cda.computation;
 
 import static org.junit.Assert.*;
 

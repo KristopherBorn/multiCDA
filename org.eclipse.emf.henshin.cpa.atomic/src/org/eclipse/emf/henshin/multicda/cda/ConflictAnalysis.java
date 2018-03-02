@@ -193,16 +193,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	}
 
-//	/* (non-Javadoc)
-//	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeDDCR()
-//	 */
-//	@Override
-//	public Set<DDSpan> computeDDCR() {
-//		// TODO Vincent Compute
-//		Set<DDSpan> result = new HashSet<DDSpan>();
-//		computeDeleteDeleteConflictReasons().forEach(r -> result.add(r));
-//		return result;
-//	}
+
 
 	/**
 	 * @return
