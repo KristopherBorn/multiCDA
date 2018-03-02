@@ -28,6 +28,8 @@ public class DeleteUseConflictReasonComputation {
 	private Rule rule1;
 	private Rule rule2;
 	private HashSet<Span> checked;
+	private Set<InitialReason> initialReasonsR2R1NonDel;
+	private Set<InitialReason> initialReasonsR1R2NonDel;
 
 	/**
 	 * constructor
@@ -46,7 +48,9 @@ public class DeleteUseConflictReasonComputation {
 	 * 
 	 * @return result
 	 */
-	public Set<DeleteReadConflictReason> computeDeleteUseConflictReason() {
+	public Set<DeleteReadConflictReason> computeDeleteUseConflictReason(Set<InitialReason> initialReasonsR1R2NonDel, Set<InitialReason> initialReasonsR2R1NonDel) {
+		this.initialReasonsR1R2NonDel = initialReasonsR1R2NonDel;
+		this.initialReasonsR2R1NonDel = initialReasonsR2R1NonDel;
 		Set<DeleteReadConflictReason> result = new HashSet<DeleteReadConflictReason>();
 		Set<InitialReason> initialReasons = new InitialReasonComputation(rule1, rule2).computeInitialReasons();
 		for (InitialReason initalReason : initialReasons) {

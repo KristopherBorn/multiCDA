@@ -41,9 +41,11 @@ public class CDATester extends Tester {
 	private MultiGranularAnalysis analyser;
 	private Rule first;
 	private Rule second;
+	private Rule secondNotDeleting;
+	private Rule firstNotDeleting;
 	private Set<Span> minimalReasons;
 	private Set<Span> initialReasons;
-	private Set<Span> initialReasonsFromRule2ToRule1;
+	private Set<InitialReason> initialReasonsR1R2NonDel;
 	private Set<Span> conflictReasons;
 	private Set<Span> computedAtoms;
 	private String checked = "";
@@ -51,6 +53,7 @@ public class CDATester extends Tester {
 	private int mCheckedCounter = 0;
 	private Options options;
 	private Set<DeleteUseConflictReason> deleteUseConflictReasons;
+	private Set<InitialReason> initialReasonsR2R1NonDel;
 	public CDATester(String henshin, String rule, Options... options) {
 		this(henshin, rule, rule, options);
 	}
@@ -146,7 +149,8 @@ public class CDATester extends Tester {
 		}
 
 		if (true || options.is(Options.NONE_DELETION_SECOND_RULE)) { 
-			// second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second); //TODO VC 
+			secondNotDeleting = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
+			firstNotDeleting = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(first);
 
 			if (options.is(Options.DEPENDENCY))
 				analyser = new DependencyAnalysis(first, second);
@@ -155,18 +159,16 @@ public class CDATester extends Tester {
 
 			minimalReasons = analyser.computeResultsCoarse();
 			initialReasons = analyser.computeResultsFine();
-			initialReasonsFromRule2ToRule1 = analyser.computeResultsFineBackwards(); //TODO Mit Preserve!!!
-			deleteUseConflictReasons = analyser.computeDeleteUse();
-			//analyser.computeDeleteUse();
+			initialReasonsR1R2NonDel = analyser.computeInitialReasonsWithRulesDeclared(first, secondNotDeleting);
+			initialReasonsR2R1NonDel = analyser.computeInitialReasonsWithRulesDeclared(second, firstNotDeleting);
+			deleteUseConflictReasons = analyser.computeDeleteUse(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel);
 			conflictReasons = new HashSet<>();
 
 			print(options.toCDAString() + "\n");
 			if (options.is(Options.PRINT_RESULT)) {
 				printMCR();
 				printICR();
-				printDRCR();
-				// printDDCR();
-				// printCR();
+				printDUCR();
 				print();
 			}
 			System.out.println();
@@ -178,8 +180,8 @@ public class CDATester extends Tester {
 		return deleteUseConflictReasons;
 	}
 
-	public void setDeleteReadCR(Set<DeleteUseConflictReason> deleteReadCR) {
-		this.deleteUseConflictReasons = deleteReadCR;
+	public void setDeleteUseCR(Set<DeleteUseConflictReason> deleteUseCR) {
+		this.deleteUseConflictReasons = deleteUseCR;
 	}
 
 	public Set<Span> getInitialReasons() {
@@ -295,7 +297,7 @@ public class CDATester extends Tester {
 
 	}
 
-	public void printDRCR() {
+	public void printDUCR() {
 		deleteUseConflictReasons.forEach(x -> x.print());
 	}
 

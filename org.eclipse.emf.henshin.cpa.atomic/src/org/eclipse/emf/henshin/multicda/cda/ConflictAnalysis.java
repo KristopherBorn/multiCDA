@@ -90,9 +90,9 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return results;
 	}
 	
-	public Set<Span> computeResultsFineBackwards() {
+	public Set<Span> computeResultsFineBackwards(Rule r1, Rule r2) {
 		Set<Span> results = new HashSet<Span>();
-		computeInitialReasonsFromRule2ToRule1().forEach(r -> results.add(r));
+		computeInitialReasonsWithRulesDeclared(r1, r2).forEach(r -> results.add(r));
 		return results;
 	}
 
@@ -132,18 +132,20 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	/**
+	 * @param initialReasonsR2R1NonDel 
+	 * @param initialReasonsR1R2NonDel 
 	 * @return
 	 */
-	public Set<DeleteReadConflictReason> computeDeleteReadConflictReasons() {
-		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason();
+	public Set<DeleteReadConflictReason> computeDeleteConflictReasons(Set<InitialReason> initialReasonsR1R2NonDel, Set<InitialReason> initialReasonsR2R1NonDel) {
+		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel);
 	}
 
 	public Set<InitialReason> computeInitialReasons() {
 		return new InitialReasonComputation(rule1, rule2).computeInitialReasons();
 	}
 	
-	public Set<InitialReason> computeInitialReasonsFromRule2ToRule1() {
-		return new InitialReasonComputation(rule2, rule1).computeInitialReasons();
+	public Set<InitialReason> computeInitialReasonsWithRulesDeclared(Rule r1, Rule r2) {
+		return new InitialReasonComputation(r1, r2).computeInitialReasons();
 	}
 
 	public Set<InitialReason> computeInitialReasons(Set<MinimalConflictReason> minimalConflictReasons) {
@@ -186,19 +188,11 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<DeleteUseConflictReason> computeDeleteUse() {
+	public Set<DeleteUseConflictReason> computeDeleteUse(Set<InitialReason> initialReasonsR1R2NonDel, Set<InitialReason> initialReasonsR2R1NonDel) {
 		Set<DeleteUseConflictReason> results = new HashSet<DeleteUseConflictReason>();
-		computeDeleteReadConflictReasons().forEach(r -> results.add(r));
+		computeDeleteConflictReasons(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel).forEach(r -> results.add(r));
 		return results;
 
 	}
 
-
-
-	/**
-	 * @return
-	 */
-	private Set<DDSpan> computeDeleteDeleteConflictReasons() {
-		return new DeleteDeleteConflictReasonComputation(rule1, rule2).computeDeleteDeleteConflictReason();
-	}
 }

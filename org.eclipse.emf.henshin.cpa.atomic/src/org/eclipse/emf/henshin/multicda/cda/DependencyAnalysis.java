@@ -168,19 +168,25 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		return invRule1;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeInitialReasonsWithRulesDeclared(org.eclipse.emf.henshin.model.Rule, org.eclipse.emf.henshin.model.Rule)
+	 */
 	@Override
-	public Set<DeleteUseConflictReason> computeDeleteUse() {
+	public Set<InitialReason> computeInitialReasonsWithRulesDeclared(Rule r1, Rule r2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeResultsFineBackwards()
+	 * @see org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis#computeDeleteUse(java.util.Set, java.util.Set)
 	 */
 	@Override
-	public Set<Span> computeResultsFineBackwards() {
+	public Set<DeleteUseConflictReason> computeDeleteUse(Set<InitialReason> initialReasonsR1R2NonDel,
+			Set<InitialReason> initialReasonsR2R1NonDel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
