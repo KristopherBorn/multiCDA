@@ -359,7 +359,7 @@ public class HenshinAGGExporter implements HenshinModelExporter {
 
 		// Check whether the reference names are unique:
 		boolean hasUniqureRefNames = hasUniqueEReferenceNames(module);
-
+		hasUniqureRefNames = true;
 		// Edge types:
 		for (EClass eclass : eclasses) {
 
