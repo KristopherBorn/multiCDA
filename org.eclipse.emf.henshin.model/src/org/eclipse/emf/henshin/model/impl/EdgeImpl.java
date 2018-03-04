@@ -268,6 +268,8 @@ public class EdgeImpl extends ModelElementImpl implements Edge {
 	public Node basicGetTarget() {
 		return target;
 	}
+	
+	
 
 	/**
 	 * <!-- begin-user-doc -->

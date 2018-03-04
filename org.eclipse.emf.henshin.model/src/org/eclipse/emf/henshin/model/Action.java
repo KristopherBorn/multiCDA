@@ -204,7 +204,7 @@ public final class Action {
 	 * @return The parsed element action.
 	 * @throws ParseException On parse errors.
 	 */
-	public static Action parse(String value) throws ParseException {
+	public static Type parse(String value) throws ParseException {
 		
 		// Null?
 		if (value==null) {
