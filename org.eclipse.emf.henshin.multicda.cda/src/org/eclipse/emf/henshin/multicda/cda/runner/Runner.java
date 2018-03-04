@@ -34,8 +34,8 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.tasks.AtomicResultContainer;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateAtomicCpaTask;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask;
-import org.eclipse.emf.henshin.multicda.cda.tasks.SingleCpaTaskResultContainer;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask.AnalysisKind;
+import org.eclipse.emf.henshin.multicda.cda.tasks.SingleCpaTaskResultContainer;
 import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.Conflict;
@@ -503,7 +503,7 @@ public class Runner {
 		if(!canceled){			
 			essCpaLogger.addData(firstRule, originalSecondRule, runTimesOfRuleCombination.toString(),
 					amountOfDeleteUseConflictsOfRulecombination.toString());
-			for(CriticalPair cp : essentialResult.getEssentialCriticalPairs()){
+			for(CriticalPair cp : essentialResult.getCriticalPairs()){
 				essentialCpaResults.addResult(cp);
 			}
 		}
@@ -565,7 +565,7 @@ public class Runner {
 		if(!canceled)
 			cpaLogger.addData(firstRule, originalRuleOfRule2, runTimeOfRuleCombination, amountOfDeleteUseConflictsOfRulecombination.toString());
 		
-		for(CriticalPair cp : normalResult.getEssentialCriticalPairs()){
+		for(CriticalPair cp : normalResult.getCriticalPairs()){
 			normalCpaResults.addResult(cp);
 		}
 		return canceled;
@@ -674,7 +674,7 @@ public class Runner {
 	public static List<CriticalPair> filterCriticalPairs(CPAResult cpaResult, AnalysisKind analysisKind) {
 		// filter delete-use conflicts:
 		if (cpaResult != null) {
-			List<CriticalPair> criticalPairs = cpaResult.getEssentialCriticalPairs();
+			List<CriticalPair> criticalPairs = cpaResult.getCriticalPairs();
 			// System.out.println("number of essential CPs: "+criticalPairs.size());
 			List<CriticalPair> filteredCriticalPairs = new LinkedList<CriticalPair>();
 			for (CriticalPair cp : criticalPairs) {

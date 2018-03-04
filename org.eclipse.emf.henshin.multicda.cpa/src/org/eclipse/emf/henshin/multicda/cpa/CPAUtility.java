@@ -133,7 +133,7 @@ public class CPAUtility {
 		}
 
 		Rule firstRule = cp.getFirstRule();
-		EPackage minimalModel = cp.getMinimalModel();
+		EPackage minimalModel = (EPackage) cp.getMinimalModel();
 		Rule secondRule = cp.getSecondRule();
 
 		Graph firstRuleLHS = firstRule.getLhs();
@@ -353,14 +353,6 @@ public class CPAUtility {
 			}
 		}
 		return differentElementsCounter;
-	}
-
-	private static void renameNodes(Match firstMatch, Match secondMatch, Rule firstRule, Rule secondRule) {
-		for (Node n : firstRule.getLhs().getNodes()) {
-			if (firstMatch.getNodeTarget(n) != null) {
-
-			}
-		}
 	}
 
 	/**

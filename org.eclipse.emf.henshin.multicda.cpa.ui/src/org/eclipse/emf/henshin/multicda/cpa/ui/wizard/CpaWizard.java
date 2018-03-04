@@ -122,7 +122,7 @@ public class CpaWizard extends Wizard {
 
 		CPAOptions options = new CPAOptions();
 		options.setComplete(optionSettingsWizardPage.getComplete());
-		options.setIgnore(optionSettingsWizardPage.getIgnoreIdenticalRules());
+		options.setIgnoreSameRules(optionSettingsWizardPage.getIgnoreIdenticalRules());
 		options.setReduceSameRuleAndSameMatch(optionSettingsWizardPage.getReduceSameMatch());
 		options.persist(optionsFile);
 

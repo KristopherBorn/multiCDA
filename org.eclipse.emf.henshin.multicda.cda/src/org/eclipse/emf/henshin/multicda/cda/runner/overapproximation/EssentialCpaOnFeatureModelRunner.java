@@ -130,14 +130,14 @@ public class EssentialCpaOnFeatureModelRunner {
 		
 		CPAResult filteredConflicts = filterConflicts(essentialCpaResults);
 		
-		System.out.println("number of filtered conflicts: "+filteredConflicts.getEssentialCriticalPairs().size());
+		System.out.println("number of filtered conflicts: "+filteredConflicts.getCriticalPairs().size());
 			
 	}
 	
 	private static CPAResult filterConflicts(CPAResult conflicts) {
 		CPAResult filteredResult = new CPAResult();
-		System.err.println("results before filtering: "+conflicts.getEssentialCriticalPairs().size());
-		for(CriticalPair cp : conflicts.getEssentialCriticalPairs()){
+		System.err.println("results before filtering: "+conflicts.getCriticalPairs().size());
+		for(CriticalPair cp : conflicts.getCriticalPairs()){
 			if(cp instanceof Conflict){
 				Conflict conflict = (Conflict) cp;
 				if(conflict.getConflictKind() == ConflictKind.DELETE_USE_CONFLICT){
@@ -145,7 +145,7 @@ public class EssentialCpaOnFeatureModelRunner {
 				}
 			}
 		}
-		System.err.println("results after filtering: "+filteredResult.getEssentialCriticalPairs().size());
+		System.err.println("results after filtering: "+filteredResult.getCriticalPairs().size());
 		return filteredResult;
 	}
 

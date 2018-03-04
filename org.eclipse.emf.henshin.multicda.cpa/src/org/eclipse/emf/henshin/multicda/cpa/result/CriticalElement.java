@@ -19,20 +19,14 @@ import agg.xt_basis.GraphObject;
  * @author Kristopher Born
  *
  */
-public class CriticalElement {
+public class CriticalElement extends OverlapElement {
+	public CriticalElement() {
+		super();
+	}
+	
+	public CriticalElement(GraphObject commonElementOfCriticalGraph, GraphElement elementInFirstRule,
+			GraphElement elementInSecondRule) {
+		super(commonElementOfCriticalGraph, elementInFirstRule, elementInSecondRule);
+	}
 
-	/**
-	 * The critical element from within the AGG result.
-	 */
-	public GraphObject commonElementOfCriticalGraph;
-
-	/**
-	 * The occurrence of the critical element in the first rule.
-	 */
-	public GraphElement elementInFirstRule;
-
-	/**
-	 * The occurrence of the critical element in the second rule.
-	 */
-	public GraphElement elementInSecondRule;
 }

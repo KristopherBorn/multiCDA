@@ -22,7 +22,6 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CriticalPairRightCo
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ICP;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
-import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
@@ -182,7 +181,7 @@ public class CPATester extends Tester {
 		List<Condition> edgeNode = new ArrayList<>();
 		for (Condition condition : conditions) {
 			if (condition instanceof CP) {
-				if (!condition.proove(result.getEssentialCriticalPairs().size()))
+				if (!condition.proove(result.getCriticalPairs().size()))
 					return false;
 				print(condition + " accepted");
 			} else if (condition instanceof Edge || condition instanceof Node)
@@ -248,7 +247,7 @@ public class CPATester extends Tester {
 	}
 
 	public List<CriticalPair> getEssentialCriticalPairs() {
-		return result.getEssentialCriticalPairs();
+		return result.getCriticalPairs();
 	}
 
 	public List<CriticalPair> getCriticalPairs() {

@@ -83,7 +83,7 @@ public class CpaCdaComparator {
 					// since even unsatisfactory copies of the rules and units have been created, those have to be removed.
 					module.getUnits().clear(); module.getImports().get(0); ((Conflict)cp).getMatch1().getNodeTargets();
 					Conflict conflict = ((Conflict)cp);
-					EGraph graph = conflict.getMinimalModelEGraph();
+					EGraph graph = (EGraph) conflict.getMinimalModel();
 					module.getUnits().add(dummyPO_rule);
 					
 //					System.err.println("number of Nodes/Edges in LHS rule:"+pr.getResultGraph().getNodes().size()+"/"+pr.getResultGraph().getEdges().size());

@@ -122,11 +122,11 @@ public class OptionSettingsWizardPage extends WizardPage {
 	}
 
 	public Boolean getIgnoreIdenticalRules() {
-		return cpaOptions.isIgnore();
+		return cpaOptions.isIgnoreSameRules();
 	}
 
 	public void setIgnoreIdenticalRules(Boolean ignoreIdenticalRules) {
-		cpaOptions.setIgnore(ignoreIdenticalRules);
+		cpaOptions.setIgnoreSameRules(ignoreIdenticalRules);
 	}
 
 	public Boolean getReduceSameMatch() {

@@ -31,12 +31,28 @@ import java.io.OutputStream;
 public class CPAOptions {
 	private boolean complete;
 	private boolean strongAttrCheck = true;
-	private boolean ignore;
+	private boolean ignoreSameRules;
 	private boolean reduceSameMatch;
 	private boolean directlyStrictConfluent = false;
 	private boolean directlyStrictConfluentUpToIso = false;
 	private boolean equalVName = false;
 	private boolean essential = false;
+	// (KB) new since 2017-08-21 due to CDA project and missing multiplicity support of the essential CPA
+	private boolean ignoreMultiplicities = false;
+
+	/**
+	 * @return the ignoreMultiplicities
+	 */
+	public boolean isIgnoreMultiplicities() {
+		return ignoreMultiplicities;
+	}
+
+	/**
+	 * @param ignoreMultiplicities the ignoreMultiplicities to set
+	 */
+	public void setIgnoreMultiplicities(boolean ignoreMultiplicities) {
+		this.ignoreMultiplicities = ignoreMultiplicities;
+	}
 
 	/**
 	 * Default constructor.
@@ -61,7 +77,7 @@ public class CPAOptions {
 			ObjectInput input = new ObjectInputStream(buffer);
 
 			setComplete(input.readBoolean());
-			setIgnore(input.readBoolean());
+			setIgnoreSameRules(input.readBoolean());
 			setReduceSameRuleAndSameMatch(input.readBoolean());
 
 			input.close();
@@ -87,7 +103,7 @@ public class CPAOptions {
 			ObjectOutput output = new ObjectOutputStream(buffer);
 
 			output.writeBoolean(complete);
-			output.writeBoolean(ignore);
+			output.writeBoolean(ignoreSameRules);
 			output.writeBoolean(reduceSameMatch);
 
 			output.close();
@@ -129,7 +145,7 @@ public class CPAOptions {
 		 * kBorn 09-05-2014 this is of no relevance when the following option is activated. (TODO: check if this
 		 * dependency is also is in the AGG parser or just in the user interface)
 		 */
-		setIgnore(false);
+		setIgnoreSameRules(false);
 
 		/**
 		 * kBorn 09-05-2014 usual there is a conflict. activated by default (true), but this could be of IMPORTANCE for
@@ -154,26 +170,45 @@ public class CPAOptions {
 
 		/**
 		 * kBorn 09-05-2014 since NACs are an elementary part of the rules, until further requests there is no reason to
-		 * ignore them -> 'false' & not provided to the user
+		 * ignoreSameRules them -> 'false' & not provided to the user
 		 */
 		// setEssential(false);
 
+		
+		setIgnoreMultiplicities(false);
 	}
 
 	public boolean isComplete() {
 		return complete;
 	}
 
+	public void setComplete(boolean complete) {
+		this.complete = complete;
+	}
+
 	public boolean isStrongAttrCheck() {
 		return strongAttrCheck;
 	}
 
-	public boolean isIgnore() {
-		return ignore;
+	public boolean isIgnoreSameRules() {
+		return ignoreSameRules;
+	}
+
+	/**
+	 * decides whether critical pairs with the first rule and the second rule being the same are ignored or not
+	 * 
+	 * @param ignoreSameRules true to ignoreSameRules results of pairs of the same rule.
+	 */
+	public void setIgnoreSameRules(boolean ignoreSameRules) {
+		this.ignoreSameRules = ignoreSameRules;
 	}
 
 	public boolean isReduceSameRuleAndSameMatch() {
 		return reduceSameMatch;
+	}
+
+	public void setReduceSameRuleAndSameMatch(boolean reduceSameMatch) {
+		this.reduceSameMatch = reduceSameMatch;
 	}
 
 	public boolean isDirectlyStrictConfluent() {
@@ -191,24 +226,8 @@ public class CPAOptions {
 	public boolean isEssential() {
 		return essential;
 	}
-
-	public void setComplete(boolean complete) {
-		this.complete = complete;
-	}
-
-	/**
-	 * decides whether critical pairs with the first rule and the second rule being the same are ignored or not
-	 * 
-	 * @param ignore true to ignore results of pairs of the same rule.
-	 */
-	public void setIgnore(boolean ignore) {
-		this.ignore = ignore;
-	}
+	
 	public void setEssential(boolean essential) {
 		this.essential = essential;
-	}
-
-	public void setReduceSameRuleAndSameMatch(boolean reduceSameMatch) {
-		this.reduceSameMatch = reduceSameMatch;
 	}
 }
