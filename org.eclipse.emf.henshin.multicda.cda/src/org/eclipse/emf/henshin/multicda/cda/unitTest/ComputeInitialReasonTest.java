@@ -19,7 +19,7 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.ICriticalPairAnalysis;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
@@ -149,7 +149,7 @@ public class ComputeInitialReasonTest {
 		r1.add(decapsulateAttributeRule);
 		List<Rule> r2  = new LinkedList<Rule>();
 		r2.add(pullUpEncapsulatedAttributeRule);
-		CPAOptions options = new CPAOptions();
+		CDAOptions options = new CDAOptions();
 		options.setEssential(true);
 		CPAResult runConflictAnalysis;
 		int amountOfEssConflicts = -1;

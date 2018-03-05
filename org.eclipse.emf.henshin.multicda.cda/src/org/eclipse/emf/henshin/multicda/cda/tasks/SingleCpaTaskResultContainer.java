@@ -3,20 +3,20 @@ package org.eclipse.emf.henshin.multicda.cda.tasks;
 import java.util.List;
 
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 
 public class SingleCpaTaskResultContainer {
 	
 	List<Rule> firstRuleList;
 	List<Rule> secondRuleList; 
-	CPAOptions normalOptions;
+	CDAOptions normalOptions;
 	
 	CPAResult cpaResult;
 	
 	long analysisDuration;
 
-	public SingleCpaTaskResultContainer(List<Rule> firstRuleList, List<Rule> secondRuleList, CPAOptions cpaOptions) {
+	public SingleCpaTaskResultContainer(List<Rule> firstRuleList, List<Rule> secondRuleList, CDAOptions cpaOptions) {
 		this.firstRuleList = firstRuleList;
 		this.secondRuleList = secondRuleList;
 		this.normalOptions = cpaOptions;
@@ -30,7 +30,7 @@ public class SingleCpaTaskResultContainer {
 		return secondRuleList;
 	}
 
-	public CPAOptions getCpaOptions() {
+	public CDAOptions getCpaOptions() {
 		return normalOptions;
 	}
 

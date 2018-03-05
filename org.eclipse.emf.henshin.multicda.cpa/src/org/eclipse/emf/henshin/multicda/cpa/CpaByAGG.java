@@ -67,7 +67,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 
 	String workingPathWOExtension;
 
-	CPAOptions options;
+	CDAOptions options;
 
 	private boolean generateCpxFile = false;
 	private boolean createRuleParameterForAllAttributes = true;
@@ -105,7 +105,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 * @throws UnsupportedRuleException in case of invalid rules.
 	 */
 	@Override
-	public void init(Set<org.eclipse.emf.henshin.model.Rule> rules, CPAOptions options)
+	public void init(Set<org.eclipse.emf.henshin.model.Rule> rules, CDAOptions options)
 			throws UnsupportedRuleException {
 		init(rules, rules, options);
 	}
@@ -122,7 +122,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 */
 	@Override
 	public void init(Set<org.eclipse.emf.henshin.model.Rule> r1, Set<org.eclipse.emf.henshin.model.Rule> r2,
-			CPAOptions options) throws UnsupportedRuleException {
+			CDAOptions options) throws UnsupportedRuleException {
 		this.options = options;
 		this.firstHenshinRuleSetForAnalysis = r1;
 		this.secondHenshinRuleSetForAnalysis = r2;
@@ -484,7 +484,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 * @param epc The container with the rules, options and many more within AGG for calculating the critical pairs.
 	 * @param options The options set for the calculation by the henshin interface.
 	 */
-	private void setOptionsOnContainer(ExcludePairContainer epc, CPAOptions options) { 
+	private void setOptionsOnContainer(ExcludePairContainer epc, CDAOptions options) { 
 																						// input values
 		epc.enableComplete(options.isComplete());
 		// no more supported, since theses parameters are predefined

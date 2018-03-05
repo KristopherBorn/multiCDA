@@ -10,7 +10,7 @@ import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 import org.eclipse.emf.henshin.multicda.cda.runner.Runner;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.ICriticalPairAnalysis;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
@@ -93,7 +93,7 @@ public class EssentialCpaOnFeatureModelRunnerBUG {
 		
 		ICriticalPairAnalysis cpaByAGG = new CpaByAGG();
 		
-		CPAOptions options = new CPAOptions();
+		CDAOptions options = new CDAOptions();
 		options.setEssential(true);
 		
 		try {

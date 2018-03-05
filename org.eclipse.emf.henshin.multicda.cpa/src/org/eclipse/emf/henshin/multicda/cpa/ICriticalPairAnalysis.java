@@ -31,7 +31,7 @@ public interface ICriticalPairAnalysis {
 	 * @param options The options settings that shall be applied on the calculation of the critical pairs
 	 * @throws UnsupportedRuleException in case of invalid rules.
 	 */
-	void init(Set<Rule> rules, CPAOptions options) throws UnsupportedRuleException;
+	void init(Set<Rule> rules, CDAOptions options) throws UnsupportedRuleException;
 
 	/**
 	 * Initializes the critical pair calculation with <code>r1</code> as first rules and <code>r2</code> as second rules
@@ -42,7 +42,7 @@ public interface ICriticalPairAnalysis {
 	 * @param options the options settings that shall be applied on the calculation of the critical pairs.
 	 * @throws UnsupportedRuleException in case of invalid rules.
 	 */
-	void init(Set<Rule> r1, Set<Rule> r2, CPAOptions options) throws UnsupportedRuleException;
+	void init(Set<Rule> r1, Set<Rule> r2, CDAOptions options) throws UnsupportedRuleException;
 
 	/**
 	 * Check for the validity of the rules in regard to the supported features.

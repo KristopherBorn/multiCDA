@@ -15,11 +15,11 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.CPType;
 import org.eclipse.emf.henshin.multicda.cpa.InputDataChecker;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
 import org.eclipse.jface.wizard.WizardPage;
@@ -60,16 +60,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		}
 	}
 
-	private enum CPTypesEnum {
-		CONFLICT("Conflicts"), DEPENDENCY("Dependencies");
-		public final String name;
-
-		CPTypesEnum(String name) {
-			this.name = name;
-		}
-	};
-
-	EnumSet<CPTypesEnum> selectedCPTypes = EnumSet.noneOf(CPTypesEnum.class);
+	CPType cpType = CPType.NONE;
 
 	/**
 	 * Default constructor for this wizard page.
@@ -170,14 +161,16 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		}
 
 		Button conflictAnalysisButton = new Button(criticalPairKindGroup, SWT.CHECK);
-		conflictAnalysisButton.setText(CPTypesEnum.CONFLICT.name);
-		conflictAnalysisButton.setData(CPTypesEnum.CONFLICT);
+		conflictAnalysisButton.setText(CPType.CONFLICT.name);
+		conflictAnalysisButton.setData(CPType.CONFLICT);
 		conflictAnalysisButton.addListener(SWT.Selection, calcListener);
+		conflictAnalysisButton.setData(CPType.CONFLICT);
 
 		Button dependencyAnalysisButton = new Button(criticalPairKindGroup, SWT.CHECK);
-		dependencyAnalysisButton.setText(CPTypesEnum.DEPENDENCY.name);
-		dependencyAnalysisButton.setData(CPTypesEnum.DEPENDENCY);
+		dependencyAnalysisButton.setText(CPType.DEPENDENCY.name);
+		dependencyAnalysisButton.setData(CPType.DEPENDENCY);
 		dependencyAnalysisButton.addListener(SWT.Selection, calcListener);
+		dependencyAnalysisButton.setData(CPType.DEPENDENCY);
 
 		scrolledComposite.setMinSize(containerForBothGroups.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
@@ -185,28 +178,10 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		setPageComplete(false);
 	}
 
-	/**
-	 * returns the selection
-	 * 
-	 * @return returns <code>true</code> for Critical Pairs or <code>false</code> for Dependencies
-	 */
-	public boolean getComputeConflicts() {
-		return selectedCPTypes.contains(CPTypesEnum.CONFLICT);
-	}
-
-	public boolean getComputeDependencies() {
-		return selectedCPTypes.contains(CPTypesEnum.DEPENDENCY);
-	}
-
 	Listener calcListener = new Listener() {
 		public void handleEvent(Event event) {
 			Button button = (Button) (event.widget);
-			CPTypesEnum cpTypeSelection = (CPTypesEnum) button.getData();
-			if (button.getSelection()) {
-				selectedCPTypes.add(cpTypeSelection);
-			} else {
-				selectedCPTypes.remove(cpTypeSelection);
-			}
+			cpType = cpType.update((CPType)event.widget.getData(), button.getSelection());
 			updateFinishButton();
 		}
 	};
@@ -234,7 +209,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 
 			try {
 				Pair<Set<Rule>, Set<Rule>> rules = getEnabledRules();
-				Set<Rule> allRules=new HashSet<Rule>(rules.first);
+				Set<Rule> allRules = new HashSet<Rule>(rules.first);
 				allRules.addAll(rules.second);
 				InputDataChecker.getInstance().check(allRules);
 				setErrorMessage(null);
@@ -329,7 +304,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 
 	private void updateFinishButton() {
 		setPageComplete(false);
-		if (sufficientRulesSelected && selectedCPTypes.size() > 0) {
+		if (sufficientRulesSelected && cpType != CPType.NONE) {
 			setPageComplete(true);
 		}
 		getWizard().getContainer().updateButtons();

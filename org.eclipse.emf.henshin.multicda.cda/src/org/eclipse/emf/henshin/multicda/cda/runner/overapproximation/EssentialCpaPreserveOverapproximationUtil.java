@@ -15,7 +15,7 @@ import org.eclipse.emf.henshin.multicda.cda.runner.Runner;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask;
 import org.eclipse.emf.henshin.multicda.cda.tasks.SingleCpaTaskResultContainer;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask.AnalysisKind;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
 
 public class EssentialCpaPreserveOverapproximationUtil {
@@ -23,7 +23,7 @@ public class EssentialCpaPreserveOverapproximationUtil {
 
 	public static void analyseEssentialCpaPreserveOverapproximation(List<Rule> originalRules, List<Rule> modifiedRules,
 			String resultPath) {
-		CPAOptions essentialCpaOptions = new CPAOptions();
+		CDAOptions essentialCpaOptions = new CDAOptions();
 		essentialCpaOptions.setEssential(true);
 		
 		

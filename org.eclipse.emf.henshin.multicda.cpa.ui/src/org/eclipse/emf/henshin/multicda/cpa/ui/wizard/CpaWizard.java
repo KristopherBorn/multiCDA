@@ -28,11 +28,12 @@ import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CPAUtility;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.ICriticalPairAnalysis;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.CPType;
 import org.eclipse.emf.henshin.multicda.cpa.persist.CriticalPairNode;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
@@ -124,11 +125,12 @@ public class CpaWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 
-		CPAOptions options = new CPAOptions();
+		CDAOptions options = new CDAOptions();
 		options.setComplete(optionSettingsWizardPage.getComplete());
 		options.setIgnoreSameRules(optionSettingsWizardPage.getIgnoreIdenticalRules());
 		options.setReduceSameRuleAndSameMatch(optionSettingsWizardPage.getReduceSameMatch());
 		options.persist(optionsFile);
+		options.cpTypes = ruleAndCpKindSelectionWizardPage.cpType;
 
 		Pair<Set<Rule>, Set<Rule>> selectedRules = ruleAndCpKindSelectionWizardPage.getEnabledRules();
 
@@ -153,8 +155,7 @@ public class CpaWizard extends Wizard {
 						int totalWork = 10100;
 
 						// adjustment in the case of calculation of dependencies and conflicts
-						if (ruleAndCpKindSelectionWizardPage.getComputeConflicts()
-								&& ruleAndCpKindSelectionWizardPage.getComputeDependencies())
+						if (options.cpTypes == CPType.BOTH)
 							totalWork = 20100;
 
 						monitor.beginTask("Calculating Critical Pairs... ", totalWork);
@@ -164,11 +165,11 @@ public class CpaWizard extends Wizard {
 						CPAResult conflictResult = null;
 						CPAResult dependencyResult = null;
 
-						if (ruleAndCpKindSelectionWizardPage.getComputeConflicts()) {
+						if (options.cpTypes==CPType.BOTH || options.cpTypes == CPType.CONFLICT) {
 							conflictResult = aggCPA.runConflictAnalysis(monitor);
 							monitor.worked(1000);
 						}
-						if (ruleAndCpKindSelectionWizardPage.getComputeDependencies()) {
+						if (options.cpTypes==CPType.BOTH || options.cpTypes == CPType.DEPENDENCY) {
 							dependencyResult = aggCPA.runDependencyAnalysis(monitor);
 							monitor.worked(1000);
 						}

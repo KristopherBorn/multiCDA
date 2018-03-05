@@ -16,7 +16,7 @@ import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask;
 import org.eclipse.emf.henshin.multicda.cda.tasks.SingleCpaTaskResultContainer;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask.AnalysisKind;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.Conflict;
 import org.eclipse.emf.henshin.multicda.cpa.result.ConflictKind;
@@ -33,7 +33,7 @@ public class EssCPARunner {
 		
 		CPAResult result =  new CPAResult();
 		boolean canceled = false;
-		CPAOptions essentialOptions = new CPAOptions();
+		CDAOptions essentialOptions = new CDAOptions();
 		essentialOptions.setEssential(true);
 		essentialOptions.setIgnoreMultiplicities(true);
 		essentialOptions.setComplete(true);;

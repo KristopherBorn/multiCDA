@@ -22,7 +22,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CriticalPairRightCo
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ICP;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
@@ -131,7 +131,7 @@ public class CPATester extends Tester {
 			System.out.println(
 					"\n\t\t  " + ff + " --> " + ss + "\n\t\t\tCPA " + (options.is(Options.ESSENTIAL) ? "Essential" : ""));
 
-		CPAOptions o = new CPAOptions();
+		CDAOptions o = new CDAOptions();
 		o.setEssential(options.is(Options.ESSENTIAL));
 		o.setReduceSameRuleAndSameMatch(false);
 		o.setIgnoreSameRules(false);

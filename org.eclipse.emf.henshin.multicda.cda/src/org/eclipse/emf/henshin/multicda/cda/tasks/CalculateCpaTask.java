@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.ICriticalPairAnalysis;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
@@ -18,7 +18,7 @@ public class CalculateCpaTask implements Callable<CPAResult> {
 
 	List<Rule> firstRuleList;
 	List<Rule> secondRuleList; 
-	CPAOptions cpaOptions;
+	CDAOptions cpaOptions;
 	
 	AnalysisKind analysisKind;
 	

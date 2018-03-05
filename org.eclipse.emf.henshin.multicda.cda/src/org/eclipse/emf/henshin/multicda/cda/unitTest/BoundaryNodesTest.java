@@ -20,7 +20,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
@@ -109,7 +109,7 @@ public class BoundaryNodesTest {
 		List<Rule> rules = new LinkedList<Rule>();
 		rules.add(executeNonLoop);
 		CpaByAGG cpaByAGG = new CpaByAGG();
-		CPAOptions cpaOptions = new CPAOptions();
+		CDAOptions cpaOptions = new CDAOptions();
 		cpaOptions.setEssential(true);
 		CPAResult essCPs = null;
 		try {

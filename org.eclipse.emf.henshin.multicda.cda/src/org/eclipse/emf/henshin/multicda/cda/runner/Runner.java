@@ -36,7 +36,7 @@ import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateAtomicCpaTask;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask.AnalysisKind;
 import org.eclipse.emf.henshin.multicda.cda.tasks.SingleCpaTaskResultContainer;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.Conflict;
 import org.eclipse.emf.henshin.multicda.cpa.result.ConflictKind;
@@ -165,10 +165,10 @@ public class Runner {
 		int numberOfAddedRules = allLoadedRules.size();
 
 		// normal CPA setup
-		CPAOptions normalOptions = new CPAOptions();
+		CDAOptions normalOptions = new CDAOptions();
 
 		// essential CPA setup
-		CPAOptions essentialOptions = new CPAOptions();
+		CDAOptions essentialOptions = new CDAOptions();
 		essentialOptions.setEssential(true);
 
 		int numberOfAllConflictAtoms = 0;
@@ -426,7 +426,7 @@ public class Runner {
 		}
 	}
 
-	private boolean runEssCPA(Logger2 essCpaLogger, CPAOptions essentialCpaOptions, List<Rule> skippedRules,
+	private boolean runEssCPA(Logger2 essCpaLogger, CDAOptions essentialCpaOptions, List<Rule> skippedRules,
 			Rule firstRule, Rule secondRule, Rule originalSecondRule, boolean canceled) {
 
 		String runTimesOfRuleCombination = "";
@@ -495,7 +495,7 @@ public class Runner {
 		return canceled;
 	}
 
-	private boolean runCPA(Logger2 cpaLogger, CPAOptions cpaOptions, List<Rule> skippedRules, Rule firstRule,
+	private boolean runCPA(Logger2 cpaLogger, CDAOptions cpaOptions, List<Rule> skippedRules, Rule firstRule,
 			Rule secondRule, Rule originalRuleOfRule2, boolean canceled) {
 		String runTimeOfRuleCombination = "";
 		String amountOfDeleteUseConflictsOfRulecombination = "";

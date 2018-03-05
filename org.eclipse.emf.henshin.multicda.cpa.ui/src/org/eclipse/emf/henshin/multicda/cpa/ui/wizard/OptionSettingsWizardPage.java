@@ -9,20 +9,22 @@
  */
 package org.eclipse.emf.henshin.multicda.cpa.ui.wizard;
 
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.GranularityType;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
 public class OptionSettingsWizardPage extends WizardPage {
 
 	private Composite container;
 
-	private CPAOptions cpaOptions;
+	private CDAOptions cpaOptions;
 
 	private boolean optionsLoaded;
 
@@ -42,7 +44,7 @@ public class OptionSettingsWizardPage extends WizardPage {
 		setTitle("Conflict and Dependency Analysis - Granularity of Analysis");
 		setDescription("Please indicate the depth of analysis.");
 
-		cpaOptions = new CPAOptions();
+		cpaOptions = new CDAOptions();
 
 		if (cpaOptions.load(optionsFile)) {
 			optionsLoaded = true;
@@ -50,19 +52,6 @@ public class OptionSettingsWizardPage extends WizardPage {
 			optionsLoaded = false;
 		}
 	}
-
-	private enum GranularityType {
-		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)"),
-		COARSE("Coarse granularity","Shows core conflicting (dependent) graph elements"),
-		FINE("Fine granularity", "Shows complete conflict (dependency) reasons");
-		public final String name;
-		public final String description;
-
-		GranularityType(String name, String description) {
-			this.name = name;
-			this.description = description;
-		}
-	};
 
 	/*
 	 * (non-Javadoc)
@@ -74,16 +63,44 @@ public class OptionSettingsWizardPage extends WizardPage {
 	public void createControl(Composite parent) {
 		container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout());
+		Composite granularity = new Composite(container, SWT.NONE);
+		granularity.setLayout(new GridLayout(2, true));
+
+		Button binaryButton = new Button(granularity, SWT.RADIO);
+		binaryButton.setText(GranularityType.BINARY.name);
+		binaryButton.addListener(SWT.Selection, checkListener);
+		binaryButton.setSelection(getGranularity() == GranularityType.BINARY);
+		binaryButton.setData(GranularityType.BINARY);
+		Label label = new Label(granularity, SWT.NONE);
+		label.setText(GranularityType.BINARY.description);
+
+		Button coarseButton = new Button(granularity, SWT.RADIO);
+		coarseButton.setText(GranularityType.COARSE.name);
+		coarseButton.addListener(SWT.Selection, checkListener);
+		coarseButton.setSelection(getGranularity() == GranularityType.COARSE);
+		coarseButton.setData(GranularityType.COARSE);
+		label = new Label(granularity, SWT.NONE);
+		label.setText(GranularityType.COARSE.description);
+
+		Button fineButton = new Button(granularity, SWT.RADIO);
+		fineButton.setText(GranularityType.FINE.name);
+		fineButton.addListener(SWT.Selection, checkListener);
+		fineButton.setSelection(getGranularity() == GranularityType.FINE);
+		fineButton.setData(GranularityType.FINE);
+		label = new Label(granularity, SWT.NONE);
+		label.setText(GranularityType.FINE.description);
 
 		Button enableCompleteButton = new Button(container, SWT.CHECK);
 		enableCompleteButton.setText(COMPLETE);
 		enableCompleteButton.addListener(SWT.Selection, checkListener);
 		enableCompleteButton.setSelection(getComplete());
+		enableCompleteButton.setData(true);
 
 		Button enableIgnoreIdenticalRulesButton = new Button(container, SWT.CHECK);
 		enableIgnoreIdenticalRulesButton.setText(IGNOREIDENTICALRULES);
 		enableIgnoreIdenticalRulesButton.addListener(SWT.Selection, checkListener);
 		enableIgnoreIdenticalRulesButton.setSelection(getIgnoreIdenticalRules());
+		enableIgnoreIdenticalRulesButton.setData(false);
 
 		setControl(container);
 	}
@@ -91,16 +108,15 @@ public class OptionSettingsWizardPage extends WizardPage {
 	Listener checkListener = new Listener() {
 
 		public void handleEvent(Event event) {
+			Object data = event.widget.getData();
 			Button button = (Button) (event.widget);
-
-			// improve by switch-case statement with change to Java 1.7
-			if (button.getText().equals(COMPLETE)) {
+			if (data instanceof GranularityType)
+				cpaOptions.granularityType = (GranularityType) data;
+			else if ((Boolean) data)
 				setComplete(button.getSelection());
-			} else if (button.getText().equals(IGNOREIDENTICALRULES)) {
+			else
 				setIgnoreIdenticalRules(button.getSelection());
-			} else if (button.getText().equals(REDUCESAMEMATCH)) {
-				setReduceSameMatch(button.getSelection());
-			}
+
 		}
 
 	};
@@ -114,12 +130,16 @@ public class OptionSettingsWizardPage extends WizardPage {
 		return optionsLoaded;
 	}
 
-	public CPAOptions getOptions() {
+	public CDAOptions getOptions() {
 		return cpaOptions;
 	}
 
 	public Boolean getComplete() {
 		return cpaOptions.isComplete();
+	}
+
+	public GranularityType getGranularity() {
+		return cpaOptions.granularityType;
 	}
 
 	public void setComplete(Boolean complete) {

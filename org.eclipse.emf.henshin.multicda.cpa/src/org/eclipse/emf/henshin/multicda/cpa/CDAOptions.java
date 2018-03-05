@@ -28,7 +28,7 @@ import java.io.OutputStream;
  * @author Florian Heﬂ, Kristopher Born
  *
  */
-public class CPAOptions {
+public class CDAOptions {
 	private boolean complete;
 	private boolean strongAttrCheck = true;
 	private boolean ignoreSameRules;
@@ -39,6 +39,50 @@ public class CPAOptions {
 	private boolean essential = false;
 	// (KB) new since 2017-08-21 due to CDA project and missing multiplicity support of the essential CPA
 	private boolean ignoreMultiplicities = false;
+	public GranularityType granularityType = GranularityType.BINARY;
+	public CPType cpTypes = CPType.NONE;
+
+	public static enum GranularityType {
+		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)"), COARSE("Coarse granularity",
+				"Shows core conflicting (dependent) graph elements"), FINE("Fine granularity",
+						"Shows complete conflict (dependency) reasons");
+		public final String name;
+		public String description;
+
+		GranularityType(String name, String description) {
+			this.name = name;
+			this.description = description;
+		}
+	};
+
+	public static enum CPType {
+		NONE("", -3), CONFLICT("Conflicts", 1), DEPENDENCY("Dependencies", 2), BOTH("Conflicts and dependencies", 3);
+		public final String name;
+		public final int id;
+
+		CPType(String name, int id) {
+			this.name = name;
+			this.id = id;
+		}
+
+		public CPType update(CPType type, boolean active) {
+			int value = id < 0 ? 0 : id;
+			value += (active ? type.id : -type.id);
+			switch (value) {
+			case 1:
+				return CPType.CONFLICT;
+			case 2:
+				return CPType.DEPENDENCY;
+			case 3:
+				return CPType.BOTH;
+			case -3:
+				return CPType.NONE;
+			case 0:
+				return CPType.NONE;
+			}
+			return this;
+		}
+	};
 
 	/**
 	 * @return the ignoreMultiplicities
@@ -57,7 +101,7 @@ public class CPAOptions {
 	/**
 	 * Default constructor.
 	 */
-	public CPAOptions() {
+	public CDAOptions() {
 		reset();
 	}
 
@@ -173,8 +217,8 @@ public class CPAOptions {
 		 */
 		// setEssential(false);
 
-		
 		setIgnoreMultiplicities(false);
+		granularityType = GranularityType.BINARY;
 	}
 
 	public boolean isComplete() {
@@ -225,7 +269,7 @@ public class CPAOptions {
 	public boolean isEssential() {
 		return essential;
 	}
-	
+
 	public void setEssential(boolean essential) {
 		this.essential = essential;
 	}

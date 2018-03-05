@@ -34,7 +34,7 @@ import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateAtomicCpaTask;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask;
 import org.eclipse.emf.henshin.multicda.cda.tasks.SingleCpaTaskResultContainer;
 import org.eclipse.emf.henshin.multicda.cda.tasks.CalculateCpaTask.AnalysisKind;
-import org.eclipse.emf.henshin.multicda.cpa.CPAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.ICriticalPairAnalysis;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
@@ -118,11 +118,11 @@ public class RefactoringRunner_WithPullback {
 
 		
 		ICriticalPairAnalysis normalCpa = new CpaByAGG();
-		CPAOptions normalOptions = new CPAOptions();
+		CDAOptions normalOptions = new CDAOptions();
 
 		
 		ICriticalPairAnalysis essentialCpa = new CpaByAGG();
-		CPAOptions essentialOptions = new CPAOptions();
+		CDAOptions essentialOptions = new CDAOptions();
 		essentialOptions.setEssential(true);
 
 		
