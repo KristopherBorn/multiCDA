@@ -33,7 +33,6 @@ public class AnalyseAndModifyUmlEditRules {
 //		ruleSetModifier.removeApplicationConditions(subDirectoryPath+noMultiRules, subDirectoryPath+noMultiRulesNoAc);
 		
 		// reduce attribute changes
-		// TODO!
 		
 		//
 //		ruleSetModifier.transformDeleteToPreserve(subDirectoryPath+noMultiRulesNoAc, subDirectoryPath+noMultiRulesNoAcPreserve, true);

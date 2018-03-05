@@ -104,7 +104,6 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 	}
 	
 	/**
-	 * TODO: add information here z.B.: - welche Regel-features unterstützt
 	 * werden - wie wird damit umgeganen, wenn die Knoten oder Mappings nicht
 	 * erstellt wurde? - wird NULL zurück gegeben, oder wird eine Exception
 	 * geworfen? - sollte es eine Möglichkeit vorab geben zu prüfen, ob die
@@ -116,12 +115,8 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 	public static Rule invertRule(Rule rule1) {
 		Map<Rule, Copier> mappingOfInvertedRuleToRhsToLhsCopier = new HashMap<>();
 		
-		// TODO: invert first rule
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
-		// erstellen einer Regel mit ursprünglichem Namen + "_INV"
-		// TODO: In welches MODULe kommt die Regel überhaupt ????
-		// eigenes? Imports? Copy?
 		Rule invRule1 = henshinFactory.createRule(rule1.getName() + "_INV");
 
 		// Kopieren des RHS Graph und als LHS der neuen Regel zuordnen
@@ -148,14 +143,12 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 			// identifizieren der ORIGIN in der neuen Regel
 			Node imageInOriginalRule = mappingInOriginalRule1.getImage();
 			EObject originInNewRule = copierForRhsToLhs.get(imageInOriginalRule);
-			Node originInNewRuleNode = (Node) originInNewRule; // TODO: add NULL
-																// check!
+			Node originInNewRuleNode = (Node) originInNewRule; 
 
 			// identifizieren des IMAGE in der neuen Regel
 			Node originInOriginalRule = mappingInOriginalRule1.getOrigin();
 			EObject imageInNewRule = copierForLhsToRhs.get(originInOriginalRule);
-			Node imageInNewRuleNode = (Node) imageInNewRule; // TODO: add NULL
-																// check!
+			Node imageInNewRuleNode = (Node) imageInNewRule; 
 
 			Mapping createdMapping = henshinFactory.createMapping(originInNewRuleNode, imageInNewRuleNode);
 			invRule1.getMappings().add(createdMapping);

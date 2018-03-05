@@ -80,7 +80,7 @@ public class ComputeConflictAtomsTest {
 		assertEquals(2, numberOf_METHOD_atoms);
 		assertEquals(1, numberOf_PARAMETER_atoms);
 		
-		//TODO: check that the two Reasons had been found AND that the three ConflictAtoms only have two (minimal)conflict reasons!
+		
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
 			Set<MinimalConflictReason> reasons = conflictAtom.getMinimalConflictReasons();
 			Assert.assertEquals(1, reasons.size());
@@ -88,12 +88,12 @@ public class ComputeConflictAtomsTest {
 		
 		Span minimalConflictReasonOfMethod_3_14_Atom = conflictAtom_Method_3_14.getMinimalConflictReasons().iterator().next();
 		Span minimalConflictReasonOfParameter_5_15_Atom = conflictAtom_Parameter_5_15.getMinimalConflictReasons().iterator().next();
-//		System.out.println(conflictReasonOfMethod_3_14_Atom);
-//		System.out.println(conflictReasonOfParameter_5_15_Atom);
+
+
 		Assert.assertTrue(minimalConflictReasonOfMethod_3_14_Atom.equals(minimalConflictReasonOfParameter_5_15_Atom));
 	}
 	
-	// TODO: hier einen Test hinzufügen für die PushDownGroup Regel aus dem FeatureModelRefactoring Beispiel.
+	
 
 }
 

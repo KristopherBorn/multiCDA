@@ -490,12 +490,6 @@ public class HenshinDocumentProvider extends AbstractDocumentProvider implements
 
 		IResource parent = toCreateOrModify;
 		do {
-			/*
-			 * XXX This is a workaround for
-			 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=67601
-			 * IResourceRuleFactory.createRule should iterate the hierarchy
-			 * itself.
-			 */
 			toCreateOrModify = parent;
 			parent = toCreateOrModify.getParent();
 		} while (parent != null && !parent.exists());
@@ -651,7 +645,6 @@ public class HenshinDocumentProvider extends AbstractDocumentProvider implements
 			fireElementMoved(input, newFile == null ? null : new FileEditorInput(newFile));
 			return;
 		}
-		// TODO: append suffix to the URI! (use diagram as a parameter)
 		fireElementMoved(input, new URIEditorInput(uri));
 	}
 

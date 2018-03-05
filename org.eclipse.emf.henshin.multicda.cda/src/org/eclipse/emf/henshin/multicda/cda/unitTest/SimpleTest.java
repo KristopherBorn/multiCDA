@@ -146,11 +146,6 @@ public class SimpleTest {
 			System.out.println(minimalConflictReason);
 		}
 
-		// TODO: hier den Ansatz zum identifizieren von falschen
-		// "over-approximation" Ergebnissen hinzufügen!
-		// TODO: create a Class for that functionality
-		// Set<Span> minimalConflictReasonsWithoutOverapproximation =
-		// removeOverapproximation(minimalConflictReasons);
 	}
 
 	@Test
@@ -191,8 +186,6 @@ public class SimpleTest {
 			System.out.println(minimalConflictReason);
 		}
 
-		// TODO: wieso kommt es hier nicht so dem over-approximation Fehler?
-		// Welchen unterschied macht das größere LHS Muster der zweiten Regel???
 	}
 
 }

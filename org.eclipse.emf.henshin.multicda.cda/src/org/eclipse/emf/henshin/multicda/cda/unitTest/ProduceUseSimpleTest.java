@@ -67,8 +67,6 @@ public class ProduceUseSimpleTest {
 		
 		Assert.assertEquals(1, dependencyAtoms.size());
 		
-		//TODO: weitere Prüfungen (Assertions) hinzufügen!
-		// Prüfen, dass das DependencyAtom valide ist (je Mapping das Origin und Image)
 		DependencyAtom dependencyAtom = dependencyAtoms.iterator().next();
 		Assert.assertEquals(1, dependencyAtom.getMappingsInRule1().size());
 		Assert.assertEquals(1, dependencyAtom.getMappingsInRule2().size());

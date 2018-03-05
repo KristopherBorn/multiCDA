@@ -309,7 +309,6 @@ public class VariableInfo {
 	 * @return the node2variable
 	 */
 	public Map<Node, Variable> getNode2variable() {
-		// TODO: change Solution to get rid of this method
 		return node2variable;
 	}
 

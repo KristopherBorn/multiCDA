@@ -20,21 +20,17 @@ public class SingleCpaTaskResultContainer {
 		this.firstRuleList = firstRuleList;
 		this.secondRuleList = secondRuleList;
 		this.normalOptions = cpaOptions;
-		// TODO Auto-generated constructor stub
 	}
 
 	public List<Rule> getFirstRuleList() {
-		// TODO Auto-generated method stub
 		return firstRuleList;
 	}
 
 	public List<Rule> getSecondRuleList() {
-		// TODO Auto-generated method stub
 		return secondRuleList;
 	}
 
 	public CPAOptions getCpaOptions() {
-		// TODO Auto-generated method stub
 		return normalOptions;
 	}
 

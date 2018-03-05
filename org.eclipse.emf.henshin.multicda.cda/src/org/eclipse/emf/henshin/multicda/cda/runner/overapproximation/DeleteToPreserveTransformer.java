@@ -80,7 +80,7 @@ public class DeleteToPreserveTransformer {
 //			// Load the module:
 			Module module = resourceSet.getModule(henshinFileName, false);
 						
-			//TODO: filter rules
+			//: filter rules
 			EList<Unit> units = module.getUnits();
 			Rule theRule = null;
 			boolean multipleRules = false;
@@ -95,7 +95,7 @@ public class DeleteToPreserveTransformer {
 			if(multipleRules)
 				System.err.println("amount of rules: "+units.size());
 			
-			//TODO: edit rules
+			//: edit rules
 			if(theRule != null){
 				
 				
@@ -118,10 +118,10 @@ public class DeleteToPreserveTransformer {
 				// Hinzufügen entsprechender Knoten zur RHS und erstellen der entsprechenden Mappings
 				for(Node deletionNode : deletionNodes){
 					// Neuen Knoten erstellen und Knoten der LHS hinzufügen
-					Node newRhsNode = henshinFactory.createNode(theRule.getRhs(), deletionNode.getType(), deletionNode.getName()); //TODO: ggf. Null von getName() abfangen?
+					Node newRhsNode = henshinFactory.createNode(theRule.getRhs(), deletionNode.getType(), deletionNode.getName()); //: ggf. Null von getName() abfangen?
 					// Mapping erstellen
 					Mapping createMapping = henshinFactory.createMapping(deletionNode, newRhsNode);
-					theRule.getMappings().add(createMapping); //TODO: prüfen ob das notwendig ist
+					theRule.getMappings().add(createMapping); //: prüfen ob das notwendig ist
 					
 				}
 				
@@ -133,7 +133,6 @@ public class DeleteToPreserveTransformer {
 				MappingList mappingsAfter = theRule.getMappings();
 				System.err.println("mappingsAfter: "+mappingsAfter.size()+" ; +"+(mappingsAfter.size()-amountOfMappingsBefore));
 				
-//				TODO: hier prüfen pob es noch zu löschende Knoten in der Regel gibt!
 
 				// Über die Liste der zu löschenden Kanten iterieren.
 				// Hinzufügen der entsprechenden Knoten zur RHS.
@@ -150,8 +149,6 @@ public class DeleteToPreserveTransformer {
 					Node targetInRhs = allMappings.getImage(targetInLhs, theRule.getRhs());
 					if(targetInLhs == null || targetInRhs == null)
 						System.out.println("ERROR");
-					//TODO: add NULL-check for source and target 
-					// Neue Kante erstellen und der LHS hinzufügen (wird durch die factory Methode gemacht).
 					henshinFactory.createEdge(sourceInRhs, targetInRhs, deletionEdge.getType());
 				}
 
@@ -168,7 +165,7 @@ public class DeleteToPreserveTransformer {
 			amountOfModifiedFiles++;
 			System.out.println("amountOfModifiedFiles: "+amountOfModifiedFiles);
 			
-			//TODO: save results
+			//: save results
 			if(!failedRules.contains(theRule.getName())){
 				resourceSet.saveEObject(module, henshinFile.getPath());
 			}
@@ -187,7 +184,7 @@ public class DeleteToPreserveTransformer {
 //		File[] directoryListing = dir.listFiles();
 //		if (directoryListing != null) {
 //			for (File child : directoryListing) {
-//				System.out.println("TODO: recursive call of exploration method");
+//				System.out.println(": recursive call of exploration method");
 //				String fileName = child.getName();
 //				if (fileName.endsWith(".henshin")) {
 //					pathsToHenshinFiles.add(child.getAbsolutePath());
@@ -210,7 +207,7 @@ public class DeleteToPreserveTransformer {
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
-//				System.out.println("TODO: recursive call of exploration method");
+//				System.out.println(": recursive call of exploration method");
 				String fileName = child.getName();
 				if (fileName.endsWith(".henshin")) {
 					henshinFiles.add(child);

@@ -275,9 +275,6 @@ public class CPAUtility {
 
 		Diagram d = createDiagram(minimalModel);
 
-		//TODO: Dieser Aufruf müsste ein Diagram erstellen, dass so aussieht wie ein Henshin Diagram... es gibt aber ein Library import Problem. Wenn es erwünscht ist, den Style von henshin Diagram zu haben, sollte sich einer hiermit beschäftigen
-//		Diagram diagram = ViewService.createDiagram(model, ModuleEditPart.MODEL_ID,
-//				HenshinDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 
 		URI diagUri = URI.createFileURI(fullPathMinimalModel + "_diagram");
 		Resource diagramResource = resourceSet.createResource(diagUri, "ecore");

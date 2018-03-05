@@ -208,11 +208,11 @@ public class IntegrationTest {
 		assertEquals(5, reasons.size());
 	}
 
-	// TODO: rename-besseren Namen!
+	// rename-besseren Namen!
 	//
 
 	/*
-	 * TODO: was sind die "Outputs" der Atomic CPA? conflict atoms? [!] DONE!
+	 * was sind die "Outputs" der Atomic CPA? conflict atoms? [!] DONE!
 	 * 2,13:Method , 3,14:Method und 5,15:Parameter grob getestet in
 	 * ComputeConflictAtomsTest conflict atom/part candidates? DONE! nur :Method
 	 * und :Parameter, oder? sehr grob getestet in ComputeCandidatesTest

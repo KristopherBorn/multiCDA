@@ -48,7 +48,7 @@ public class EcoreCopier extends Copier {
 				// If this object has an actual generic type, setting it in the copy will have
 				// created a copy of the `eType`. We need to make sure that copy shows up in our
 				// map
-				// TODO: Probably needs more testing: we really would want to make sure this is
+				// Probably needs more testing: we really would want to make sure this is
 				// wired up to the type we may already have copied, need to make sure this is
 				// happening...
 				if (!containsKey((EObject) eObject.eGet(EcorePackage.Literals.ETYPED_ELEMENT__ETYPE, resolveProxies))) {

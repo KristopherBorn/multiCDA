@@ -87,7 +87,6 @@ public class MinimalReasonComputation {
 		return result;
 	}
 
-	// TODO Jevgenij: Methode muss in Rule verschoben werden!!!!
 	// Renaming, Move
 	// Unter cda.unitTest erscheinen Fehler bzgl. der Änderung des Konstruktors 
 	public Set<DanglingEdge> findDanglingEdgesOfRule1(Rule rule, List<Mapping> embedding) {

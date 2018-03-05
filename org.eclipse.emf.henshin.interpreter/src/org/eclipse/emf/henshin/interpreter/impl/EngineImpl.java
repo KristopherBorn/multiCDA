@@ -944,7 +944,7 @@ public class EngineImpl implements Engine {
 		for (Node node : ruleChange.getDeletedNodes()) {
 			EObject deletedObject = completeMatch.getNodeTarget(node);
 			changes.add(new ObjectChangeImpl(graph, deletedObject, false));
-			// TODO: Shouldn't we check the rule options?
+			// Shouldn't we check the rule options?
 			if (!rule.isCheckDangling()) {
 				Collection<Setting> removedEdges = graph.getCrossReferenceAdapter().getInverseReferences(deletedObject);
 				for (Setting edge : removedEdges) {

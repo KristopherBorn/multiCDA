@@ -89,7 +89,6 @@ public class ComputeInitialReasonTest {
 			assertEquals(1, numberOf_PARAMETER_atoms);
 			
 			Set<Span> allMinimalConflictReasons = new HashSet<Span>();
-			//TODO: check that the two Reasons had been found AND that the three ConflictAtoms only have two (minimal)conflict reasons!
 			for(ConflictAtom conflictAtom : computedConflictAtoms){
 				Set<MinimalConflictReason> reasons = conflictAtom.getMinimalConflictReasons();
 				Assert.assertEquals(1, reasons.size());
@@ -99,8 +98,6 @@ public class ComputeInitialReasonTest {
 			
 			Span initialReasonOfMethod_3_14_Atom = conflictAtom_Method_3_14.getMinimalConflictReasons().iterator().next();
 			Span initialReasonOfParameter_5_15_Atom = conflictAtom_Parameter_5_15.getMinimalConflictReasons().iterator().next();
-	//		System.out.println(initialReasonOfMethod_3_14_Atom);
-	//		System.out.println(initialReasonOfParameter_5_15_Atom);
 			Assert.assertTrue(initialReasonOfMethod_3_14_Atom.equals(initialReasonOfParameter_5_15_Atom));
 			
 			Set<MinimalConflictReason> minimalConflictReasons = new HashSet<MinimalConflictReason>();
@@ -112,11 +109,6 @@ public class ComputeInitialReasonTest {
 			Assert.assertEquals(3, computeInitialReason.size());
 			
 			
-	//		TODO: Prüfen!
-	//		Es sollten die beiden bekannten minimal conflict reason enthalten sein (Siehe auch Übersichtsgrafik. Dort ist notiert, dass jedes MCR auch ein CR ist)
-	//		Außerdem sollte die zusätzliche Kombination entstehen!
-	//		Für zusätzliche Kombination prüfen, dass der Graph fünf Knoten hat. zweimal Class, zweimal Method und einmal PArameter
-	//		Außerdem die jeweiligen Mappings prüfen!
 			
 		}
 
@@ -128,38 +120,7 @@ public class ComputeInitialReasonTest {
 		
 		Set<ConflictAtom> methodCAs = new HashSet<ConflictAtom>();
 
-		// alles alter TestCode durchs kopieren der im Papier betrachteten Regelreihenfolge!
-//		ConflictAtom conflictAtom_Method_2_13 = null;
-//		ConflictAtom conflictAtom_Method_3_14 = null;
-//		ConflictAtom conflictAtom_Parameter_5_15 = null;
-//
-//		int numberOf_METHOD_atoms = 0;
-//		int numberOf_PARAMETER_atoms = 0;
-//		for (ConflictAtom conflictAtom : computedConflictAtoms) {
-//			Span span = conflictAtom.getSpan();
-//			Graph graph = span.getGraph();
-//			EList<Node> nodes = graph.getNodes();
-//			for (Node nodeInOverlapGraph : nodes) {
-//				if (nodeInOverlapGraph.getType().getName().equals("Method")) {
-//					numberOf_METHOD_atoms++;
-//					if(nodeInOverlapGraph.getName().contains("13"))
-//						conflictAtom_Method_2_13 = conflictAtom;
-//					if(nodeInOverlapGraph.getName().contains("14"))
-//						conflictAtom_Method_3_14 = conflictAtom;
-//				} else if (nodeInOverlapGraph.getType().getName().equals("Parameter")) {
-//					numberOf_PARAMETER_atoms++;
-//					if(nodeInOverlapGraph.getName().contains("15"))
-//						conflictAtom_Parameter_5_15 = conflictAtom;
-//				} else {
-//					assertTrue("node of wrong type in overlap graph", false);
-//				}
-//			}
-//		}
-//		assertEquals(2, numberOf_METHOD_atoms);
-//		assertEquals(1, numberOf_PARAMETER_atoms);
-		
 		Set<Span> allMinimalConflictReasons = new HashSet<Span>();
-		//TODO: check that the two Reasons had been found AND that the three ConflictAtoms only have two (minimal)conflict reasons!
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
 			Set<MinimalConflictReason> reasons = conflictAtom.getMinimalConflictReasons();
 			Assert.assertEquals(1, reasons.size());
@@ -175,13 +136,6 @@ public class ComputeInitialReasonTest {
 		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		Assert.assertEquals(17, computedInitialReason.size());
 		
-		//von diesen 17 potentiellen CRs verletzen 10 die dangling condition. 
-		// Das sind jeweils diejenigen, die die beiden folgenden Conflict Atoms enhalten:
-		// 11_1 --> 13_3
-		// 11_1 --> 14_2
-		// dies könnte sich ggf. über ein "isApplicable" der zweiten Regel (hier 'decapsulate...') identifizieren
-		// ABER: dazu müsste zuerst aus den ConflictREasons jeweils ein vollständiger Overlap als Instanz erzeugt werden.
-		// SEHR AUFWENDIG!!!
 		
 	}
 	
@@ -205,7 +159,6 @@ public class ComputeInitialReasonTest {
 			amountOfEssConflicts = runConflictAnalysis.getEssentialCriticalPairs().size();
 			System.err.println("amount of ess CPs: " + amountOfEssConflicts);
 		} catch (UnsupportedRuleException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals(3, amountOfEssConflicts);

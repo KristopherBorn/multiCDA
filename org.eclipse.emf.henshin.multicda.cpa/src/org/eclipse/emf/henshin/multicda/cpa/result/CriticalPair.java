@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available 
  * under the terms of the Eclipse Public License v1.0 which 
  * accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * http:
  * </copyright>
  */
 package org.eclipse.emf.henshin.multicda.cpa.result;
@@ -47,7 +47,7 @@ public abstract class CriticalPair {
 		}
 	};
 	
-	private AppliedAnalysis appliedAnalysis;// = AppliedAnalysis.COMPLETE; // Es sollte dafür keien default Fall geben!
+	private AppliedAnalysis appliedAnalysis;
 	
 
 	/**
@@ -121,8 +121,8 @@ public abstract class CriticalPair {
 			if (criticalElement.commonElementOfCriticalGraph == null || criticalElement.elementInFirstRule == null
 					|| criticalElement.elementInSecondRule == null) {
 				allCriticalElementsComplete = false;
-				// es muss auch möglich sein critical elements hinzuzufügen ohne das Element aus AGG - wie erknant durch das laden persitierter CPs
-				// TODO: entsprechend muss die JavaDoc bzw. der Rückgabewert der MEthode angepasst werden.
+				
+				
 				criticalElements.add(criticalElement);
 			} else {
 				allCriticalElementsComplete &= criticalElements.add(criticalElement);
@@ -141,7 +141,7 @@ public abstract class CriticalPair {
 		return criticalElements;
 	}
 
-	//TODO: improve comment on method!
+	
 	/**
 	 * @return the appliedAnalysis
 	 */

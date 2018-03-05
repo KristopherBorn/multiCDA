@@ -54,7 +54,6 @@ public class PullbackTest {
 			cpaByAGG.init(rules, cpaOptions);
 			essCPs = cpaByAGG.runConflictAnalysis();
 		} catch (UnsupportedRuleException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		List<CriticalPair> criticalPairs = essCPs.getEssentialCriticalPairs();
@@ -98,7 +97,7 @@ public class PullbackTest {
 		Assert.assertEquals(3, computedConflictAtoms.size());
 		
 		Set<Span> allMinimalConflictReasons = new HashSet<Span>();
-		//TODO: check that the two Reasons had been found AND that the three ConflictAtoms have three MCR (minimal conflict reasons)!
+		//check that the two Reasons had been found AND that the three ConflictAtoms have three MCR (minimal conflict reasons)!
 		for(ConflictAtom conflictAtom : computedConflictAtoms){
 			Set<MinimalConflictReason> reasons = conflictAtom.getMinimalConflictReasons();
 			Assert.assertEquals(1, reasons.size());

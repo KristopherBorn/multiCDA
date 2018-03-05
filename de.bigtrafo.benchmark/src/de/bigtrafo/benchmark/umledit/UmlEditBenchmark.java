@@ -86,7 +86,6 @@ public class UmlEditBenchmark {
 					.forEach(f -> result.add(f.getParent().getParent().getFileName() + "/" + f.getParent().getFileName()
 							+ "/" + f.getFileName()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result.stream().filter(s -> s.endsWith(FILE_NAME_RULES_CLASSIC)).collect(Collectors.toSet());

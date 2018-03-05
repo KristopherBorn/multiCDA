@@ -29,7 +29,7 @@ public class XlsOverapproximationWriter {
 	private String lastRowOfFormula;
 	private String lastColumnLetter;
 
-	//TODO: ggf. Rückgabewert anpassen. z.B. erzeugtes File Objekt.
+	//ggf. Rückgabewert anpassen. z.B. erzeugtes File Objekt.
 	public void export(Logger2 normalLogger, Logger2 modifiedPreserveLogger, File resultFile) {
 		
 
@@ -40,7 +40,6 @@ public class XlsOverapproximationWriter {
 		Sheet normalSheet = writeDataInSheet(wb, normalLogger, essDelUseConflSheetName);
 		Sheet modifiedSheet = writeDataInSheet(wb, modifiedPreserveLogger, MODIFIEDessDelUseConflSheetName);
 		
-		//TODO!
 		Sheet overapproximationSheet = writeOverapproximationInSheet(wb, normalLogger.getFirstRules(), normalLogger.getSecondRules(), overapproximationSheetName);
 		
 		Sheet overapproximationQuantMedianSheet = writeOverapproximationQuantMedianSheet(wb, normalLogger.getFirstRules(), normalLogger.getSecondRules(), overapproximationMedianSheetName);
@@ -54,17 +53,14 @@ public class XlsOverapproximationWriter {
 			wb.write(out);
 			out.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			wb.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -150,7 +146,7 @@ public class XlsOverapproximationWriter {
 		return createdSheet;
 	}
 
-	//TODO: in wie weit macht es wirklich Sinn hier zwischen firstRules und secondRules zu unterscheiden???  
+	//in wie weit macht es wirklich Sinn hier zwischen firstRules und secondRules zu unterscheiden???  
 	private Sheet writeOverapproximationInSheet(Workbook wb, List<Rule> firstRules, List<Rule> secondRules,
 			String sheetName) {
 		Sheet createdSheet = wb.createSheet(sheetName);
@@ -180,7 +176,7 @@ public class XlsOverapproximationWriter {
 			}
 		}
 		
-		// TODO: extract \"QualErr\" as a static String!
+		// extract \"QualErr\" as a static String!
 		
 		// DONE: add Metrics here!:
 		Row overapproximationResultRow = createdSheet.createRow(firstRules.size()+1);
@@ -230,7 +226,7 @@ public class XlsOverapproximationWriter {
 		medianQualErrorResultCell.setCellFormula(medianQualErrorResultFormula);
 	}
 	
-	//TODO: in wie weit macht es wirklich Sinn hier zwischen firstRules und secondRules zu unterscheiden???  
+	//in wie weit macht es wirklich Sinn hier zwischen firstRules und secondRules zu unterscheiden???  
 		private Sheet writeOverapproximationQuantMedianSheet(Workbook wb, List<Rule> firstRules, List<Rule> secondRules,
 				String sheetName) {
 			Sheet createdSheet = wb.createSheet(sheetName);

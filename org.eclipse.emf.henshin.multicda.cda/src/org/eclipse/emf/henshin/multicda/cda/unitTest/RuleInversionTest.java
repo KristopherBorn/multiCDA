@@ -45,7 +45,7 @@ public class RuleInversionTest {
 		Rule ruleToInvert = (Rule) unit;
 		
 		
-		//TODO: provide rule inverison function somewhere else than in the 
+		//provide rule inverison function somewhere else than in the 
 		Rule invertedRule = DependencyAnalysis.invertRule(ruleToInvert);
 		
 		// check that LHS contains 3 nodes, 3 edges and the nodes are of type :Bank, :Client and :Manager

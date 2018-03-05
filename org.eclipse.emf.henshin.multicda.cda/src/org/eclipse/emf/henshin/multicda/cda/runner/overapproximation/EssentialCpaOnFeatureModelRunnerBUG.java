@@ -74,7 +74,7 @@ public class EssentialCpaOnFeatureModelRunnerBUG {
 //			// Load the module:
 			Module module = resourceSet.getModule(henshinFileName, false);
 						
-			//TODO: filter rules
+			//filter rules
 			EList<Unit> units = module.getUnits();
 			Rule theRule = null;
 			boolean multipleRules = false;
@@ -99,7 +99,6 @@ public class EssentialCpaOnFeatureModelRunnerBUG {
 		try {
 			cpaByAGG.init(rules, options);
 		} catch (UnsupportedRuleException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -143,7 +142,7 @@ public class EssentialCpaOnFeatureModelRunnerBUG {
 			File[] directoryListing = dir.listFiles();
 			if (directoryListing != null) {
 				for (File child : directoryListing) {
-//					System.out.println("TODO: recursive call of exploration method");
+//					System.out.println("recursive call of exploration method");
 					String fileName = child.getName();
 					if (fileName.endsWith(".henshin")) {
 						henshinFiles.add(child);

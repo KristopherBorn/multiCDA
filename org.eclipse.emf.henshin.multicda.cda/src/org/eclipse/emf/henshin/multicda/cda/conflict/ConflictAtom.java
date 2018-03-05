@@ -5,7 +5,7 @@ import java.util.Set;
 import org.eclipse.emf.henshin.multicda.cda.Atom;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 
-// TODO: noch ist unklar ob eine solche Datenstruktur notwendig ist,
+// noch ist unklar ob eine solche Datenstruktur notwendig ist,
 // oder es sich um Instanzen einer bereits bekannten Datenstruktur handelt.
 // Je nach Ergebnis löschen oder in eigenständiges class-file auslagern.
 public class ConflictAtom extends Atom{

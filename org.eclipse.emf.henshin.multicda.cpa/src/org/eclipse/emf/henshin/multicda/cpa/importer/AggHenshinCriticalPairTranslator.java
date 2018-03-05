@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available 
  * under the terms of the Eclipse Public License v1.0 which 
  * accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * http:
  * </copyright>
  */
 package org.eclipse.emf.henshin.multicda.cpa.importer;
@@ -70,7 +70,7 @@ public class AggHenshinCriticalPairTranslator {
 
 	private CPType criticalPairType;
 
-	// private Module module;
+	
 
 	List<org.eclipse.emf.henshin.model.Rule> rulesToMapTheResultsOn;
 
@@ -143,27 +143,27 @@ public class AggHenshinCriticalPairTranslator {
 		cpaEPackage.setNsPrefix("CPAPackage");
 
 		String criticalPairKind = getCriticalPairKindString(cpd);
-		cpaEPackage.setNsURI("http://cpapackage/" + rule1.getQualifiedName() + "/" + rule2.getQualifiedName() + "/"
+		cpaEPackage.setNsURI("http:
 				+ criticalPairKind);
 
-		// initialize all the resulting objects of a single critical pair: -->
-		// a copy of the original rules is essential
+		
+		
 		org.eclipse.emf.henshin.model.Rule firstHenshinRuleOriginal = getResultRule(rule1.getName());
 		org.eclipse.emf.henshin.model.Rule secondHenshinRuleOriginal = getResultRule(rule2.getName());
-		// <-- initialize all the resulting objects of a single critical pair
+		
 		ExtendedMatchImpl firstRuleCopyMatch;
 		ExtendedMatchImpl secondRuleCopyMatch;
 
-		// HashMap for mapping unique Hash ID to the correct name
+		
 		hashToName = new HashMap<Integer, String>();
 
-		// Map the first rule
+		
 		OrdinaryMorphism morph1 = cpd.getMorph1();
-		// Returns the graph embedding of the first rule into the critical graph of the current overlapping pair.
+		
 
 		if (criticalPairType == CPType.Dependency) {
 			firstRuleCopyMatch = new ComatchImpl(firstHenshinRuleOriginal, true);
-		} else { // in case of a conflict
+		} else { 
 			firstRuleCopyMatch = new ExtendedMatchImpl(firstHenshinRuleOriginal, true);
 		}
 
@@ -173,9 +173,9 @@ public class AggHenshinCriticalPairTranslator {
 		List<Node> processedHenshinRuleLhsNodes = new LinkedList<Node>();
 		List<Node> processedHenshinRuleRhsNodes = new LinkedList<Node>();
 
-		// mapping of AGG-nodes<->Henshin-rule-nodes - introduced
-		// serves to resolve the associated henshin nodes when transforming a edge(/Arc) from Agg to Henshin [especially
-		// for the processing of the critical elements]
+		
+		
+		
 		HashMap<GraphObject, Node> firstRuleLhsMapping = new HashMap<GraphObject, Node>();
 		HashMap<GraphObject, Node> firstRuleRhsMapping = new HashMap<GraphObject, Node>();
 
@@ -201,7 +201,7 @@ public class AggHenshinCriticalPairTranslator {
 						processedHenshinRuleLhsNodes.add(fnode);
 						firstRuleLhsMapping.put(morph1SourceObject, fnode);
 						break;
-						// stops the process of searching the member node after (a/)the corresponding one is found
+						
 					}
 				}
 				nodes = rule1rhs.getNodes();
@@ -211,7 +211,7 @@ public class AggHenshinCriticalPairTranslator {
 						processedHenshinRuleRhsNodes.add(fnode);
 						firstRuleRhsMapping.put(morph1TargetObject, fnode);
 						break;
-						// stops the process of searching the member node after (a/)the corresponding one is found
+						
 					}
 				}
 
@@ -231,43 +231,43 @@ public class AggHenshinCriticalPairTranslator {
 						criticalGraphMapping.addFirstRuleMapping(morph1TargetObject, henshinNodeRhs);
 				}
 
-				// add node to graph and into Match
+				
 				EClass targetEClass = ecoreFactory.createEClass();
-				targetEClass.setName("" + morph1TargetObject.hashCode()); // hashValue of a AGG graphObject
+				targetEClass.setName("" + morph1TargetObject.hashCode()); 
 
 				processAttributesOfMorphism(morph1TargetObject, targetEClass);
 
-				if (morph1TargetObject.isCritical()) { // ensures the highlighting of the critical element
+				if (morph1TargetObject.isCritical()) { 
 					hashToName.put(morph1TargetObject.hashCode(), "#" + morph1TargetObject.getType().getName() + "#");
 
 					CriticalElement criticalElement = new CriticalElement();
 					criticalElements.add(criticalElement);
-					// when this critical element is added, its still unclear if the attribute does occur in the second
-					// rule. If not, the critical element will be dropped later on.
+					
+					
 
 					criticalElement.commonElementOfCriticalGraph = morph1TargetObject;
 					if (criticalPairType == CPType.Conflict) {
 
 						criticalElement.elementInFirstRule = henshinNodeLhs;
-						// default. Other cases will be handled in the further .
+						
 
 						if (transformCriticalKindOfConflict(cpd) == ConflictKind.CHANGE_USE_ATTR_CONFLICT
-								// TODO: refactor such that "transformCriticalKindOfConflict(...)" is called only once
-								// per "processAGGresultOfRulePair(...)" an the result is stored in an internal
-								// variable.
+								
+								
+								
 								|| transformCriticalKindOfConflict(cpd) == ConflictKind.CHANGE_FORBID_ATTR_CONFLICT
 								|| transformCriticalKindOfConflict(cpd) == ConflictKind.PRODUCE_FORBID_CONFLICT) {
-							// TODO: check for more concerned conflict kinds
+							
 							boolean anyAttributeProcessed = false;
-							// check all attributes if they are the cause for the dependency/conflict
+							
 							for (Attribute henshinRhsAttribute : henshinNodeRhs.getAttributes()) {
-								boolean attributeChanged = true; // even if the the attribute is not contained in the
-																	// LHS, it is changed, since it is created
+								boolean attributeChanged = true; 
+																	
 								if (henshinNodeLhs != null)
 									for (Attribute henshinLhsAttribute : henshinNodeLhs.getAttributes()) {
 										boolean attributeTypeIdentical = henshinLhsAttribute
-												.getType() == henshinRhsAttribute.getType(); // type of both attributes
-																								// must be identical
+												.getType() == henshinRhsAttribute.getType(); 
+																								
 										boolean attributeNameEqual = henshinLhsAttribute.getType().getName()
 												.equals(henshinRhsAttribute.getType().getName());
 										if (attributeTypeIdentical && attributeNameEqual) {
@@ -282,40 +282,40 @@ public class AggHenshinCriticalPairTranslator {
 									} else {
 										CriticalElement criticalElementforFurtherChangedAttribute = new CriticalElement();
 										criticalElements.add(criticalElementforFurtherChangedAttribute);
-										// when this critical element is added, its still unclear if the attribute does
-										// occur in the second rule. If not, the critical element will be dropped later
-										// on.
+										
+										
+										
 										criticalElementforFurtherChangedAttribute.commonElementOfCriticalGraph = morph1TargetObject;
 										criticalElementforFurtherChangedAttribute.elementInFirstRule = henshinRhsAttribute;
 									}
 								}
 							}
 							if (!anyAttributeProcessed) {
-								// System.err
-								// .println("critical node in CHANGE_USE_ATTR_CONFLICT detected without any attribute
-								// change. Not fully implemented yet. had been treated like a created node, if it might
-								// be a deleted one.");
+								
+								
+								
+								
 								criticalElement.elementInFirstRule = henshinNodeRhs;
 							}
 						}
 					} else if (criticalPairType == CPType.Dependency) {
-						// node of the RHS of the first rule contains the created element
+						
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.PRODUCE_USE_DEPENDENCY)
 							criticalElement.elementInFirstRule = henshinNodeRhs;
-						// node of the LHS of the first rule is being deleted and is the critical element. (since its
-						// being deleted, it wont be part of the RHS)
+						
+						
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.DELETE_FORBID_DEPENDENCY)
 							criticalElement.elementInFirstRule = henshinNodeLhs;
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.CHANGE_USE_ATTR_DEPENDENCY) {
 							boolean anyAttributeProcessed = false;
-							// check all attributes if they are the cause for the dependency/conflict
+							
 							for (Attribute henshinRhsAttribute : henshinNodeRhs.getAttributes()) {
-								boolean attributeChanged = true; // even if the the attribute is not contained in the
-																	// LHS, it is changed, since it is created
+								boolean attributeChanged = true; 
+																	
 								for (Attribute henshinLhsAttribute : henshinNodeLhs.getAttributes()) {
 									boolean attributeTypeIdentical = henshinLhsAttribute
 											.getType() == henshinRhsAttribute.getType();
-									// type of both attributes must be identical
+									
 									boolean attributeNameEqual = henshinLhsAttribute.getType().getName()
 											.equals(henshinRhsAttribute.getType().getName());
 									if (attributeTypeIdentical && attributeNameEqual) {
@@ -323,7 +323,7 @@ public class AggHenshinCriticalPairTranslator {
 											attributeChanged = false;
 									}
 								}
-								// if the value had changed, this seems to be the reason for the dependency.
+								
 								if (attributeChanged) {
 									if (!anyAttributeProcessed) {
 										criticalElement.elementInFirstRule = henshinRhsAttribute;
@@ -336,12 +336,12 @@ public class AggHenshinCriticalPairTranslator {
 									}
 								}
 							}
-							// add the node if no change of the value occurred
+							
 							if (!anyAttributeProcessed) {
-								// System.err
-								// .println("critical node in CHANGE_USE_ATTR_CONFLICT detected without any attribute
-								// change. Not fully implemented yet. had been treated like a created node, if it might
-								// be a deleted one.");
+								
+								
+								
+								
 								criticalElement.elementInFirstRule = henshinNodeRhs;
 							}
 						}
@@ -367,25 +367,24 @@ public class AggHenshinCriticalPairTranslator {
 			else if (morph1TargetObject.isArc()) {
 				try {
 					boolean arcIsCritical = morph1SourceObject.isCritical() || morph1TargetObject.isCritical();
-					if (criticalPairType == CPType.Conflict) { // LHS is of relevance
+					if (criticalPairType == CPType.Conflict) { 
 						processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
 								criticalGraphMapping);
-					} else if (criticalPairType == CPType.Dependency) { // RHS is of relevance
-						// since the 'produced' elements only occur in the RHS of the first rule
+					} else if (criticalPairType == CPType.Dependency) { 
+						
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.PRODUCE_USE_DEPENDENCY)
 							processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
 									criticalGraphMapping);
-						// since the 'produced' elements only occur in the LHS of the first rule
+						
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.DELETE_FORBID_DEPENDENCY)
 							processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
-									criticalGraphMapping); // only the nodes of the domain (morph1SourceObject) are
-															// within the mapping
+									criticalGraphMapping); 
+															
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.CHANGE_USE_ATTR_DEPENDENCY) {
 							processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
 									criticalGraphMapping);
 							System.err.println("Unimplemented yet");
-							// throw new Exception("processing of CHANGE_USE_ATTR_DEPENDENCY edges unimpleted yet");
-							// //TODO: 02.08.2015: implementation sufficient???
+							
 						}
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.CHANGE_FORBID_ATTR_DEPENDENCY) {
 							System.err.println("Unimplemented yet");
@@ -404,7 +403,7 @@ public class AggHenshinCriticalPairTranslator {
 		}
 
 		secondRuleCopyMatch = new ExtendedMatchImpl(secondHenshinRuleOriginal, true);
-		// Map the second rule
+		
 		OrdinaryMorphism morph2 = cpd.getMorph2();
 
 		boolean edgeProcessingOfSecondRuleBegun = false;
@@ -412,7 +411,7 @@ public class AggHenshinCriticalPairTranslator {
 		Vector<GraphObject> morph2SourceObjects2 = morph2.getDomainObjects();
 		Vector<GraphObject> morph2TargetObjects2 = morph2.getCodomainObjects();
 
-		// mapping of AGG-nodes<->Henshin-rule-nodes
+		
 		HashMap<GraphObject, Node> secondRuleLhsMapping = new HashMap<GraphObject, Node>();
 
 		List<Node> processedLhsNodes = new LinkedList<Node>();
@@ -450,7 +449,7 @@ public class AggHenshinCriticalPairTranslator {
 							}
 						}
 					} else if (nestCond.isPAC()) {
-						// for future improvement of supported features - add PAC Handling here
+						
 						System.err.println("PAC's are not yet supported by the features.");
 					} else {
 						System.err.println("AGGResultImporter: nested condition is no NAC and thus not supported yet");
@@ -464,7 +463,7 @@ public class AggHenshinCriticalPairTranslator {
 					criticalGraphMapping.addSecondRuleMapping(morph2TargetObject, henshinNodeNac);
 				}
 
-				// add node to graph (when not yet added by rule1) and into Match
+				
 				EClass targetEClass = null;
 				if (hashToName.containsKey(morph2TargetObject.hashCode())) {
 					targetEClass = (EClass) cpaEPackage.getEClassifier("" + morph2TargetObject.hashCode());
@@ -482,8 +481,8 @@ public class AggHenshinCriticalPairTranslator {
 				if (morph2TargetObject.isCritical()) {
 					processCriticalElementOfSecondRule(cpd, morph2TargetObject, henshinNodeLhs, henshinNodeNac);
 				}
-				// TODO: how shall the critical element be processed beforehand (wich might be an attribute) and the
-				// attributes are just afterwards being processed?
+				
+				
 				processAttributesOfMorphism(morph2TargetObject, targetEClass);
 
 				if (henshinNodeLhs != null) {
@@ -518,11 +517,11 @@ public class AggHenshinCriticalPairTranslator {
 			}
 		}
 
-		// post process the match: remove rule parameters
+		
 		secondRuleCopyMatch.removeAllParameter(secondHenshinRuleOriginal.getParameters());
 
 		if (validCriticalPair) {
-			// rename back from hash
+			
 			rename(hashToName, cpaEPackage);
 
 			if (criticalPairType == CPType.Dependency) {
@@ -620,14 +619,14 @@ public class AggHenshinCriticalPairTranslator {
 						}
 					}
 				}
-			} // TODO: may attributes be involved in case of ConflictKind.DELETE_USE_CONFLICT? At least an attribute
-				// might not be the critical element of the ConflictKind.DELETE_USE_CONFLICT.
+			} 
+				
 			if (existingCritElem.elementInFirstRule == null) {
-				// this is an intended behavior. When the critical elements of the first rule had been created it still
-				// had been unclear if they are part of the second rule.
-				// TODO: maybe add:
-				// .println("a critical element had been instantiated in the processing of the first rule, but no
-				// appropriate henshin element had been assigned");
+				
+				
+				
+				
+				
 			}
 		}
 	}
@@ -669,9 +668,9 @@ public class AggHenshinCriticalPairTranslator {
 		AttrInstance attributes = morphObjectOfAGG.getAttribute();
 		if (attributes != null) {
 			for (int attrNr = 0; attrNr < attributes.getNumberOfEntries(); attrNr++) {
-				// 24.07.2015: all attributes with the corresponding type are checked in the meta model( / type graph)
+				
 				boolean dontProcessThisAttribute = false;
-				// only those present in the minimal model are being instantiated.
+				
 				EAttribute newAttrForMinimalGraph = ecoreFactory.createEAttribute();
 				AttrMember memberAt = attributes.getMemberAt(attrNr);
 
@@ -691,7 +690,7 @@ public class AggHenshinCriticalPairTranslator {
 					for (EStructuralFeature eStructFeat : eStructuralFeatures) {
 						if (eStructFeat instanceof EAttribute && !dontProcessThisAttribute) {
 							EAttribute allreadyExistingEAttribute = (EAttribute) eStructFeat;
-							// check if eAttribute is already processed
+							
 							if (allreadyExistingEAttribute.getName().equals(newAttrForMinimalGraph.getName())) {
 								dontProcessThisAttribute = true;
 								break;
@@ -770,8 +769,8 @@ public class AggHenshinCriticalPairTranslator {
 				hashToName.put(morphismTargetObject.hashCode(), morphismTargetObject.getType().getName());
 			}
 
-			// this duplicateEdge check filters results which are based on duplicated edges between nodes.
-			// since this is not possible in ecore we wont provide this result.
+			
+			
 			boolean duplicateEdge = false;
 
 			for (EStructuralFeature structuralFeature : from.getEStructuralFeatures()) {
@@ -803,7 +802,7 @@ public class AggHenshinCriticalPairTranslator {
 					System.err.println("WARNING! - cant process the critical edge '" + morphismTargetObject.toString()
 							+ "' since related henshin node cant be resolved.");
 				for (Edge edge : henshinSourceNode.getOutgoing()) {
-					if (edge.getTarget() == henshinTargetNode) { // correct edge found
+					if (edge.getTarget() == henshinTargetNode) { 
 						critEdgeElem.elementInFirstRule = edge;
 						critEdgeElem.commonElementOfCriticalGraph = morphismTargetObject;
 					}
@@ -814,13 +813,13 @@ public class AggHenshinCriticalPairTranslator {
 			if (sequentialRule == SequentialRule.SecondRule) {
 				Node henshinSourceNode = criticalGraphMapping.getSecondRuleNode(sourceNode);
 				Node henshinTargetNode = criticalGraphMapping.getSecondRuleNode(targetNode);
-				// if (henshinSourceNode == null || henshinTargetNode == null)
-				// System.err.println("WARNING! - cant process the critical edge '" + morphismTargetObject.toString()
-				// + "' since related henshin node cant be resolved.");
-				// 1. extraction of the edge in the Henshin rule
+				
+				
+				
+				
 				Edge correspondingHenshinEdge = null;
 				for (Edge edge : henshinSourceNode.getOutgoing()) {
-					if (edge.getTarget() == henshinTargetNode) { // correct edge found
+					if (edge.getTarget() == henshinTargetNode) { 
 						correspondingHenshinEdge = edge;
 						break;
 					}
@@ -859,9 +858,9 @@ public class AggHenshinCriticalPairTranslator {
 	 */
 	private String getCriticalPairKindString(CriticalPairData cpd) {
 		if (criticalPairType == CPType.Conflict) {
-			return transformCriticalKindOfConflict(cpd).toString(); // TODO: may return NULL - handle this case
+			return transformCriticalKindOfConflict(cpd).toString(); 
 		} else if (criticalPairType == CPType.Dependency) {
-			return transformCriticalKindOfDependency(cpd).toString(); // TODO: may return NULL - handle this case
+			return transformCriticalKindOfDependency(cpd).toString(); 
 		}
 		return null;
 	}

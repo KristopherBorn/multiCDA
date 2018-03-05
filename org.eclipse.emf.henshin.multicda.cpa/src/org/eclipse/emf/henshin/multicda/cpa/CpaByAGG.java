@@ -333,7 +333,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	@Override
 	public CPAResult runConflictAnalysis() {
 		ExcludePairContainer epc = (ExcludePairContainer) ParserFactory.createEmptyCriticalPairs(gragra,
-				CriticalPairOption.EXCLUDEONLY, false/* defaultValue */); // TODO: add "NULL"-check for gragra
+				CriticalPairOption.EXCLUDEONLY, false);
 		epc.enablePACs(true);
 		setOptionsOnContainer(epc, options);
 		computeCriticalPairs(firstAggRuleSetForAnalysis, secondAggRuleSetForAnalysis, epc);
@@ -413,7 +413,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	private void computeCriticalPairs(List<Rule> rules1, List<Rule> rules2, ExcludePairContainer exclude) {
 
 		if (firstHenshinRuleSetForAnalysis.size() == 0 || secondHenshinRuleSetForAnalysis.size() == 0)
-			return; // TODO: hier muss mehr/etwas besseres hin als ein reines "return"
+			return; // : hier muss mehr/etwas besseres hin als ein reines "return"
 
 		if (exclude != null) {
 
@@ -421,8 +421,8 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 			int progressIntervalR1 = 10000;
 			int progressIntervalR2 = 10000;
 			if (firstHenshinRuleSetForAnalysis != null && secondHenshinRuleSetForAnalysis != null) {
-				progressIntervalR1 = 10000 / firstHenshinRuleSetForAnalysis.size(); //TODO: wenn "firstHenshinRuleSetForAnalysis" keine Elemnte enthält kommt es zu einem Fehler 
-				progressIntervalR2 = progressIntervalR1 / secondHenshinRuleSetForAnalysis.size(); //TODO: wenn "secondHenshinRuleSetForAnalysis" keine Elemnte enthält kommt es zu einem Fehler
+				progressIntervalR1 = 10000 / firstHenshinRuleSetForAnalysis.size(); //: wenn "firstHenshinRuleSetForAnalysis" keine Elemnte enthält kommt es zu einem Fehler 
+				progressIntervalR2 = progressIntervalR1 / secondHenshinRuleSetForAnalysis.size(); //: wenn "secondHenshinRuleSetForAnalysis" keine Elemnte enthält kommt es zu einem Fehler
 			}
 
 			for (Rule r1 : rules1) {
@@ -482,7 +482,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 * @param epc The container with the rules, options and many more within AGG for calculating the critical pairs.
 	 * @param options The options set for the calculation by the henshin interface.
 	 */
-	private void setOptionsOnContainer(ExcludePairContainer epc, CPAOptions options) { // TODO: add "NULL"-check for the
+	private void setOptionsOnContainer(ExcludePairContainer epc, CPAOptions options) { 
 																						// input values
 		epc.enableComplete(options.isComplete());
 		// no more supported, since theses parameters are predefined

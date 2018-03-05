@@ -35,7 +35,7 @@ public class ConflictsOfUmlEditRulesRunner extends Runner{
 
 		String projectPath = filePath.replaceAll("bin", "");
 		System.out.println(projectPath);
-		String subDirectoryPath = "testData\\umlEditRules\\original\\"; //TODO: warum werden nicht alle Kombinationen durchlaufen, sondern stattdessen ende es nach "changeCombinedFragmentInteractionOperator_FROM_Consider_TO_loop" als erster Regel?
+		String subDirectoryPath = "testData\\umlEditRules\\original\\"; //warum werden nicht alle Kombinationen durchlaufen, sondern stattdessen ende es nach "changeCombinedFragmentInteractionOperator_FROM_Consider_TO_loop" als erster Regel?
 		String fullSubDirectoryPath = projectPath + subDirectoryPath;
 		
 		Runner runner = new Runner();

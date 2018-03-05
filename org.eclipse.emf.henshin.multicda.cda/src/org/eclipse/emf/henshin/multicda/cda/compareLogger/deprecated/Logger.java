@@ -122,10 +122,9 @@ public class Logger {
 	}
 
 	/*
-	 *  todo: add details here: #LhsNode, #LhsEdges, #deleteNodes, #deleteEdges
+	 *  add details here: #LhsNode, #LhsEdges, #deleteNodes, #deleteEdges
 	 */
 	private String analyseDetailsOfRule(Rule rule) {
-		// TODO Auto-generated method stub
 		
 		int numberOfLhsNodes = rule.getLhs().getNodes().size();
 		int numberOfLhsEdges = rule.getLhs().getEdges().size();
@@ -245,20 +244,20 @@ public class Logger {
 	// das gehört nicht in die Logger Klasse!
 //	public void addNormalCpaResult(CPAResult cpaResult) {
 //		for(CriticalPair cp : cpaResult.getCriticalPairs()){
-//			normalCpaResults.addResult(cp); //TODO: introduce a "addAll" method for CriticalPairs in the CPAResult class. 
+//			normalCpaResults.addResult(cp); //introduce a "addAll" method for CriticalPairs in the CPAResult class. 
 //		}		
 //	}
 //
 //	public void addEssentialCpaResult(CPAResult essentialResult) {
 //		for(CriticalPair cp : essentialResult.getCriticalPairs()){
-//			essentialCpaResults.addResult(cp); //TODO: introduce a "addAll" method for CriticalPairs in the CPAResult class. 
+//			essentialCpaResults.addResult(cp); //introduce a "addAll" method for CriticalPairs in the CPAResult class. 
 //		}		
 //	}
 //
 //	public void addCoreOfConflictsResult(Rule firstRule, Rule originalRuleOfRule2, List<ConflictAtom> conflictAtoms,
 //			List<Span> conflictAtomCandidates, Set<Span> minimalConflictReasons) {
 //		for(Span minimalConflictReason : minimalConflictReasons){
-//			//TODO(11.04.2017): es sollten nur die relevanten 'conflictAtoms' und 'conflictAtomCandidates' zum 'minimalConflictReason' übergeben werden. Wie lassen sich diese abrufen/identifizieren???  
+//			//(11.04.2017): es sollten nur die relevanten 'conflictAtoms' und 'conflictAtomCandidates' zum 'minimalConflictReason' übergeben werden. Wie lassen sich diese abrufen/identifizieren???  
 //			MinimalConflict minimalConflict = new MinimalConflict(firstRule, originalRuleOfRule2, minimalConflictReason, conflictAtoms, conflictAtomCandidates);			
 //			minimalConflicts.add(minimalConflict);
 //		}

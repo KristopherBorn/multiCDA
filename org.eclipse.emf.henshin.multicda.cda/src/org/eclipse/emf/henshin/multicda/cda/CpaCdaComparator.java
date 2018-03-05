@@ -32,7 +32,6 @@ public class CpaCdaComparator {
 
 	public CpaCdaComparator() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public CompareResult compare(Set<CriticalPair> essentialCPs, Set<EssentialConflictReason> conflictReasons){
@@ -41,7 +40,7 @@ public class CpaCdaComparator {
 	}
 	
 	
-	//TODO: exctract to normal class
+	
 	public class CompareResult {
 		
 		Engine engine = new EngineImpl();
@@ -65,57 +64,57 @@ public class CpaCdaComparator {
 					
 					Pushout pr = cr.getPushoutResult();
 					
-					// Load the instance into an EGraph:
-//					EObject minimalModelOfCP = cp.getMinimalModel();
-					// hierbei handelt es sich leider nur um eine Instanz des Metamodells von ECore
-//					EGraph graph = new EGraphImpl(minimalModelOfCP); // (TODO: was verbirgt sich dahinter, dass auch eine EMenge von EObjects übergeben werden kan udn akn man sich das zu nutze machen?)
 					
-//					// Create a rule application:
-//					RuleApplication ra = new RuleApplicationImpl(engine);
-//					ra.setEGraph(graph);
+
+					
+
+					
+
+
+
 					
 					Rule dummyPO_rule = henshinFactory.createRule();
-					//TODO: hier überprüfen, dass "pr.getResultGraph()" noch '==' null ist
+					
 					dummyPO_rule.setLhs(pr.getResultGraph());
 					
-					// creating a appropriate module for the export, with the aim to keep the provided rules and their modules unchanged
-					Module module = (Module) EcoreUtil.copy(cr.getRule1().getModule()); //TODO: introduce some checks and a more sophisticated way to get a valid module.
-					// since even unsatisfactory copies of the rules and units have been created, those have to be removed.
+					
+					Module module = (Module) EcoreUtil.copy(cr.getRule1().getModule()); 
+					
 					module.getUnits().clear(); module.getImports().get(0); ((Conflict)cp).getMatch1().getNodeTargets();
 					Conflict conflict = ((Conflict)cp);
 					EGraph graph = (EGraph) conflict.getMinimalModel();
 					module.getUnits().add(dummyPO_rule);
 					
-//					System.err.println("number of Nodes/Edges in LHS rule:"+pr.getResultGraph().getNodes().size()+"/"+pr.getResultGraph().getEdges().size());
-//					System.err.println("number of Nodes/Edges in graph:"+graph.toString());
+
+
 					
-//					Module module = cr.getRule1().getModule();
-//					module.get
-//					dummyPO_rule.get
+
+
+
 					
-//					ra.setRule(dummyPO_rule);
-//					ra.setParameterValue("client", "Alice");
-//					ra.setParameterValue("accountId", 5);
+
+
+
 					Iterable<Match> matches = engine.findMatches(dummyPO_rule, graph, null);
-					// TODO: über die beim Pushout gebildete Zuordnung von Regel zu Graph (mappings), könnte ein partial match vorgegeben werden.
+					
 					
 					boolean matchesFound = false;
 					int numberOfMatches = 0;
 					for(Match match : matches){ 
-						matchesFound = true; // kürzer über: matches.iterator(). hasNext() - ABER: kein debugging ob es zu mehreren matches gekommen ist.
+						matchesFound = true; 
 						numberOfMatches++;
 					}
 
-					// TODO: Zuordnung der Ergebnisse
+					
 					boolean numberOfNodesAreEqual = pr.getResultGraph().getNodes().size() == graph.size();
 					boolean numberOfEdgesAreEqual = pr.getResultGraph().getEdges().size() == InterpreterUtil.countEdges(graph);
-//					System.err.println("matches found: "+matchesFound+" Nodes: "+numberOfNodesAreEqual +" Edges: "+numberOfEdgesAreEqual);
+
 					if(matchesFound && numberOfNodesAreEqual && numberOfEdgesAreEqual){
 						unassignedCPs.remove(cp);
 						unassignedCRs.remove(cr);
 						
 
-						// Map<CriticalPair, Set<ConflictReason>> 
+						
 						Set<EssentialConflictReason> crs = CpaToCda.get(cp);
 						if(crs == null){
 							crs = new HashSet<EssentialConflictReason>();
@@ -123,7 +122,7 @@ public class CpaCdaComparator {
 						}
 						crs.add(cr);
 						
-						// Map<ConflictReason, Set<CriticalPair>> 
+						
 						Set<CriticalPair> cps = CdaToCpa.get(cr);
 						if(cps == null){
 							cps = new HashSet<CriticalPair>();

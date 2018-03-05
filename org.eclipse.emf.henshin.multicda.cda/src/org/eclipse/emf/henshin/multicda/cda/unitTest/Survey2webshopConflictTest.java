@@ -47,7 +47,6 @@ public class Survey2webshopConflictTest {
 		// }
 	}
 
-	// TODO: cofnlcitAtom Test
 	@Test
 	public void computeConflictAtomsTest() {
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(returnOneUnpaidItemRule,
@@ -64,7 +63,6 @@ public class Survey2webshopConflictTest {
 		// Je 3 CA für die Überlappung der 'OrderItem'
 		assertEquals(6, computedConflictAtoms.size());
 
-		// TODO: an dieser Stelle ist noch ein detailiertes testen der
 		// Ergebnisse möglich.
 	}
 
@@ -95,7 +93,5 @@ public class Survey2webshopConflictTest {
 		for (Span mcr : reasons) {
 			System.out.println(mcr.toShortString());
 		}
-		// TODO: an dieser Stelle ist noch ein detailiertes testen der
-		// Ergebnisse möglich.
 	}
 }

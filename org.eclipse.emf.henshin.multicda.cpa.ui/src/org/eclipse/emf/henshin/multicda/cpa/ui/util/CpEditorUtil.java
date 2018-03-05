@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available 
  * under the terms of the Eclipse Public License v1.0 which 
  * accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * http:
  * </copyright>
  */
 package org.eclipse.emf.henshin.multicda.cpa.ui.util;
@@ -36,16 +36,16 @@ public class CpEditorUtil {
 		return new String[] { "org.eclipse.emf.henshin.presentation.HenshinEditorID",
 				"org.eclipse.gmf.ecore.part.EcoreDiagramEditorID",
 				"org.eclipse.emf.henshin.presentation.HenshinEditorID" };
-//		return new String[] { "org.eclipse.emf.henshin.presentation.HenshinEditorID",
-//				"org.eclipse.emf.ecore.presentation.EcoreEditorID",
-//				"org.eclipse.emf.henshin.presentation.HenshinEditorID" };
+
+
+
 	}
 
 	public static void openResultInCpEditor(URI firstRuleUri, URI overlapUri, URI secondRuleUri) {
 
 		/** URIs of henshin1, ecore[, henshin2 [.ecore, .wcoreextended, .gcore and .wcore files] */
 		URI[] modelURIs = new URI[3];
-		// TODO: die drei URIs einfügen
+		
 		modelURIs[0] = firstRuleUri;
 		modelURIs[1] = overlapUri;
 		modelURIs[2] = secondRuleUri;
@@ -59,31 +59,30 @@ public class CpEditorUtil {
 
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			IEditorPart editor = page.openEditor(multiEditorInput, HenshinCPEditor.MULTI_EDITOR_ID, true);
-			// ((HenshinCPEditorBasedOnPimarEditor)editor).setModelFileUris(modelURIs); //scheint überflüssig.
+			
 
-			// TODO: extract Method?
-			if (editor instanceof HenshinCPEditor) { // sollte eigentlich immer so sein - soll nur ClassCastException
-														// vermeiden
+			
+			if (editor instanceof HenshinCPEditor) { 
+														
 				HenshinCPEditor openedHenshinCPEditor = (HenshinCPEditor) editor;
 				IEditorPart[] innerEditors = openedHenshinCPEditor.getInnerEditors();
 
-				// TODO den ganzen Prozess des ausklappens in eine Methode auslagern und mit try/catch aufrufen um NPEs
-				// zu vermeiden.
+				
 
 				for (IEditorPart iEditorPart : innerEditors) {
-					//TODO: dieser Block wird nicht mehr gebraucht, da die Darstellung ein EcoreDiagramEditor ist und nicht mehr EcoreEditor. Vielleicht sollte man eine If schreiben in der bei dem EcoreDiagramEditor die Palette rechts geschlossen wird.
+					
 					if (iEditorPart instanceof EcoreEditor) {
 						EcoreEditor ecoreEditor = (EcoreEditor) iEditorPart;
 						Viewer viewer = ecoreEditor.getViewer();
-						// TODO: vorm cast'en prüfen, ob es auch instanceof ist, sonst kann es zur NPE kommen.
+						
 						TreeViewer tViewer = (TreeViewer) viewer;
 
-						// TODO: disable Validation (liveValidation)
+						
 
 						tViewer.expandToLevel(4);
 					}
 
-					// TODO: introduce expand functionality for henshin rules
+					
 					if (iEditorPart instanceof HenshinEditor) {
 						HenshinEditor henshinEditor = (HenshinEditor) iEditorPart;
 					}
@@ -91,10 +90,8 @@ public class CpEditorUtil {
 			}
 
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -109,13 +106,12 @@ public class CpEditorUtil {
 		IFile[] iFile0 = workspaceRoot.findFilesForLocationURI(myURI0);
 		FileEditorInput firstRuleFileEditorInput = new FileEditorInput(iFile0[0]);
 		boolean firstRuleFileEditorInputExists = firstRuleFileEditorInput.exists();
-		// TODO: 'throw exception' wenn
 		/*
 		 * Ansatz für Feedback an Nutzer, dass eines der zugehörigen files nciht geladen werden konnte: (stammt aus
 		 * HenshinateHenshinFileHandler)
 		 * 
 		 * 
-		 * // Something was wrong: MessageDialog.openError(HandlerUtil.getActiveShell(event), "Error",
+		 * 
 		 * "Please select exactly one *." + HenshinResource.FILE_EXTENSION + " file.");
 		 */
 

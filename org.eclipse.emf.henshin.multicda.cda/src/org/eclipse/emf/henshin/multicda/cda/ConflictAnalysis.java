@@ -159,7 +159,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public Set<MinimalConflictReason> getMinimalConflictReasons() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

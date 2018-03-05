@@ -44,24 +44,19 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 	private Group rulesGroup;
 	private boolean sufficientRulesSelected;
 	private HashMap<Rule, String> rulesAndAssociatedFileNames;
-	private final String CONFLICT_BUTTON_TXT = "Conflicts";
-	private final String DEPENDENCY_BUTTON_TXT = "Dependencies";
 
 	private final class RuleNameComparator implements Comparator<Rule> {
 		public int compare(Rule r1, Rule r2) {
-			int compareResult = r1.getName().compareTo(r2.getName());
-
-			if (compareResult < 0)
-				return -1;
-			else if (compareResult > 0)
-				return 1;
-			else
-				return 0;
+			return r1.getName().compareTo(r2.getName());
 		}
 	}
 
 	private enum CPTypesEnum {
-		CONFLICT, DEPENDENCY
+		CONFLICT("Conflicts"), DEPENDENCY("Dependencies");
+		public final String name;
+		CPTypesEnum(String name) {
+			this.name = name;
+		}
 	};
 
 	EnumSet<CPTypesEnum> selectedCPTypes = EnumSet.noneOf(CPTypesEnum.class);
@@ -73,8 +68,8 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 	 */
 	public RuleAndCpKindSelectionWizardPage(HashMap<Rule, String> rulesAndAssociatedFileNames) {
 		super("Precondition");
-		setTitle("Critical Pair Analysis - Rule selection");
-		setDescription("Please select the rules you want to check by the Critical Pair Analysis.");
+		setTitle("Conflict and Dependency Analysis");
+		setDescription("Please select the rules you want to check by the Conflict Reason Analysis.");
 
 		this.rulesAndAssociatedFileNames = rulesAndAssociatedFileNames;
 
@@ -127,12 +122,12 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		selectAllButton.addListener(SWT.Selection, checkListener);
 
 		Button conflictAnalysisButton = new Button(criticalPairKindGroup, SWT.CHECK);
-		conflictAnalysisButton.setText(CONFLICT_BUTTON_TXT);
+		conflictAnalysisButton.setText(CPTypesEnum.CONFLICT.name);
 		conflictAnalysisButton.setData(CPTypesEnum.CONFLICT);
 		conflictAnalysisButton.addListener(SWT.Selection, calcListener);
 
 		Button dependencyAnalysisButton = new Button(criticalPairKindGroup, SWT.CHECK);
-		dependencyAnalysisButton.setText(DEPENDENCY_BUTTON_TXT);
+		dependencyAnalysisButton.setText(CPTypesEnum.DEPENDENCY.name);
 		dependencyAnalysisButton.setData(CPTypesEnum.DEPENDENCY);
 		dependencyAnalysisButton.addListener(SWT.Selection, calcListener);
 
@@ -192,7 +187,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 				setErrorMessage(null);
 			} catch (UnsupportedRuleException e) {
 				setErrorMessage(e.getDetailedMessage());
-				// TODO: differentiate between Errors (no analysis possible) and
+				// differentiate between Errors (no analysis possible) and
 				// warnings (realisation see line below)
 				// setMessage(e.getDetailedMessage(), 2);
 			}

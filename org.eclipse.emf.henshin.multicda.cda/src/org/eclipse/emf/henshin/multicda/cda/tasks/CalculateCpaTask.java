@@ -57,14 +57,13 @@ public class CalculateCpaTask implements Callable<CPAResult> {
 				cpaResult = criticalPairAnalysis.runDependencyAnalysis();
 			}	
 		} catch (Exception /*UnsupportedRuleException*/ e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		long cpaEndTime = System.currentTimeMillis();
 		normalRunTime = cpaEndTime - normalStartTime;
 		
-		//TODO: Fehlerbehandlung für den Fall einer Exception einführen! 
+		//Fehlerbehandlung für den Fall einer Exception einführen! 
 		taskResultContainer.setResult(cpaResult, normalRunTime);
 		
 		return cpaResult;

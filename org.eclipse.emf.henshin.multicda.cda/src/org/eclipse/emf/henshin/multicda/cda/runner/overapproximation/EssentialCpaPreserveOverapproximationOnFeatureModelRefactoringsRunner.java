@@ -21,8 +21,7 @@ public class EssentialCpaPreserveOverapproximationOnFeatureModelRefactoringsRunn
 	
 	public static void main(String args[]){
 		
-		// VERDAMMT noch mal schon wieder das registrieren!!!!
-		FeatureModelPackage.eINSTANCE.eClass(); //TODO(11.04.2017): Gibt es einen programmatischen Weg um generell  
+		FeatureModelPackage.eINSTANCE.eClass();  
 		
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();

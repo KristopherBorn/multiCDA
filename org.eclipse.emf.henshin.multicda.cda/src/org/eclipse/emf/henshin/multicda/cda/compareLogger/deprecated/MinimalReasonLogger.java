@@ -115,7 +115,6 @@ public class MinimalReasonLogger extends Logger{
 	 *  todo: add details here: #LhsNode, #LhsEdges, #deleteNodes, #deleteEdges
 	 */
 	private String analyseDetailsOfRule(Rule rule) {
-		// TODO Auto-generated method stub
 		
 		int numberOfLhsNodes = rule.getLhs().getNodes().size();
 		int numberOfLhsEdges = rule.getLhs().getEdges().size();

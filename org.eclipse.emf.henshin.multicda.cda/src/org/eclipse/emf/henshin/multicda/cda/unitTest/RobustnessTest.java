@@ -40,28 +40,6 @@ public class RobustnessTest {
 	}
 
 
-		/*
-		 * TODO: alle drei Methoden
-		 * conflict atoms? [!]
-		 * conflict atom/part candidates?
-		 * conflict reason? [!]
-		 * 
-		 * mit "Null" als übergabeparameter prüfen.
-		 * Was könnten noch invalide Eingaben sein?
-		 * Validierung der Regeln, dass es sich bei diesen um gültige Regeln handelt.
-		 * 		ABER: was ist eine "gültige" Regel?
-		 * BESSER: die Einschränkungen auf Regeln abprüfen: 
-		 * 			- keine MultiRegeln
-		 * 			- keine ACs
-		 * 			- Attribute ????
-		 * 
-		 */
-	
-	
-	// TODO: tests for unsupported rules (PAC,NAC, multiRule) with loaded rules -> set up unsupported rules	
-	
-	
-	//TODO: the Exception checks need to be executed on the ConflictAnalysis constructor
 	@Test
 	public void computeConflictAtomsNotNullTest() {		
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(null, pullUpEncapsulatedAttributeRule);

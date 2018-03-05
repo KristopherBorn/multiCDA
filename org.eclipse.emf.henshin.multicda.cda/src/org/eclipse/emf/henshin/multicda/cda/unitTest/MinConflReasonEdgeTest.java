@@ -50,14 +50,6 @@ public class MinConflReasonEdgeTest {
 	public void tearDown() throws Exception {
 	}
 	
-//	TODO: hier einen Test hinzufügen für die drei löschenden Regeln aus dem Visual Ciontract Beispiel.
-//	Dabei sollte herauskommen, dass die #CA = # MCR      ABER: wieviele sollten das sein? 
-//  wie stellen sich die Ergebniszahlen im Vergelich zur ess. CPA dar? 
-
-
-//	TODO: hier einen Test hinzufügen für die PushDownGroup Regel aus dem FeatureModelRefactoring Beispiel.
-//		Dabei sollte herauskommen, dass die #CA = # MCR      ABER: wieviele sollten das sein? 
-//				Laut Gabi ausgehend von den sechs gelöschten Kanten entsprechend 6 MCR!
 	@Test
 	public void pushDownGroupTest() {
 
@@ -67,8 +59,7 @@ public class MinConflReasonEdgeTest {
 
 		Rule pushDownGroupRule = null;
 		
-		// VERDAMMT noch mal schon wieder das registrieren!!!!
-		FeatureModelPackage.eINSTANCE.eClass(); //TODO(11.04.2017): Gibt es einen programmatischen Weg um generell  
+		FeatureModelPackage.eINSTANCE.eClass(); 
 		
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -80,19 +71,14 @@ public class MinConflReasonEdgeTest {
 		for (Unit unit : module.getUnits()) {
 			if (unit.getName().equals("PushDownGroup"))
 				pushDownGroupRule = (Rule) unit;
-//			if (unit.getName().equals("pullUpEncapsulatedAttribute"))
-//				pullUpEncapsulatedAttributeRule = (Rule) unit;
 		}
 		
 		
-		// DONE: zweite Regel "non deleting" machen
 		Copier copier = new Copier();
 		Rule pushDownGroupRulePreserve = (Rule) copier.copy(pushDownGroupRule);
-		// TODO: soll die kopierte Regel auch Teil des Module sein? für den nachfolgenden Export vermutlich nicht verkehrt, aber wirklich gewollt? 
 		copier.copyReferences();
 		
 		
-//		TODO: atomicConflicts berechnen!
 		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms();
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
@@ -102,19 +88,12 @@ public class MinConflReasonEdgeTest {
 		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
 		System.err.println("amount of conflictAtomCandidates: "+conflictAtomCandidates.size());
 		
-//		assertEquals(5, conflictAtomCandidates.size());
-
-//		for (AtomicCoreCPA.Span candidate : conflictAtomCandidates) {
-//			EList<Node> nodesOfCandidate = candidate.getGraph().getNodes();
-//			assertEquals(1, nodesOfCandidate.size());
-//		}
 
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 
 		Set<MinimalConflictReason> mCRs = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(candidate,
-					mCRs);
+			atomicCoreCPA.computeMinimalConflictReasons();
 		}
 		System.err.println("amount of MCR: "+mCRs.size());
 		
@@ -137,9 +116,7 @@ public class MinConflReasonEdgeTest {
 		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		System.err.println("amount of computedConflictReason: "+computedConflictReason.size());
 		
-		// Map<AnzahlMCR, AnzahlCRs>
 		Map<Integer, Integer> amoutOfMCRs = new HashMap<Integer, Integer>();
-		// wie groß (= Anzahl Knoten) sind die InitialConflictReason? 
 		for(ConflictReason cr : computedConflictReason){
 			int amountOfMCRsInCR = cr.getOriginMCRs().size();
 			Integer amountOfCRs = amoutOfMCRs.get(amountOfMCRsInCR);
@@ -166,8 +143,7 @@ public class MinConflReasonEdgeTest {
 
 		Rule pushDownGroupRule = null;
 		
-		// VERDAMMT noch mal schon wieder das registrieren!!!!
-		FeatureModelPackage.eINSTANCE.eClass(); //TODO(11.04.2017): Gibt es einen programmatischen Weg um generell  
+		FeatureModelPackage.eINSTANCE.eClass();
 		
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -179,19 +155,14 @@ public class MinConflReasonEdgeTest {
 		for (Unit unit : module.getUnits()) {
 			if (unit.getName().equals("PushDownGroup"))
 				pushDownGroupRule = (Rule) unit;
-//			if (unit.getName().equals("pullUpEncapsulatedAttribute"))
-//				pullUpEncapsulatedAttributeRule = (Rule) unit;
 		}
 		
 		
-		// DONE: zweite Regel "non deleting" machen
 		Copier copier = new Copier();
 		Rule pushDownGroupRulePreserve = (Rule) copier.copy(pushDownGroupRule);
-		// TODO: soll die kopierte Regel auch Teil des Module sein? für den nachfolgenden Export vermutlich nicht verkehrt, aber wirklich gewollt? 
 		copier.copyReferences();
 		
 		
-//		TODO: atomicConflicts berechnen!
 		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms();
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
@@ -199,23 +170,15 @@ public class MinConflReasonEdgeTest {
 
 		AtomCandidateComputation candComp = new AtomCandidateComputation(pushDownGroupRule, pushDownGroupRulePreserve);
 		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
-//		System.out.println("HALT");
 		System.err.println("amount of conflictAtomCandidates: "+conflictAtomCandidates.size());
 		
-//		assertEquals(5, conflictAtomCandidates.size());
-
-//		for (AtomicCoreCPA.Span candidate : conflictAtomCandidates) {
-//			EList<Node> nodesOfCandidate = candidate.getGraph().getNodes();
-//			assertEquals(1, nodesOfCandidate.size());
-//		}
 		
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 
 
 		Set<MinimalConflictReason> mCRs = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(candidate,
-					mCRs);
+			atomicCoreCPA.computeMinimalConflictReasons();
 		}
 		System.err.println("amount of MCR: "+mCRs.size());
 		
@@ -238,9 +201,7 @@ public class MinConflReasonEdgeTest {
 		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		System.err.println("amount of computedConflictReason: "+computedConflictReason.size());
 		
-		// Map<AnzahlMCR, AnzahlCRs>
 		Map<Integer, Integer> amoutOfMCRs = new HashMap<Integer, Integer>();
-		// wie groß (= Anzahl Knoten) sind die InitialConflictReason? 
 		for(ConflictReason cr : computedConflictReason){
 			int amountOfMCRsInCR = cr.getOriginMCRs().size();
 			Integer amountOfCRs = amoutOfMCRs.get(amountOfMCRsInCR);
@@ -255,8 +216,6 @@ public class MinConflReasonEdgeTest {
 		for (Map.Entry<Integer, Integer> entry : amoutOfMCRs.entrySet()) {
 			System.out.println("Die Analyse ergibt " + entry.getValue() + " Confl.Reason die aus " + entry.getKey() + " MinimalConflictReason bestehen");
 		}
-		//TODO: Assert für die vier Confl. Reason die auf einem MCR basieren
-		//TODO: Assert für die sechs Confl. Reason die auf zwei MCR basieren
 	}
 	
 
@@ -269,8 +228,7 @@ public class MinConflReasonEdgeTest {
 
 		Rule pushDownGroupRule = null;
 		
-		// VERDAMMT noch mal schon wieder das registrieren!!!!
-		FeatureModelPackage.eINSTANCE.eClass(); //TODO(11.04.2017): Gibt es einen programmatischen Weg um generell  
+		FeatureModelPackage.eINSTANCE.eClass(); 
 		
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -282,19 +240,14 @@ public class MinConflReasonEdgeTest {
 		for (Unit unit : module.getUnits()) {
 			if (unit.getName().equals("PushDownGroup"))
 				pushDownGroupRule = (Rule) unit;
-//			if (unit.getName().equals("pullUpEncapsulatedAttribute"))
-//				pullUpEncapsulatedAttributeRule = (Rule) unit;
 		}
 		
 		
-		// DONE: zweite Regel "non deleting" machen
 		Copier copier = new Copier();
 		Rule pushDownGroupRulePreserve = (Rule) copier.copy(pushDownGroupRule);
-		// TODO: soll die kopierte Regel auch Teil des Module sein? für den nachfolgenden Export vermutlich nicht verkehrt, aber wirklich gewollt? 
 		copier.copyReferences();
 		
 		
-//		TODO: atomicConflicts berechnen!
 		ConflictAnalysis atomicCoreCPA_forCA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 		List<ConflictAtom> conflictAtoms = atomicCoreCPA_forCA.computeConflictAtoms();
 		System.err.println("amount of conflictAtoms: "+conflictAtoms.size());
@@ -302,22 +255,14 @@ public class MinConflReasonEdgeTest {
 
 		AtomCandidateComputation candComp = new AtomCandidateComputation(pushDownGroupRule, pushDownGroupRulePreserve);
 		List<Span> conflictAtomCandidates = candComp.computeAtomCandidates();
-//		System.out.println("HALT");
 		System.err.println("amount of conflictAtomCandidates: "+conflictAtomCandidates.size());
 		
-//		assertEquals(5, conflictAtomCandidates.size());
-
-//		for (AtomicCoreCPA.Span candidate : conflictAtomCandidates) {
-//			EList<Node> nodesOfCandidate = candidate.getGraph().getNodes();
-//			assertEquals(1, nodesOfCandidate.size());
-//		}
 
 		ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(pushDownGroupRule, pushDownGroupRulePreserve);
 
 		Set<MinimalConflictReason> mCRs = new HashSet<>();//
 		for (Span candidate : conflictAtomCandidates) {
-			atomicCoreCPA.computeMinimalConflictReasons(candidate,
-					mCRs);
+			atomicCoreCPA.computeMinimalConflictReasons();
 		}
 		System.err.println("amount of MCR: "+mCRs.size());
 		
@@ -340,9 +285,7 @@ public class MinConflReasonEdgeTest {
 		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
 		System.err.println("amount of computedConflictReason: "+computedConflictReason.size());
 		
-		// Map<AnzahlMCR, AnzahlCRs>
 		Map<Integer, Integer> amoutOfMCRs = new HashMap<Integer, Integer>();
-		// wie groß (= Anzahl Knoten) sind die InitialConflictReason? 
 		for(ConflictReason cr : computedConflictReason){
 			int amountOfMCRsInCR = cr.getOriginMCRs().size();
 			Integer amountOfCRs = amoutOfMCRs.get(amountOfMCRsInCR);
@@ -357,11 +300,5 @@ public class MinConflReasonEdgeTest {
 		for (Map.Entry<Integer, Integer> entry : amoutOfMCRs.entrySet()) {
 			System.out.println("Die Analyse ergibt " + entry.getValue() + " Confl.Reason die aus " + entry.getKey() + " MinimalConflictReason bestehen");
 		}
-		//TODO: Assert für die acht Confl. Reason die auf einem MCR basieren
-		//TODO: Assert für die acht Confl. Reason die auf zwei MCR basieren (wieso 12 laut Ergebnis? - Kann ich gerade nicht nachvollziehen.)
-			// 																(macht nur Sinn, wenn zwei MCRs verknüpft werden die nicht zusammenhängen)
-												// TADA! Und siehe da(!): wenn dieser Fall ausgenommen wird, so kommt es genau zu den erwarteten Ergebnissen!
-		//TODO: Assert für die acht Confl. Reason die auf drei MCR basieren
-		//TODO: Assert für die zwei Confl. Reason die auf vier MCR basieren
 	}
 }

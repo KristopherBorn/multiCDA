@@ -53,11 +53,6 @@ public class Span {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		// result = prime * result + getOuterType().hashCode();
-		// result = prime * result + ((graph == null) ? 0 : graph.hashCode());
-		// result = prime * result + ((mappingsInRule1 == null) ? 0 : mappingsInRule1.hashCode()); // no application
-		// due to missing knwoledge on the hashCode of two lists with equal content but different order
-		// result = prime * result + ((mappingsInRule2 == null) ? 0 : mappingsInRule2.hashCode());
 		return result;
 	}
 
@@ -189,10 +184,6 @@ public class Span {
 	}
 
 	public Span(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
-		//TODO: introduce a check, that all mappings for rule1 are targeting to a common rule
-		//TODO: introduce a check, that all mappings for rule2 are targeting to a common rule
-		//TODO: introduce a check that rule 1 != rule2
-		//TODO: afterwards "pushout" tests have to be adapted!
 		this.graph = s1;
 		mappingsInRule1 = new HashSet<Mapping>();
 		mappingsInRule1.add(nodeInRule1Mapping);
@@ -231,7 +222,7 @@ public class Span {
 	}
 
 	public Span(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
-		this.mappingsInRule1 = rule1Mappings; //TODO: wie verhält es sich mit einem leeren Graph, bzw. leeren mappngs?
+		this.mappingsInRule1 = rule1Mappings; //wie verhält es sich mit einem leeren Graph, bzw. leeren mappngs?
 		this.mappingsInRule2 = rule2Mappings;
 		this.graph = s1;
 		this.rule1 = getRuleOfMappings(rule1Mappings); // might return null. Needs to be improved. if rules are not set NPE might occure. 
@@ -247,7 +238,7 @@ public class Span {
 		copierForSpanAndMappings.copyReferences();
 		this.graph = copiedGraph;
 
-		// TODO: extract to method
+		// extract to method
 		Set<Mapping> mappingsInRule1 = new HashSet<Mapping>();
 		for (Mapping mapping : s1.getMappingsInRule1()) {
 			Mapping copiedMapping = (Mapping) copierForSpanAndMappings.copy(mapping);
@@ -282,7 +273,6 @@ public class Span {
 		return graph;
 	}
 
-	// TODO use "getMappingWithImage(...)" method
 	public Mapping getMappingIntoRule1(Node originNode) {
 		for (Mapping mapping : mappingsInRule1) {
 			if (mapping.getOrigin() == originNode)
@@ -291,7 +281,6 @@ public class Span {
 		return null;
 	}
 
-	// TODO use "getMappingWithImage(...)" method
 	public Mapping getMappingIntoRule2(Node originNode) {
 		for (Mapping mapping : mappingsInRule2) {
 			if (mapping.getOrigin() == originNode)

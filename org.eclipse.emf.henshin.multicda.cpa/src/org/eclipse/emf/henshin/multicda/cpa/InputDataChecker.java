@@ -203,7 +203,6 @@ public class InputDataChecker {
 			List<org.eclipse.emf.henshin.model.Rule> rulesToBeChecked)
 			throws UnsupportedRuleException {
 		/**
-		 * TODO: - zuerst nur eine einzelne NAC und PAC zulassen - dann
 		 * Konjunktionen von NACs und PACs zulassen. (Disjunktionen
 		 * ausschlieﬂen) - sp‰ter mit "DeMorgenschen Gesetzen"-Refactoring auch
 		 * Disjunktionen zulassen, sofern diese zu Konjuktionen umgestellt

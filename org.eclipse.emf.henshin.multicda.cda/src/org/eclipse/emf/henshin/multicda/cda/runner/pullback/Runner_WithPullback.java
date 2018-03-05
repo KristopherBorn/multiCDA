@@ -124,9 +124,6 @@ public class Runner_WithPullback {
 		CPAOptions essentialOptions = new CPAOptions();
 		essentialOptions.setEssential(true);
 
-		// classic CPA setup
-		// TODO!!!
-
 		int numberOfAllEssentialConflicts = 0;
 		int numberOfFilteredEssentialConflicts = 0;
 
@@ -175,7 +172,7 @@ public class Runner_WithPullback {
 
 						int elementsInLhsOfFirstRule = lhsOfFirstRule.getNodes().size()
 								+ lhsOfFirstRule.getEdges().size();
-						//TODO: sum up the details!
+						//sum up the details!
 //						logger.addData(firstRule, null, Integer.toString(elementsInLhsOfFirstRule),Integer.toString(elementsInLhsOfFirstRule));
 						for (LoggerPB loggerPB : loggers) {
 							loggerPB.addData(firstRule, null, Integer.toString(elementsInLhsOfFirstRule),
@@ -494,7 +491,7 @@ public class Runner_WithPullback {
 				}
 			}
 
-//			todo: introduce row limitatio
+//			introduce row limitatio
 			currentRow++;
 
 		}
@@ -524,7 +521,7 @@ public class Runner_WithPullback {
 		}
 	}
 
-	//	TODO: nutzende Regeln erstellen
+	//	nutzende Regeln erstellen
 //	dazu copier für jede REgel verwenden
 //	Namen der kopierten REgel anpassen
 //	alle mappings löschen
@@ -535,14 +532,14 @@ public class Runner_WithPullback {
 		HenshinFactory henshinFactory = new HenshinFactoryImpl();
 		List<Rule> copiesOfRulesWithoutDeletion = new LinkedList<>();
 		for (Rule ruleToCopy : allLoadedRules) {
-//		REMOVE	TODO: nutzende Regeln erstellen
+//		REMOVE	nutzende Regeln erstellen
 //		REMOVE	dazu copier für jede REgel verwenden
 
 //		REMOVE!	EObject ruleToCopyObject = (EObject) ruleToCopy;
 			Copier copierForRule = new Copier();
 			Rule copyOfRule = (Rule) copierForRule.copy(ruleToCopy);
 //			Namen der kopierten REgel anpassen
-//		DONE	TODO: Erfolg per debug überprüfen!
+//		DONE	Erfolg per debug überprüfen!
 			copyOfRule.setName(copyOfRule.getName().concat("_"));
 			//		copier.copyAll(getRoots()); // nur für ollections!
 			copierForRule.copyReferences();
@@ -550,7 +547,7 @@ public class Runner_WithPullback {
 			MappingList mappings = copyOfRule.getMappings();
 
 //			alle mappings löschen
-//		DONE	todo: debugen, dass danach wirklich keine mappings mehr in der Kopie sind!
+//		DONE	debugen, dass danach wirklich keine mappings mehr in der Kopie sind!
 			mappings.clear();
 			//clear all attr:
 			for (Node nodeInLhs : copyOfRule.getLhs().getNodes()) {
@@ -567,7 +564,7 @@ public class Runner_WithPullback {
 			Graph copiedLhs = (Graph) copierForLhsGraph.copy(copyOfRule.getLhs());
 			copierForLhsGraph.copyReferences();
 //			ERgebnisgraph der kopie in RHS umbenennen
-//			TODO: prüfen ob beschriftung der Konvention entspricht!
+//			prüfen ob beschriftung der Konvention entspricht!
 			copiedLhs.setName("Rhs");
 			copyOfRule.setRhs(copiedLhs);
 
@@ -580,7 +577,6 @@ public class Runner_WithPullback {
 
 			copiesOfRulesWithoutDeletion.add(copyOfRule);
 
-			// TODO Auto-generated method stub
 
 		}
 		return copiesOfRulesWithoutDeletion;
@@ -649,7 +645,7 @@ public class Runner_WithPullback {
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
-				System.out.println("TODO: recursive call of exploration method");
+				System.out.println("recursive call of exploration method");
 				String fileName = child.getName();
 				if (fileName.endsWith(".henshin")) {
 					pathsToHenshinFiles.add(child.getAbsolutePath());
@@ -679,7 +675,7 @@ public class Runner_WithPullback {
 		this.limitedSetOfRulesByRuleNames = limitedSetOfRulesByRuleNames;
 	}
 
-	//TODO: wieso nicht an der Pullback Datenstruktur die auch für die Atomic CP verwendet wurde orientieren?
+	//wieso nicht an der Pullback Datenstruktur die auch für die Atomic CP verwendet wurde orientieren?
 	//r1 <-(m1) G ->(m2) r2
 	private int computePullback(Rule r1, Match m1, Match m2, Rule r2) {
 

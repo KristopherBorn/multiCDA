@@ -30,7 +30,6 @@ public class EssentialConflictReason extends ConflictReason {
 		
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 		
-		//TODO: 
 		// lhs boundary node of rule 1
 		Node boundaryNodeOfRule1 = additionalConflictAtom.getMappingIntoRule1(boundaryNodeOfCA).getImage();
 		
@@ -97,7 +96,6 @@ public class EssentialConflictReason extends ConflictReason {
 //	}
 
 	public Pushout getPushoutResult() {
-		// TODO vielleicht einführen eines Feldes, womit das einmal erzeugte PoR gehalten wird (anstelle es wiederholt zu erzeugen) 
 		// 		- Notwendig für die häufig Nutzung mit dem Comparator
 		return new Pushout(rule1, this, rule2);
 	}

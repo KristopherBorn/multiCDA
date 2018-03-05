@@ -10,15 +10,12 @@ import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
 
 public class MinimalConflict extends CriticalPair {
 
-	//TODO: vielleicht sollte man noch die Mappings zwischen  Span und den Regeln in das Datenmodell mitaufnehmen?
 
 	// Graph should be the Span here!
 	public MinimalConflict(Rule r1, Rule r2, Graph minimalConflictReason) {
 		super(r1, r2, minimalConflictReason);
-		// TODO Auto-generated constructor stub
 	}
 
-	//TODO: Felder
 	/* appliedAnalysis , rule1, rul2, minimalModel(EPackage), criticalElements(List<CriticalElement-AGG>)
 	 * bereits durch "CriticalPair" gegeben!
 	 * 
@@ -29,7 +26,6 @@ public class MinimalConflict extends CriticalPair {
 		this(firstRule, originalRuleOfRule2, minimalConflictReason.getGraph());
 		this.conflictAtoms = conflictAtoms;
 		this.conflictAtomCandidates = conflictAtomCandidates;
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

@@ -31,9 +31,8 @@ public class EssentialCpaOnFeatureModelRunner {
 	static String path = "testData\\featureModelingWithoutUpperLimitsOnReferences\\fmedit_noAmalgamation_noNACs_noAttrChange\\rules\\";
 	
 	public static void main(String[] args){
-		
-		// VERDAMMT noch mal schon wieder das registrieren!!!!
-		FeatureModelPackage.eINSTANCE.eClass(); //TODO(11.04.2017): Gibt es einen programmatischen Weg um generell  
+	
+		FeatureModelPackage.eINSTANCE.eClass();  
 
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -92,7 +91,7 @@ public class EssentialCpaOnFeatureModelRunner {
 ////			// Load the module:
 //			Module module = resourceSet.getModule(henshinFileName, false);
 //						
-//			//TODO: filter rules
+//			//filter rules
 //			EList<Unit> units = module.getUnits();
 //			Rule theRule = null;
 //			boolean multipleRules = false;
@@ -116,14 +115,13 @@ public class EssentialCpaOnFeatureModelRunner {
 //		try {
 //			cpaByAGG.init(allLoadedRules, options);
 //		} catch (UnsupportedRuleException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 		
-//		TODO: introduce a method to set "options" on AGG CPA!
+//		introduce a method to set "options" on AGG CPA!
 		Runner runner = new Runner();
 		runner.setAnalysisKinds(false, false, true, false, false, false);
-		List<String> deactivatedRules = new LinkedList<String>(); //TODO(11.04.2017): langfristig diesen störenden Parameter per Refactoring entfernen
+		List<String> deactivatedRules = new LinkedList<String>();
 		runner.run(fullSubDirectoryPath, deactivatedRules);
 		
 		CPAResult essentialCpaResults = runner.getEssentialCpaResults();
@@ -166,7 +164,7 @@ public class EssentialCpaOnFeatureModelRunner {
 //			File[] directoryListing = dir.listFiles();
 //			if (directoryListing != null) {
 //				for (File child : directoryListing) {
-////					System.out.println("TODO: recursive call of exploration method");
+////					System.out.println("recursive call of exploration method");
 //					String fileName = child.getName();
 //					if (fileName.endsWith(".henshin")) {
 //						henshinFiles.add(child);
@@ -189,7 +187,7 @@ public class EssentialCpaOnFeatureModelRunner {
 			File[] directoryListing = dir.listFiles();
 			if (directoryListing != null) {
 				for (File child : directoryListing) {
-					System.out.println("TODO: recursive call of exploration method");
+					System.out.println("recursive call of exploration method");
 					String fileName = child.getName();
 					if (fileName.endsWith(".henshin")) {
 						pathsToHenshinFiles.add(child.getAbsolutePath());

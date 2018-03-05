@@ -32,17 +32,14 @@ public class AtomicResultContainer {
 	public AtomicResultContainer(Rule firstRule, Rule secondRule) {
 		this.firstRule = firstRule;
 		this.secondRule = secondRule;
-		// TODO Auto-generated constructor stub
 	}
 
 
 	public Rule getFirstRule() {
-		// TODO Auto-generated method stub
 		return firstRule;
 	}
 
 	public Rule getSecondRule() {
-		// TODO Auto-generated method stub
 		return secondRule;
 	}
 
@@ -65,7 +62,7 @@ public class AtomicResultContainer {
 	}
 
 
-	public List<Span> getCandidates() { //TODO: is this a valid strategy to prevent NPEs based on returned "null"?
+	public List<Span> getCandidates() { 
 		if(atomicCoreCpaCandidates == null){
 			return new LinkedList<Span>();
 		}else {			
@@ -79,7 +76,7 @@ public class AtomicResultContainer {
 	}
 
 
-	public Set<MinimalConflictReason> getMinimalConflictReasons() { //TODO: is this a valid strategy to prevent NPEs based on returned "null"?
+	public Set<MinimalConflictReason> getMinimalConflictReasons() { 
 		if(atomicCoreCpaMinimalConflictsReasons == null){
 			return new HashSet<MinimalConflictReason>();
 		}else {			

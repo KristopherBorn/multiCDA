@@ -164,7 +164,7 @@ public class RuleSetModifier {
 		for(Rule rule : rules){
 			Copier copier = new Copier();
 			Rule copiedRule = (Rule) copier.copy(rule);
-			// TODO: soll die kopierte Regel auch Teil des Module sein? für den nachfolgenden Export vermutlich nicht verkehrt, aber wirklich gewollt? 
+			// soll die kopierte Regel auch Teil des Module sein? für den nachfolgenden Export vermutlich nicht verkehrt, aber wirklich gewollt? 
 			copier.copyReferences();
 			copyOfRules.add(copiedRule);
 			transformDeleteToPreserve(copiedRule, true);

@@ -457,5 +457,5 @@ public class Messages extends NLS {
 
 	public static String SingleEClassifierSelectionDialog_msg;
 
-	// TODO: put accessor fields manually
+	// put accessor fields manually
 }

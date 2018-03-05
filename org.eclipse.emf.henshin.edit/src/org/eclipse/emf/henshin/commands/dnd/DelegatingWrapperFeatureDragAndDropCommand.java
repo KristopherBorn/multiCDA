@@ -136,7 +136,7 @@ public class DelegatingWrapperFeatureDragAndDropCommand extends AbstractCommand 
 						 * If the targeted feature is a list, we have to adjust
 						 * the index to move the dragee to depending on whether
 						 * the moved element is before or after the targeted
-						 * index. TODO: This algorithm may be improved
+						 * index. This algorithm may be improved
 						 */
 						if (feature_.isMany()) {
 							// fetch the current index of the dragee...

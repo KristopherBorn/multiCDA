@@ -38,14 +38,10 @@ public class ConflictReasonCreator /*extends InitialConflictReason */{
 		
 		Match match1 = cp.getMatch1();
 		Match match2 = cp.getMatch2();
-		// TODO: check if this contains edges!
-		List<CriticalElement> criticalElements = cp.getCriticalElements();
 		Rule rule1 = cp.getFirstRule();
 		Rule rule2 = cp.getSecondRule();
 				
-//		Set<Mapping> mappingsInRule1;
 		MappingList mappingList1 = new MappingListImpl();
-//		Set<Mapping> mappingsInRule2;
 		MappingList mappingList2 = new MappingListImpl();
 		
 		Graph graph = henshinFactory.createGraph();
@@ -57,10 +53,7 @@ public class ConflictReasonCreator /*extends InitialConflictReason */{
 					EObject nodeTargetOfR2 = match2.getNodeTarget(lhs2Node);
 					if(nodeTargetOfR2 != null){
 						if(nodeTargetOfR1 == nodeTargetOfR2){
-							// here we have identified that we require an appropriate node in the S1 graph
 							EClass type = null;
-							//identify Type for inheritance situations. should always be the most concrete class. 
-							// 	dosnt support situation where the node in the overlap should be a commonsubtype of both nodes
 							EClass typeOfRule1 = lhs1Node.getType();
 							EClass typeOfRule2 = lhs2Node.getType();
 							EList<EClass> eAllSuperTypesOfR1EClass = typeOfRule1.getEAllSuperTypes();
@@ -82,26 +75,14 @@ public class ConflictReasonCreator /*extends InitialConflictReason */{
 								
 									
 									
-									//TODO: zur Sicherheit hier prüfen, ob beide Knoten im gleichen Graph der LHS von R1 liegen 
-									//	(andernfalls liegt ein Programmierfehler vor)
 									
 
 
-	//								über alle Knoten die für den S1 erstellt wurden iterieren
-	//								prüfen, ob es in der Regel1 Kanten zu diesem Knoten gibt.
-	//								prüfen, ob es auch in der Regel2 zwischen den beiden zugeordneten Knoten eine Kante des gelichen Typs gibt
-	//								prüfen, ob im CPA overlap eine Kante mit dem Namensschema gibt (HenshinExporter Methode nutzen!)
-									// (besser/einfacher ging das natürlich wenn man nur über die EReferences im ECore Modell geht, 
-									// 	aber dort ist wieder das Problem der Zuordnung der EReferences zu den Kantentypen die im, 
-									// 	den Regeln zugrundeliegenden, ECore Modell definiert sind (auch EReferences) ))
 									for(Node nodeInS1 : graph.getNodes()){
-										// gibt es Kanten zu dem Knoten in Regel 1
 										Node potentialConnectedNodeInR1 = mappingList1.getImage(nodeInS1, rule1.getLhs());
-//										EObject nodeTargetOfR1 = match1.getNodeTarget(lhs1Node);
 										EList<Edge> outgoingEdgesOfL1Node = lhs1Node.getOutgoing();
 										for(Edge outgoingEdgeOfL1Node : outgoingEdgesOfL1Node){
 											if(outgoingEdgeOfL1Node.getTarget() == potentialConnectedNodeInR1){
-												// gibt es Kante zu dem Knoten in Regel 2
 												Node potentialConnectedNodeInR2 = mappingList2.getImage(nodeInS1, rule2.getLhs());
 												EList<Edge> outgoingEdgesOfL2Node = lhs2Node.getOutgoing();
 												for(Edge outgoingEdgeOfL2Node : outgoingEdgesOfL2Node){
@@ -116,19 +97,14 @@ public class ConflictReasonCreator /*extends InitialConflictReason */{
 																try {
 																	uniqueReferenceNameOfR1 = HenshinAGGExporter.getUniqueReferenceName(outgoingEdgeOfL1Node.getType());
 																} catch (Exception e) {
-																	// TODO Auto-generated catch block
 																	e.printStackTrace();
 																}
 																try {
 																	uniqueReferenceNameOfR2 = HenshinAGGExporter.getUniqueReferenceName(outgoingEdgeOfL2Node.getType());
 																} catch (Exception e) {
-																	// TODO Auto-generated catch block
 																	e.printStackTrace();
 																}
 																if(uniqueReferenceNameOfOverlap.equals(uniqueReferenceNameOfR1) && uniqueReferenceNameOfOverlap.equals(uniqueReferenceNameOfR2)){
-																	// Kante in Überlappungsgraph mit zugehörigen Kanten in den Regeln entdeckt.
-																	// ggf vereinfachen mit reinem abgelich der Namen der KAnten.
-//																	TODO: aus den bekannten Knoten und Kanten den passenden Knoten im overlap suchen!
 																	henshinFactory.createEdge(createdNode, potentialConnectedNodeInR1, outgoingEdgeOfL1Node.getType());
 																}
 															}

@@ -65,7 +65,7 @@ public class Logger {
 
 	List<Rule> secondRules;
 
-	boolean addDetailsOnRuleName = false; // TODO: sollte entfernt werden!
+	boolean addDetailsOnRuleName = false; // sollte entfernt werden!
 
 	public Logger(LogData logData, List<Rule> firstRules, List<Rule> secondRules) {
 		this.logData = logData;
@@ -107,7 +107,6 @@ public class Logger {
 
 		dataAdded = true;
 
-		// TODO:
 		// 1. wie wird damit umgegangen, wenn eine der beiden Regeln nicht in der Liste ist? boolschen Rückgabewert
 		// einführen?
 		// 2. "indexOf(...)" auf dem List Interface kann eine Exception werfen. Diese muss aber schienbar nciht gefangen
@@ -129,10 +128,9 @@ public class Logger {
 	}
 
 	/*
-	 * todo: add details here: #LhsNode, #LhsEdges, #deleteNodes, #deleteEdges
+	 * add details here: #LhsNode, #LhsEdges, #deleteNodes, #deleteEdges
 	 */
 	private String analyseDetailsOfRule(Rule rule) {
-		// TODO Auto-generated method stub
 
 		int numberOfLhsNodes = rule.getLhs().getNodes().size();
 		int numberOfLhsEdges = rule.getLhs().getEdges().size();

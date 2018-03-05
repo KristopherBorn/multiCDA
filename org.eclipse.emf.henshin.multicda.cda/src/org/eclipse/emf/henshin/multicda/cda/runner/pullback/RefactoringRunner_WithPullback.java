@@ -42,23 +42,20 @@ import org.eclipse.emf.henshin.multicda.cpa.result.Conflict;
 import org.eclipse.emf.henshin.multicda.cpa.result.ConflictKind;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
 
-
 public class RefactoringRunner_WithPullback {
 
-// options to turn on and off different analyses
+
 	boolean runNormalCPA = true;
 	boolean runEssentialCPA = true;
 	boolean runAtomicAnalysis = true;
-	
+
 	private boolean noApplicationConditions = false;
 	private boolean removeAllMultirules = false;
 	private Set<String> limitedSetOfRulesByRuleNames;
-	
-
 
 	public void run(String fullSubDirectoryPath, List<String> deactivatedRules) {
 
-//		LoggerPB logger = new LoggerPB();
+
 		List<LoggerPB> loggerPBs = new LinkedList<>();
 		LoggerPB normalCpaLogger = new NormalCpaLoggerPB();
 		loggerPBs.add(normalCpaLogger);
@@ -71,173 +68,163 @@ public class RefactoringRunner_WithPullback {
 		LoggerPB minimalReasonLogger = new MinimalConflReasonLoggerPB();
 		loggerPBs.add(minimalReasonLogger);
 
-
 		File dir = new File(fullSubDirectoryPath);
 		List<String> pathsToHenshinFiles = inspectDirectoryForHenshinFiles(dir);
 
 		List<Rule> allLoadedRules = loadAllRulesFromFileSystemPaths(pathsToHenshinFiles, deactivatedRules);
 
-		// fix inconsistent dangling options : all rules shall "check dangling"
-		for(Rule rule : allLoadedRules){
-			rule.setCheckDangling(true);
-		}		
 		
-		if(noApplicationConditions){
-			for(Rule rule : allLoadedRules){
+		for (Rule rule : allLoadedRules) {
+			rule.setCheckDangling(true);
+		}
+
+		if (noApplicationConditions) {
+			for (Rule rule : allLoadedRules) {
 				List<NestedCondition> allPACs = new LinkedList<>(rule.getLhs().getPACs());
-				for(NestedCondition pac : allPACs)
+				for (NestedCondition pac : allPACs)
 					rule.getLhs().removeNestedCondition(pac);
 				List<NestedCondition> allNACs = new LinkedList<>(rule.getLhs().getNACs());
-				for(NestedCondition nac : allNACs)
+				for (NestedCondition nac : allNACs)
 					rule.getLhs().removeNestedCondition(nac);
-			}			
+			}
 		}
-		
-		if(removeAllMultirules){
-			for(Rule rule : allLoadedRules){
+
+		if (removeAllMultirules) {
+			for (Rule rule : allLoadedRules) {
 				rule.getMultiRules().clear();
-			}			
-		}		
-		
-		// aufgrund der Erkenntnis, dass die nutzende (use) Regel keine löschenden Teile haben darf 
-		// wird zu jeder zu analysierenden Regel eine angepasste Regel als zweite nutzende (use) Regel erstellt
-		List<Rule> copiesOfRulesWithoutDeletion = buildCopiesOfRulesWithoutDeletion(allLoadedRules);
+			}
+		}
 
 		
-//		Namen müssen dabei adaptiert werden, sonst ist nach dem Export bei der Ansteuerung von agg nicht klar welche Regel die erste und welche die zweite ist.
-		// dennoch kann (sollte!) beim loggen der Ergebnisse wieder der original name verwendet werden - DONE!
+		
+		List<Rule> copiesOfRulesWithoutDeletion = buildCopiesOfRulesWithoutDeletion(allLoadedRules);
+
+
 		
 
 		int numberOfAddedRules = allLoadedRules.size();
 
-		// System.out.println("HALT");
+		
 
-//		logger.init(numberOfAddedRules);
-//		logger.setAddDetailsOnRuleName(true);
-//		logger.setAnalysisKinds(runNormalCPA, runEssentialConflictAnalysis, runAtomicConflictAnalysis);
-		for(LoggerPB loggerPB : loggerPBs){
+
+
+
+		for (LoggerPB loggerPB : loggerPBs) {
 			loggerPB.init(numberOfAddedRules);
 			loggerPB.setAddDetailsOnRuleName(true);
 		}
 
-//		AtomicCoreCPA atomicCoreCPA = new AtomicCoreCPA();
 
 
 		
-		// normal CPA setup
 		ICriticalPairAnalysis normalCpa = new CpaByAGG();
 		CPAOptions normalOptions = new CPAOptions();
+
 		
-		
-		// essential CPA setup
 		ICriticalPairAnalysis essentialCpa = new CpaByAGG();
 		CPAOptions essentialOptions = new CPAOptions();
 		essentialOptions.setEssential(true);
 
-		// classic CPA setup
-		// TODO!!!
 		
+		
+
 		int numberOfAllEssentialConflicts = 0;
 		int numberOfFilteredEssentialConflicts = 0;
-		
+
 		long totalNormalRuntime = 0;
 		long totalEssentialRuntime = 0;
 		long totalAtomicRuntime = 0;
-		
-		int totalNumberOfNormalCPs= 0;
+
+		int totalNumberOfNormalCPs = 0;
 		int totalNumberOfEssentialCPs = 0;
 		int totalNumberOfAtomicCPs = 0;
 		int totalNumberOfConflictAtomCandidates = 0;
 		int totalNumberOfMinimalConflictReasons = 0;
-		
+
 		int currentRow = 0;
 		int firstRowToAnalyse = 0;
 		int lastRowToAnalyse = 70;
-		
+
 		List<String> recalculateEssentialCpaRules = new LinkedList<>();
 		recalculateEssentialCpaRules.add("Generalization_2-2");
 		recalculateEssentialCpaRules.add("Generalization_2-5");
 		recalculateEssentialCpaRules.add("Refactoring_1-9");
-		
+
 		List<Rule> skippedRules = new LinkedList<Rule>();
-				
+
 		AnalysisKind analysisKind = CalculateCpaTask.AnalysisKind.CONFLICT;
 
 		for (Rule firstRule : allLoadedRules) {
-			
-			if(skippedRules.contains(firstRule))
-					System.err.println("skipping row for rule: "+firstRule.getName());
-			if(!skippedRules.contains(firstRule)){
-				
-				
-				
-				if(ruleIsntLimited(firstRule)){
-					
-					if(currentRow >= firstRowToAnalyse && currentRow <= lastRowToAnalyse){
+
+			if (skippedRules.contains(firstRule))
+				System.err.println("skipping row for rule: " + firstRule.getName());
+			if (!skippedRules.contains(firstRule)) {
+
+				if (ruleIsntLimited(firstRule)) {
+
+					if (currentRow >= firstRowToAnalyse && currentRow <= lastRowToAnalyse) {
+
 						
-						
-						//METRICS!
-//					Rule originalRuleOfRule2 = allLoadedRules.get(copiesOfRulesWithoutDeletion.indexOf(secondRule));
-//					RuleSetMetricsCalculator ruleSetMetricsCalculator = new RuleSetMetricsCalculator(); 
-//					RuleMetrics ruleMetrics = ruleSetMetricsCalculator.computeMetrics(firstRule);
-//					int numberOfNodesAndEdges = ruleMetrics.getNumberOfEdges();
-//					numberOfNodesAndEdges += ruleMetrics.getNumberOfNodes();
-						
+
+
+
+
+
+
 						Graph lhsOfFirstRule = firstRule.getLhs();
+
+						int elementsInLhsOfFirstRule = lhsOfFirstRule.getNodes().size()
+								+ lhsOfFirstRule.getEdges().size();
 						
-						int elementsInLhsOfFirstRule = lhsOfFirstRule.getNodes().size() + lhsOfFirstRule.getEdges().size();
-						//TODO: sum up the details!
-//						logger.addData(firstRule, null, Integer.toString(elementsInLhsOfFirstRule),Integer.toString(elementsInLhsOfFirstRule));
-						for(LoggerPB loggerPB : loggerPBs){
-							loggerPB.addData(firstRule, null, Integer.toString(elementsInLhsOfFirstRule),Integer.toString(elementsInLhsOfFirstRule));
+
+						for (LoggerPB loggerPB : loggerPBs) {
+							loggerPB.addData(firstRule, null, Integer.toString(elementsInLhsOfFirstRule),
+									Integer.toString(elementsInLhsOfFirstRule));
 						}
 						boolean ruleMetricAdded = false;
-						
-						
+
 						for (Rule secondRule : copiesOfRulesWithoutDeletion) {
-							
 
-
-							Rule originalRuleOfRule2 = allLoadedRules.get(copiesOfRulesWithoutDeletion.indexOf(secondRule));
+							Rule originalRuleOfRule2 = allLoadedRules
+									.get(copiesOfRulesWithoutDeletion.indexOf(secondRule));
 							Graph lhsOfOriginalRuleOfRule2 = originalRuleOfRule2.getLhs();
-							
-							int elementsInLhsOfSecondRule = lhsOfOriginalRuleOfRule2.getNodes().size() + lhsOfOriginalRuleOfRule2.getEdges().size();
-							
 
-//							if(skippedRules.contains(secondRule) || skippedRules.contains(originalRuleOfRule2))
-//									System.err.println("skipping column for rule: "+secondRule.getName());
-//							if(!skippedRules.contains(secondRule) && !skippedRules.contains(originalRuleOfRule2)){
-							
+							int elementsInLhsOfSecondRule = lhsOfOriginalRuleOfRule2.getNodes().size()
+									+ lhsOfOriginalRuleOfRule2.getEdges().size();
 
-							if(ruleIsntLimited(secondRule)){
-								
-							
-								
-								if(ruleIsntLimited(secondRule)){
-									
-//									StringBuffer runTimesOfRuleCombination = new StringBuffer();
-//									StringBuffer amountOfDeleteUseConflictsOfRulecombination = new StringBuffer();
-									
+
+
+
+
+							if (ruleIsntLimited(secondRule)) {
+
+								if (ruleIsntLimited(secondRule)) {
+
+
+
 
 									boolean canceled = false;
-									
+
 									if (runNormalCPA) {
 
 										StringBuffer runTimesOfRuleCombination = new StringBuffer();
 										StringBuffer amountOfDeleteUseConflictsOfRulecombination = new StringBuffer();
-										
+
 										long normalStartTime = System.currentTimeMillis();
 										List<Rule> firstRuleList = new LinkedList<Rule>();
 										firstRuleList.add(firstRule);
 										List<Rule> secondRuleList = new LinkedList<Rule>();
 										secondRuleList.add(secondRule);
 										CPAResult normalResult = null;
-																			
-//								
-										SingleCpaTaskResultContainer singleCpaTaskResultContainer = new SingleCpaTaskResultContainer(firstRuleList, secondRuleList, normalOptions);
+
+
+										SingleCpaTaskResultContainer singleCpaTaskResultContainer = new SingleCpaTaskResultContainer(
+												firstRuleList, secondRuleList, normalOptions);
 										ExecutorService executor = Executors.newSingleThreadExecutor();
 										try {
-											executor.submit(new CalculateCpaTask(singleCpaTaskResultContainer, analysisKind)).get(10, TimeUnit.SECONDS);
+											executor.submit(
+													new CalculateCpaTask(singleCpaTaskResultContainer, analysisKind))
+													.get(10, TimeUnit.SECONDS);
 										} catch (NullPointerException | InterruptedException | ExecutionException e) {
 											System.err.println("Timeout!");
 											executor.shutdown();
@@ -249,81 +236,84 @@ public class RefactoringRunner_WithPullback {
 											System.err.println("TIME OUT!!!");
 											e.printStackTrace();
 										}
-										
+
 										executor.shutdown();
 										normalResult = singleCpaTaskResultContainer.getResult();
-										
+
 										long normalRunTime = singleCpaTaskResultContainer.getAnalysisDuration();
-										
+
 										totalNormalRuntime += normalRunTime;
-										
-										
+
 										if (normalResult != null) {
 											runTimesOfRuleCombination.append(String.valueOf(normalRunTime));
-											//	runTimesOfRuleCombination.append(",");
 											
-											List<CriticalPair> filteredDeleteUseConflicts = filterDeleteUseConflicts(normalResult);
-//											amountOfDeleteUseConflictsOfRulecombination
-//											.append(String.valueOf(filteredDeleteUseConflicts.size()));
-//											amountOfDeleteUseConflictsOfRulecombination.append(",");
-											
+
+											List<CriticalPair> filteredDeleteUseConflicts = filterDeleteUseConflicts(
+													normalResult);
+
+
+
+
 											totalNumberOfNormalCPs += filteredDeleteUseConflicts.size();
-										
-											
-//											get with the pushout here!
-//											- verfügbare "matches" untersuchen!!!
-//											CriticalPair critPair = cpaResult.getCriticalPairs().get(0);
+
+
+
+
 											int sumOfElementsInPullback = 0;
-											for(CriticalPair critPair : normalResult.getCriticalPairs()){
+											for (CriticalPair critPair : normalResult.getCriticalPairs()) {
 												Conflict confl = (Conflict) critPair;
 												Rule r1 = confl.getFirstRule();
 												Rule r2 = confl.getFirstRule();
-//											EPackage minimalModel = confl.getMinimalModel();
+
 												Match match1 = confl.getMatch1();
 												Match match2 = confl.getMatch2();
 												int elementsOfPullBack = computePullback(r1, match1, match2, r2);
 												sumOfElementsInPullback += elementsOfPullBack;
 											}
 											amountOfDeleteUseConflictsOfRulecombination.append(sumOfElementsInPullback);
-											
-										} else {											
+
+										} else {
 											System.err.println("normal CPA failed!");
 
 											runTimesOfRuleCombination.append("TO");
-											//	runTimesOfRuleCombination.append(",");
 											
+
 											amountOfDeleteUseConflictsOfRulecombination.append("TO");
-//											amountOfDeleteUseConflictsOfRulecombination.append("/");
+
+										}
+
+										if (!ruleMetricAdded) {
+											normalCpaLogger.addData(firstRule, originalRuleOfRule2,
+													Integer.toString(elementsInLhsOfSecondRule),
+													Integer.toString(elementsInLhsOfSecondRule));
 										}
 										
-										if(!ruleMetricAdded){
-											normalCpaLogger.addData(firstRule, originalRuleOfRule2, Integer.toString(elementsInLhsOfSecondRule),Integer.toString(elementsInLhsOfSecondRule));
-										}
-										// <- METRICS
-										if(!canceled)
-											normalCpaLogger.addData(firstRule, originalRuleOfRule2, runTimesOfRuleCombination.toString(),
+										if (!canceled)
+											normalCpaLogger.addData(firstRule, originalRuleOfRule2,
+													runTimesOfRuleCombination.toString(),
 													amountOfDeleteUseConflictsOfRulecombination.toString());
 									}
-									
-									
+
 									if (runEssentialCPA && !canceled) {
 
 										StringBuffer runTimesOfRuleCombination = new StringBuffer();
 										StringBuffer amountOfDeleteUseConflictsOfRulecombination = new StringBuffer();
-										
+
 										long essentialStartTime = System.currentTimeMillis();
 										List<Rule> firstRuleList = new LinkedList<Rule>();
 										firstRuleList.add(firstRule);
 										List<Rule> secondRuleList = new LinkedList<Rule>();
-										secondRuleList.add(secondRule);;
+										secondRuleList.add(secondRule);
+										;
 										CPAResult essentialResult = null;
-										
 
-										
-										SingleCpaTaskResultContainer singleCpaTaskResultContainer = new SingleCpaTaskResultContainer(firstRuleList, secondRuleList, essentialOptions);
+										SingleCpaTaskResultContainer singleCpaTaskResultContainer = new SingleCpaTaskResultContainer(
+												firstRuleList, secondRuleList, essentialOptions);
 										ExecutorService executor = Executors.newSingleThreadExecutor();
 										try {
-											executor.submit(new CalculateCpaTask(singleCpaTaskResultContainer, analysisKind)).get(15, TimeUnit.SECONDS);
+											executor.submit(
+													new CalculateCpaTask(singleCpaTaskResultContainer, analysisKind))
+													.get(15, TimeUnit.SECONDS);
 										} catch (NullPointerException | InterruptedException | ExecutionException e) {
 											System.err.println("Timeout!");
 											executor.shutdown();
@@ -336,84 +326,67 @@ public class RefactoringRunner_WithPullback {
 											e.printStackTrace();
 										}
 										long essentialEndTime = System.currentTimeMillis();
-										
+
 										executor.shutdown();
 										essentialResult = singleCpaTaskResultContainer.getResult();
-										
-										
+
 										long essentialRunTime = essentialEndTime - essentialStartTime;
 										totalEssentialRuntime += essentialRunTime;
-										
-										
+
 										if (essentialResult != null) {
 											runTimesOfRuleCombination.append(String.valueOf(essentialRunTime));
-//											runTimesOfRuleCombination.append("/");
-											
-											numberOfAllEssentialConflicts +=  essentialResult.getCriticalPairs().size();
-											List<CriticalPair> filteredDeleteUseConflicts = filterDeleteUseConflicts(essentialResult);
-											numberOfFilteredEssentialConflicts += filteredDeleteUseConflicts.size();
-											System.err.println("delete-use-conflicts: " + filteredDeleteUseConflicts.size());
-											
-//											amountOfDeleteUseConflictsOfRulecombination
-//											.append(String.valueOf(filteredDeleteUseConflicts.size()));
-//											amountOfDeleteUseConflictsOfRulecombination.append(",");
-											
-											totalNumberOfEssentialCPs += filteredDeleteUseConflicts.size();
 
-											
-//											get with the pushout here!
-//											- verfügbare "matches" untersuchen!!!
-//											CriticalPair critPair = cpaResult.getCriticalPairs().get(0);
+											numberOfAllEssentialConflicts += essentialResult.getCriticalPairs().size();
+											List<CriticalPair> filteredDeleteUseConflicts = filterDeleteUseConflicts(
+													essentialResult);
+											numberOfFilteredEssentialConflicts += filteredDeleteUseConflicts.size();
+											System.err.println(
+													"delete-use-conflicts: " + filteredDeleteUseConflicts.size());
 											int sumOfElementsInPullback = 0;
-											for(CriticalPair critPair : essentialResult.getCriticalPairs()){
+											for (CriticalPair critPair : essentialResult.getCriticalPairs()) {
 												Conflict confl = (Conflict) critPair;
 												Rule r1 = confl.getFirstRule();
 												Rule r2 = confl.getFirstRule();
-//											EPackage minimalModel = confl.getMinimalModel();
 												Match match1 = confl.getMatch1();
 												Match match2 = confl.getMatch2();
 												int elementsOfPullBack = computePullback(r1, match1, match2, r2);
 												sumOfElementsInPullback += elementsOfPullBack;
 											}
 											amountOfDeleteUseConflictsOfRulecombination.append(sumOfElementsInPullback);
-											
-											
+
 										} else {
 											runTimesOfRuleCombination.append("TO");
-//											runTimesOfRuleCombination.append(",");
-											
-											amountOfDeleteUseConflictsOfRulecombination.append("TO");
-//											amountOfDeleteUseConflictsOfRulecombination.append(",");
-										}
-										
 
-										if(!ruleMetricAdded){
-											essentialCpaLogger.addData(firstRule, originalRuleOfRule2, Integer.toString(elementsInLhsOfSecondRule),Integer.toString(elementsInLhsOfSecondRule));
+											amountOfDeleteUseConflictsOfRulecombination.append("TO");
 										}
-										// <- METRICS
-										if(!canceled)
-											essentialCpaLogger.addData(firstRule, originalRuleOfRule2, runTimesOfRuleCombination.toString(),
+
+										if (!ruleMetricAdded) {
+											essentialCpaLogger.addData(firstRule, originalRuleOfRule2,
+													Integer.toString(elementsInLhsOfSecondRule),
+													Integer.toString(elementsInLhsOfSecondRule));
+										}
+										if (!canceled)
+											essentialCpaLogger.addData(firstRule, originalRuleOfRule2,
+													runTimesOfRuleCombination.toString(),
 													amountOfDeleteUseConflictsOfRulecombination.toString());
 									}
-									
+
 									if (runAtomicAnalysis) {
 										StringBuffer runTimesOfRuleCombination = new StringBuffer();
 										StringBuffer amountOfDeleteUseConflictsOfRulecombination = new StringBuffer();
+
 										
-										// List<String> shortResults = new LinkedList<String>();
 										int numberOfAnalysis = 0;
 										int numberOfConflictsOverall = 0;
 										String ruleCombination = firstRule.getName() + " -> " + secondRule.getName();
-//						System.out.println("start combination: " + ruleCombination);
 										long atomicStartTime = System.currentTimeMillis();
-//						List<ConflictAtom> computeConflictAtoms = atomicCoreCPA.computeConflictAtoms(firstRule, secondRule);
-										
-										
-										
-										AtomicResultContainer resultKeeper = new AtomicResultContainer(firstRule, secondRule);
+
+										AtomicResultContainer resultKeeper = new AtomicResultContainer(firstRule,
+												secondRule);
 										ExecutorService executor = Executors.newSingleThreadExecutor();
 										try {
-											executor.submit(new CalculateAtomicCpaTask(resultKeeper)).get(15, TimeUnit.MINUTES);
+											executor.submit(new CalculateAtomicCpaTask(resultKeeper)).get(15,
+													TimeUnit.MINUTES);
 										} catch (NullPointerException | InterruptedException | ExecutionException e) {
 											System.err.println("Timeout!");
 											executor.shutdown();
@@ -421,77 +394,59 @@ public class RefactoringRunner_WithPullback {
 											System.err.println("TIME OUT!!!");
 											e.printStackTrace();
 										}
-//								
+
 										ConflictAnalysis atomicCoreCPA = new ConflictAnalysis(firstRule, secondRule);
 										List<ConflictAtom> computeConflictAtoms = atomicCoreCPA.computeConflictAtoms();
-										
+
 										List<ConflictAtom> atomicCoreCpaConflictAtoms = resultKeeper.getConflictAtoms();
 										List<Span> atomicCoreCpaCandidates = resultKeeper.getCandidates();
-										Set<MinimalConflictReason> atomicCoreMinimalConflictReasons = resultKeeper.getMinimalConflictReasons();
-										
+										Set<MinimalConflictReason> atomicCoreMinimalConflictReasons = resultKeeper
+												.getMinimalConflictReasons();
+
 										long atomicEndTime = System.currentTimeMillis();
 										long atomiRunTime = atomicEndTime - atomicStartTime;
 										totalAtomicRuntime += atomiRunTime;
-										
+
 										runTimesOfRuleCombination.append(String.valueOf(atomiRunTime));
-										
-//								System.out.println("executed: " + ruleCombination + " del-use-confl: " + atomicCoreCpaConflictAtoms.size()
-//								+ " in " + atomiRunTime + " ms");
-//								numberOfAnalysis++;
-//								System.err.println("number of analysisDuration: " + numberOfAnalysis);
-//								// shortResults.add(computeConflictAtoms.size()+" conflicts in "+ruleCombination);
-//								numberOfConflictsOverall += atomicCoreCpaConflictAtoms.size();
-//								
-//										amountOfDeleteUseConflictsOfRulecombination.append(String.valueOf(atomicCoreCpaConflictAtoms.size()));
-//										amountOfDeleteUseConflictsOfRulecombination.append(",");
-//										amountOfDeleteUseConflictsOfRulecombination.append(String.valueOf(atomicCoreCpaCandidates.size()));
-//										amountOfDeleteUseConflictsOfRulecombination.append(",");
-//										amountOfDeleteUseConflictsOfRulecombination.append(String.valueOf(atomicCoreCpaOverallReasons.size()));
-//								
-//								totalNumberOfAtomicCPs += atomicCoreCpaConflictAtoms.size();
-//								totalNumberOfConflictAtomCandidates += atomicCoreCpaCandidates.size();
-//								totalNumberOfMinimalConflictReasons += atomicCoreCpaOverallReasons.size();
-										
-										// relies on equal order of original rule and associated copy without deletion! 
-//									Rule originalRuleOfRule2 = allLoadedRules.get(copiesOfRulesWithoutDeletion.indexOf(secondRule));
-										
-										// METRICS ->
-//							ruleMetrics = ruleSetMetricsCalculator.computeMetrics(originalRuleOfRule2);
-//							numberOfNodesAndEdges = ruleMetrics.getNumberOfEdges();
-//							numberOfNodesAndEdges += ruleMetrics.getNumberOfNodes();
-										
-										
-										if(!ruleMetricAdded){
-											conflictAtomLogger.addData(firstRule, originalRuleOfRule2, Integer.toString(elementsInLhsOfSecondRule),Integer.toString(elementsInLhsOfSecondRule));
+
+										if (!ruleMetricAdded) {
+											conflictAtomLogger.addData(firstRule, originalRuleOfRule2,
+													Integer.toString(elementsInLhsOfSecondRule),
+													Integer.toString(elementsInLhsOfSecondRule));
 										}
-										if(!canceled){
-											conflictAtomLogger.addData(firstRule, originalRuleOfRule2, runTimesOfRuleCombination.toString(),
+										if (!canceled) {
+											conflictAtomLogger.addData(firstRule, originalRuleOfRule2,
+													runTimesOfRuleCombination.toString(),
 													String.valueOf(atomicCoreCpaConflictAtoms.size()));
 										}
-											
-											
-										if(!ruleMetricAdded){
-											candidatesLogger.addData(firstRule, originalRuleOfRule2, Integer.toString(elementsInLhsOfSecondRule),Integer.toString(elementsInLhsOfSecondRule));
+
+										if (!ruleMetricAdded) {
+											candidatesLogger.addData(firstRule, originalRuleOfRule2,
+													Integer.toString(elementsInLhsOfSecondRule),
+													Integer.toString(elementsInLhsOfSecondRule));
 										}
-										if(!canceled){
-											candidatesLogger.addData(firstRule, originalRuleOfRule2, runTimesOfRuleCombination.toString(),
+										if (!canceled) {
+											candidatesLogger.addData(firstRule, originalRuleOfRule2,
+													runTimesOfRuleCombination.toString(),
 													String.valueOf(atomicCoreCpaCandidates.size()));
 										}
-											
-												
-										if(!ruleMetricAdded){
-											minimalReasonLogger.addData(firstRule, originalRuleOfRule2, Integer.toString(elementsInLhsOfSecondRule),Integer.toString(elementsInLhsOfSecondRule));
+
+										if (!ruleMetricAdded) {
+											minimalReasonLogger.addData(firstRule, originalRuleOfRule2,
+													Integer.toString(elementsInLhsOfSecondRule),
+													Integer.toString(elementsInLhsOfSecondRule));
 										}
-										// <- METRICS
-										if(!canceled)
-											minimalReasonLogger.addData(firstRule, originalRuleOfRule2, runTimesOfRuleCombination.toString(),
+										
+										if (!canceled)
+											minimalReasonLogger.addData(firstRule, originalRuleOfRule2,
+													runTimesOfRuleCombination.toString(),
 													String.valueOf(atomicCoreMinimalConflictReasons.size()));
-												
-												// }
+
+										
 									}
-									
+
 								}
-								
+
 							}
 						}
 						ruleMetricAdded = true;
@@ -499,113 +454,75 @@ public class RefactoringRunner_WithPullback {
 					}
 				}
 			}
-			
-//			todo: introduce row limitatio
+
 			currentRow++;
-			
+
 		}
 
-		
-//		logger.addRunTimes(totalNormalRuntime, totalEssentialRuntime, totalAtomicRuntime);
-//		logger.addTotalResults(totalNumberOfNormalCPs, totalNumberOfEssentialCPs, totalNumberOfAtomicCPs, totalNumberOfConflictAtomCandidates, totalNumberOfMinimalConflictReasons);
-		
-		System.err.println("numberOfAllEssentialConflicts: "+numberOfAllEssentialConflicts);
-		System.err.println("numberOfFilteredEssentialConflicts: "+numberOfFilteredEssentialConflicts);
+		System.err.println("numberOfAllEssentialConflicts: " + numberOfAllEssentialConflicts);
+		System.err.println("numberOfFilteredEssentialConflicts: " + numberOfFilteredEssentialConflicts);
 		System.out.println("HALT");
 
-
-
-		for(LoggerPB loggerPB : loggerPBs){
+		for (LoggerPB loggerPB : loggerPBs) {
 			loggerPB.exportStoredRuntimeToCSV(fullSubDirectoryPath + File.separator);
 			loggerPB.exportStoredConflictsToCSV(fullSubDirectoryPath + File.separator);
 		}
 	}
-	
-	
-private boolean ruleIsntLimited(Rule ruleToCheck) {
-		if(limitedSetOfRulesByRuleNames == null){
-			return true;		
-		}
-		else{
+
+	private boolean ruleIsntLimited(Rule ruleToCheck) {
+		if (limitedSetOfRulesByRuleNames == null) {
+			return true;
+		} else {
 			System.out.println(ruleToCheck.getName());
-			if(limitedSetOfRulesByRuleNames.contains(ruleToCheck.getName())){
+			if (limitedSetOfRulesByRuleNames.contains(ruleToCheck.getName())) {
 				return true;
 			}
 			return false;
 		}
 	}
 
-
-	//	TODO: nutzende Regeln erstellen
-//	dazu copier für jede REgel verwenden
-//	Namen der kopierten REgel anpassen
-//	alle mappings löschen
-//	dann copier für LHS verwenden
-//	ERgebnisgraph der kopie in RHS umbenennen
-//	mappings für alle Knoten erstellen!
 	private List<Rule> buildCopiesOfRulesWithoutDeletion(List<Rule> allLoadedRules) {
 		HenshinFactory henshinFactory = new HenshinFactoryImpl();
-		List<Rule> copiesOfRulesWithoutDeletion = new LinkedList<>(); 
-		for(Rule ruleToCopy : allLoadedRules){
-//		REMOVE	TODO: nutzende Regeln erstellen
-//		REMOVE	dazu copier für jede REgel verwenden
-				
-//		REMOVE!	EObject ruleToCopyObject = (EObject) ruleToCopy;
+		List<Rule> copiesOfRulesWithoutDeletion = new LinkedList<>();
+		for (Rule ruleToCopy : allLoadedRules) {
 			Copier copierForRule = new Copier();
 			Rule copyOfRule = (Rule) copierForRule.copy(ruleToCopy);
-//			Namen der kopierten REgel anpassen
-//		DONE	TODO: Erfolg per debug überprüfen!
 			copyOfRule.setName(copyOfRule.getName().concat("_"));
-	//		copier.copyAll(getRoots()); // nur für ollections!
 			copierForRule.copyReferences();
-			
+
 			MappingList mappings = copyOfRule.getMappings();
-			
-//			alle mappings löschen
-//		DONE	todo: debugen, dass danach wirklich keine mappings mehr in der Kopie sind!
+
 			mappings.clear();
-			//clear all attr:
-			for(Node nodeInLhs : copyOfRule.getLhs().getNodes()){
+			for (Node nodeInLhs : copyOfRule.getLhs().getNodes()) {
 				nodeInLhs.getAttributes().clear();
 			}
-					
-//		REMOVE	// HenshinPackage.RULE__MAPPINGS // überrest - ENTFERNEN!			
-//		REMOVE	// new MappingContainmentListImpl(this, HenshinPackage.RULE__MAPPINGS);
-			
-//			dann copier für LHS verwenden
-			// Copier for new RHS based on LHS
+
 			Copier copierForLhsGraph = new Copier();
-			// copy of graph
 			Graph copiedLhs = (Graph) copierForLhsGraph.copy(copyOfRule.getLhs());
 			copierForLhsGraph.copyReferences();
-//			ERgebnisgraph der kopie in RHS umbenennen
-//			TODO: prüfen ob beschriftung der Konvention entspricht!
 			copiedLhs.setName("Rhs");
 			copyOfRule.setRhs(copiedLhs);
-			
-//			mappings für alle Knoten erstellen!
-			for(Node nodeInLhsOfCopiedRule : copyOfRule.getLhs().getNodes()){
+
+			for (Node nodeInLhsOfCopiedRule : copyOfRule.getLhs().getNodes()) {
 				Node nodeInNewRhs = (Node) copierForLhsGraph.get(nodeInLhsOfCopiedRule);
 				Mapping createdMapping = henshinFactory.createMapping(nodeInLhsOfCopiedRule, nodeInNewRhs);
-				mappings.add(createdMapping);					
+				mappings.add(createdMapping);
 			}
-			
+
 			copiesOfRulesWithoutDeletion.add(copyOfRule);
-			
-			
-			// TODO Auto-generated method stub
-				
+
 		}
 		return copiesOfRulesWithoutDeletion;
 	}
 
-	public void setAnalysisKinds(boolean runNormalCPA, boolean runEssentialCPA, boolean runAtomicAnalysis){
+	public void setAnalysisKinds(boolean runNormalCPA, boolean runEssentialCPA, boolean runAtomicAnalysis) {
 		this.runNormalCPA = runNormalCPA;
 		this.runEssentialCPA = runEssentialCPA;
 		this.runAtomicAnalysis = runAtomicAnalysis;
 	}
 
-	private List<Rule> loadAllRulesFromFileSystemPaths(List<String> pathsToHenshinFiles, List<String> namesOfDeactivatedRules) {
+	private List<Rule> loadAllRulesFromFileSystemPaths(List<String> pathsToHenshinFiles,
+			List<String> namesOfDeactivatedRules) {
 		List<Rule> allEditRulesWithoutAmalgamation = new LinkedList<Rule>();
 
 		for (String pathToHenshinFiles : pathsToHenshinFiles) {
@@ -613,7 +530,7 @@ private boolean ruleIsntLimited(Rule ruleToCheck) {
 			Module module = henshinResourceSet.getModule(pathToHenshinFiles);
 			for (Unit unit : module.getUnits()) {
 				if (unit instanceof Rule /* && numberOfAddedRules<10 */) {
-					// rulesAndAssociatedFileNames.put((Rule) unit, fileName);
+					
 					boolean deactivatedRule = false;
 					for (String deactivatedRuleName : namesOfDeactivatedRules) {
 						if (unit.getName().contains(deactivatedRuleName))
@@ -629,10 +546,10 @@ private boolean ruleIsntLimited(Rule ruleToCheck) {
 	}
 
 	private List<CriticalPair> filterDeleteUseConflicts(CPAResult essentialResult) {
-		// filter delete-use conflicts:
+		
 		if (essentialResult != null) {
 			List<CriticalPair> criticalPairs = essentialResult.getCriticalPairs();
-			// System.out.println("number of essential CPs: "+criticalPairs.size());
+			
 			List<CriticalPair> filteredDeleteUseConflicts = new LinkedList<CriticalPair>();
 			for (CriticalPair cp : criticalPairs) {
 				if (cp instanceof Conflict) {
@@ -643,7 +560,7 @@ private boolean ruleIsntLimited(Rule ruleToCheck) {
 			}
 			return filteredDeleteUseConflicts;
 		} else {
-			// System.err.println("essentail CPA failed!");
+			
 		}
 		return new LinkedList<CriticalPair>();
 	}
@@ -663,10 +580,10 @@ private boolean ruleIsntLimited(Rule ruleToCheck) {
 				}
 			}
 		} else {
-			// Handle the case where dir is not really a directory.
-			// Checking dir.isDirectory() above would not be sufficient
-			// to avoid race conditions with another process that deletes
-			// directories.
+			
+			
+			
+			
 		}
 		return pathsToHenshinFiles;
 	}
@@ -675,22 +592,20 @@ private boolean ruleIsntLimited(Rule ruleToCheck) {
 		this.noApplicationConditions = removeAllApplicationConditions;
 	}
 
-
 	public void setNoMultirules(boolean removeAllMultirules) {
-		this.removeAllMultirules = removeAllMultirules; 
+		this.removeAllMultirules = removeAllMultirules;
 	}
-
 
 	public void limitSetOfRulesByRuleNames(Set<String> limitedSetOfRulesByRuleNames) {
 		this.limitedSetOfRulesByRuleNames = limitedSetOfRulesByRuleNames;
 	}
 
-	//TODO: wieso nicht an der Pullback Datenstruktur die auch für die Atomic CP verwendet wurde orientieren?
-	//r1 <-(m1) G ->(m2) r2
+	
+	
 	private int computePullback(Rule r1, Match m1, Match m2, Rule r2) {
 
-		List<EObject> temporary = new LinkedList<EObject>();//empty
-		List<EObject> result = new LinkedList<EObject>();//empty
+		List<EObject> temporary = new LinkedList<EObject>();
+		List<EObject> result = new LinkedList<EObject>();
 
 		for (Node node : r1.getLhs().getNodes()) {
 			temporary.add(m1.getNodeTarget(node));

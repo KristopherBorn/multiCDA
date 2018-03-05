@@ -47,8 +47,6 @@ public class ProduceUseTest {
 		
 		Assert.assertEquals(3, dependencyAtoms.size());
 		
-		//TODO: weitere Prüfungen (Assertions) hinzufügen!
-		// Prüfen, dass das DependencyAtom valide ist (je Mapping das Origin und Image)
 		DependencyAtom depAtom_Method_4_4 = null;
 		DependencyAtom depAtom_Method_4_5 = null;
 		DependencyAtom depAtom_Parameter_4_6 = null;

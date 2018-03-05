@@ -130,7 +130,6 @@ public class CPAOptions {
 		/**
 		 * kBorn 09-05-2014 generally the constraint should even be fulfilled for the graph constraints (->'true' by
 		 * default) it is still unresolved, if there exists something like graph constraints in henshin and if they are
-		 * exportet. -> TODO
 		 */
 		// setConsistent(true);
 
@@ -142,7 +141,7 @@ public class CPAOptions {
 		// setStrongAttrCheck(true);
 
 		/**
-		 * kBorn 09-05-2014 this is of no relevance when the following option is activated. (TODO: check if this
+		 * kBorn 09-05-2014 this is of no relevance when the following option is activated. (check if this
 		 * dependency is also is in the AGG parser or just in the user interface)
 		 */
 		setIgnoreSameRules(false);

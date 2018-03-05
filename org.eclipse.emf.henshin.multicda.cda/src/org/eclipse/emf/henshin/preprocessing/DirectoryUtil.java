@@ -11,7 +11,7 @@ public class DirectoryUtil {
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
-//				System.out.println("TODO: recursive call of exploration method");
+//				System.out.println("recursive call of exploration method");
 				String fileName = child.getName();
 				if (fileName.endsWith(".henshin")) {
 					pathsToHenshinFiles.add(child.getAbsolutePath());

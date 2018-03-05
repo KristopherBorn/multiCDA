@@ -58,7 +58,6 @@ public class ComparatorTest {
 			cpaByAGG.init(rules, cpaOptions);
 			essCPs = cpaByAGG.runConflictAnalysis();
 		} catch (UnsupportedRuleException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Set<CriticalPair> criticalPairs = new HashSet<CriticalPair>(essCPs.getEssentialCriticalPairs());

@@ -95,7 +95,6 @@ public class NodeCreateCommand extends EditElementCommand {
 	}
 
 	/**
-	 * FIXME: replace with setElementToEdit()
 	 * 
 	 * @generated
 	 */

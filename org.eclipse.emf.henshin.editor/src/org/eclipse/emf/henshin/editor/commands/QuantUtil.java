@@ -12,7 +12,7 @@ package org.eclipse.emf.henshin.editor.commands;
 /**
  * Utility class for quantifying common conditions.
  * 
- * TODO: Move to a more appropriate location.
+ * Move to a more appropriate location.
  * 
  * @author Gregor Bonifer
  * @author Stefan Jurack (sjurack)
