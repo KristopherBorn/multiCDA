@@ -474,6 +474,7 @@ for (GiraphRuleData data : ruleData.values()) {
     stringBuffer.append(TEXT_41);
     stringBuffer.append( rule.getName() );
     stringBuffer.append(TEXT_42);
+    /* TODO - Possibly add a set of these for each join step */
     	boolean hasJoins = false;
 	for (int i = 0 ; i < data.matchingSteps.size() ; i++) {
 		GiraphRuleData.MatchingStep step = data.matchingSteps.get(i);

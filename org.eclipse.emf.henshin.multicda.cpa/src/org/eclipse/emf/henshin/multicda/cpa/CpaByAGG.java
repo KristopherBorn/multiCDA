@@ -10,9 +10,11 @@
 package org.eclipse.emf.henshin.multicda.cpa;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
@@ -57,11 +59,11 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	private boolean monitorProgress = false;
 	private IProgressMonitor progressMonitor;
 
-	List<org.eclipse.emf.henshin.model.Rule> firstHenshinRuleSetForAnalysis;
-	List<org.eclipse.emf.henshin.model.Rule> secondHenshinRuleSetForAnalysis;
+	Set<org.eclipse.emf.henshin.model.Rule> firstHenshinRuleSetForAnalysis;
+	Set<org.eclipse.emf.henshin.model.Rule> secondHenshinRuleSetForAnalysis;
 
-	List<agg.xt_basis.Rule> firstAggRuleSetForAnalysis;
-	List<agg.xt_basis.Rule> secondAggRuleSetForAnalysis;
+	Set<agg.xt_basis.Rule> firstAggRuleSetForAnalysis;
+	Set<agg.xt_basis.Rule> secondAggRuleSetForAnalysis;
 
 	String workingPathWOExtension;
 
@@ -103,7 +105,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 * @throws UnsupportedRuleException in case of invalid rules.
 	 */
 	@Override
-	public void init(List<org.eclipse.emf.henshin.model.Rule> rules, CPAOptions options)
+	public void init(Set<org.eclipse.emf.henshin.model.Rule> rules, CPAOptions options)
 			throws UnsupportedRuleException {
 		init(rules, rules, options);
 	}
@@ -119,7 +121,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 * @throws UnsupportedRuleException in case of invalid rules.
 	 */
 	@Override
-	public void init(List<org.eclipse.emf.henshin.model.Rule> r1, List<org.eclipse.emf.henshin.model.Rule> r2,
+	public void init(Set<org.eclipse.emf.henshin.model.Rule> r1, Set<org.eclipse.emf.henshin.model.Rule> r2,
 			CPAOptions options) throws UnsupportedRuleException {
 		this.options = options;
 		this.firstHenshinRuleSetForAnalysis = r1;
@@ -169,7 +171,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 		}
 		
 		// checks the rules which shall serve later on for the analysis.
-		List<org.eclipse.emf.henshin.model.Rule> rulesToBeChecked = new ArrayList<org.eclipse.emf.henshin.model.Rule>();
+		Set<org.eclipse.emf.henshin.model.Rule> rulesToBeChecked = new HashSet<org.eclipse.emf.henshin.model.Rule>();
 		for(Unit unit : module.getUnits()){
 			if(unit instanceof org.eclipse.emf.henshin.model.Rule)
 				rulesToBeChecked.add((org.eclipse.emf.henshin.model.Rule) unit);
@@ -198,8 +200,8 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 		boolean checkDangling = true; // default
 		boolean injectiveMatching = true; // default
 
-		firstAggRuleSetForAnalysis = new LinkedList<Rule>();
-		secondAggRuleSetForAnalysis = new LinkedList<Rule>();
+		firstAggRuleSetForAnalysis = new HashSet<Rule>();
+		secondAggRuleSetForAnalysis = new HashSet<Rule>();
 		for (org.eclipse.emf.henshin.model.Rule rule : r1) {
 			if (rule != null) {
 				Rule equivalentAggRule = gragra.getRule(rule.getName());
@@ -283,7 +285,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 * @throws UnsupportedRuleException in case of invalid rules.
 	 */
 	@Override
-	public boolean check(List<org.eclipse.emf.henshin.model.Rule> rules) throws UnsupportedRuleException {
+	public boolean check(Set<org.eclipse.emf.henshin.model.Rule> rules) throws UnsupportedRuleException {
 
 		return InputDataChecker.getInstance().check(rules);
 	}
@@ -410,7 +412,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 	 * @param rules1 first list of rules (horizontal order)
 	 * @param rules2 second list of rules (vertical order)
 	 */
-	private void computeCriticalPairs(List<Rule> rules1, List<Rule> rules2, ExcludePairContainer exclude) {
+	private void computeCriticalPairs(Set<Rule> rules1, Set<Rule> rules2, ExcludePairContainer exclude) {
 
 		if (firstHenshinRuleSetForAnalysis.size() == 0 || secondHenshinRuleSetForAnalysis.size() == 0)
 			return; // : hier muss mehr/etwas besseres hin als ein reines "return"

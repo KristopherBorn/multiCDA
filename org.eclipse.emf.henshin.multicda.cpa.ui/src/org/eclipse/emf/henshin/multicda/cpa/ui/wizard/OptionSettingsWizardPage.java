@@ -39,8 +39,8 @@ public class OptionSettingsWizardPage extends WizardPage {
 	 */
 	public OptionSettingsWizardPage(String pageName, String optionsFile) {
 		super(pageName);
-		setTitle("Critical Pair Analysis - Option Settings");
-		setDescription("Customize the options.");
+		setTitle("Conflict and Dependency Analysis - Granularity of Analysis");
+		setDescription("Please indicate the depth of analysis.");
 
 		cpaOptions = new CPAOptions();
 
@@ -50,6 +50,19 @@ public class OptionSettingsWizardPage extends WizardPage {
 			optionsLoaded = false;
 		}
 	}
+
+	private enum GranularityType {
+		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)"),
+		COARSE("Coarse granularity","Shows core conflicting (dependent) graph elements"),
+		FINE("Fine granularity", "Shows complete conflict (dependency) reasons");
+		public final String name;
+		public final String description;
+
+		GranularityType(String name, String description) {
+			this.name = name;
+			this.description = description;
+		}
+	};
 
 	/*
 	 * (non-Javadoc)

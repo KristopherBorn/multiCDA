@@ -143,7 +143,7 @@ public class AggHenshinCriticalPairTranslator {
 		cpaEPackage.setNsPrefix("CPAPackage");
 
 		String criticalPairKind = getCriticalPairKindString(cpd);
-		cpaEPackage.setNsURI("http:
+		cpaEPackage.setNsURI("http://cpapackage/" + rule1.getQualifiedName() + "/" + rule2.getQualifiedName() + "/"
 				+ criticalPairKind);
 
 		

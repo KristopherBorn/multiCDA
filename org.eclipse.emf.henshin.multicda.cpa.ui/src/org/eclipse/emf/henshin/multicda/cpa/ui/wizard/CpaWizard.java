@@ -11,6 +11,7 @@ package org.eclipse.emf.henshin.multicda.cpa.ui.wizard;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,6 +42,8 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
+
+import agg.util.Pair;
 
 public class CpaWizard extends Wizard {
 
@@ -75,11 +78,12 @@ public class CpaWizard extends Wizard {
 				resultPath = greatestCommonPrefix(resultPath, pathWithoutFile);
 				IPath pathOfHenshinTransformationRules = pathOfSelection;
 				//adapt file selection in case of a henshin_diagram files
-				if(pathOfSelection.getFileExtension().equals("henshin_diagram")){
+				if (pathOfSelection.getFileExtension().equals("henshin_diagram")) {
 					pathOfHenshinTransformationRules = pathOfSelection.removeFileExtension();
-					pathOfHenshinTransformationRules = pathOfHenshinTransformationRules.addFileExtension("henshin");					
+					pathOfHenshinTransformationRules = pathOfHenshinTransformationRules.addFileExtension("henshin");
 				}
-				String fileNameOfTransformationRules = pathOfHenshinTransformationRules.segment(pathOfHenshinTransformationRules.segmentCount() - 1);
+				String fileNameOfTransformationRules = pathOfHenshinTransformationRules
+						.segment(pathOfHenshinTransformationRules.segmentCount() - 1);
 				HenshinResourceSet henshinResourceSet = new HenshinResourceSet();
 				Module module = henshinResourceSet.getModule(pathOfHenshinTransformationRules.toOSString());
 				for (Unit unit : module.getUnits()) {
@@ -126,12 +130,12 @@ public class CpaWizard extends Wizard {
 		options.setReduceSameRuleAndSameMatch(optionSettingsWizardPage.getReduceSameMatch());
 		options.persist(optionsFile);
 
-		List<Rule> selectedRules = ruleAndCpKindSelectionWizardPage.getEnabledRules();
+		Pair<Set<Rule>, Set<Rule>> selectedRules = ruleAndCpKindSelectionWizardPage.getEnabledRules();
 
 		boolean analysableRules = false;
 
 		try {
-			aggCPA.init(selectedRules, options);
+			aggCPA.init(new HashSet<Rule>(selectedRules.first), new HashSet<Rule>(selectedRules.second), options);
 			analysableRules = true;
 		} catch (UnsupportedRuleException e) {
 			MessageDialog.openError(getShell(), "Error occured while initialising the critical pair analysis!",
@@ -172,8 +176,8 @@ public class CpaWizard extends Wizard {
 						cpaResult = joinCPAResults(conflictResult, dependencyResult);
 
 						ResourceSet resSet = new ResourceSetImpl();
-						resSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-								.put("ecore", new XMLResourceFactoryImpl());
+						resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
+								new XMLResourceFactoryImpl());
 
 						monitor.worked(20);
 						monitor.done();
