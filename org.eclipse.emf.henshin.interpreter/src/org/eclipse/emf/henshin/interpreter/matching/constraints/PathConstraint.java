@@ -119,12 +119,6 @@ public class PathConstraint implements BinaryConstraint {
 				}
 			}
 			
-			// TODO: why does domain restriction not work for path constraints?
-			//if (change.originalValues!=null) {
-			//	target.temporaryDomain.retainAll(change.originalValues);
-			//}
-			
-			// Temporary domain must not be empty:
 			return !target.temporaryDomain.isEmpty();
 			
 		}

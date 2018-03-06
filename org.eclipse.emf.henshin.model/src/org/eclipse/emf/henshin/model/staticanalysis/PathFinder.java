@@ -14,7 +14,6 @@ import org.eclipse.emf.henshin.model.NestedCondition;
 import org.eclipse.emf.henshin.model.Node;
 
 /*
- * TODO Path finder and PAC checks need re-implementation
  */
 public class PathFinder {
 

@@ -78,7 +78,8 @@ public class VariableInfo {
 
 		for (Node node : rule.getLhs().getNodes()) {
 			if (rule.getMappings().getImage(node, rule.getRhs()) == null) {
-				createDanglingConstraints(node);
+				boolean postpone = ruleInfo.getPostponed().contains(node);
+				createDanglingConstraints(node, postpone);
 			}
 		}
 
@@ -213,9 +214,11 @@ public class VariableInfo {
 
 	}
 
-	private void createDanglingConstraints(Node node) {
+	private void createDanglingConstraints(Node node, boolean postpone) {
 		Variable var = node2variable.get(node);
-		DanglingConstraint constraint = new DanglingConstraint(getEdgeCounts(node, false), getEdgeCounts(node, true));
+		
+		DanglingConstraint constraint = new DanglingConstraint(getEdgeCounts(node, false), getEdgeCounts(node, true), postpone);
+		
 		var.danglingConstraints.add(constraint);
 	}
 
@@ -306,7 +309,6 @@ public class VariableInfo {
 	 * @return the node2variable
 	 */
 	public Map<Node, Variable> getNode2variable() {
-		// TODO: change Solution to get rid of this method
 		return node2variable;
 	}
 

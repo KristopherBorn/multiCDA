@@ -117,7 +117,6 @@ public class HenshinAGGExporter implements HenshinModelExporter {
 	// internal variable for rule parameter generation
 	private boolean createRuleParameterForAllAttributes = true;
 
-	// TODO: add information here (notwendig für essCPA!)
 	private boolean exportWithoutUpperLimitsOnTG;
 
 	// due to backward compatibilities due to added boolean parameter (KB
@@ -359,7 +358,7 @@ public class HenshinAGGExporter implements HenshinModelExporter {
 
 		// Check whether the reference names are unique:
 		boolean hasUniqureRefNames = hasUniqueEReferenceNames(module);
-
+		hasUniqureRefNames = true;
 		// Edge types:
 		for (EClass eclass : eclasses) {
 

@@ -365,5 +365,4 @@ public class HenshinResourceSet extends ResourceSetImpl {
 			throw new RuntimeException(e);
 		}
 	}
-
 }

@@ -13,7 +13,7 @@ public class CorrectnessCheckUtil {
 	
 	/**
 	 * Checks if the input files are identical. <br>
-	 * TODO: Implement a more intelligent, semantic way to compare the files (maybe using EMFCompare).
+	 *  Implement a more intelligent, semantic way to compare the files (maybe using EMFCompare).
 	 * @param filePath1
 	 * @param filePath2
 	 */
