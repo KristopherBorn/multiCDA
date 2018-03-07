@@ -1,43 +1,23 @@
 package org.eclipse.emf.henshin.multicda.cda;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import org.apache.poi.ss.formula.ptg.MemErrPtg;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.eclipse.emf.henshin.model.Action;
-import org.eclipse.emf.henshin.model.Action.Type;
-import org.eclipse.emf.henshin.model.Attribute;
-import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
-import org.eclipse.emf.henshin.model.ModelElement;
-import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
-import org.eclipse.emf.henshin.multicda.cda.computation.InitialReasonComputation;
+import org.eclipse.emf.henshin.multicda.cda.computation.ConflictReasonComputation;
+import org.eclipse.emf.henshin.multicda.cda.computation.DeleteUseConflictReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 
 public class ConflictAnalysis implements MultiGranularAnalysis {
@@ -79,7 +59,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	@Override
 	public Set<Span> computeResultsFine() {
 		Set<Span> results = new HashSet<Span>();
-		computeInitialReasons().forEach(r -> results.add(r));
+		computeConflictReasons().forEach(r -> results.add(r));
 		return results;
 	}
 
@@ -118,12 +98,12 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
 	}
 
-	public Set<ConflictReason> computeInitialReasons() {
-		return new InitialReasonComputation(rule1, rule2).computeInitialReasons();
+	public Set<ConflictReason> computeConflictReasons() {
+		return new ConflictReasonComputation(rule1, rule2).computeConflictReasons();
 	}
 
-	public Set<ConflictReason> computeInitialReasons(Set<MinimalConflictReason> minimalConflictReasons) {
-		return new InitialReasonComputation(rule1, rule2).computeInitialReasons(minimalConflictReasons);
+	public Set<ConflictReason> computeCoflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
+		return new ConflictReasonComputation(rule1, rule2).computeInitialReasons(minimalConflictReasons);
 	}
 
 
@@ -161,4 +141,22 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public Set<MinimalConflictReason> getMinimalConflictReasons() {
 		return null;
 	}
+
+
+	/**
+	 * @param initialReasonsR2R1NonDel 
+	 * @param initialReasonsR1R2NonDel 
+	 * @return
+	 */
+	public Set<DeleteReadConflictReason> computeDeleteConflictReasons(Set<ConflictReason> initialReasonsR1R2NonDel, Set<ConflictReason> initialReasonsR2R1NonDel) {
+		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel);
+	}
+	
+	public Set<DeleteUseConflictReason> computeDeleteUse(Set<ConflictReason> initialReasonsR1R2NonDel, Set<ConflictReason> initialReasonsR2R1NonDel) {
+		Set<DeleteUseConflictReason> results = new HashSet<DeleteUseConflictReason>();
+		computeDeleteConflictReasons(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel).forEach(r -> results.add(r));
+		return results;
+
+	}
+
 }
