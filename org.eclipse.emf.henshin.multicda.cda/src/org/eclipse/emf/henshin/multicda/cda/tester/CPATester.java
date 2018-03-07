@@ -149,7 +149,7 @@ public class CPATester extends Tester {
 			}
 			if (options.is(Options.NONE_DELETION_SECOND_RULE))
 				second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
-			cpa.init(first, second, o);
+			cpa.init(new HashSet<>(first), new HashSet<>(second), o);
 		} catch (UnsupportedRuleException e) {
 			System.err.println(e.getMessage());
 		}

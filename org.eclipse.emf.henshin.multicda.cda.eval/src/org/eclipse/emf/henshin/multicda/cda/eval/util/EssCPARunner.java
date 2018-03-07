@@ -91,7 +91,7 @@ public class EssCPARunner {
 		if(!canceled){			
 			essCpaLogger.addData(rule1, originalRule2, runtime.toString(),
 					numberDeleteUse.toString());
-			for(CriticalPair cp : essentialResult.getEssentialCriticalPairs()){
+			for(CriticalPair cp : essentialResult.getCriticalPairs()){
 				result.addResult(cp);
 			}
 		}
@@ -105,7 +105,7 @@ public class EssCPARunner {
 	public static List<CriticalPair> filterCriticalPairs(CPAResult cpaResult, AnalysisKind analysisKind) {
 		// filter delete-use conflicts:
 		if (cpaResult != null) {
-			List<CriticalPair> criticalPairs = cpaResult.getEssentialCriticalPairs();
+			List<CriticalPair> criticalPairs = cpaResult.getCriticalPairs();
 			// System.out.println("number of essential CPs: "+criticalPairs.size());
 			List<CriticalPair> filteredCriticalPairs = new LinkedList<CriticalPair>();
 			for (CriticalPair cp : criticalPairs) {

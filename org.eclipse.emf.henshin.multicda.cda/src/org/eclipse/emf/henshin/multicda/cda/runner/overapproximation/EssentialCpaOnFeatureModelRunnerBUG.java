@@ -1,6 +1,7 @@
 package org.eclipse.emf.henshin.multicda.cda.runner.overapproximation;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class EssentialCpaOnFeatureModelRunnerBUG {
 		options.setEssential(true);
 		
 		try {
-			cpaByAGG.init(rules, options);
+			cpaByAGG.init(new HashSet<>(rules), options);
 		} catch (UnsupportedRuleException e) {
 			e.printStackTrace();
 		}

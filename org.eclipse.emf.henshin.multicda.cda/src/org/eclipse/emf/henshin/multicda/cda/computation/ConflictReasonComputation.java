@@ -21,7 +21,7 @@ import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 
-public class InitialReasonComputation {
+public class ConflictReasonComputation {
 
 	static Action deleteAction = new Action(Action.Type.DELETE);
 	static Action preserveAction = new Action(Action.Type.PRESERVE);
@@ -30,13 +30,13 @@ public class InitialReasonComputation {
 	protected Rule rule1;
 	protected Rule rule2;
 
-	public InitialReasonComputation(Rule rule1, Rule rule2) {
+	public ConflictReasonComputation(Rule rule1, Rule rule2) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
 	}
 	
 
-	public Set<ConflictReason> computeInitialReasons() {
+	public Set<ConflictReason> computeConflictReasons() {
 		Set<MinimalConflictReason> minimalReaasons = new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
 		return computeInitialReasons(minimalReaasons); 
 	}

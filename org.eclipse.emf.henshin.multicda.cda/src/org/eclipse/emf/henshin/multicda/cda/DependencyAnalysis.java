@@ -85,7 +85,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		Set<DependencyReason> result = new HashSet<DependencyReason>();
 		Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
-		Set<ConflictReason> conflictReasons = ca.computeInitialReasons();
+		Set<ConflictReason> conflictReasons = ca.computeConflictReasons();
 		for (ConflictReason cr : conflictReasons) {
 			result.add(new DependencyReason(cr));
 		}
