@@ -61,7 +61,7 @@ public class CalculateAtomicCpaTask implements Callable<List<ConflictAtom>> {
 			minimalConflictReasons.add(new MinimalConflictReason(conflictReason));
 		}
 		long conflictReasonStartTime = System.currentTimeMillis();
-		Set<ConflictReason> initialReasons = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> initialReasons = atomicCoreCPA.computeConflictReasons();
 		
 		Set<ConflictReason> filteredConflictReasons = new HashSet<ConflictReason>(); 
 		for(ConflictReason initialReason : initialReasons){

@@ -1,5 +1,6 @@
 package org.eclipse.emf.henshin.multicda.cda.tasks;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -49,7 +50,7 @@ public class CalculateCpaTask implements Callable<CPAResult> {
 
 		long normalStartTime = System.currentTimeMillis();
 		try {
-			criticalPairAnalysis.init(firstRuleList, secondRuleList, cpaOptions);
+			criticalPairAnalysis.init(new HashSet<>(firstRuleList), new HashSet<>(secondRuleList), cpaOptions);
 			if(analysisKind == AnalysisKind.CONFLICT){
 				cpaResult = criticalPairAnalysis.runConflictAnalysis();
 			}else {
