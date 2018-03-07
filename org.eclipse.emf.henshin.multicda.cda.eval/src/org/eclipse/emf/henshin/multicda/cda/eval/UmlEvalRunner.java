@@ -43,7 +43,7 @@ public abstract class UmlEvalRunner extends EvalRunner {
 					long time = System.currentTimeMillis();
 					Logger deleteUseLogger = new Logger(Logger.LogData.ESSENTIAL_DELTE_USE_CONFLICTS, rules);
 					CPAResult res = EssCPARunner.runEssCPA(deleteUseLogger, null, r1, r2.getCopy(), r2.getOriginal());
-					log(res.getEssentialCriticalPairs().size() + " ");
+					log(res.getCriticalPairs().size() + " ");
 					tlog(System.currentTimeMillis() - time + " ");
 				}
 				logn("   | "+r1.getName());

@@ -55,7 +55,7 @@ public abstract class UmlEvalRunner extends EvalRunner {
 					time = System.currentTimeMillis() - time;
 					overallTime += time;
 					tlog(time + " ");
-					log(res.getEssentialCriticalPairs().size() + " ");
+					log(res.getCriticalPairs().size() + " ");
 				}
 				logn("   | "+r1.getName());
 			}
