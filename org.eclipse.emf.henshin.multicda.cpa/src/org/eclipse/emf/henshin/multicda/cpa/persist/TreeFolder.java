@@ -24,7 +24,7 @@ public class TreeFolder {
 	/**
 	 * List of nodes, of which each node represents a single critical pair.
 	 */
-	List<CriticalPairNode> singleCriticalPairResults;
+	List<SpanNode> singleCriticalPairResults;
 
 	/**
 	 * A name combining the two involved rules.
@@ -38,7 +38,7 @@ public class TreeFolder {
 	 */
 	public TreeFolder(String nameOfInvolvedRules) {
 		this.nameOfInvolvedRules = nameOfInvolvedRules;
-		singleCriticalPairResults = new LinkedList<CriticalPairNode>();
+		singleCriticalPairResults = new LinkedList<SpanNode>();
 	}
 
 	/*
@@ -46,7 +46,7 @@ public class TreeFolder {
 	 * 
 	 * @see java.util.List#add()
 	 */
-	public boolean addChild(CriticalPairNode criticalPairNode) {
+	public boolean addChild(SpanNode criticalPairNode) {
 		// criticalPairNode.setParent(this);
 		return singleCriticalPairResults.add(criticalPairNode);
 	}
@@ -56,7 +56,7 @@ public class TreeFolder {
 	 * 
 	 * @see java.util.List#remove()
 	 */
-	public boolean removeChild(CriticalPairNode child) {
+	public boolean removeChild(SpanNode child) {
 		// child.setParent(null);
 		return singleCriticalPairResults.remove(child);
 	}
@@ -84,8 +84,8 @@ public class TreeFolder {
 	 * 
 	 * @return the contained single critical pairs as an Array.
 	 */
-	public CriticalPairNode[] getChildren() {
-		return (CriticalPairNode[]) singleCriticalPairResults.toArray(new CriticalPairNode[singleCriticalPairResults
+	public SpanNode[] getChildren() {
+		return (SpanNode[]) singleCriticalPairResults.toArray(new SpanNode[singleCriticalPairResults
 				.size()]);
 	}
 }

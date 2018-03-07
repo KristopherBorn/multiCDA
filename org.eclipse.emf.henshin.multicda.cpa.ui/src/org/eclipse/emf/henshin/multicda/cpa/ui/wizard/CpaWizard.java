@@ -28,16 +28,21 @@ import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
+import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
+import org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis;
+import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.CPType;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.GranularityType;
 import org.eclipse.emf.henshin.multicda.cpa.CPAUtility;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.ICriticalPairAnalysis;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
-import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.CPType;
-import org.eclipse.emf.henshin.multicda.cpa.persist.CriticalPairNode;
+import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
 import org.eclipse.emf.henshin.multicda.cpa.ui.presentation.CpaResultsView;
+import org.eclipse.emf.henshin.multicda.cpa.ui.util.CpEditorUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
@@ -53,7 +58,10 @@ public class CpaWizard extends Wizard {
 	String fileName = "";
 	String resultPath = "";
 	String optionsFile = "";
-	ICriticalPairAnalysis aggCPA;
+	ICriticalPairAnalysis CPA;
+	MultiGranularAnalysis CDAdep;
+	MultiGranularAnalysis CDAcon;
+	Set<Span> CDAresult = new HashSet<>();
 	CPAResult cpaResult;
 	HashMap<Rule, String> rulesAndAssociatedFileNames;
 
@@ -96,7 +104,7 @@ public class CpaWizard extends Wizard {
 			// filename for the options. Defined here static for the usage of the options with this wizard.
 			optionsFile = resultPath + ".cpa.options";
 		}
-		aggCPA = new CpaByAGG();
+		CPA = new CpaByAGG();
 	}
 
 	public void addPages() {
@@ -125,7 +133,7 @@ public class CpaWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 
-		CDAOptions options = new CDAOptions();
+		CDAOptions options = optionSettingsWizardPage.getOptions();
 		options.setComplete(optionSettingsWizardPage.getComplete());
 		options.setIgnoreSameRules(optionSettingsWizardPage.getIgnoreIdenticalRules());
 		options.setReduceSameRuleAndSameMatch(optionSettingsWizardPage.getReduceSameMatch());
@@ -137,7 +145,7 @@ public class CpaWizard extends Wizard {
 		boolean analysableRules = false;
 
 		try {
-			aggCPA.init(new HashSet<Rule>(selectedRules.first), new HashSet<Rule>(selectedRules.second), options);
+			CPA.init(new HashSet<Rule>(selectedRules.first), new HashSet<Rule>(selectedRules.second), options);
 			analysableRules = true;
 		} catch (UnsupportedRuleException e) {
 			MessageDialog.openError(getShell(), "Error occured while initialising the critical pair analysis!",
@@ -164,21 +172,47 @@ public class CpaWizard extends Wizard {
 
 						CPAResult conflictResult = null;
 						CPAResult dependencyResult = null;
+						if (options.cpTypes == CPType.BOTH || options.cpTypes == CPType.CONFLICT) {
+							for (Rule r1 : selectedRules.first)
+								for (Rule r2 : selectedRules.second) {
+									CDAcon = new ConflictAnalysis(r1, r2);
+									Set<GranularityType> granularities = GranularityType
+											.getGranularities(options.granularityType);
 
-						if (options.cpTypes==CPType.BOTH || options.cpTypes == CPType.CONFLICT) {
-							conflictResult = aggCPA.runConflictAnalysis(monitor);
-							monitor.worked(1000);
+									if (granularities.contains(GranularityType.BINARY))
+										CDAresult.add(CDAcon.computeResultsBinary());
+									if (granularities.contains(GranularityType.COARSE))
+										CDAresult.addAll(CDAcon.computeResultsCoarse());
+									if (granularities.contains(GranularityType.FINE))
+										CDAresult.addAll(CDAcon.computeResultsFine());
+								}
+//							conflictResult = CPA.runConflictAnalysis(monitor);
+//							monitor.worked(1000);
 						}
-						if (options.cpTypes==CPType.BOTH || options.cpTypes == CPType.DEPENDENCY) {
-							dependencyResult = aggCPA.runDependencyAnalysis(monitor);
-							monitor.worked(1000);
+						if (options.cpTypes == CPType.BOTH || options.cpTypes == CPType.DEPENDENCY) {
+							for (Rule r1 : selectedRules.first)
+								for (Rule r2 : selectedRules.second) {
+									CDAdep = new ConflictAnalysis(r1, r2);
+									Set<GranularityType> granularities = GranularityType
+											.getGranularities(options.granularityType);
+
+									if (granularities.contains(GranularityType.BINARY))
+										CDAresult.add(CDAdep.computeResultsBinary());
+									if (granularities.contains(GranularityType.COARSE))
+										CDAresult.addAll(CDAdep.computeResultsCoarse());
+									if (granularities.contains(GranularityType.FINE))
+										CDAresult.addAll(CDAdep.computeResultsFine());
+
+								}
+//							dependencyResult = CPA.runDependencyAnalysis(monitor);
+//							monitor.worked(1000);
 						}
 
-						cpaResult = joinCPAResults(conflictResult, dependencyResult);
-
-						ResourceSet resSet = new ResourceSetImpl();
-						resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
-								new XMLResourceFactoryImpl());
+//						cpaResult = joinCPAResults(conflictResult, dependencyResult);
+//
+//						ResourceSet resSet = new ResourceSetImpl();
+//						resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
+//								new XMLResourceFactoryImpl());
 
 						monitor.worked(20);
 						monitor.done();
@@ -207,8 +241,11 @@ public class CpaWizard extends Wizard {
 					}
 				});
 
-				HashMap<String, Set<CriticalPairNode>> persistedResults = CPAUtility.persistCpaResult(cpaResult,
+//				System.out.println(CDAresult);
+				HashMap<String, Set<SpanNode>> persistedCDAResults = CpEditorUtil.persistCdaResult(CDAresult,
 						resultPath);
+//				HashMap<String, Set<SpanNode>> persistedCPAResults = CPAUtility.persistCpaResult(cpaResult,
+//						resultPath);
 
 				ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
 
@@ -216,7 +253,7 @@ public class CpaWizard extends Wizard {
 						.showView("org.eclipse.emf.henshin.multicda.cpa.ui.views.CPAView");
 				if (cPAView instanceof CpaResultsView) {
 					CpaResultsView view = (CpaResultsView) cPAView;
-					view.setContent(persistedResults);
+					view.setContent(persistedCDAResults);
 					view.update();
 				}
 

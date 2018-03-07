@@ -94,7 +94,7 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 		generateCpxFile = true;
 		aggDebugFile = debugFile;
 	}
-
+	
 	/**
 	 * Initializes the critical pair calculation with the <code>rules</code> parameter, used as first and second rules
 	 * as well as the <code>options</code>. Even performs a check to ensure the parameters full fill the requirements to
@@ -515,4 +515,5 @@ public class CpaByAGG implements ICriticalPairAnalysis {
 			cp.setAppliedAnalysis(CriticalPair.AppliedAnalysis.ESSENTIAL);
 		}
 	}
+
 }

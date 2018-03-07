@@ -21,6 +21,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.print.attribute.HashAttributeSet;
 
 /**
  * A class for saving the options used by the critical pair analysis within AGG.
@@ -39,19 +43,38 @@ public class CDAOptions {
 	private boolean essential = false;
 	// (KB) new since 2017-08-21 due to CDA project and missing multiplicity support of the essential CPA
 	private boolean ignoreMultiplicities = false;
-	public GranularityType granularityType = GranularityType.BINARY;
+	public int granularityType = 1;
 	public CPType cpTypes = CPType.NONE;
 
 	public static enum GranularityType {
-		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)"), COARSE("Coarse granularity",
-				"Shows core conflicting (dependent) graph elements"), FINE("Fine granularity",
-						"Shows complete conflict (dependency) reasons");
+		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)", 1), COARSE("Coarse granularity",
+				"Shows core conflicting (dependent) graph elements",
+				2), FINE("Fine granularity", "Shows complete conflict (dependency) reasons", 4);
 		public final String name;
 		public String description;
+		public final int id;
 
-		GranularityType(String name, String description) {
+		GranularityType(String name, String description, int id) {
 			this.name = name;
 			this.description = description;
+			this.id = id;
+		}
+
+		public static Set<GranularityType> getGranularities(int i) {
+			Set<GranularityType> result = new HashSet<>();
+			if(i>=FINE.id) {
+				result.add(FINE);
+				i-=FINE.id;
+			}
+			if(i>=COARSE.id) {
+				result.add(COARSE);
+				i-=COARSE.id;
+			}
+			if(i>=BINARY.id) {
+				result.add(BINARY);
+				i-=BINARY.id;
+			}
+			return result;
 		}
 	};
 
@@ -218,7 +241,7 @@ public class CDAOptions {
 		// setEssential(false);
 
 		setIgnoreMultiplicities(false);
-		granularityType = GranularityType.BINARY;
+		granularityType = 1;
 	}
 
 	public boolean isComplete() {

@@ -9,6 +9,8 @@
  */
 package org.eclipse.emf.henshin.multicda.cpa.ui.wizard;
 
+import java.util.Set;
+
 import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.GranularityType;
 import org.eclipse.jface.wizard.WizardPage;
@@ -27,6 +29,9 @@ public class OptionSettingsWizardPage extends WizardPage {
 	private CDAOptions cpaOptions;
 
 	private boolean optionsLoaded;
+	Button binaryButton;
+	Button coarseButton;
+	Button fineButton;
 
 	private final static String COMPLETE = "complete critical pairs (if not selected, search up to first critical match)";
 	private final static String IGNOREIDENTICALRULES = "ignore critical pairs of same rules";
@@ -66,26 +71,26 @@ public class OptionSettingsWizardPage extends WizardPage {
 		Composite granularity = new Composite(container, SWT.NONE);
 		granularity.setLayout(new GridLayout(2, true));
 
-		Button binaryButton = new Button(granularity, SWT.RADIO);
+		binaryButton = new Button(granularity, SWT.CHECK);
 		binaryButton.setText(GranularityType.BINARY.name);
 		binaryButton.addListener(SWT.Selection, checkListener);
-		binaryButton.setSelection(getGranularity() == GranularityType.BINARY);
+		binaryButton.setSelection(getGranularity().contains(GranularityType.BINARY));
 		binaryButton.setData(GranularityType.BINARY);
 		Label label = new Label(granularity, SWT.NONE);
 		label.setText(GranularityType.BINARY.description);
 
-		Button coarseButton = new Button(granularity, SWT.RADIO);
+		coarseButton = new Button(granularity, SWT.CHECK);
 		coarseButton.setText(GranularityType.COARSE.name);
 		coarseButton.addListener(SWT.Selection, checkListener);
-		coarseButton.setSelection(getGranularity() == GranularityType.COARSE);
+		coarseButton.setSelection(getGranularity().contains(GranularityType.COARSE));
 		coarseButton.setData(GranularityType.COARSE);
 		label = new Label(granularity, SWT.NONE);
 		label.setText(GranularityType.COARSE.description);
 
-		Button fineButton = new Button(granularity, SWT.RADIO);
+		fineButton = new Button(granularity, SWT.CHECK);
 		fineButton.setText(GranularityType.FINE.name);
 		fineButton.addListener(SWT.Selection, checkListener);
-		fineButton.setSelection(getGranularity() == GranularityType.FINE);
+		fineButton.setSelection(getGranularity().contains(GranularityType.FINE));
 		fineButton.setData(GranularityType.FINE);
 		label = new Label(granularity, SWT.NONE);
 		label.setText(GranularityType.FINE.description);
@@ -106,19 +111,19 @@ public class OptionSettingsWizardPage extends WizardPage {
 	}
 
 	Listener checkListener = new Listener() {
-
 		public void handleEvent(Event event) {
 			Object data = event.widget.getData();
 			Button button = (Button) (event.widget);
-			if (data instanceof GranularityType)
-				cpaOptions.granularityType = (GranularityType) data;
+			if(!binaryButton.getSelection() && !coarseButton.getSelection() && !fineButton.getSelection())
+				button.setSelection(true);
+			else if (data instanceof GranularityType)
+				cpaOptions.granularityType += (((Button) event.widget).getSelection() ? 1 : -1)
+						* ((GranularityType) data).id;
 			else if ((Boolean) data)
 				setComplete(button.getSelection());
 			else
 				setIgnoreIdenticalRules(button.getSelection());
-
 		}
-
 	};
 
 	/**
@@ -138,8 +143,8 @@ public class OptionSettingsWizardPage extends WizardPage {
 		return cpaOptions.isComplete();
 	}
 
-	public GranularityType getGranularity() {
-		return cpaOptions.granularityType;
+	public Set<GranularityType> getGranularity() {
+		return GranularityType.getGranularities(cpaOptions.granularityType);
 	}
 
 	public void setComplete(Boolean complete) {

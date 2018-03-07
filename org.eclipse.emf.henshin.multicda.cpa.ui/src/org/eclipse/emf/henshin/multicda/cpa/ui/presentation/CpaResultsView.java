@@ -16,7 +16,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.henshin.multicda.cpa.persist.CriticalPairNode;
+import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.persist.RootElement;
 import org.eclipse.emf.henshin.multicda.cpa.persist.TreeFolder;
 import org.eclipse.emf.henshin.multicda.cpa.ui.util.CpEditorUtil;
@@ -56,7 +56,7 @@ public class CpaResultsView extends ViewPart {
 
 	private TreeViewer viewer;
 	private Action doubleClickAction;
-	private HashMap<String, Set<CriticalPairNode>> content;
+	private HashMap<String, Set<SpanNode>> content;
 
 	class CPAViewContentProvider implements ITreeContentProvider {
 
@@ -69,9 +69,9 @@ public class CpaResultsView extends ViewPart {
 				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
 				invisibleRoot.addChild(treeFolder);
 
-				Set<CriticalPairNode> theCriticalPairsForTheRulecombination = content.get(ruleCombinationName);
+				Set<SpanNode> theCriticalPairsForTheRulecombination = content.get(ruleCombinationName);
 
-				for (CriticalPairNode criticalPairNode : theCriticalPairsForTheRulecombination) {
+				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
 					treeFolder.addChild(criticalPairNode);
 				}
 			}
@@ -122,8 +122,8 @@ public class CpaResultsView extends ViewPart {
 		 */
 		@Override
 		public Object getParent(Object element) {
-			if (element instanceof CriticalPairNode) {
-				return ((CriticalPairNode) element).getParent();
+			if (element instanceof SpanNode) {
+				return ((SpanNode) element).getParent();
 			}
 			return null;
 		}
@@ -202,9 +202,9 @@ public class CpaResultsView extends ViewPart {
 			public void run() {
 				ISelection selection = viewer.getSelection();
 				Object obj = ((IStructuredSelection) selection).getFirstElement();
-				if (obj instanceof CriticalPairNode) {
+				if (obj instanceof SpanNode) {
 
-					CriticalPairNode criticalPairNode = (CriticalPairNode) obj;
+					SpanNode criticalPairNode = (SpanNode) obj;
 
 					URI firstRuleUri = criticalPairNode.getFirstRuleURI();
 					URI overlapuri = criticalPairNode.getMinimalModelURI();
@@ -252,7 +252,7 @@ public class CpaResultsView extends ViewPart {
 		}
 	}
 
-	public void setContent(HashMap<String, Set<CriticalPairNode>> persistedResults) {
+	public void setContent(HashMap<String, Set<SpanNode>> persistedResults) {
 		this.content = persistedResults;
 	}
 }

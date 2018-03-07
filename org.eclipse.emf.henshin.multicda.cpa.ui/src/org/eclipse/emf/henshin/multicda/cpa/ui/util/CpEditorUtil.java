@@ -9,14 +9,30 @@
  */
 package org.eclipse.emf.henshin.multicda.cpa.ui.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.presentation.EcoreEditor;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.henshin.model.Graph;
+import org.eclipse.emf.henshin.multicda.cda.Span;
+import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
+import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
 import org.eclipse.emf.henshin.multicda.cpa.ui.presentation.HenshinCPEditor;
 import org.eclipse.emf.henshin.presentation.HenshinEditor;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -37,15 +53,110 @@ public class CpEditorUtil {
 				"org.eclipse.gmf.ecore.part.EcoreDiagramEditorID",
 				"org.eclipse.emf.henshin.presentation.HenshinEditorID" };
 
+	}
 
+	/**
+	 * Persists the results of a critical pair analysis in the file system.
+	 * 
+	 * @param cpaResult A <code>CPAResult</code> of a critical pair analysis.
+	 * @param path The path for saving the full result set.
+	 * @return a <code>HashMap</code> of the saved results.
+	 */
+	public static HashMap<String, Set<SpanNode>> persistCdaResult(Set<Span> cpaResult, String path) {
 
+		Date timestamp = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd-HHmmss");
+		String timestampFolder = simpleDateFormat.format(timestamp);
+
+		String pathWithDateStamp = path + File.separator + timestampFolder;
+
+		HashMap<String, Set<SpanNode>> persistedNodes = new HashMap<String, Set<SpanNode>>();
+
+		for (Span span : cpaResult) {
+			// naming of each single conflict
+			String folderName = span.getRule1().getName() + ", " + span.getRule2().getName();
+
+			int numberForRulePair = 1;
+
+			if (persistedNodes.containsKey(folderName)) {
+				numberForRulePair = persistedNodes.get(folderName).size() + 1;
+			} else {
+				persistedNodes.put(folderName, new HashSet<SpanNode>());
+			}
+
+			String spanKind = span.getClass().getSimpleName();
+//			Replace(str, @"([a-z])([A-Z])", "$1 $2")
+			spanKind = spanKind.replaceAll("([a-z])([A-Z])", "$1 $2");
+
+			String formatedNumberForRulePair = new DecimalFormat("00").format(numberForRulePair);
+
+			String numberedNameOfCPKind = "(" + formatedNumberForRulePair + ") " + spanKind;
+
+//			// persist a single critical pair.
+//			SpanNode newCriticalPairNode = persistSingleCriticalPair(span, numberedNameOfCPKind,
+//					pathWithDateStamp);
+
+			String pathForCurrentCriticalPair = pathWithDateStamp + File.separator + span.getRule1().getName() + "_AND_"
+					+ span.getRule2().getName() + File.separator + numberedNameOfCPKind + File.separator;
+
+			ResourceSet commonResourceSet = new ResourceSetImpl();
+			// save the first rule in the file system
+			String fileNameRule1 = "(1)" + span.getRule1().getName() + ".henshin";
+			String fullPathRule1 = pathForCurrentCriticalPair + fileNameRule1;
+			URI firstRuleURI = saveRuleInFileSystem(commonResourceSet, span.getRule1(), fullPathRule1);
+
+//			// save the minimal model in the file system
+//			String fileNameMinimalModel = "minimal-model" + ".ecore";
+//			String fullPathMinimalModel = pathForCurrentCriticalPair + fileNameMinimalModel;
+
+//			URI overlapURI = saveMinimalModelInFileSystem(commonResourceSet, minimalModel, fullPathMinimalModel);
+
+			// save the second rule in the file system
+			String fileNameRule2 = "(2)" + span.getRule2().getName() + ".henshin";
+			String fullPathRule2 = pathForCurrentCriticalPair + fileNameRule2;
+			URI secondRuleURI = saveRuleInFileSystem(commonResourceSet, span.getRule2(), fullPathRule2);
+
+			// save a dummy for the HenshinCPEditor
+			String fileName = "dummy.henshinCp";
+			String fullPath = pathForCurrentCriticalPair + fileName;
+			URI criticalPairURI = saveRuleInFileSystem(commonResourceSet, span.graph, fullPath);
+
+			persistedNodes.get(folderName).add(new SpanNode(numberedNameOfCPKind, firstRuleURI, secondRuleURI, criticalPairURI));
+		}
+
+		return persistedNodes;
+	}
+
+	/**
+	 * Saves a <code>Rule</code> on the given path within the file system.
+	 * 
+	 * @param resourceSet The common <code>ResourceSet</code>.
+	 * @param rule The <code>Rule</code> to be saved.
+	 * @param fullFilePath The full path of the file.
+	 * @return the <code>URI</code> of the saved file.
+	 */
+	private static URI saveRuleInFileSystem(ResourceSet resourceSet, EObject content, String fullFilePath) {
+		URI firstRuleURI = URI.createFileURI(fullFilePath);
+		Resource firstRuleRes;
+		if (content instanceof CriticalPair || content instanceof Graph)
+			firstRuleRes = resourceSet.createResource(firstRuleURI, "henshinCp");
+		else
+			firstRuleRes = resourceSet.createResource(firstRuleURI, "henshin");
+		firstRuleRes.getContents().add(content);
+
+		try {
+			firstRuleRes.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return firstRuleURI;
 	}
 
 	public static void openResultInCpEditor(URI firstRuleUri, URI overlapUri, URI secondRuleUri) {
 
 		/** URIs of henshin1, ecore[, henshin2 [.ecore, .wcoreextended, .gcore and .wcore files] */
 		URI[] modelURIs = new URI[3];
-		
+
 		modelURIs[0] = firstRuleUri;
 		modelURIs[1] = overlapUri;
 		modelURIs[2] = secondRuleUri;
@@ -59,30 +170,23 @@ public class CpEditorUtil {
 
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			IEditorPart editor = page.openEditor(multiEditorInput, HenshinCPEditor.MULTI_EDITOR_ID, true);
-			
 
-			
-			if (editor instanceof HenshinCPEditor) { 
-														
+			if (editor instanceof HenshinCPEditor) {
+
 				HenshinCPEditor openedHenshinCPEditor = (HenshinCPEditor) editor;
 				IEditorPart[] innerEditors = openedHenshinCPEditor.getInnerEditors();
 
-				
-
 				for (IEditorPart iEditorPart : innerEditors) {
-					
+
 					if (iEditorPart instanceof EcoreEditor) {
 						EcoreEditor ecoreEditor = (EcoreEditor) iEditorPart;
 						Viewer viewer = ecoreEditor.getViewer();
-						
-						TreeViewer tViewer = (TreeViewer) viewer;
 
-						
+						TreeViewer tViewer = (TreeViewer) viewer;
 
 						tViewer.expandToLevel(4);
 					}
 
-					
 					if (iEditorPart instanceof HenshinEditor) {
 						HenshinEditor henshinEditor = (HenshinEditor) iEditorPart;
 					}
