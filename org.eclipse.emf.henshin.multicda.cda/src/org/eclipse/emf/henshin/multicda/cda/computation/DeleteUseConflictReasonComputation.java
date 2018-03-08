@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Graph;
@@ -140,10 +142,21 @@ public class DeleteUseConflictReasonComputation {
 		Rule rule2 = conflictReason.getRule2();
 		Graph s1 = conflictReason.getGraph();
 		Graph l2 = rule2.getLhs();
-		rule2.getRhs();
+		Action preserve = new Action(Action.Type.PRESERVE);
 		// Get KernelRule
-		EList<Node> k2nodes = rule2.getActionNodes(new Action(Action.Type.PRESERVE));
-		// System.out.println(k2nodes);
+		EList<Node> k2nodes = rule2.getRhs().getNodes();
+		EList<Node> toBeDeleted = new BasicEList<Node>();
+		System.out.println(k2nodes);
+		for (Node node : k2nodes) {
+			if (!node.getType().equals(preserve)){ //TODO Jevgenij Sollten hier die Preserve teile nicht eben nicht zur liste hinzu?
+				toBeDeleted.add(node);
+			}
+		}
+		System.out.println(toBeDeleted);
+		for (Node node : toBeDeleted) {
+			k2nodes.remove(node);
+		}
+		//System.out.println(k2nodes);
 
 		// S1 -> K2
 		ArrayList<Mapping> s1tok2 = computeMappings(s1.getNodes(), k2nodes);

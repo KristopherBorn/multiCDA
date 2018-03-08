@@ -6,17 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.model.Graph;
-import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.ConflictReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.DeleteUseConflictReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
@@ -43,6 +40,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 			this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
 			this.rule2original = rule2;
 			this.rule2 = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
+			//this.rule2 = rule2;
 			
 	}
 
@@ -158,13 +156,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	/**
-	 * @param conflictReasons
-	 * @param conflictReasonsFromR22 
-	 * @param rule1NonDelete 
-	 * @param rule2original 
-	 * @return
-	 */
 	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons, Set<Span> conflictReasonsFromR22){
 		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
 
