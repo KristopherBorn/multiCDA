@@ -20,6 +20,7 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.MinimalDependencyReason;
@@ -54,7 +55,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Geeignet nur für Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
+	 * Geeignet nur fï¿½r Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
 	 * 
 	 * @param henshin
 	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
@@ -64,7 +65,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Initialisiert und führt die multiCDA aus
+	 * Initialisiert und fï¿½hrt die multiCDA aus
 	 * 
 	 * @param henshin path to the henshin file
 	 * @param firstRule name of the first rule
@@ -107,7 +108,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Initialisiert und führt die multiCDA aus
+	 * Initialisiert und fï¿½hrt die multiCDA aus
 	 * 
 	 * @param first
 	 * @param second
@@ -139,8 +140,8 @@ public class CDATester extends Tester {
 			}
 		}
 
-		if (options.is(Options.NONE_DELETION_SECOND_RULE))
-			second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
+		//if (options.is(Options.NONE_DELETION_SECOND_RULE))
+			//second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
 		if (options.is(Options.DEPENDENCY))
 			analyser = new DependencyAnalysis(first, second);
@@ -245,19 +246,23 @@ public class CDATester extends Tester {
 		String type = "";
 
 		for (Span span : spans) {
-			if (span instanceof MinimalConflictReason)
-				type = "MCR";
-			else if (span instanceof ConflictReason)
-				type = "CR";
-			else if (span instanceof DependencyReason)
-				type = "DCR";
-			else if (span instanceof MinimalDependencyReason)
-				type = "MDCR";
-			else if (span instanceof EssentialConflictReason)
-				type = "ECR";
-			else
-				type = "SPAN";
-			System.out.println(type + ": " + span.getGraph().getEdges() + "\t| " + span.getGraph().getNodes());
+			if (span instanceof DeleteUseConflictReason) {
+				((DeleteUseConflictReason) span).print();
+			}else{
+				if (span instanceof MinimalConflictReason)
+					type = "MCR";
+				else if (span instanceof ConflictReason)
+					type = "CR";
+				else if (span instanceof DependencyReason)
+					type = "DCR";
+				else if (span instanceof MinimalDependencyReason)
+					type = "MDCR";
+				else if (span instanceof EssentialConflictReason)
+					type = "ECR";
+				else
+					type = "SPAN";
+				System.out.println(type + ": " + span.getGraph().getEdges() + "\t| " + span.getGraph().getNodes());
+			}
 		}
 	}
 

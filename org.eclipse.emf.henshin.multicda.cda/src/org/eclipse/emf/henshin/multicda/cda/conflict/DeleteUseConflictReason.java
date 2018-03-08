@@ -8,7 +8,17 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 /**
  * @author vincentcuccu 23.02.2018
  */
-public class DeleteUseConflictReason {
+public class DeleteUseConflictReason extends ConflictReason {
+
+	/**
+	 * @param s1
+	 */
+	public DeleteUseConflictReason(Span s1) {
+		super(s1);
+		this.span1 = s1;
+		this.span2 = null;
+		// TODO Auto-generated constructor stub
+	}
 
 	private Span span1;
 	private Span span2;

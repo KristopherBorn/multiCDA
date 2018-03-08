@@ -18,6 +18,7 @@ import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 
 /**
@@ -29,8 +30,8 @@ public class DeleteUseConflictReasonComputation {
 	private Rule rule1;
 	private Rule rule2;
 	private HashSet<Span> checked;
-	private Set<ConflictReason> initialReasonsR2R1NonDel;
-	private Set<ConflictReason> initialReasonsR1R2NonDel;
+	private Set<Span> conflictReasonsFromR2;
+
 	private ConflictAnalysis analyser;
 	private Set<Mapping> L1S1L2;
 
@@ -48,18 +49,20 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * constructs all Initial Reasons as candidates for r1 and r2
+	 * @param conflictReasons 
+	 * @param rule1NonDelete 
+	 * @param rule2original 
 	 * 
 	 * @return result
 	 */
-	public Set<DeleteReadConflictReason> computeDeleteUseConflictReason(Set<ConflictReason> initialReasonsR1R2NonDel, Set<ConflictReason> initialReasonsR2R1NonDel) {
-		this.initialReasonsR1R2NonDel = initialReasonsR1R2NonDel;
-		this.initialReasonsR2R1NonDel = initialReasonsR2R1NonDel;
-		Set<DeleteReadConflictReason> result = new HashSet<DeleteReadConflictReason>();
-		Set<ConflictReason> initialReasons = new ConflictReasonComputation(rule1, rule2).computeConflictReasons();
-		for (ConflictReason initalReason : initialReasonsR1R2NonDel) {
-			computeDeleteReadConflictReason(initalReason, result);
+	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason(Set<Span> conflictReasons, Rule rule2original, Rule rule1NonDelete) {
+		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
+		this.conflictReasonsFromR2 = conflictReasonsFromR2;
+		System.out.println(conflictReasons.size());
+		//Set<ConflictReason> initialReasons = new ConflictReasonComputation(rule1, rule2).computeConflictReasons();
+		for (Span conflictReason : conflictReasons) {
+			computeDeleteUseConflictReasons(conflictReason, result);
 		}
-
 		return result;
 
 	}
@@ -67,32 +70,30 @@ public class DeleteUseConflictReasonComputation {
 	/**
 	 * the Method to encounter the delete read conflict reasons
 	 * 
-	 * @param initialReason
+	 * @param conflictReason
 	 * @param result
 	 */
-	private void computeDeleteReadConflictReason(ConflictReason initialReason, Set<DeleteReadConflictReason> result) {
-		initialReason.getRule1().getLhs();
-		Rule rule1 = initialReason.getRule1();
-		Rule rule2 = initialReason.getRule2();
-		L1S1L2 = initialReason.mappingsInRule1;
+	private void computeDeleteUseConflictReasons(Span conflictReason, Set<DeleteUseConflictReason> result) {
+		Rule rule1 = conflictReason.getRule1();
+		Rule rule2 = conflictReason.getRule2();
+		L1S1L2 = conflictReason.mappingsInRule1;
 		//System.out.println("Mappings in Rule 1: " + L1S1L2);
-		initialReason.getGraph();
+		conflictReason.getGraph();
 		new ArrayList<Mapping>();
 		MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
 
-		if (findEmbeddingS1toK2(initialReason)) {// If (there exists embedding
+		if (findEmbeddingS1toK2(conflictReason)) {// If (there exists embedding
 													// S1 to K2 with S1 to K2 to
 													// L2 = mappingsInRule2) {
 
-			Pushout pushout = new Pushout(rule1, initialReason, rule2);
+			Pushout pushout = new Pushout(rule1, conflictReason, rule2);
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, pushout.getRule2Mappings()).isEmpty()) { // fullfillDanglingG(pushout)
-				DeleteReadConflictReason res = new DeleteReadConflictReason();
-				res.setSpan1(initialReason);
+				DeleteUseConflictReason res = new DeleteUseConflictReason(conflictReason);
 				result.add(res);
 			}
 		} else {
-			Object DeleteDeleteSet = ConstructDeleteDeleteSet(initialReason);
+			Object DeleteDeleteSet = ConstructDeleteDeleteSet(conflictReason);
 			 
 				     // If DD(s1) is nonEmpty  
 				           //DD(s1) empty cannot occur since s1 would be a SDUCR then
@@ -104,12 +105,12 @@ public class DeleteUseConflictReasonComputation {
 	/**
 	 * @param rule12
 	 * @param rule22
-	 * @param initialReason
+	 * @param conflictReason
 	 * @return
 	 */
-	private Object ConstructDeleteDeleteSet(ConflictReason initialReason) {
+	private Object ConstructDeleteDeleteSet(Span conflictReason) {
 		
-		for (Span span : initialReasonsR2R1NonDel) {
+		for (Span span : conflictReasonsFromR2) {
 			Set<Mapping> L2S2L1 = span.mappingsInRule2;
 			Object sSmall = compatibleSpans(L1S1L2,L2S2L1);
 			
@@ -134,13 +135,13 @@ public class DeleteUseConflictReasonComputation {
 	 * returns true, if there is a match from S1 to K2, which is equal to the
 	 * match of S1 to lhs of rule 2
 	 * 
-	 * @param initialReason
+	 * @param conflictReason
 	 * @return boolean
 	 */
-	public static boolean findEmbeddingS1toK2(ConflictReason initialReason) {
-		initialReason.getRule1();
-		Rule rule2 = initialReason.getRule2();
-		Graph s1 = initialReason.getGraph();
+	public static boolean findEmbeddingS1toK2(Span conflictReason) {
+		conflictReason.getRule1();
+		Rule rule2 = conflictReason.getRule2();
+		Graph s1 = conflictReason.getGraph();
 		Graph l2 = rule2.getLhs();
 		rule2.getRhs();
 		// Get KernelRule

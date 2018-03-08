@@ -19,18 +19,29 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
+import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
 public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	private Rule rule1;
 	private Rule rule2;
-	HenshinFactory henshinFactory = new HenshinFactoryImpl();
+	private Rule rule1NonDelete;
+	private Rule rule2NonDelete;
+	private Rule rule2original;
 	
+
+	/**
+	 * @param rule1
+	 * @param rule2
+	 */
 	public ConflictAnalysis(Rule rule1, Rule rule2) {
 		checkNull(rule1);
 		checkNull(rule2);
-		this.rule1 = rule1;
-		this.rule2 = rule2;
+			this.rule1 = rule1;
+			this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
+			this.rule2original = rule2;
+			this.rule2 = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
+			
 	}
 
 	@Override
@@ -58,8 +69,14 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	@Override
 	public Set<Span> computeResultsFine() {
+		Set<Span> conflictReasons = new HashSet<Span>();
 		Set<Span> results = new HashSet<Span>();
-		computeConflictReasons().forEach(r -> results.add(r));
+// 		Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
+//		ConflictAnalysis conflictHelper;
+//		conflictHelper = new ConflictAnalysis(rule2original, rule1NonDelete);
+//		computeConflictReasons().forEach(r -> conflictReasons.add(r));
+//		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));;
+		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r));
 		return results;
 	}
 
@@ -102,10 +119,9 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return new ConflictReasonComputation(rule1, rule2).computeConflictReasons();
 	}
 
-	public Set<ConflictReason> computeCoflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
+	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
 		return new ConflictReasonComputation(rule1, rule2).computeInitialReasons(minimalConflictReasons);
 	}
-
 
 	public boolean isRuleSupported(Rule rule) {
 		if (rule.getMultiRules().size() > 0) {
@@ -142,21 +158,16 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-
 	/**
-	 * @param initialReasonsR2R1NonDel 
-	 * @param initialReasonsR1R2NonDel 
+	 * @param conflictReasons
+	 * @param rule1NonDelete 
+	 * @param rule2original 
 	 * @return
 	 */
-	public Set<DeleteReadConflictReason> computeDeleteConflictReasons(Set<ConflictReason> initialReasonsR1R2NonDel, Set<ConflictReason> initialReasonsR2R1NonDel) {
-		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel);
-	}
-	
-	public Set<DeleteUseConflictReason> computeDeleteUse(Set<ConflictReason> initialReasonsR1R2NonDel, Set<ConflictReason> initialReasonsR2R1NonDel) {
-		Set<DeleteUseConflictReason> results = new HashSet<DeleteUseConflictReason>();
-		computeDeleteConflictReasons(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel).forEach(r -> results.add(r));
-		return results;
-
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
+		this.rule1NonDelete = rule1NonDelete;
+		this.rule2original = rule2original;
+		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason(conflictReasons, rule2original, rule1NonDelete);
 	}
 
 }
