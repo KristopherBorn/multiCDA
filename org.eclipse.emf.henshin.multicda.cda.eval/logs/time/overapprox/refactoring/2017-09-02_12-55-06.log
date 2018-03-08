@@ -1,0 +1,31 @@
+[AGG] Computing essential critical pairs (R2 deleting):
+1978 2319 197 80 58 40 36 108    | decapsulateAttribute
+445 378 105 84 66 37 36 1788    | pullUpEncapsulatedAttribute
+99 63 56 44 46 38 32 44    | moveMethod
+50 52 43 60 52 42 46 50    | moveAttribute
+51 53 60 55 61 51 67 57    | deleteClass
+34 45 35 32 30 31 42 38    | introduceNewPackageForSingleClass
+33 32 34 34 68 42 179 555    | newPackageForImplementations
+221 1048 123 69 68 49 459 3557    | joinClassesWithCommonSuperclass
+
+[AGG] Computing essential critical pairs (R2 non-deleting):
+663 1134 169 63 66 52 49 105    | decapsulateAttribute
+221 253 86 72 56 62 59 133    | pullUpEncapsulatedAttribute
+61 73 59 76 63 64 73 80    | moveMethod
+82 82 61 59 48 53 54 55    | moveAttribute
+55 60 73 56 64 61 74 71    | deleteClass
+61 52 56 58 53 49 62 56    | introduceNewPackageForSingleClass
+54 56 68 63 69 57 163 88    | newPackageForImplementations
+112 1026 161 84 71 78 461 3273    | joinClassesWithCommonSuperclass
+
+
+_ _ _ _ _ _ _ !     | Rule decapsulateAttribute
+! _ _ _ _ _ _ !     | Rule pullUpEncapsulatedAttribute
+_ _ _ _ _ _ _ _     | Rule moveMethod
+_ _ _ _ _ _ _ _     | Rule moveAttribute
+_ _ _ _ _ _ _ _     | Rule deleteClass
+_ _ _ _ _ _ _ _     | Rule introduceNewPackageForSingleClass
+_ _ _ _ ! _ _ !     | Rule newPackageForImplementations
+_ _ _ _ ! _ _ _     | Rule joinClassesWithCommonSuperclass
+
+Intestigated 64 rule pairs, 58 correct. Precision = 0.90625
