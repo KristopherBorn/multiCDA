@@ -41,25 +41,27 @@ public class DeleteUseConflictReasonComputation {
 	 * 
 	 * @param rule1
 	 * @param rule2
+	 * @param conflictReasonsFromR22 
 	 */
-	public DeleteUseConflictReasonComputation(Rule rule1, Rule rule2) {
+	public DeleteUseConflictReasonComputation(Rule rule1, Rule rule2, Set<Span> conflictReasonsFromR2) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
+		this.conflictReasonsFromR2 = conflictReasonsFromR2;
 		setChecked(new HashSet<Span>());
 	}
 
 	/**
 	 * constructs all Initial Reasons as candidates for r1 and r2
 	 * @param conflictReasons 
-	 * @param rule1NonDelete 
-	 * @param rule2original 
-	 * 
 	 * @return result
 	 */
-	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason(Set<Span> conflictReasons, Rule rule2original, Rule rule1NonDelete) {
+	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason(Set<Span> conflictReasons) {
 		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
+<<<<<<< HEAD
+=======
 		conflictHelper = new ConflictReasonComputation(rule2original, rule1NonDelete);
 		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r)); //TODO Jevgenij !!!!! kann in zeile 75 in ConflictAnalysis berechnet werden
+>>>>>>> c1c96c91b7961a9c93d6cee4baab508f5154cd95
 		for (Span conflictReason : conflictReasons) {
 			computeDeleteUseConflictReasons(conflictReason, result);
 		}
