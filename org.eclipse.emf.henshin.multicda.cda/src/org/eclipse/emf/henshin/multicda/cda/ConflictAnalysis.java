@@ -120,7 +120,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
-		return new ConflictReasonComputation(rule1, rule2).computeInitialReasons(minimalConflictReasons);
+		return new ConflictReasonComputation(rule1, rule2).computeConflictReasons(minimalConflictReasons);
 	}
 
 	public boolean isRuleSupported(Rule rule) {
@@ -165,8 +165,15 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	 * @param rule2original 
 	 * @return
 	 */
+<<<<<<< HEAD
 	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons, Set<Span> conflictReasonsFromR22){
 		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
+=======
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
+		this.rule1NonDelete = rule1NonDelete; //TODO: AN VINCENT: Das hier bewirkt nichts
+		this.rule2original = rule2original;
+		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason(conflictReasons, rule2original, rule1NonDelete);
+>>>>>>> c1c96c91b7961a9c93d6cee4baab508f5154cd95
 	}
 
 }

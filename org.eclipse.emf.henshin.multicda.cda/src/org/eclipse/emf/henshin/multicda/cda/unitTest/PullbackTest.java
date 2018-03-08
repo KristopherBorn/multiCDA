@@ -110,7 +110,7 @@ public class PullbackTest {
 			minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 		}
 		
-		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 		Assert.assertEquals(7, computedInitialReason.size());
 		//SUPER! 
 		/* Die Anzahl entspricht zumindest der im Dokument

@@ -83,7 +83,7 @@ public class ComparatorTest {
 			minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 		}
 		
-		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 		Assert.assertEquals(7, computedInitialReason.size());
 		
 		Set<EssentialConflictReason> conflictReasonsDerivedFromInitialReason = new HashSet<EssentialConflictReason>();

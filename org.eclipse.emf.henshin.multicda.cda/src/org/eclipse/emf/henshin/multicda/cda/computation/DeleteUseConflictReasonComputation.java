@@ -57,6 +57,11 @@ public class DeleteUseConflictReasonComputation {
 	 */
 	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason(Set<Span> conflictReasons) {
 		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
+<<<<<<< HEAD
+=======
+		conflictHelper = new ConflictReasonComputation(rule2original, rule1NonDelete);
+		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r)); //TODO Jevgenij !!!!! kann in zeile 75 in ConflictAnalysis berechnet werden
+>>>>>>> c1c96c91b7961a9c93d6cee4baab508f5154cd95
 		for (Span conflictReason : conflictReasons) {
 			computeDeleteUseConflictReasons(conflictReason, result);
 		}

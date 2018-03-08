@@ -38,16 +38,16 @@ public class ConflictReasonComputation {
 
 	public Set<ConflictReason> computeConflictReasons() {
 		Set<MinimalConflictReason> minimalReaasons = new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
-		return computeInitialReasons(minimalReaasons); 
+		return computeConflictReasons(minimalReaasons); 
 	}
 
-	public Set<ConflictReason> computeInitialReasons(Set<MinimalConflictReason> minimalConflictReasons) {
+	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
 		Set<ConflictReason> result = new HashSet<ConflictReason>();
 		for (MinimalConflictReason mcr : minimalConflictReasons) {
 			Set<MinimalConflictReason> remainingMCR = new HashSet<MinimalConflictReason>(minimalConflictReasons);
 			remainingMCR.remove(mcr);
 
-			result.addAll(computeInitialReasons(mcr, remainingMCR));
+			result.addAll(computeConflictReasons(mcr, remainingMCR));
 
 			ConflictReason singletonIR = new ConflictReason(mcr);
 			result.add(singletonIR);
@@ -55,7 +55,7 @@ public class ConflictReasonComputation {
 		return result;
 	}
 
-	private Set<ConflictReason> computeInitialReasons(ConflictReason current, Set<MinimalConflictReason> remaining) {
+	private Set<ConflictReason> computeConflictReasons(ConflictReason current, Set<MinimalConflictReason> remaining) {
 		Set<ConflictReason> result = new HashSet<ConflictReason>();
 		for (MinimalConflictReason mcr : remaining) {
 			if (!haveCommonDeletionElement(current, mcr)) {
@@ -63,7 +63,7 @@ public class ConflictReasonComputation {
 				if (initialReason != null) {
 					result.add(initialReason);
 					Set<MinimalConflictReason> remainingMCR = new HashSet<MinimalConflictReason>(remaining);
-					result.addAll(computeInitialReasons(initialReason, remainingMCR));
+					result.addAll(computeConflictReasons(initialReason, remainingMCR));
 				}
 			}
 		}
