@@ -34,6 +34,7 @@ public class DeleteUseConflictReasonComputation {
 
 	private ConflictAnalysis analyser;
 	private Set<Mapping> L1S1L2;
+	private ConflictReasonComputation conflictHelper;
 
 	/**
 	 * constructor
@@ -57,9 +58,8 @@ public class DeleteUseConflictReasonComputation {
 	 */
 	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason(Set<Span> conflictReasons, Rule rule2original, Rule rule1NonDelete) {
 		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
-		this.conflictReasonsFromR2 = conflictReasonsFromR2;
-		System.out.println(conflictReasons.size());
-		//Set<ConflictReason> initialReasons = new ConflictReasonComputation(rule1, rule2).computeConflictReasons();
+		conflictHelper = new ConflictReasonComputation(rule2original, rule1NonDelete);
+		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r)); //TODO Jevgenij !!!!!
 		for (Span conflictReason : conflictReasons) {
 			computeDeleteUseConflictReasons(conflictReason, result);
 		}
