@@ -43,7 +43,7 @@ public class DeleteUseConflictReasonComputation {
 	 * 
 	 * @param rule1
 	 * @param rule2
-	 * @param conflictReasonsFromR22 
+	 * @param conflictReasonsFromR22
 	 */
 	public DeleteUseConflictReasonComputation(Rule rule1, Rule rule2, Set<Span> conflictReasonsFromR2) {
 		this.rule1 = rule1;
@@ -54,7 +54,8 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * constructs all Initial Reasons as candidates for r1 and r2
-	 * @param conflictReasons 
+	 * 
+	 * @param conflictReasons
 	 * @return result
 	 */
 	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason(Set<Span> conflictReasons) {
@@ -76,7 +77,7 @@ public class DeleteUseConflictReasonComputation {
 		Rule rule1 = conflictReason.getRule1();
 		Rule rule2 = conflictReason.getRule2();
 		L1S1L2 = conflictReason.mappingsInRule1;
-		//System.out.println("Mappings in Rule 1: " + L1S1L2);
+		// System.out.println("Mappings in Rule 1: " + L1S1L2);
 		conflictReason.getGraph();
 		new ArrayList<Mapping>();
 		MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
@@ -93,11 +94,11 @@ public class DeleteUseConflictReasonComputation {
 			}
 		} else {
 			Object DeleteDeleteSet = ConstructDeleteDeleteSet(conflictReason);
-			 
-				     // If DD(s1) is nonEmpty  
-				           //DD(s1) empty cannot occur since s1 would be a SDUCR then
-				     // Then For each pair s2 in DD(s1):
-				                //  Add (s1,s2) to DDCR
+
+			// If DD(s1) is nonEmpty
+			// DD(s1) empty cannot occur since s1 would be a SDUCR then
+			// Then For each pair s2 in DD(s1):
+			// Add (s1,s2) to DDCR
 		}
 	}
 
@@ -108,14 +109,14 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private Object ConstructDeleteDeleteSet(Span conflictReason) {
-		
+
 		for (Span span : conflictReasonsFromR2) {
 			Set<Mapping> L2S2L1 = span.mappingsInRule2;
-			Object sSmall = compatibleSpans(L1S1L2,L2S2L1);
-			
-			//TODO Vincent Nach compatible hier weiter!!!!
+			Object sSmall = compatibleSpans(L1S1L2, L2S2L1);
+
+			// TODO Vincent Nach compatible hier weiter!!!!
 		}
-		
+
 		return null;
 	}
 
@@ -138,24 +139,12 @@ public class DeleteUseConflictReasonComputation {
 	 * @return boolean
 	 */
 	public static boolean findEmbeddingS1toK2(Span conflictReason) {
-		conflictReason.getRule1();
 		Rule rule2 = conflictReason.getRule2();
 		Graph s1 = conflictReason.getGraph();
 		Graph l2 = rule2.getLhs();
 		Action preserve = new Action(Action.Type.PRESERVE);
-		// Get KernelRule
-		EList<Node> k2nodes = rule2.getRhs().getNodes();
-		EList<Node> toBeDeleted = new BasicEList<Node>();
-		System.out.println(k2nodes);
-		for (Node node : k2nodes) {
-			if (!node.getType().equals(preserve)){ //TODO Jevgenij Sollten hier die Preserve teile nicht eben nicht zur liste hinzu?
-				toBeDeleted.add(node);
-			}
-		}
-		System.out.println(toBeDeleted);
-		for (Node node : toBeDeleted) {
-			k2nodes.remove(node);
-		}
+		// Get preserve Nodes of rule 2
+		EList<Node> k2nodes = rule2.getActionNodes(preserve);
 		//System.out.println(k2nodes);
 
 		// S1 -> K2

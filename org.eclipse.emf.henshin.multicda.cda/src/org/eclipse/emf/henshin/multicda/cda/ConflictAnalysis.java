@@ -21,12 +21,12 @@ import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	private Rule rule1;
-	private Rule rule2;
-	private Rule rule1NonDelete;
 	private Rule rule2NonDelete;
+	private Rule rule1NonDelete;
 	private Rule rule2original;
 	private ConflictReasonComputation conflictHelper;
 	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
+	private Rule rule2;
 	
 
 	/**
@@ -38,9 +38,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		checkNull(rule2);
 			this.rule1 = rule1;
 			this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
-			this.rule2original = rule2;
-			this.rule2 = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
-			//this.rule2 = rule2;
+			this.rule2 = rule2;
+			this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
 			
 	}
 
@@ -71,8 +70,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public Set<Span> computeResultsFine() {
 		Set<Span> results = new HashSet<Span>();
 		Set<Span> conflictReasons = new HashSet<Span>();
-		conflictHelper = new ConflictReasonComputation(rule2original, rule1NonDelete);
-		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r)); //TODO Jevgenij !!!!!
+		conflictHelper = new ConflictReasonComputation(rule2, rule1NonDelete);
+		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));
 		computeConflictReasons().forEach(r -> conflictReasons.add(r));
 		computeDeleteUseConflictReasons(conflictReasons,conflictReasonsFromR2).forEach(r -> results.add(r));
 		return results;
@@ -88,10 +87,10 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	public List<ConflictAtom> computeConflictAtoms(boolean... earlyExit) {
 		List<ConflictAtom> result = new LinkedList<ConflictAtom>();
-		List<Span> candidates = new AtomCandidateComputation(rule1, rule2).computeAtomCandidates();
+		List<Span> candidates = new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 		for (Span candidate : candidates) {
 			Set<MinimalConflictReason> minimalConflictReasons = new HashSet<>();
-			new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons(candidate, minimalConflictReasons);
+			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate, minimalConflictReasons);
 
 			minimalConflictReasons.addAll(minimalConflictReasons);
 			if (!minimalConflictReasons.isEmpty()) {
@@ -106,19 +105,19 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public List<Span> computeConflictAtomCandidates() {
-		return new AtomCandidateComputation(rule1, rule2).computeAtomCandidates();
+		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 	}
 
 	public Set<MinimalConflictReason> computeMinimalConflictReasons() {
-		return new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
+		return new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons();
 	}
 
 	public Set<ConflictReason> computeConflictReasons() {
-		return new ConflictReasonComputation(rule1, rule2).computeConflictReasons();
+		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
 	}
 
 	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
-		return new ConflictReasonComputation(rule1, rule2).computeConflictReasons(minimalConflictReasons);
+		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons(minimalConflictReasons);
 	}
 
 	public boolean isRuleSupported(Rule rule) {
@@ -149,7 +148,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public List<Span> getCandidates() {
-		return new AtomCandidateComputation(rule1, rule2).computeAtomCandidates();
+		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 	}
 
 	public Set<MinimalConflictReason> getMinimalConflictReasons() {

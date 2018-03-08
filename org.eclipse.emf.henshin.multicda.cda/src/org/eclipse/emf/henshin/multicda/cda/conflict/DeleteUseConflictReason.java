@@ -15,40 +15,10 @@ public class DeleteUseConflictReason extends ConflictReason {
 	 */
 	public DeleteUseConflictReason(Span s1) {
 		super(s1);
-		this.span1 = s1;
 		this.span2 = null;
-		// TODO Auto-generated constructor stub
 	}
 
-	private Span span1;
 	private Span span2;
-
-	/**
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("javadoc")
-	public boolean isEmpty() {
-		if (getSpan1().equals(null) && getSpan2().equals(null)) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @return the span1
-	 */
-	public Span getSpan1() {
-		return span1;
-	}
-
-	/**
-	 * @param span1
-	 *            the span1 to set
-	 */
-	public void setSpan1(Span span1) {
-		this.span1 = span1;
-	}
 
 	/**
 	 * @return the span2
@@ -70,11 +40,10 @@ public class DeleteUseConflictReason extends ConflictReason {
 	 */
 	public void print() {
 		if (span2 != null) {
-			System.out.println("DDCR: <(\t" + span1.getGraph().getEdges() + "\t| " + span1.getGraph().getNodes() + "\t)"
-					+ "(\t" + span2.getGraph().getEdges() + "\t| " + span2.getGraph().getNodes() + "\t)>");
+			System.out.println("DDCR: <(\t" + this.getGraph().getEdges() + "\t| " + this.getGraph().getNodes() + "\t)"
+					+ "(\t" + span2.getGraph().getEdges() + " |\t" + span2.getGraph().getNodes() + "\t)>");
 		} else {
-			System.out.println("DRCR: <(\t" + span1.getGraph().getEdges() + "\t| " + span1.getGraph().getNodes() + "\t)"
-					+ "(\t)>");
+			System.out.println("DRCR: " + this.getGraph().getEdges() + " |\t" + this.getGraph().getNodes());
 		}
 	}
 
