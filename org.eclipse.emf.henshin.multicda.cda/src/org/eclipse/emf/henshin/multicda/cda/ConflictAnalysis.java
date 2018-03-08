@@ -29,7 +29,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private Rule rule2NonDelete;
 	private Rule rule2original;
 	private ConflictReasonComputation conflictHelper;
-	private Set<Span> conflictReasonsFromR2;
+	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
 	
 
 	/**
@@ -167,6 +167,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	 */
 	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons, Set<Span> conflictReasonsFromR22){
 		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
+
 	}
 
 }
