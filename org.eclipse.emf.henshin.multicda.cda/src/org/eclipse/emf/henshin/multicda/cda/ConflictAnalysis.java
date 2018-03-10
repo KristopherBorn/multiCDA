@@ -23,7 +23,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private Rule rule1;
 	private Rule rule2NonDelete;
 	private Rule rule1NonDelete;
-	private Rule rule2original;
 	private ConflictReasonComputation conflictHelper;
 	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
 	private Rule rule2;
@@ -73,7 +72,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		conflictHelper = new ConflictReasonComputation(rule2, rule1NonDelete);
 		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));
 		computeConflictReasons().forEach(r -> conflictReasons.add(r));
-		computeDeleteUseConflictReasons(conflictReasons,conflictReasonsFromR2).forEach(r -> results.add(r));
+		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r));
 		return results;
 	}
 
@@ -155,8 +154,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons, Set<Span> conflictReasonsFromR22){
-		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
+		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2, rule1NonDelete).computeDeleteUseConflictReason(conflictReasons);
 
 	}
 

@@ -14,7 +14,6 @@ public class DeleteReadConflictReason extends DeleteUseConflictReason{
 	 */
 	public DeleteReadConflictReason(Span s1) {
 		super(s1);
-		// TODO Auto-generated constructor stub
 	}
 
 }
