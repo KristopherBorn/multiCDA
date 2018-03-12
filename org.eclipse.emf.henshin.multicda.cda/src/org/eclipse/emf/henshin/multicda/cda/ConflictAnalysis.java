@@ -6,31 +6,40 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.model.Graph;
-import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.ConflictReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.DeleteUseConflictReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
+import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
 public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	private Rule rule1;
+	private Rule rule2NonDelete;
+	private Rule rule1NonDelete;
+	private ConflictReasonComputation conflictHelper;
+	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
 	private Rule rule2;
-	HenshinFactory henshinFactory = new HenshinFactoryImpl();
 	
+
+	/**
+	 * @param rule1
+	 * @param rule2
+	 */
 	public ConflictAnalysis(Rule rule1, Rule rule2) {
 		checkNull(rule1);
 		checkNull(rule2);
-		this.rule1 = rule1;
-		this.rule2 = rule2;
+			this.rule1 = rule1;
+			this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
+			this.rule2 = rule2;
+			this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
+			
 	}
 
 	@Override
@@ -59,7 +68,11 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	@Override
 	public Set<Span> computeResultsFine() {
 		Set<Span> results = new HashSet<Span>();
-		computeConflictReasons().forEach(r -> results.add(r));
+		Set<Span> conflictReasons = new HashSet<Span>();
+		conflictHelper = new ConflictReasonComputation(rule2, rule1NonDelete);
+		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));
+		computeConflictReasons().forEach(r -> conflictReasons.add(r));
+		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r));
 		return results;
 	}
 
@@ -73,10 +86,10 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	public List<ConflictAtom> computeConflictAtoms(boolean... earlyExit) {
 		List<ConflictAtom> result = new LinkedList<ConflictAtom>();
-		List<Span> candidates = new AtomCandidateComputation(rule1, rule2).computeAtomCandidates();
+		List<Span> candidates = new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 		for (Span candidate : candidates) {
 			Set<MinimalConflictReason> minimalConflictReasons = new HashSet<>();
-			new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons(candidate, minimalConflictReasons);
+			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate, minimalConflictReasons);
 
 			minimalConflictReasons.addAll(minimalConflictReasons);
 			if (!minimalConflictReasons.isEmpty()) {
@@ -91,21 +104,20 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public List<Span> computeConflictAtomCandidates() {
-		return new AtomCandidateComputation(rule1, rule2).computeAtomCandidates();
+		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 	}
 
 	public Set<MinimalConflictReason> computeMinimalConflictReasons() {
-		return new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
+		return new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons();
 	}
 
 	public Set<ConflictReason> computeConflictReasons() {
-		return new ConflictReasonComputation(rule1, rule2).computeConflictReasons();
+		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
 	}
 
-	public Set<ConflictReason> computeCoflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
-		return new ConflictReasonComputation(rule1, rule2).computeInitialReasons(minimalConflictReasons);
+	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
+		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons(minimalConflictReasons);
 	}
-
 
 	public boolean isRuleSupported(Rule rule) {
 		if (rule.getMultiRules().size() > 0) {
@@ -135,27 +147,15 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public List<Span> getCandidates() {
-		return new AtomCandidateComputation(rule1, rule2).computeAtomCandidates();
+		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 	}
 
 	public Set<MinimalConflictReason> getMinimalConflictReasons() {
 		return null;
 	}
 
-
-	/**
-	 * @param initialReasonsR2R1NonDel 
-	 * @param initialReasonsR1R2NonDel 
-	 * @return
-	 */
-	public Set<DeleteReadConflictReason> computeDeleteConflictReasons(Set<ConflictReason> initialReasonsR1R2NonDel, Set<ConflictReason> initialReasonsR2R1NonDel) {
-		return new DeleteUseConflictReasonComputation(rule1, rule2).computeDeleteUseConflictReason(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel);
-	}
-	
-	public Set<DeleteUseConflictReason> computeDeleteUse(Set<ConflictReason> initialReasonsR1R2NonDel, Set<ConflictReason> initialReasonsR2R1NonDel) {
-		Set<DeleteUseConflictReason> results = new HashSet<DeleteUseConflictReason>();
-		computeDeleteConflictReasons(initialReasonsR1R2NonDel, initialReasonsR2R1NonDel).forEach(r -> results.add(r));
-		return results;
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
+		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2, rule1NonDelete).computeDeleteUseConflictReason(conflictReasons);
 
 	}
 

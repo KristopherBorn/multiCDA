@@ -113,7 +113,7 @@ public class MinConflReasonEdgeTest {
 		}
 		
 
-		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 		System.err.println("amount of computedConflictReason: "+computedConflictReason.size());
 		
 		Map<Integer, Integer> amoutOfMCRs = new HashMap<Integer, Integer>();
@@ -198,7 +198,7 @@ public class MinConflReasonEdgeTest {
 		}
 		
 
-		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 		System.err.println("amount of computedConflictReason: "+computedConflictReason.size());
 		
 		Map<Integer, Integer> amoutOfMCRs = new HashMap<Integer, Integer>();
@@ -282,7 +282,7 @@ public class MinConflReasonEdgeTest {
 		}
 		
 
-		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> computedConflictReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 		System.err.println("amount of computedConflictReason: "+computedConflictReason.size());
 		
 		Map<Integer, Integer> amoutOfMCRs = new HashMap<Integer, Integer>();

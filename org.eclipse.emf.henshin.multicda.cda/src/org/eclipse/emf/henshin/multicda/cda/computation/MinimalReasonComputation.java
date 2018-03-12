@@ -178,7 +178,7 @@ public class MinimalReasonComputation {
 		throw new RuntimeException("Invalid state: neither source nor target were dangling in L1!");
 	}
 
-	private Set<Span> findExtensions(Span s1) {
+	Set<Span> findExtensions(Span s1) {
 		Pushout pushoutResult = getPushout(s1);
 		CospanMappingToMaps cospanMappings = new CospanMappingToMaps(pushoutResult.getRule1Mappings(),
 				pushoutResult.getRule2Mappings());

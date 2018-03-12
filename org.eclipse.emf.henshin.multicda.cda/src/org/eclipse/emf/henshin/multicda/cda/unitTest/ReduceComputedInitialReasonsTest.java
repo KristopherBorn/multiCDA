@@ -70,7 +70,7 @@ public class ReduceComputedInitialReasonsTest {
 			minimalConflictReasons.add(new MinimalConflictReason(conflictReason));
 		}
 		
-		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 		Assert.assertEquals(17, computedInitialReason.size());
 		
 		

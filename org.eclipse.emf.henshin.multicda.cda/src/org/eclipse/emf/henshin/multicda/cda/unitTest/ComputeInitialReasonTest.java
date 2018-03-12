@@ -105,7 +105,7 @@ public class ComputeInitialReasonTest {
 				minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 			}
 			
-			Set<ConflictReason> computeInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+			Set<ConflictReason> computeInitialReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 			Assert.assertEquals(3, computeInitialReason.size());
 			
 			
@@ -133,7 +133,7 @@ public class ComputeInitialReasonTest {
 			minimalConflictReasons.add(new MinimalConflictReason(minimalConflictReason));
 		}
 		
-		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeInitialReasons(minimalConflictReasons);
+		Set<ConflictReason> computedInitialReason = atomicCoreCPA.computeConflictReasons(minimalConflictReasons);
 		Assert.assertEquals(17, computedInitialReason.size());
 		
 		
