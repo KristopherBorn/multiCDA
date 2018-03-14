@@ -45,6 +45,7 @@ public class CDAOptions {
 	private boolean ignoreMultiplicities = false;
 	public int granularityType = 1;
 	public CPType cpTypes = CPType.NONE;
+	private boolean cpaComputation = false;
 
 	public static enum GranularityType {
 		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)", 1), COARSE("Coarse granularity",
@@ -62,17 +63,17 @@ public class CDAOptions {
 
 		public static Set<GranularityType> getGranularities(int i) {
 			Set<GranularityType> result = new HashSet<>();
-			if(i>=FINE.id) {
+			if (i >= FINE.id) {
 				result.add(FINE);
-				i-=FINE.id;
+				i -= FINE.id;
 			}
-			if(i>=COARSE.id) {
+			if (i >= COARSE.id) {
 				result.add(COARSE);
-				i-=COARSE.id;
+				i -= COARSE.id;
 			}
-			if(i>=BINARY.id) {
+			if (i >= BINARY.id) {
 				result.add(BINARY);
-				i-=BINARY.id;
+				i -= BINARY.id;
 			}
 			return result;
 		}
@@ -143,7 +144,7 @@ public class CDAOptions {
 			InputStream buffer = new BufferedInputStream(file);
 			ObjectInput input = new ObjectInputStream(buffer);
 
-			setComplete(input.readBoolean());
+//			setComplete(input.readBoolean());
 			setIgnoreSameRules(input.readBoolean());
 			setReduceSameRuleAndSameMatch(input.readBoolean());
 
@@ -187,12 +188,6 @@ public class CDAOptions {
 	 * everything else to <code>false</code>.)
 	 */
 	public void reset() {
-
-		/**
-		 * kBorn 09-05-2014 most times the different kinds of critical pairs are of interest. (-> true) if you are only
-		 * interested in the existence of any CP between the two rules: set this option to false
-		 */
-		setComplete(true);
 
 		/**
 		 * kBorn 09-05-2014 generally the constraint should even be fulfilled for the graph constraints (->'true' by
@@ -248,10 +243,6 @@ public class CDAOptions {
 		return complete;
 	}
 
-	public void setComplete(boolean complete) {
-		this.complete = complete;
-	}
-
 	public boolean isStrongAttrCheck() {
 		return strongAttrCheck;
 	}
@@ -295,5 +286,13 @@ public class CDAOptions {
 
 	public void setEssential(boolean essential) {
 		this.essential = essential;
+	}
+
+	public void setCpaComputation(boolean cpaComputation) {
+		this.cpaComputation = cpaComputation;
+	}
+
+	public boolean getCpaComputation() {
+		return this.cpaComputation;
 	}
 }

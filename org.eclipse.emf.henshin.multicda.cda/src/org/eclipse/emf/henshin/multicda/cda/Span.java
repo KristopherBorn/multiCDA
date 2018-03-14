@@ -6,6 +6,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.ETypeParameter;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -317,6 +323,59 @@ public class Span {
 			result.put(spanMap.s1ToRule1.get(n1), spanMap.s1ToRule2.get(n1));
 		}
 		return result;
+	}
+	
+
+
+	/**
+	 * @param graph
+	 * @return
+	 */
+	public EPackage graphToEPackage() {
+		Set<String> added = new HashSet<>();
+		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
+		result.setName(rule1.getName() + "_" + rule2.getName());
+		result.setNsURI("http://cdapackage/" + rule1.getName() + "/" + rule2.getName() + "/"
+				+ getClass().getSimpleName());
+		result.setNsPrefix("CDAPackage");
+		EList<EClassifier> classifiers = result.getEClassifiers();
+
+		for (Node node : graph.getNodes()) {
+			EClass n = getClassifier(node);
+			added.add(n.getName());
+			result.getEClassifiers().add(n);
+		}
+
+		for (Edge edge : graph.getEdges()) {
+			EClass s = getClassifier(edge.getSource());
+			EClass t = getClassifier(edge.getTarget());
+			
+			if (!added.contains(s.getName())) {
+				classifiers.add(s);
+				added.add(s.getName());
+			}
+			else s = (EClass) result.getEClassifier(s.getName());
+			if (!added.contains(t.getName())) {
+				classifiers.add(t);
+				added.add(t.getName());
+			}
+			else t = (EClass) result.getEClassifier(t.getName());
+			
+			EReference ref = EcoreFactory.eINSTANCE.createEReference();
+			ref.setName(edge.getType().getName());
+			ref.setEType(t);
+			s.getEStructuralFeatures().add(ref);
+
+		}
+
+		return result;
+	}
+
+	private static EClass getClassifier(Node node) {
+		EClassifier nodeClass = node.getType();
+		EClass eclass = EcoreFactory.eINSTANCE.createEClass();
+		eclass.setName(node.getName() + ":" + nodeClass.getName());
+		return eclass;
 	}
 
 }

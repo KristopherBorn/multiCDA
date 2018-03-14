@@ -61,7 +61,9 @@ public class CpaWizard extends Wizard {
 	ICriticalPairAnalysis CPA;
 	MultiGranularAnalysis CDAdep;
 	MultiGranularAnalysis CDAcon;
-	Set<Span> CDAresult = new HashSet<>();
+	Set<Span> cdaResultB = new HashSet<>();
+	Set<Span> cdaResultC = new HashSet<>();
+	Set<Span> cdaResultF = new HashSet<>();
 	CPAResult cpaResult;
 	HashMap<Rule, String> rulesAndAssociatedFileNames;
 
@@ -134,9 +136,6 @@ public class CpaWizard extends Wizard {
 	public boolean performFinish() {
 
 		CDAOptions options = optionSettingsWizardPage.getOptions();
-		options.setComplete(optionSettingsWizardPage.getComplete());
-		options.setIgnoreSameRules(optionSettingsWizardPage.getIgnoreIdenticalRules());
-		options.setReduceSameRuleAndSameMatch(optionSettingsWizardPage.getReduceSameMatch());
 		options.persist(optionsFile);
 		options.cpTypes = ruleAndCpKindSelectionWizardPage.cpType;
 
@@ -180,14 +179,16 @@ public class CpaWizard extends Wizard {
 											.getGranularities(options.granularityType);
 
 									if (granularities.contains(GranularityType.BINARY))
-										CDAresult.add(CDAcon.computeResultsBinary());
+										cdaResultB.add(CDAcon.computeResultsBinary());
 									if (granularities.contains(GranularityType.COARSE))
-										CDAresult.addAll(CDAcon.computeResultsCoarse());
+										cdaResultC.addAll(CDAcon.computeResultsCoarse());
 									if (granularities.contains(GranularityType.FINE))
-										CDAresult.addAll(CDAcon.computeResultsFine());
+										cdaResultF.addAll(CDAcon.computeResultsFine());
 								}
-//							conflictResult = CPA.runConflictAnalysis(monitor);
-//							monitor.worked(1000);
+							if (options.getCpaComputation()) {
+								conflictResult = CPA.runConflictAnalysis(monitor);
+								monitor.worked(1000);
+							}
 						}
 						if (options.cpTypes == CPType.BOTH || options.cpTypes == CPType.DEPENDENCY) {
 							for (Rule r1 : selectedRules.first)
@@ -197,22 +198,24 @@ public class CpaWizard extends Wizard {
 											.getGranularities(options.granularityType);
 
 									if (granularities.contains(GranularityType.BINARY))
-										CDAresult.add(CDAdep.computeResultsBinary());
+										cdaResultB.add(CDAdep.computeResultsBinary());
 									if (granularities.contains(GranularityType.COARSE))
-										CDAresult.addAll(CDAdep.computeResultsCoarse());
+										cdaResultC.addAll(CDAdep.computeResultsCoarse());
 									if (granularities.contains(GranularityType.FINE))
-										CDAresult.addAll(CDAdep.computeResultsFine());
+										cdaResultF.addAll(CDAdep.computeResultsFine());
 
 								}
-//							dependencyResult = CPA.runDependencyAnalysis(monitor);
-//							monitor.worked(1000);
+							if (options.getCpaComputation()) {
+								dependencyResult = CPA.runDependencyAnalysis(monitor);
+								monitor.worked(1000);
+							}
 						}
 
-//						cpaResult = joinCPAResults(conflictResult, dependencyResult);
-//
-//						ResourceSet resSet = new ResourceSetImpl();
-//						resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
-//								new XMLResourceFactoryImpl());
+						cpaResult = joinCPAResults(conflictResult, dependencyResult);
+
+						ResourceSet resSet = new ResourceSetImpl();
+						resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
+								new XMLResourceFactoryImpl());
 
 						monitor.worked(20);
 						monitor.done();
@@ -242,10 +245,10 @@ public class CpaWizard extends Wizard {
 				});
 
 //				System.out.println(CDAresult);
-				HashMap<String, Set<SpanNode>> persistedCDAResults = CpEditorUtil.persistCdaResult(CDAresult,
-						resultPath);
-//				HashMap<String, Set<SpanNode>> persistedCPAResults = CPAUtility.persistCpaResult(cpaResult,
-//						resultPath);
+				HashMap<String, Set<SpanNode>> persistedB = CpEditorUtil.persistCdaResult(cdaResultB, resultPath);
+				HashMap<String, Set<SpanNode>> persistedC = CpEditorUtil.persistCdaResult(cdaResultC, resultPath);
+				HashMap<String, Set<SpanNode>> persistedF = CpEditorUtil.persistCdaResult(cdaResultF, resultPath);
+				HashMap<String, Set<SpanNode>> persistedCPAResults = CPAUtility.persistCpaResult(cpaResult, resultPath);
 
 				ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
 
@@ -253,7 +256,7 @@ public class CpaWizard extends Wizard {
 						.showView("org.eclipse.emf.henshin.multicda.cpa.ui.views.CPAView");
 				if (cPAView instanceof CpaResultsView) {
 					CpaResultsView view = (CpaResultsView) cPAView;
-					view.setContent(persistedCDAResults);
+					view.setContent(persistedB, persistedC, persistedF, persistedCPAResults);
 					view.update();
 				}
 

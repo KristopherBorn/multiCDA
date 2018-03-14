@@ -56,7 +56,10 @@ public class CpaResultsView extends ViewPart {
 
 	private TreeViewer viewer;
 	private Action doubleClickAction;
-	private HashMap<String, Set<SpanNode>> content;
+	private HashMap<String, Set<SpanNode>> contentCDAB;
+	private HashMap<String, Set<SpanNode>> contentCDAC;
+	private HashMap<String, Set<SpanNode>> contentCDAF;
+	private HashMap<String, Set<SpanNode>> contentCPA;
 
 	class CPAViewContentProvider implements ITreeContentProvider {
 
@@ -64,17 +67,59 @@ public class CpaResultsView extends ViewPart {
 
 		void initialize() {
 			invisibleRoot = new RootElement();
+			TreeFolder B = new TreeFolder("Bianry granualrity");
+			TreeFolder C = new TreeFolder("Coarse granualrity");
+			TreeFolder F = new TreeFolder("Fine granualrity");
+			TreeFolder SF = new TreeFolder("Super fine granualrity");
 
-			for (String ruleCombinationName : content.keySet()) {
+			for (String ruleCombinationName : contentCDAB.keySet()) {
 				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
-				invisibleRoot.addChild(treeFolder);
+				B.addChild(treeFolder);
 
-				Set<SpanNode> theCriticalPairsForTheRulecombination = content.get(ruleCombinationName);
+				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCDAB.get(ruleCombinationName);
 
 				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
 					treeFolder.addChild(criticalPairNode);
 				}
 			}
+			for (String ruleCombinationName : contentCDAC.keySet()) {
+				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
+				C.addChild(treeFolder);
+
+				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCDAC.get(ruleCombinationName);
+
+				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(criticalPairNode);
+				}
+			}
+			for (String ruleCombinationName : contentCDAF.keySet()) {
+				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
+				F.addChild(treeFolder);
+
+				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCDAF.get(ruleCombinationName);
+
+				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(criticalPairNode);
+				}
+			}
+			for (String ruleCombinationName : contentCPA.keySet()) {
+				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
+				SF.addChild(treeFolder);
+
+				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCPA.get(ruleCombinationName);
+
+				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(criticalPairNode);
+				}
+			}
+			if (B.hasChildren())
+				invisibleRoot.addChild(B);
+			if (C.hasChildren())
+				invisibleRoot.addChild(C);
+			if (F.hasChildren())
+				invisibleRoot.addChild(F);
+			if (SF.hasChildren())
+				invisibleRoot.addChild(SF);
 		}
 
 		/*
@@ -172,9 +217,6 @@ public class CpaResultsView extends ViewPart {
 		}
 	}
 
-	class NameSorter extends ViewerSorter {
-	}
-
 	public TreeViewer getTreeViewer() {
 		return viewer;
 	}
@@ -189,7 +231,6 @@ public class CpaResultsView extends ViewPart {
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new CPAViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
-		viewer.setSorter(new NameSorter());
 		viewer.setInput(getViewSite());
 
 		makeActions();
@@ -243,16 +284,19 @@ public class CpaResultsView extends ViewPart {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
 		try {
-			page.openEditor(new FileEditorInput(file),
-					PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(file.getFullPath().toString())
-							.getId());
+			page.openEditor(new FileEditorInput(file), PlatformUI.getWorkbench().getEditorRegistry()
+					.getDefaultEditor(file.getFullPath().toString()).getId());
 
 		} catch (PartInitException e1) {
 			e1.printStackTrace();
 		}
 	}
 
-	public void setContent(HashMap<String, Set<SpanNode>> persistedResults) {
-		this.content = persistedResults;
+	public void setContent(HashMap<String, Set<SpanNode>> persistedB, HashMap<String, Set<SpanNode>> persistedC,
+			HashMap<String, Set<SpanNode>> persistedF, HashMap<String, Set<SpanNode>> persistedCPAResults) {
+		this.contentCDAB = persistedB;
+		this.contentCDAC = persistedC;
+		this.contentCDAF = persistedF;
+		this.contentCPA = persistedCPAResults;
 	}
 }

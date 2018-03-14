@@ -139,7 +139,7 @@ public class AggHenshinCriticalPairTranslator {
 
 		cpaEPackage = ecoreFactory.createEPackage();
 
-		cpaEPackage.setName(rule1.getQualifiedName() + ", " + rule2.getQualifiedName());
+		cpaEPackage.setName(rule1.getQualifiedName() + "_" + rule2.getQualifiedName());
 		cpaEPackage.setNsPrefix("CPAPackage");
 
 		String criticalPairKind = getCriticalPairKindString(cpd);

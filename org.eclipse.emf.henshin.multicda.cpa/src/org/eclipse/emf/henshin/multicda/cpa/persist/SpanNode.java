@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.URI;
  * @author Kristopher Born
  *
  */
-public class SpanNode {
+public class SpanNode extends TreeFolder{
 
 	URI minimalModelURI;
 	/**
@@ -43,10 +43,16 @@ public class SpanNode {
 	 * @param secondRuleURI The <code>URI</code> of the second rule.
 	 * @param nodeURI
 	 */
-	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI nodeURI) {
+	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI minimalModelURI) {
+		this(numberedNameOfCPKind, firstRuleURI, secondRuleURI, minimalModelURI, null);
+	}
+
+	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI minimalModelURI, URI nodeURI) {
+		super(numberedNameOfCPKind);
 		this.firstRuleURI = firstRuleURI;
 		this.numberedNameOfCPKind = numberedNameOfCPKind;
 		this.secondRuleURI = secondRuleURI;
+		this.minimalModelURI = minimalModelURI;
 		this.nodeURI = nodeURI;
 	}
 
@@ -103,6 +109,7 @@ public class SpanNode {
 	public String toString() {
 		return numberedNameOfCPKind;
 	}
+
 	/**
 	 * Returns the <code>URI</code> of the minimal model.
 	 * 

@@ -15,10 +15,12 @@ import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.GranularityType;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
@@ -66,42 +68,55 @@ public class OptionSettingsWizardPage extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
+		
 		container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout());
-		Composite granularity = new Composite(container, SWT.NONE);
-		granularity.setLayout(new GridLayout(2, true));
+		
+		Group granularities = new Group(container, SWT.NONE);
+		granularities.setLayout(new GridLayout(2, true));
+		granularities.setText("Granularities");
+		granularities.setToolTipText("Choose your granularity to compute");
+		granularities.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		
+//		Composite granularity = new Composite(container, SWT.NONE);
+//		granularity.setLayout(new GridLayout(2, true));
 
-		binaryButton = new Button(granularity, SWT.CHECK);
+		binaryButton = new Button(granularities, SWT.CHECK);
 		binaryButton.setText(GranularityType.BINARY.name);
 		binaryButton.addListener(SWT.Selection, checkListener);
 		binaryButton.setSelection(getGranularity().contains(GranularityType.BINARY));
 		binaryButton.setData(GranularityType.BINARY);
-		Label label = new Label(granularity, SWT.NONE);
+		Label label = new Label(granularities, SWT.NONE);
 		label.setText(GranularityType.BINARY.description);
 
-		coarseButton = new Button(granularity, SWT.CHECK);
+		coarseButton = new Button(granularities, SWT.CHECK);
 		coarseButton.setText(GranularityType.COARSE.name);
 		coarseButton.addListener(SWT.Selection, checkListener);
 		coarseButton.setSelection(getGranularity().contains(GranularityType.COARSE));
 		coarseButton.setData(GranularityType.COARSE);
-		label = new Label(granularity, SWT.NONE);
+		label = new Label(granularities, SWT.NONE);
 		label.setText(GranularityType.COARSE.description);
 
-		fineButton = new Button(granularity, SWT.CHECK);
+		fineButton = new Button(granularities, SWT.CHECK);
 		fineButton.setText(GranularityType.FINE.name);
 		fineButton.addListener(SWT.Selection, checkListener);
 		fineButton.setSelection(getGranularity().contains(GranularityType.FINE));
 		fineButton.setData(GranularityType.FINE);
-		label = new Label(granularity, SWT.NONE);
+		label = new Label(granularities, SWT.NONE);
 		label.setText(GranularityType.FINE.description);
+		
+		Button cpaButon = new Button(granularities, SWT.CHECK);
+		cpaButon.setText("Compute essential critical pairs");
+		cpaButon.addListener(SWT.Selection, checkListener);
+		cpaButon.setSelection(false);
+		cpaButon.setData(true);
+		label = new Label(granularities, SWT.NONE);
+		label.setText("This could may take long time to compute");
+		
 
-		Button enableCompleteButton = new Button(container, SWT.CHECK);
-		enableCompleteButton.setText(COMPLETE);
-		enableCompleteButton.addListener(SWT.Selection, checkListener);
-		enableCompleteButton.setSelection(getComplete());
-		enableCompleteButton.setData(true);
-
-		Button enableIgnoreIdenticalRulesButton = new Button(container, SWT.CHECK);
+		Composite buttonsComposite = new Composite(container, SWT.NONE);
+		buttonsComposite.setLayout(new GridLayout(1, true));
+		Button enableIgnoreIdenticalRulesButton = new Button(buttonsComposite, SWT.CHECK);
 		enableIgnoreIdenticalRulesButton.setText(IGNOREIDENTICALRULES);
 		enableIgnoreIdenticalRulesButton.addListener(SWT.Selection, checkListener);
 		enableIgnoreIdenticalRulesButton.setSelection(getIgnoreIdenticalRules());
@@ -120,10 +135,11 @@ public class OptionSettingsWizardPage extends WizardPage {
 				cpaOptions.granularityType += (((Button) event.widget).getSelection() ? 1 : -1)
 						* ((GranularityType) data).id;
 			else if ((Boolean) data)
-				setComplete(button.getSelection());
+				setCpa(button.getSelection());
 			else
 				setIgnoreIdenticalRules(button.getSelection());
 		}
+
 	};
 
 	/**
@@ -133,6 +149,10 @@ public class OptionSettingsWizardPage extends WizardPage {
 	 */
 	protected boolean isOptionsLoaded() {
 		return optionsLoaded;
+	}
+	
+	private void setCpa(boolean cpaComputation) {
+		cpaOptions.setCpaComputation(cpaComputation);
 	}
 
 	public CDAOptions getOptions() {
@@ -146,11 +166,7 @@ public class OptionSettingsWizardPage extends WizardPage {
 	public Set<GranularityType> getGranularity() {
 		return GranularityType.getGranularities(cpaOptions.granularityType);
 	}
-
-	public void setComplete(Boolean complete) {
-		cpaOptions.setComplete(complete);
-	}
-
+	
 	public Boolean getStrongAttrCheck() {
 		return cpaOptions.isStrongAttrCheck();
 	}
