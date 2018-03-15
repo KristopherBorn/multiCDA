@@ -9,8 +9,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -24,6 +26,9 @@ import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
+import org.eclipse.ui.internal.handlers.WizardHandler.New;
+
+import com.google.common.base.CaseFormat;
 
 import agg.util.Pair;
 
@@ -37,13 +42,16 @@ public class DeleteUseConflictReasonComputation {
 
 	private Rule rule1;
 	private static Rule rule2;
-	private HashSet<Span> checked;
 	private Set<Span> conflictReasonsFromR2;
 
 	private ConflictAnalysis analyser;
-	private Set<Mapping> L1S1L2;
+	private Set<Mapping> mapS1ToL1;
 	private ConflictReasonComputation conflictHelper;
 	private Span conflictReason;
+	private Set<Mapping> mapS1ToL2;
+	private String notCompatibleException;
+	private Throwable notCompatible = new Throwable(notCompatibleException);
+	private Exception compatibleException =new Exception("Juhu! Eine Exception: ", notCompatible );
 
 	/**
 	 * constructor
@@ -56,7 +64,6 @@ public class DeleteUseConflictReasonComputation {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
 		this.conflictReasonsFromR2 = conflictReasonsFromR2;
-		setChecked(new HashSet<Span>());
 	}
 
 	/**
@@ -101,7 +108,8 @@ public class DeleteUseConflictReasonComputation {
 			}
 		} else {
 			System.out.println("noEmbeddingS1ToK2");
-			L1S1L2 = conflictReason.mappingsInRule1;
+			mapS1ToL1 = conflictReason.mappingsInRule1;
+			mapS1ToL2 = conflictReason.mappingsInRule2;
 			Object DeleteDeleteSet = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
 			// If DD(s1) is nonEmpty
 			// Then For each pair s2 in DD(s1):
@@ -112,15 +120,14 @@ public class DeleteUseConflictReasonComputation {
 	/**
 	 * @param r2
 	 * @param r1
-	 * @param conflictReason
+	 * @param sp1
 	 * @return
 	 */
-	private Object ConstructDeleteDeleteSet(Rule r1, Rule r2, Span conflictReason) {
+	private Object ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
 
 		Pair<Span, Span> ddSet;
-		for (Span span : conflictReasonsFromR2) {
-			Set<Mapping> L2S2L1 = span.mappingsInRule2;
-			Object sSmall = compatibleSpans(L1S1L2, L2S2L1);
+		for (Span sp2 : conflictReasonsFromR2) {
+			Object sSmall = compatibleSpans(sp1, sp2);
 
 			// TODO Vincent Nach compatible hier weiter!!!!
 		}
@@ -129,69 +136,140 @@ public class DeleteUseConflictReasonComputation {
 	}
 
 	/**
-	 * @param s1
-	 * @param s2
+	 * @param sp2
+	 * @param sp1
 	 * @return
 	 */
-	private Object compatibleSpans(Set<Mapping> s1, Set<Mapping> s2) {
-		System.out.println("l1s1l2: " + s1);
-		System.out.println("l2s2l1: " + s2);
+	private Object compatibleSpans(Span sp1, Span sp2) {
 		HenshinFactoryImpl helper = new HenshinFactoryImpl();
 		Graph SApostrophe = helper.createGraph();
-		Span sApostrophe = null;
-		Object S1Apostrophe = null;
-		Object S2Apostrophe = null;
-		addCompatibleElements(s1, s2, S1Apostrophe, helper);
+		Span sAp = null; 
+		EList<Object> s2Apostrophe;
+		s2Apostrophe = null;
+		EList<Object> s1Apostrophe;
+		s1Apostrophe = addCompatibleElements(sp1, sp2);
+		if(s1Apostrophe!=null){
+			s2Apostrophe = addCompatibleElements(sp2, sp1);
+			if(s2Apostrophe!=null){
+				sAp = intersection(s1Apostrophe, s2Apostrophe);//TODO intersection
+				//foreach (x,y) in sAP
+				//add mapping ...
+				//add mapping ...
+			} else {return null;}
+		}else{return null;}
 
+		return SApostrophe;
+	}
+
+	/**
+	 * @param s1Apostrophe
+	 * @param s2Apostrophe
+	 * intersection ist die Überschneidung der beiden Graphen
+	 * @return
+	 */
+	private Span intersection(EList<Object> s1Apostrophe, EList<Object> s2Apostrophe) {
+		// TODO intersection
 		return null;
 	}
 
 	/**
-	 * @param s1
-	 * @param s2
+	 * @param sp1
+	 * @param sp2
 	 * @param s1Apostrophe
-	 * @param helper
+	 * @return
 	 */
-	private void addCompatibleElements(Set<Mapping> s1, Set<Mapping> s2, Object s1Apostrophe,
-			HenshinFactoryImpl helper) {
-		Graph S = helper.createGraph();
-		for (Mapping s : s1) {
-			Object y = existCompatibleElement(s, s1, s2);
+	private EList<Object> addCompatibleElements(Span sp1, Span sp2) {
+		// Graph S = helper.createGraph();
+		EList<Object> s1Apostrophe = new BasicEList<Object>();
+		EList<Node> s1Nodes = sp1.getGraph().getNodes();
+		EList<Edge> s1Edges = sp1.getGraph().getEdges();
+		EList<Node> s2Nodes = sp2.getGraph().getNodes();
+		EList<Edge> s2Edges = sp2.getGraph().getEdges();
+		//System.out.println(s1Nodes + " : " + s1Edges);
+		//System.out.println(s2Nodes + " : " + s2Edges);
+		EList<Object> allObjectsS1 = new BasicEList<Object>();
+		s1Nodes.forEach(n -> allObjectsS1.add(n));
+		s1Edges.forEach(e -> allObjectsS1.add(e));
+		for (Object x : allObjectsS1) {
+			try {
+				Object y = existCompatibleElement(x, sp1, sp2);
+				if (y.equals(null)) {
+					s1Apostrophe.add(y);
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage() + e.getCause());
+				s1Apostrophe = null;
+			}
 		}
-
+		return s1Apostrophe;
 	}
 
 	/**
-	 * @param mapping
-	 * @param s1
-	 * @param s2 
+	 * @param x
+	 * @param sp1
+	 * @param sp2
 	 * @param conflictReason2
 	 * @return
+	 * @throws Exception
 	 */
-	private Object existCompatibleElement(Mapping mapping, Set<Mapping> s1, Set<Mapping> s2) {
+	private Object existCompatibleElement(Object x, Span sp1, Span sp2) throws Exception {
+		// System.out.println("SP1: " + sp1);
+		// System.out.println("SP2: " + sp2);
 		Graph cr = conflictReason.getGraph();
-		if (contains(cr, mapping.getOrigin())) {
-			for (Mapping mapping2 : s2) {
-				if () //TODO Vincent
+		// Node node = x.getImage();
+		// EList<Node> nodes = cr.getNodes();
+		// throw exception;
+		EList<Node> s1Nodes = sp1.getGraph().getNodes();
+		EList<Edge> s1Edges = sp1.getGraph().getEdges();
+		EList<Object> allObjectsS1 = new BasicEList<Object>();
+		s1Nodes.forEach(n -> allObjectsS1.add(n));
+		s1Edges.forEach(e -> allObjectsS1.add(e));
+		EList<Node> s2Nodes = sp2.getGraph().getNodes();
+		EList<Edge> s2Edges = sp2.getGraph().getEdges();
+		EList<Object> allObjectsS2 = new BasicEList<Object>();
+		s2Nodes.forEach(n -> allObjectsS2.add(n));
+		s2Edges.forEach(e -> allObjectsS2.add(e));
+		Set<Mapping> s11 = sp1.getMappingsInRule1();
+		Set<Mapping> s12 = sp1.getMappingsInRule2();
+		Set<Mapping> s21 = sp2.getMappingsInRule1();
+		Set<Mapping> s22 = sp2.getMappingsInRule2();
+		if (true) { // Todo: contains(x, sp1) Hier sollte eigentlich geschaut
+					// werden ob x in S1 ist, obwohl ja das element x aus S1
+					// übergeben wurde
+			System.out.println("nodes contains x!");
+			for (Object y : allObjectsS2) { // Mapping y : sp2
+				if (true) { // If s11(x) = s21(y)
+					if (true) { // If s12(x) = s22(y)
+						return y;
+					} else {
+
+						throw compatibleException;
+					}
+				} else {
+					return null;
+				}
 			}
+		} else {
+			throw compatibleException;
 		}
-		return null;
+		return s22;
 	}
 
 	/**
-	 * @param cr
-	 * @param origin
+	 * @param x
+	 * @param allObjectsS1
 	 * @return
 	 */
-	private boolean contains(Graph cr, Node origin) {
-		EList<Node> nodes = cr.getNodes();
-		for (Node node : nodes) { // TODO Vincent Prüfen ob hier nicht lieber
-									// Strings verglichen werden sollten.
-			if (node.equals(origin)) {
-				return true;
+	private boolean contains(Object x, EList<Object> allObjectsS1) {
+		System.out.println("xType: " + xType);
+		boolean ret = false;
+		for ( Object object: allObjectsS1) {
+			System.out.println(object);
+			if () {
+				ret = true;
 			}
 		}
-		return false;
+		return ret;
 	}
 
 	/**
@@ -279,24 +357,6 @@ public class DeleteUseConflictReasonComputation {
 			}
 		}
 		return G1toG2;
-	}
-
-	/**
-	 * 
-	 * @return HashSet<Span>
-	 */
-	public HashSet<Span> getChecked() {
-		return checked;
-	}
-
-	/**
-	 * 
-	 * void
-	 * 
-	 * @param checked
-	 */
-	public void setChecked(HashSet<Span> checked) {
-		this.checked = checked;
 	}
 
 }
