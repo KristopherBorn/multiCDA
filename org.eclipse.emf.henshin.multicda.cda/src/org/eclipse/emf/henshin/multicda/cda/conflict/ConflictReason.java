@@ -186,7 +186,7 @@ public class ConflictReason extends Span {
 
 			List<Node> potentialUseNodesN2AloneR2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
 			potentialUsesN1R2.removeAll(usedR2);
-			// Knoten aus R2 dürfen nicht mehrfach in ein CR involviert sein!
+			// Knoten aus R2 dï¿½rfen nicht mehrfach in ein CR involviert sein!
 			boolean node2AlreadyUsedInR1 = usedR1.contains(uncoveredCA.getMappingIntoRule1(node2).getImage());
 			boolean node2AlreadyUsedInR2 = usedR2.contains(uncoveredCA.getMappingIntoRule2(node2).getImage());
 			if (!node2AlreadyUsedInR1 & !node2AlreadyUsedInR2) {

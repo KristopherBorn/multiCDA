@@ -13,8 +13,8 @@ import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
 
-//nur der Vollständigkeit eingeführt und zur Doifferenzierung 
-// zur Bildung der entsprechenden Ergebnisse für Abgleiche mit ess. CPA
+//nur der Vollstï¿½ndigkeit eingefï¿½hrt und zur Doifferenzierung 
+// zur Bildung der entsprechenden Ergebnisse fï¿½r Abgleiche mit ess. CPA
 public class EssentialConflictReason extends ConflictReason {
 	
 
@@ -46,8 +46,8 @@ public class EssentialConflictReason extends ConflictReason {
 		
 		additionalConflictAtoms = new HashSet<ConflictAtom>();
 		additionalConflictAtoms.add(additionalConflictAtom);
-		//wenn das ursprüngliche "InitialConflictReason initialReason" bereits ein CR ist, 
-		// so müssen dessen additionallyInvolvedConflictAtoms auch noch dem neuen CR hinzugefügt werden.
+		//wenn das ursprï¿½ngliche "InitialConflictReason initialReason" bereits ein CR ist, 
+		// so mï¿½ssen dessen additionallyInvolvedConflictAtoms auch noch dem neuen CR hinzugefï¿½gt werden.
 		if(initialReason instanceof EssentialConflictReason){
 			additionalConflictAtoms.addAll(((EssentialConflictReason) initialReason).getAdditionallyInvolvedConflictAtoms());
 		}
@@ -96,7 +96,7 @@ public class EssentialConflictReason extends ConflictReason {
 //	}
 
 	public Pushout getPushoutResult() {
-		// 		- Notwendig für die häufig Nutzung mit dem Comparator
+		// 		- Notwendig fï¿½r die hï¿½ufig Nutzung mit dem Comparator
 		return new Pushout(rule1, this, rule2);
 	}
 

@@ -43,7 +43,7 @@ public class Span {
 
 	private Copier copierForSpanAndMappings;
 
-	// Scheint derzeit ncoh überflüssig zu sein!
+	// Scheint derzeit ncoh ï¿½berflï¿½ssig zu sein!
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -222,7 +222,7 @@ public class Span {
 	}
 
 	public Span(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
-		this.mappingsInRule1 = rule1Mappings; //wie verhält es sich mit einem leeren Graph, bzw. leeren mappngs?
+		this.mappingsInRule1 = rule1Mappings; //wie verhï¿½lt es sich mit einem leeren Graph, bzw. leeren mappngs?
 		this.mappingsInRule2 = rule2Mappings;
 		this.graph = s1;
 		this.rule1 = getRuleOfMappings(rule1Mappings); // might return null. Needs to be improved. if rules are not set NPE might occure. 
@@ -275,7 +275,7 @@ public class Span {
 
 	public Mapping getMappingIntoRule1(Node originNode) {
 		for (Mapping mapping : mappingsInRule1) {
-			if (mapping.getOrigin() == originNode)
+			if (mapping.getOrigin().equals(originNode))
 				return mapping;
 		}
 		return null;
@@ -283,7 +283,7 @@ public class Span {
 
 	public Mapping getMappingIntoRule2(Node originNode) {
 		for (Mapping mapping : mappingsInRule2) {
-			if (mapping.getOrigin() == originNode)
+			if (mapping.getOrigin().equals(originNode))
 				return mapping;
 		}
 		return null;
