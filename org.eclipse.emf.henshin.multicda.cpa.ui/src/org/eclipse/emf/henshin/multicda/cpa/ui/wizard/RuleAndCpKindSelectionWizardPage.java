@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.CPType;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.ConflictType;
 import org.eclipse.emf.henshin.multicda.cpa.InputDataChecker;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
 import org.eclipse.jface.wizard.WizardPage;
@@ -60,7 +60,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		}
 	}
 
-	CPType cpType = CPType.NONE;
+	ConflictType cpType = ConflictType.NONE;
 
 	/**
 	 * Default constructor for this wizard page.
@@ -70,7 +70,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 	public RuleAndCpKindSelectionWizardPage(HashMap<Rule, String> rulesAndAssociatedFileNames) {
 		super("Precondition");
 		setTitle("Conflict and Dependency Analysis - Rule Selection");
-		setDescription("Please select the rules you want to check by the Conflict Reason Analysis.");
+		setDescription("Please select rule sets to be analyzed and kind of analysis.");
 
 		this.rulesAndAssociatedFileNames = rulesAndAssociatedFileNames;
 
@@ -136,7 +136,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		selectAllButton2.addListener(SWT.Selection, checkListener);
 
 		Button selectasFirstButton = new Button(buttonsComposite, SWT.NONE);
-		selectasFirstButton.setText("Select same as First");
+		selectasFirstButton.setText("Select same rules as First");
 		selectasFirstButton.addListener(SWT.Selection, selectAsFirst);
 		selectasFirstButton.addListener(SWT.Selection, checkListener);
 
@@ -149,6 +149,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 			String ruleName1 = (rule.getName() == null) ? "null" : rule.getName(); // handle unnamed rules
 			ruleSelectionButton1.setText(ruleName1);
 			ruleSelectionButton1.setData(rule);
+			ruleSelectionButton1.setSelection(rulesForSelectionList.size()==1);
 			ruleSelectionButton1.setToolTipText(rulesAndAssociatedFileNames.get(rule));
 			ruleSelectionButton1.addListener(SWT.Selection, checkListener);
 
@@ -156,21 +157,22 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 			String ruleName2 = (rule.getName() == null) ? "null" : rule.getName(); // handle unnamed rules
 			ruleSelectionButton2.setText(ruleName2);
 			ruleSelectionButton2.setData(rule);
+			ruleSelectionButton2.setSelection(rulesForSelectionList.size()==1);
 			ruleSelectionButton2.setToolTipText(rulesAndAssociatedFileNames.get(rule));
 			ruleSelectionButton2.addListener(SWT.Selection, checkListener);
 		}
 
 		Button conflictAnalysisButton = new Button(criticalPairKindGroup, SWT.CHECK);
-		conflictAnalysisButton.setText(CPType.CONFLICT.name);
-		conflictAnalysisButton.setData(CPType.CONFLICT);
+		conflictAnalysisButton.setText(ConflictType.CONFLICT.name);
+		conflictAnalysisButton.setData(ConflictType.CONFLICT);
 		conflictAnalysisButton.addListener(SWT.Selection, calcListener);
-		conflictAnalysisButton.setData(CPType.CONFLICT);
+		conflictAnalysisButton.setData(ConflictType.CONFLICT);
 
 		Button dependencyAnalysisButton = new Button(criticalPairKindGroup, SWT.CHECK);
-		dependencyAnalysisButton.setText(CPType.DEPENDENCY.name);
-		dependencyAnalysisButton.setData(CPType.DEPENDENCY);
+		dependencyAnalysisButton.setText(ConflictType.DEPENDENCY.name);
+		dependencyAnalysisButton.setData(ConflictType.DEPENDENCY);
 		dependencyAnalysisButton.addListener(SWT.Selection, calcListener);
-		dependencyAnalysisButton.setData(CPType.DEPENDENCY);
+		dependencyAnalysisButton.setData(ConflictType.DEPENDENCY);
 
 		scrolledComposite.setMinSize(containerForBothGroups.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
@@ -181,7 +183,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 	Listener calcListener = new Listener() {
 		public void handleEvent(Event event) {
 			Button button = (Button) (event.widget);
-			cpType = cpType.update((CPType)event.widget.getData(), button.getSelection());
+			cpType = cpType.update((ConflictType)event.widget.getData(), button.getSelection());
 			updateFinishButton();
 		}
 	};
@@ -304,7 +306,7 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 
 	private void updateFinishButton() {
 		setPageComplete(false);
-		if (sufficientRulesSelected && cpType != CPType.NONE) {
+		if (sufficientRulesSelected && cpType != ConflictType.NONE) {
 			setPageComplete(true);
 		}
 		getWizard().getContainer().updateButtons();

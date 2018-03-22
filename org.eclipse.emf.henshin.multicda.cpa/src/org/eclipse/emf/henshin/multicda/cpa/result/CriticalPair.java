@@ -70,9 +70,10 @@ public abstract class CriticalPair {
 	 */
 	private List<CriticalElement> criticalElements;
 
-	protected CriticalPair(Rule r1, Rule r2, EObject minimalModel) {
+	protected CriticalPair(Rule r1, Rule r2, EObject minimalModel, AppliedAnalysis appliedAnalysis) {
 		this.r1 = r1;
 		this.r2 = r2;
+		this.appliedAnalysis = appliedAnalysis;
 		this.minimalModel = minimalModel;
 		criticalElements = new ArrayList<CriticalElement>();
 	}
@@ -155,5 +156,23 @@ public abstract class CriticalPair {
 	public void setAppliedAnalysis(AppliedAnalysis appliedAnalysis) {
 		this.appliedAnalysis = appliedAnalysis;
 	}
-
+	
+//	/* (non-Javadoc)
+//	 * @see java.lang.Object#equals(java.lang.Object)
+//	 */
+//	@Override
+//	public boolean equals(Object obj) {
+//		if(obj instanceof CriticalPair) {
+//			CriticalPair cp = (CriticalPair) obj;
+//			return criticalElements.equals(cp.criticalElements);
+//		}
+//		return false;
+//	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return criticalElements.toString();
+	}
 }

@@ -22,9 +22,9 @@ import java.util.List;
 public class TreeFolder {
 
 	/**
-	 * List of nodes, of which each node represents a single critical pair.
+	 * List of nodes, of which each node represents a single Tree Folder.
 	 */
-	List<CriticalPairNode> singleCriticalPairResults;
+	List<TreeFolder> nodes;
 
 	/**
 	 * A name combining the two involved rules.
@@ -38,7 +38,7 @@ public class TreeFolder {
 	 */
 	public TreeFolder(String nameOfInvolvedRules) {
 		this.nameOfInvolvedRules = nameOfInvolvedRules;
-		singleCriticalPairResults = new LinkedList<CriticalPairNode>();
+		nodes = new LinkedList<>();
 	}
 
 	/*
@@ -46,19 +46,27 @@ public class TreeFolder {
 	 * 
 	 * @see java.util.List#add()
 	 */
-	public boolean addChild(CriticalPairNode criticalPairNode) {
-		// criticalPairNode.setParent(this);
-		return singleCriticalPairResults.add(criticalPairNode);
+	public boolean addChild(SpanNode criticalPairNode) {
+		criticalPairNode.setParent(this);
+		return nodes.add(criticalPairNode);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see java.util.List#remove()
+	 * @see java.util.List#add()
 	 */
-	public boolean removeChild(CriticalPairNode child) {
-		// child.setParent(null);
-		return singleCriticalPairResults.remove(child);
+	public boolean addChild(TreeFolder child) {
+		return nodes.add(child);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.List#add()
+	 */
+	public boolean removeChild(TreeFolder child) {
+		return nodes.remove(child);
 	}
 
 	/**
@@ -76,7 +84,7 @@ public class TreeFolder {
 	 * @return whether the number of contained single critical pairs is greater than zero.
 	 */
 	public boolean hasChildren() {
-		return singleCriticalPairResults.size() > 0;
+		return nodes.size() > 0;
 	}
 
 	/**
@@ -84,8 +92,7 @@ public class TreeFolder {
 	 * 
 	 * @return the contained single critical pairs as an Array.
 	 */
-	public CriticalPairNode[] getChildren() {
-		return (CriticalPairNode[]) singleCriticalPairResults.toArray(new CriticalPairNode[singleCriticalPairResults
-				.size()]);
+	public TreeFolder[] getChildren() {
+		return (TreeFolder[]) nodes.toArray(new TreeFolder[nodes.size()]);
 	}
 }

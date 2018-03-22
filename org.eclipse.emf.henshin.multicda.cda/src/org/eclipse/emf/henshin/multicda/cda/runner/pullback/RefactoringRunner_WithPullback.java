@@ -123,7 +123,7 @@ public class RefactoringRunner_WithPullback {
 		
 		ICriticalPairAnalysis essentialCpa = new CpaByAGG();
 		CDAOptions essentialOptions = new CDAOptions();
-		essentialOptions.setEssential(true);
+		essentialOptions.essentialCP = true;
 
 		
 		

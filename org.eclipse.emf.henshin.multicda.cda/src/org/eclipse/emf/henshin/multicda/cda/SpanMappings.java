@@ -7,7 +7,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
-import org.eclipse.emf.henshin.multicda.cda.Span;
 
 
 /**

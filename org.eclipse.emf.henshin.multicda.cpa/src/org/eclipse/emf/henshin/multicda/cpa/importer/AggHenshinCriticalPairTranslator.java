@@ -39,6 +39,7 @@ import org.eclipse.emf.henshin.multicda.cpa.result.ConflictKind;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalElement;
 import org.eclipse.emf.henshin.multicda.cpa.result.Dependency;
 import org.eclipse.emf.henshin.multicda.cpa.result.DependencyKind;
+import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair.AppliedAnalysis;
 
 import agg.attribute.AttrInstance;
 import agg.attribute.AttrMember;
@@ -70,8 +71,6 @@ public class AggHenshinCriticalPairTranslator {
 
 	private CPType criticalPairType;
 
-	
-
 	List<org.eclipse.emf.henshin.model.Rule> rulesToMapTheResultsOn;
 
 	EcoreFactory ecoreFactory = EcoreFactory.eINSTANCE;
@@ -97,7 +96,7 @@ public class AggHenshinCriticalPairTranslator {
 	 * @param epc The computed <code>ExcludePairContainer</code> by AGG.
 	 * @return A list of <code>CriticalPair</code>s as a <code>CPAResult</code>.
 	 */
-	public CPAResult importExcludePairContainer(ExcludePairContainer epc) {
+	public CPAResult importExcludePairContainer(ExcludePairContainer epc, boolean essential) {
 		CPAResult cPAresult = new CPAResult();
 
 		if (epc instanceof DependencyPairContainer) {
@@ -108,7 +107,7 @@ public class AggHenshinCriticalPairTranslator {
 
 		List<Rule> rules1 = epc.getRules();
 		List<Rule> rules2 = epc.getRules2();
-
+		AppliedAnalysis appliedAnalysis = essential ? AppliedAnalysis.ESSENTIAL : AppliedAnalysis.COMPLETE;
 		for (Rule rule1 : rules1) {
 			for (Rule rule2 : rules2) {
 				CriticalPairData cpd = epc.getCriticalPairData(rule1, rule2);
@@ -116,7 +115,7 @@ public class AggHenshinCriticalPairTranslator {
 				if (cpd == null)
 					continue;
 				while (cpd.next()) {
-					processAGGresultOfRulePair(cPAresult, rule1, rule2, cpd);
+					processAGGresultOfRulePair(cPAresult, rule1, rule2, cpd, appliedAnalysis);
 				}
 			}
 		}
@@ -131,7 +130,8 @@ public class AggHenshinCriticalPairTranslator {
 	 * @param rule2 The second rule of AGG of the critical pair.
 	 * @param cpd The container of AGG containing the critical pair.
 	 */
-	private void processAGGresultOfRulePair(CPAResult result, Rule rule1, Rule rule2, CriticalPairData cpd) {
+	private void processAGGresultOfRulePair(CPAResult result, Rule rule1, Rule rule2, CriticalPairData cpd,
+			AppliedAnalysis appliedAnalysis) {
 
 		criticalElements = new LinkedList<CriticalElement>();
 
@@ -139,31 +139,26 @@ public class AggHenshinCriticalPairTranslator {
 
 		cpaEPackage = ecoreFactory.createEPackage();
 
-		cpaEPackage.setName(rule1.getQualifiedName() + ", " + rule2.getQualifiedName());
+		cpaEPackage.setName(rule1.getQualifiedName() + "_" + rule2.getQualifiedName());
 		cpaEPackage.setNsPrefix("CPAPackage");
 
 		String criticalPairKind = getCriticalPairKindString(cpd);
 		cpaEPackage.setNsURI("http://cpapackage/" + rule1.getQualifiedName() + "/" + rule2.getQualifiedName() + "/"
 				+ criticalPairKind);
 
-		
-		
 		org.eclipse.emf.henshin.model.Rule firstHenshinRuleOriginal = getResultRule(rule1.getName());
 		org.eclipse.emf.henshin.model.Rule secondHenshinRuleOriginal = getResultRule(rule2.getName());
-		
+
 		ExtendedMatchImpl firstRuleCopyMatch;
 		ExtendedMatchImpl secondRuleCopyMatch;
 
-		
 		hashToName = new HashMap<Integer, String>();
 
-		
 		OrdinaryMorphism morph1 = cpd.getMorph1();
-		
 
 		if (criticalPairType == CPType.Dependency) {
 			firstRuleCopyMatch = new ComatchImpl(firstHenshinRuleOriginal, true);
-		} else { 
+		} else {
 			firstRuleCopyMatch = new ExtendedMatchImpl(firstHenshinRuleOriginal, true);
 		}
 
@@ -173,9 +168,6 @@ public class AggHenshinCriticalPairTranslator {
 		List<Node> processedHenshinRuleLhsNodes = new LinkedList<Node>();
 		List<Node> processedHenshinRuleRhsNodes = new LinkedList<Node>();
 
-		
-		
-		
 		HashMap<GraphObject, Node> firstRuleLhsMapping = new HashMap<GraphObject, Node>();
 		HashMap<GraphObject, Node> firstRuleRhsMapping = new HashMap<GraphObject, Node>();
 
@@ -201,7 +193,7 @@ public class AggHenshinCriticalPairTranslator {
 						processedHenshinRuleLhsNodes.add(fnode);
 						firstRuleLhsMapping.put(morph1SourceObject, fnode);
 						break;
-						
+
 					}
 				}
 				nodes = rule1rhs.getNodes();
@@ -211,7 +203,7 @@ public class AggHenshinCriticalPairTranslator {
 						processedHenshinRuleRhsNodes.add(fnode);
 						firstRuleRhsMapping.put(morph1TargetObject, fnode);
 						break;
-						
+
 					}
 				}
 
@@ -231,43 +223,37 @@ public class AggHenshinCriticalPairTranslator {
 						criticalGraphMapping.addFirstRuleMapping(morph1TargetObject, henshinNodeRhs);
 				}
 
-				
 				EClass targetEClass = ecoreFactory.createEClass();
-				targetEClass.setName("" + morph1TargetObject.hashCode()); 
+				targetEClass.setName("" + morph1TargetObject.hashCode());
 
 				processAttributesOfMorphism(morph1TargetObject, targetEClass);
 
-				if (morph1TargetObject.isCritical()) { 
+				if (morph1TargetObject.isCritical()) {
 					hashToName.put(morph1TargetObject.hashCode(), "#" + morph1TargetObject.getType().getName() + "#");
 
 					CriticalElement criticalElement = new CriticalElement();
 					criticalElements.add(criticalElement);
-					
-					
 
 					criticalElement.commonElementOfCriticalGraph = morph1TargetObject;
 					if (criticalPairType == CPType.Conflict) {
 
 						criticalElement.elementInFirstRule = henshinNodeLhs;
-						
 
 						if (transformCriticalKindOfConflict(cpd) == ConflictKind.CHANGE_USE_ATTR_CONFLICT
-								
-								
-								
+
 								|| transformCriticalKindOfConflict(cpd) == ConflictKind.CHANGE_FORBID_ATTR_CONFLICT
 								|| transformCriticalKindOfConflict(cpd) == ConflictKind.PRODUCE_FORBID_CONFLICT) {
-							
+
 							boolean anyAttributeProcessed = false;
-							
+
 							for (Attribute henshinRhsAttribute : henshinNodeRhs.getAttributes()) {
-								boolean attributeChanged = true; 
-																	
+								boolean attributeChanged = true;
+
 								if (henshinNodeLhs != null)
 									for (Attribute henshinLhsAttribute : henshinNodeLhs.getAttributes()) {
 										boolean attributeTypeIdentical = henshinLhsAttribute
-												.getType() == henshinRhsAttribute.getType(); 
-																								
+												.getType() == henshinRhsAttribute.getType();
+
 										boolean attributeNameEqual = henshinLhsAttribute.getType().getName()
 												.equals(henshinRhsAttribute.getType().getName());
 										if (attributeTypeIdentical && attributeNameEqual) {
@@ -282,40 +268,34 @@ public class AggHenshinCriticalPairTranslator {
 									} else {
 										CriticalElement criticalElementforFurtherChangedAttribute = new CriticalElement();
 										criticalElements.add(criticalElementforFurtherChangedAttribute);
-										
-										
-										
+
 										criticalElementforFurtherChangedAttribute.commonElementOfCriticalGraph = morph1TargetObject;
 										criticalElementforFurtherChangedAttribute.elementInFirstRule = henshinRhsAttribute;
 									}
 								}
 							}
 							if (!anyAttributeProcessed) {
-								
-								
-								
-								
+
 								criticalElement.elementInFirstRule = henshinNodeRhs;
 							}
 						}
 					} else if (criticalPairType == CPType.Dependency) {
-						
+
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.PRODUCE_USE_DEPENDENCY)
 							criticalElement.elementInFirstRule = henshinNodeRhs;
-						
-						
+
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.DELETE_FORBID_DEPENDENCY)
 							criticalElement.elementInFirstRule = henshinNodeLhs;
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.CHANGE_USE_ATTR_DEPENDENCY) {
 							boolean anyAttributeProcessed = false;
-							
+
 							for (Attribute henshinRhsAttribute : henshinNodeRhs.getAttributes()) {
-								boolean attributeChanged = true; 
-																	
+								boolean attributeChanged = true;
+
 								for (Attribute henshinLhsAttribute : henshinNodeLhs.getAttributes()) {
 									boolean attributeTypeIdentical = henshinLhsAttribute
 											.getType() == henshinRhsAttribute.getType();
-									
+
 									boolean attributeNameEqual = henshinLhsAttribute.getType().getName()
 											.equals(henshinRhsAttribute.getType().getName());
 									if (attributeTypeIdentical && attributeNameEqual) {
@@ -323,7 +303,7 @@ public class AggHenshinCriticalPairTranslator {
 											attributeChanged = false;
 									}
 								}
-								
+
 								if (attributeChanged) {
 									if (!anyAttributeProcessed) {
 										criticalElement.elementInFirstRule = henshinRhsAttribute;
@@ -336,12 +316,9 @@ public class AggHenshinCriticalPairTranslator {
 									}
 								}
 							}
-							
+
 							if (!anyAttributeProcessed) {
-								
-								
-								
-								
+
 								criticalElement.elementInFirstRule = henshinNodeRhs;
 							}
 						}
@@ -367,24 +344,24 @@ public class AggHenshinCriticalPairTranslator {
 			else if (morph1TargetObject.isArc()) {
 				try {
 					boolean arcIsCritical = morph1SourceObject.isCritical() || morph1TargetObject.isCritical();
-					if (criticalPairType == CPType.Conflict) { 
+					if (criticalPairType == CPType.Conflict) {
 						processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
 								criticalGraphMapping);
-					} else if (criticalPairType == CPType.Dependency) { 
-						
+					} else if (criticalPairType == CPType.Dependency) {
+
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.PRODUCE_USE_DEPENDENCY)
 							processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
 									criticalGraphMapping);
-						
+
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.DELETE_FORBID_DEPENDENCY)
 							processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
-									criticalGraphMapping); 
-															
+									criticalGraphMapping);
+
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.CHANGE_USE_ATTR_DEPENDENCY) {
 							processEdgeOfAGGResult(morph1TargetObject, SequentialRule.FirstRule, arcIsCritical,
 									criticalGraphMapping);
 							System.err.println("Unimplemented yet");
-							
+
 						}
 						if (transformCriticalKindOfDependency(cpd) == DependencyKind.CHANGE_FORBID_ATTR_DEPENDENCY) {
 							System.err.println("Unimplemented yet");
@@ -403,7 +380,7 @@ public class AggHenshinCriticalPairTranslator {
 		}
 
 		secondRuleCopyMatch = new ExtendedMatchImpl(secondHenshinRuleOriginal, true);
-		
+
 		OrdinaryMorphism morph2 = cpd.getMorph2();
 
 		boolean edgeProcessingOfSecondRuleBegun = false;
@@ -411,7 +388,6 @@ public class AggHenshinCriticalPairTranslator {
 		Vector<GraphObject> morph2SourceObjects2 = morph2.getDomainObjects();
 		Vector<GraphObject> morph2TargetObjects2 = morph2.getCodomainObjects();
 
-		
 		HashMap<GraphObject, Node> secondRuleLhsMapping = new HashMap<GraphObject, Node>();
 
 		List<Node> processedLhsNodes = new LinkedList<Node>();
@@ -449,7 +425,7 @@ public class AggHenshinCriticalPairTranslator {
 							}
 						}
 					} else if (nestCond.isPAC()) {
-						
+
 						System.err.println("PAC's are not yet supported by the features.");
 					} else {
 						System.err.println("AGGResultImporter: nested condition is no NAC and thus not supported yet");
@@ -463,7 +439,6 @@ public class AggHenshinCriticalPairTranslator {
 					criticalGraphMapping.addSecondRuleMapping(morph2TargetObject, henshinNodeNac);
 				}
 
-				
 				EClass targetEClass = null;
 				if (hashToName.containsKey(morph2TargetObject.hashCode())) {
 					targetEClass = (EClass) cpaEPackage.getEClassifier("" + morph2TargetObject.hashCode());
@@ -481,8 +456,7 @@ public class AggHenshinCriticalPairTranslator {
 				if (morph2TargetObject.isCritical()) {
 					processCriticalElementOfSecondRule(cpd, morph2TargetObject, henshinNodeLhs, henshinNodeNac);
 				}
-				
-				
+
 				processAttributesOfMorphism(morph2TargetObject, targetEClass);
 
 				if (henshinNodeLhs != null) {
@@ -517,22 +491,22 @@ public class AggHenshinCriticalPairTranslator {
 			}
 		}
 
-		
 		secondRuleCopyMatch.removeAllParameter(secondHenshinRuleOriginal.getParameters());
 
 		if (validCriticalPair) {
-			
+
 			rename(hashToName, cpaEPackage);
 
 			if (criticalPairType == CPType.Dependency) {
 				Dependency dep = new Dependency(firstHenshinRuleOriginal, secondHenshinRuleOriginal, cpaEPackage,
-						firstRuleCopyMatch, secondRuleCopyMatch, transformCriticalKindOfDependency(cpd));
+						firstRuleCopyMatch, secondRuleCopyMatch, transformCriticalKindOfDependency(cpd),
+						appliedAnalysis);
 
 				dep.addCriticalElements(criticalElements);
 				result.addResult(dep);
 			} else if (criticalPairType == CPType.Conflict) {
 				Conflict conf = new Conflict(firstHenshinRuleOriginal, secondHenshinRuleOriginal, cpaEPackage,
-						firstRuleCopyMatch, secondRuleCopyMatch, transformCriticalKindOfConflict(cpd));
+						firstRuleCopyMatch, secondRuleCopyMatch, transformCriticalKindOfConflict(cpd), appliedAnalysis);
 
 				conf.addCriticalElements(criticalElements);
 				result.addResult(conf);
@@ -619,14 +593,10 @@ public class AggHenshinCriticalPairTranslator {
 						}
 					}
 				}
-			} 
-				
+			}
+
 			if (existingCritElem.elementInFirstRule == null) {
-				
-				
-				
-				
-				
+
 			}
 		}
 	}
@@ -668,9 +638,9 @@ public class AggHenshinCriticalPairTranslator {
 		AttrInstance attributes = morphObjectOfAGG.getAttribute();
 		if (attributes != null) {
 			for (int attrNr = 0; attrNr < attributes.getNumberOfEntries(); attrNr++) {
-				
+
 				boolean dontProcessThisAttribute = false;
-				
+
 				EAttribute newAttrForMinimalGraph = ecoreFactory.createEAttribute();
 				AttrMember memberAt = attributes.getMemberAt(attrNr);
 
@@ -690,7 +660,7 @@ public class AggHenshinCriticalPairTranslator {
 					for (EStructuralFeature eStructFeat : eStructuralFeatures) {
 						if (eStructFeat instanceof EAttribute && !dontProcessThisAttribute) {
 							EAttribute allreadyExistingEAttribute = (EAttribute) eStructFeat;
-							
+
 							if (allreadyExistingEAttribute.getName().equals(newAttrForMinimalGraph.getName())) {
 								dontProcessThisAttribute = true;
 								break;
@@ -769,8 +739,6 @@ public class AggHenshinCriticalPairTranslator {
 				hashToName.put(morphismTargetObject.hashCode(), morphismTargetObject.getType().getName());
 			}
 
-			
-			
 			boolean duplicateEdge = false;
 
 			for (EStructuralFeature structuralFeature : from.getEStructuralFeatures()) {
@@ -802,7 +770,7 @@ public class AggHenshinCriticalPairTranslator {
 					System.err.println("WARNING! - cant process the critical edge '" + morphismTargetObject.toString()
 							+ "' since related henshin node cant be resolved.");
 				for (Edge edge : henshinSourceNode.getOutgoing()) {
-					if (edge.getTarget() == henshinTargetNode) { 
+					if (edge.getTarget() == henshinTargetNode) {
 						critEdgeElem.elementInFirstRule = edge;
 						critEdgeElem.commonElementOfCriticalGraph = morphismTargetObject;
 					}
@@ -813,13 +781,10 @@ public class AggHenshinCriticalPairTranslator {
 			if (sequentialRule == SequentialRule.SecondRule) {
 				Node henshinSourceNode = criticalGraphMapping.getSecondRuleNode(sourceNode);
 				Node henshinTargetNode = criticalGraphMapping.getSecondRuleNode(targetNode);
-				
-				
-				
-				
+
 				Edge correspondingHenshinEdge = null;
 				for (Edge edge : henshinSourceNode.getOutgoing()) {
-					if (edge.getTarget() == henshinTargetNode) { 
+					if (edge.getTarget() == henshinTargetNode) {
 						correspondingHenshinEdge = edge;
 						break;
 					}
@@ -858,9 +823,9 @@ public class AggHenshinCriticalPairTranslator {
 	 */
 	private String getCriticalPairKindString(CriticalPairData cpd) {
 		if (criticalPairType == CPType.Conflict) {
-			return transformCriticalKindOfConflict(cpd).toString(); 
+			return transformCriticalKindOfConflict(cpd).toString();
 		} else if (criticalPairType == CPType.Dependency) {
-			return transformCriticalKindOfDependency(cpd).toString(); 
+			return transformCriticalKindOfDependency(cpd).toString();
 		}
 		return null;
 	}

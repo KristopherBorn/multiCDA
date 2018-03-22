@@ -9,7 +9,6 @@
  */
 package org.eclipse.emf.henshin.multicda.cpa;
 
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;

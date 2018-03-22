@@ -23,10 +23,22 @@ public class CriticalElement extends OverlapElement {
 	public CriticalElement() {
 		super();
 	}
-	
+
 	public CriticalElement(GraphObject commonElementOfCriticalGraph, GraphElement elementInFirstRule,
 			GraphElement elementInSecondRule) {
 		super(commonElementOfCriticalGraph, elementInFirstRule, elementInSecondRule);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof CriticalElement) {
+			String a = toString();
+			String b = obj.toString();
+			return a.equals(b);
+		}
+		return false;
+	}
 }

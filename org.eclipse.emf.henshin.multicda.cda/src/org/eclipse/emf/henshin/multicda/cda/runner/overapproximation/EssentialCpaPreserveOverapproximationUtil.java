@@ -24,7 +24,7 @@ public class EssentialCpaPreserveOverapproximationUtil {
 	public static void analyseEssentialCpaPreserveOverapproximation(List<Rule> originalRules, List<Rule> modifiedRules,
 			String resultPath) {
 		CDAOptions essentialCpaOptions = new CDAOptions();
-		essentialCpaOptions.setEssential(true);
+		essentialCpaOptions.essentialCP = true;
 		
 		
 		// use essentialCPA with normal rules like its done in the runner 

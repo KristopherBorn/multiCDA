@@ -21,6 +21,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.print.attribute.HashAttributeSet;
 
 /**
  * A class for saving the options used by the critical pair analysis within AGG.
@@ -29,56 +33,105 @@ import java.io.OutputStream;
  *
  */
 public class CDAOptions {
-	private boolean complete;
+	private boolean complete = true;
 	private boolean strongAttrCheck = true;
-	private boolean ignoreSameRules;
-	private boolean reduceSameMatch;
+	private boolean ignoreSameRules=false;
+	private boolean reduceSameMatch=false;
 	private boolean directlyStrictConfluent = false;
 	private boolean directlyStrictConfluentUpToIso = false;
 	private boolean equalVName = false;
-	private boolean essential = false;
+
+	public boolean essentialCP = false;
+	public boolean initialCP = true;
+	public boolean otherCP = false;
+
 	// (KB) new since 2017-08-21 due to CDA project and missing multiplicity support of the essential CPA
 	private boolean ignoreMultiplicities = false;
-	public GranularityType granularityType = GranularityType.BINARY;
-	public CPType cpTypes = CPType.NONE;
+	public int granularityType = 1;
+	public ConflictType cpTypes = ConflictType.NONE;
+	private boolean cpaComputation = false;
 
 	public static enum GranularityType {
-		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)"), COARSE("Coarse granularity",
-				"Shows core conflicting (dependent) graph elements"), FINE("Fine granularity",
-						"Shows complete conflict (dependency) reasons");
+		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)", 1), COARSE("Coarse granularity",
+				"Shows core conflicting (dependent) graph elements", 2), FINE("Fine granularity",
+						"Shows complete conflict (dependency) reasons",
+						4), VERY_FINE("Very fine granularity", "Computes critical pairs", 8);
 		public final String name;
-		public String description;
+		public final String description;
+		public final int id;
 
-		GranularityType(String name, String description) {
+		GranularityType(String name, String description, int id) {
 			this.name = name;
 			this.description = description;
+			this.id = id;
+		}
+
+		public static int getGranularities(boolean... granularityTypes) {
+			if (granularityTypes.length > 4)
+				return -1;
+			int gType = 0;
+			GranularityType[] granularities = values();
+			for (int i = 0; i < granularityTypes.length; i++)
+				if (granularityTypes[i])
+					gType += granularities[i].id;
+			return gType;
+		}
+
+		public static int getGranularities(GranularityType... granularityTypes) {
+			int gType = 0;
+			Set<GranularityType> visited = new HashSet<>();
+			for (GranularityType gt : granularityTypes)
+				if (visited.add(gt))
+					gType += gt.id;
+			return gType;
+		}
+
+		public static Set<GranularityType> getGranularities(int i) {
+			Set<GranularityType> result = new HashSet<>();
+			if (i >= VERY_FINE.id) {
+				result.add(VERY_FINE);
+				i -= VERY_FINE.id;
+			}
+			if (i >= FINE.id) {
+				result.add(FINE);
+				i -= FINE.id;
+			}
+			if (i >= COARSE.id) {
+				result.add(COARSE);
+				i -= COARSE.id;
+			}
+			if (i >= BINARY.id) {
+				result.add(BINARY);
+				i -= BINARY.id;
+			}
+			return result;
 		}
 	};
 
-	public static enum CPType {
+	public static enum ConflictType {
 		NONE("", -3), CONFLICT("Conflicts", 1), DEPENDENCY("Dependencies", 2), BOTH("Conflicts and dependencies", 3);
 		public final String name;
 		public final int id;
 
-		CPType(String name, int id) {
+		ConflictType(String name, int id) {
 			this.name = name;
 			this.id = id;
 		}
 
-		public CPType update(CPType type, boolean active) {
+		public ConflictType update(ConflictType type, boolean active) {
 			int value = id < 0 ? 0 : id;
 			value += (active ? type.id : -type.id);
 			switch (value) {
 			case 1:
-				return CPType.CONFLICT;
+				return ConflictType.CONFLICT;
 			case 2:
-				return CPType.DEPENDENCY;
+				return ConflictType.DEPENDENCY;
 			case 3:
-				return CPType.BOTH;
+				return ConflictType.BOTH;
 			case -3:
-				return CPType.NONE;
+				return ConflictType.NONE;
 			case 0:
-				return CPType.NONE;
+				return ConflictType.NONE;
 			}
 			return this;
 		}
@@ -112,17 +165,18 @@ public class CDAOptions {
 	 * @return <code>true</code> if options were loaded, else <code>false</code>
 	 */
 	public boolean load(String optionsFile) {
-
 		boolean success;
-
 		try {
 			InputStream file = new FileInputStream(optionsFile);
 			InputStream buffer = new BufferedInputStream(file);
 			ObjectInput input = new ObjectInputStream(buffer);
 
-			setComplete(input.readBoolean());
-			setIgnoreSameRules(input.readBoolean());
-			setReduceSameRuleAndSameMatch(input.readBoolean());
+			granularityType = GranularityType.getGranularities(input.readBoolean(), input.readBoolean(),
+					input.readBoolean(), input.readBoolean());
+			initialCP = input.readBoolean();
+			essentialCP = input.readBoolean();
+			otherCP = input.readBoolean();
+			ignoreSameRules = input.readBoolean();
 
 			input.close();
 			success = true;
@@ -145,10 +199,17 @@ public class CDAOptions {
 			OutputStream file = new FileOutputStream(filePath);
 			OutputStream buffer = new BufferedOutputStream(file);
 			ObjectOutput output = new ObjectOutputStream(buffer);
+			Set<GranularityType> types = GranularityType.getGranularities(granularityType);
 
-			output.writeBoolean(complete);
+			output.writeBoolean(types.contains(GranularityType.BINARY));
+			output.writeBoolean(types.contains(GranularityType.COARSE));
+			output.writeBoolean(types.contains(GranularityType.FINE));
+			output.writeBoolean(types.contains(GranularityType.VERY_FINE));
+
+			output.writeBoolean(initialCP);
+			output.writeBoolean(essentialCP);
+			output.writeBoolean(otherCP);
 			output.writeBoolean(ignoreSameRules);
-			output.writeBoolean(reduceSameMatch);
 
 			output.close();
 
@@ -165,68 +226,12 @@ public class CDAOptions {
 	 */
 	public void reset() {
 
-		/**
-		 * kBorn 09-05-2014 most times the different kinds of critical pairs are of interest. (-> true) if you are only
-		 * interested in the existence of any CP between the two rules: set this option to false
-		 */
-		setComplete(true);
-
-		/**
-		 * kBorn 09-05-2014 generally the constraint should even be fulfilled for the graph constraints (->'true' by
-		 * default) it is still unresolved, if there exists something like graph constraints in henshin and if they are
-		 */
-		// setConsistent(true);
-
-		/**
-		 * kBorn 09-05-2014 since the focus is on software and system models, attribute values are elementary -> this
-		 * should not only be 'true by default', there should be even no possibility to disable this option (until there
-		 * is a good request to provide it)
-		 */
-		// setStrongAttrCheck(true);
-
-		/**
-		 * kBorn 09-05-2014 this is of no relevance when the following option is activated. (check if this
-		 * dependency is also is in the AGG parser or just in the user interface)
-		 */
-		setIgnoreSameRules(false);
-
-		/**
-		 * kBorn 09-05-2014 usual there is a conflict. activated by default (true), but this could be of IMPORTANCE for
-		 * the MOCA project in regard of model changes
-		 */
-		setReduceSameRuleAndSameMatch(true);
-
-		/**
-		 * kBorn 09-05-2014 since this is very complex it wont be provided and deactivated (false) by default.
-		 */
-		// setDirectlyStrictConfluent(false);
-
-		/**
-		 * kBorn 09-05-2014 since this is very complex it wont be provided and deactivated (false) by default.
-		 */
-		// setDirectlyStrictConfluentUpToIso(false);
-
-		/**
-		 * kBorn 09-05-2014 function and necessity is unclear -> by default 'false' & not provided to the user
-		 */
-		// setEqualVName(false);
-
-		/**
-		 * kBorn 09-05-2014 since NACs are an elementary part of the rules, until further requests there is no reason to
-		 * ignoreSameRules them -> 'false' & not provided to the user
-		 */
-		// setEssential(false);
-
 		setIgnoreMultiplicities(false);
-		granularityType = GranularityType.BINARY;
+		granularityType = 1;
 	}
 
 	public boolean isComplete() {
 		return complete;
-	}
-
-	public void setComplete(boolean complete) {
-		this.complete = complete;
 	}
 
 	public boolean isStrongAttrCheck() {
@@ -266,11 +271,11 @@ public class CDAOptions {
 		return equalVName;
 	}
 
-	public boolean isEssential() {
-		return essential;
+	public void setCpaComputation(boolean cpaComputation) {
+		this.cpaComputation = cpaComputation;
 	}
 
-	public void setEssential(boolean essential) {
-		this.essential = essential;
+	public boolean getCpaComputation() {
+		return this.cpaComputation;
 	}
 }
