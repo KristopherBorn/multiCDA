@@ -10,14 +10,15 @@
 package org.eclipse.emf.henshin.multicda.cpa.ui.presentation;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.persist.RootElement;
+import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.persist.TreeFolder;
 import org.eclipse.emf.henshin.multicda.cpa.ui.util.CpEditorUtil;
 import org.eclipse.jface.action.Action;
@@ -29,7 +30,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -56,10 +56,12 @@ public class CpaResultsView extends ViewPart {
 
 	private TreeViewer viewer;
 	private Action doubleClickAction;
-	private HashMap<String, Set<SpanNode>> contentCDAB;
-	private HashMap<String, Set<SpanNode>> contentCDAC;
-	private HashMap<String, Set<SpanNode>> contentCDAF;
-	private HashMap<String, Set<SpanNode>> contentCPA;
+	private HashMap<String, List<SpanNode>> contentCDAB;
+	private HashMap<String, List<SpanNode>> contentCDAC;
+	private HashMap<String, List<SpanNode>> contentCDAF;
+	private HashMap<String, List<SpanNode>> initialCpaResult;
+	private HashMap<String, List<SpanNode>> essentialCpaResult;
+	private HashMap<String, List<SpanNode>> otherCpaResult;
 
 	class CPAViewContentProvider implements ITreeContentProvider {
 
@@ -67,49 +69,68 @@ public class CpaResultsView extends ViewPart {
 
 		void initialize() {
 			invisibleRoot = new RootElement();
-			TreeFolder B = new TreeFolder("Bianry granualrity");
-			TreeFolder C = new TreeFolder("Coarse granualrity");
-			TreeFolder F = new TreeFolder("Fine granualrity");
-			TreeFolder SF = new TreeFolder("Super fine granualrity");
+			TreeFolder B = new TreeFolder("Bianry granularity");
+			TreeFolder C = new TreeFolder("Coarse granularity");
+			TreeFolder F = new TreeFolder("Fine granularity");
+			TreeFolder SF = new TreeFolder("Very fine granularity");
 
-			for (String ruleCombinationName : contentCDAB.keySet()) {
-				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
-				B.addChild(treeFolder);
+			TreeFolder iCP = new TreeFolder("Initial conflicts /intial dependencies");
+			TreeFolder eCP = new TreeFolder("Further essential critical pairs");
+			TreeFolder CP = new TreeFolder("Further critical pairs");
 
-				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCDAB.get(ruleCombinationName);
-
-				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
-					treeFolder.addChild(criticalPairNode);
-				}
-			}
+			int multi1 = 0;
+			int multi2 = 0;
 			for (String ruleCombinationName : contentCDAC.keySet()) {
 				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
 				C.addChild(treeFolder);
 
-				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCDAC.get(ruleCombinationName);
+				List<SpanNode> theCriticalPairsForTheRulecombination = contentCDAC.get(ruleCombinationName);
 
-				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
-					treeFolder.addChild(criticalPairNode);
+				for (SpanNode spanNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(spanNode);
+					multi1++;
 				}
 			}
 			for (String ruleCombinationName : contentCDAF.keySet()) {
 				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
 				F.addChild(treeFolder);
 
-				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCDAF.get(ruleCombinationName);
+				List<SpanNode> theCriticalPairsForTheRulecombination = contentCDAF.get(ruleCombinationName);
 
-				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
-					treeFolder.addChild(criticalPairNode);
+				for (SpanNode spanNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(spanNode);
+					multi2++;
 				}
 			}
-			for (String ruleCombinationName : contentCPA.keySet()) {
+			if (contentCDAB != null && contentCDAB.size() != 0) {
+				TreeFolder treeFolder = new TreeFolder(
+						(multi1 > 1 || multi2 > 1 ? "Conflicts" : "Conflict") + " detected");
+				B.addChild(treeFolder);
+
+			}
+
+			for (String ruleCombinationName : initialCpaResult.keySet()) {
 				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
-				SF.addChild(treeFolder);
-
-				Set<SpanNode> theCriticalPairsForTheRulecombination = contentCPA.get(ruleCombinationName);
-
-				for (SpanNode criticalPairNode : theCriticalPairsForTheRulecombination) {
-					treeFolder.addChild(criticalPairNode);
+				iCP.addChild(treeFolder);
+				List<SpanNode> theCriticalPairsForTheRulecombination = initialCpaResult.get(ruleCombinationName);
+				for (SpanNode spanNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(spanNode);
+				}
+			}
+			for (String ruleCombinationName : essentialCpaResult.keySet()) {
+				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
+				eCP.addChild(treeFolder);
+				List<SpanNode> theCriticalPairsForTheRulecombination = essentialCpaResult.get(ruleCombinationName);
+				for (SpanNode spanNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(spanNode);
+				}
+			}
+			for (String ruleCombinationName : otherCpaResult.keySet()) {
+				TreeFolder treeFolder = new TreeFolder(ruleCombinationName);
+				CP.addChild(treeFolder);
+				List<SpanNode> theCriticalPairsForTheRulecombination = otherCpaResult.get(ruleCombinationName);
+				for (SpanNode spanNode : theCriticalPairsForTheRulecombination) {
+					treeFolder.addChild(spanNode);
 				}
 			}
 			if (B.hasChildren())
@@ -118,6 +139,13 @@ public class CpaResultsView extends ViewPart {
 				invisibleRoot.addChild(C);
 			if (F.hasChildren())
 				invisibleRoot.addChild(F);
+
+			if (iCP.hasChildren())
+				SF.addChild(iCP);
+			if (eCP.hasChildren())
+				SF.addChild(eCP);
+			if (CP.hasChildren())
+				SF.addChild(CP);
 			if (SF.hasChildren())
 				invisibleRoot.addChild(SF);
 		}
@@ -245,11 +273,11 @@ public class CpaResultsView extends ViewPart {
 				Object obj = ((IStructuredSelection) selection).getFirstElement();
 				if (obj instanceof SpanNode) {
 
-					SpanNode criticalPairNode = (SpanNode) obj;
+					SpanNode spanNode = (SpanNode) obj;
 
-					URI firstRuleUri = criticalPairNode.getFirstRuleURI();
-					URI overlapuri = criticalPairNode.getMinimalModelURI();
-					URI secondRuleUri = criticalPairNode.getSecondRuleURI();
+					URI firstRuleUri = spanNode.getFirstRuleURI();
+					URI overlapuri = spanNode.getMinimalModelURI();
+					URI secondRuleUri = spanNode.getSecondRuleURI();
 
 					CpEditorUtil.openResultInCpEditor(firstRuleUri, overlapuri, secondRuleUri);
 
@@ -292,11 +320,14 @@ public class CpaResultsView extends ViewPart {
 		}
 	}
 
-	public void setContent(HashMap<String, Set<SpanNode>> persistedB, HashMap<String, Set<SpanNode>> persistedC,
-			HashMap<String, Set<SpanNode>> persistedF, HashMap<String, Set<SpanNode>> persistedCPAResults) {
+	public void setContent(HashMap<String, List<SpanNode>> persistedB, HashMap<String, List<SpanNode>> persistedC,
+			HashMap<String, List<SpanNode>> persistedF, HashMap<String, List<SpanNode>> initialCpaResult,
+			HashMap<String, List<SpanNode>> essentialCpaResult, HashMap<String, List<SpanNode>> otherCpaResult) {
 		this.contentCDAB = persistedB;
 		this.contentCDAC = persistedC;
 		this.contentCDAF = persistedF;
-		this.contentCPA = persistedCPAResults;
+		this.initialCpaResult = initialCpaResult;
+		this.essentialCpaResult = essentialCpaResult;
+		this.otherCpaResult = otherCpaResult;
 	}
 }

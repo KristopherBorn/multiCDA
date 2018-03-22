@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
+import org.eclipse.emf.henshin.multicda.cpa.criticalpair.util.CriticalpairAdapterFactory;
 import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.Conflict;
@@ -66,7 +68,7 @@ public class CPAUtility {
 	 * @param path The path for saving the full result set.
 	 * @return a <code>HashMap</code> of the saved results.
 	 */
-	public static HashMap<String, Set<SpanNode>> persistCpaResult(CPAResult cpaResult, String path) {
+	public static HashMap<String, List<SpanNode>> persistCpaResult(List<CriticalPair> cpaResult, String path) {
 
 		Date timestamp = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd-HHmmss");
@@ -74,7 +76,7 @@ public class CPAUtility {
 
 		String pathWithDateStamp = path + File.separator + timestampFolder;
 
-		HashMap<String, Set<SpanNode>> persistedCPs = new HashMap<String, Set<SpanNode>>();
+		HashMap<String, List<SpanNode>> persistedCPs = new HashMap<>();
 
 		if (cpaResult != null)
 			for (CriticalPair cp : cpaResult)
@@ -87,7 +89,7 @@ public class CPAUtility {
 					if (persistedCPs.containsKey(folderName)) {
 						numberForRulePair = persistedCPs.get(folderName).size() + 1;
 					} else {
-						persistedCPs.put(folderName, new HashSet<SpanNode>());
+						persistedCPs.put(folderName, new ArrayList<SpanNode>());
 					}
 
 					String criticalPairKind = "";

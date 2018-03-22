@@ -14,33 +14,24 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.ETypeParameter;
-import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.impl.EClassImpl;
 import org.eclipse.emf.ecore.presentation.EcoreEditor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
-import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
@@ -76,7 +67,7 @@ public class CpEditorUtil {
 	 * @param path The path for saving the full result set.
 	 * @return a <code>HashMap</code> of the saved results.
 	 */
-	public static HashMap<String, Set<SpanNode>> persistCdaResult(Set<Span> cpaResult, String path) {
+	public static HashMap<String, List<SpanNode>> persistCdaResult(Set<Span> cpaResult, String path) {
 
 		Date timestamp = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd-HHmmss");
@@ -84,7 +75,7 @@ public class CpEditorUtil {
 
 		String pathWithDateStamp = path + File.separator + timestampFolder;
 
-		HashMap<String, Set<SpanNode>> persistedNodes = new HashMap<String, Set<SpanNode>>();
+		HashMap<String, List<SpanNode>> persistedNodes = new HashMap<>();
 		if (cpaResult != null)
 			for (Span span : cpaResult)
 				if (span != null) {
@@ -96,7 +87,7 @@ public class CpEditorUtil {
 					if (persistedNodes.containsKey(folderName)) {
 						numberForRulePair = persistedNodes.get(folderName).size() + 1;
 					} else {
-						persistedNodes.put(folderName, new HashSet<SpanNode>());
+						persistedNodes.put(folderName, new ArrayList<SpanNode>());
 					}
 
 					String spanKind = span.getClass().getSimpleName();

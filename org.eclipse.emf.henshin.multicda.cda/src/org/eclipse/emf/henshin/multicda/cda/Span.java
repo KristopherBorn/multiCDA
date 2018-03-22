@@ -10,28 +10,27 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.eclipse.emf.henshin.model.Action.Type;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 
 public class Span {
-	
+
 	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
-	
-	public  Rule rule1;
-	public  Rule rule2;
+
+	public Rule rule1;
+	public Rule rule2;
 
 	public Set<Mapping> mappingsInRule1;
 	public Set<Mapping> mappingsInRule2;
 
-	public  Graph graph;
+	public Graph graph;
 
 	/**
 	 * @return the rule1
@@ -70,20 +69,20 @@ public class Span {
 		return "Span [mappingsInRule1=" + mappingsInRule1 + ", mappingsInRule2=" + mappingsInRule2 + ", graph: "
 				+ graph.getNodes().size() + " Nodes, " + graph.getEdges().size() + " Edges" + "]";
 	}
-	
+
 	public String toShortString() {
 		StringBuilder sB = new StringBuilder();
-		for(Edge edge : graph.getEdges()){
+		for (Edge edge : graph.getEdges()) {
 			sB.append(shortStringInfoOfGraphEdge(edge));
 			sB.append(", ");
 		}
-		for(Node node : graph.getNodes()){
+		for (Node node : graph.getNodes()) {
 			sB.append(shortStringInfoOfGraphNode(node));
 			sB.append(", ");
 		}
 		//remove last superfluous appendency
-		if(sB.length()>0)
-			sB.delete(sB.length()-2, sB.length());
+		if (sB.length() > 0)
+			sB.delete(sB.length() - 2, sB.length());
 		return "Span [" + sB.toString() + "]";
 	}
 
@@ -139,42 +138,41 @@ public class Span {
 		if (mappingsInRule2.size() != other.getMappingsInRule2().size())
 			return false;
 
-		
 		SpanMappings spanMap = new SpanMappings(this);
 		SpanMappings spanMapOther = new SpanMappings(other);
-		
-		
+
 		// Are same nodes in rules 1 and 2 used?
 		Set<Node> nodesRule1 = new HashSet<Node>(spanMap.s1ToRule1.values());
 		Set<Node> nodesRule2 = new HashSet<Node>(spanMap.s1ToRule2.values());
 		Set<Node> nodesRule1Other = new HashSet<Node>(spanMapOther.s1ToRule1.values());
 		Set<Node> nodesRule2Other = new HashSet<Node>(spanMapOther.s1ToRule2.values());
-		if (!(nodesRule1.equals(nodesRule1Other) &&  nodesRule2.equals(nodesRule2Other)))
-				return false;
-		
+		if (!(nodesRule1.equals(nodesRule1Other) && nodesRule2.equals(nodesRule2Other)))
+			return false;
+
 		// Are same edges in rules 1 and 2 used?
 		Map<Edge, Edge> edgeMapS1R1 = spanMap.getEdgeMappingsS1Rule1();
 		Map<Edge, Edge> edgeMapS1R2 = spanMap.getEdgeMappingsS1Rule2();
 		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.getEdgeMappingsS1Rule1();
 		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.getEdgeMappingsS1Rule2();
-		
+
 		Set<Edge> edgesRule1 = new HashSet<Edge>(edgeMapS1R1.values());
 		Set<Edge> edgesRule2 = new HashSet<Edge>(edgeMapS1R2.values());
 		Set<Edge> edgesRule1Other = new HashSet<Edge>(edgeMapS1R1Other.values());
 		Set<Edge> edgesRule2Other = new HashSet<Edge>(edgeMapS1R2Other.values());
-		if (!(edgesRule1.equals(edgesRule1Other) &&edgesRule2.equals(edgesRule2Other)))
+		if (!(edgesRule1.equals(edgesRule1Other) && edgesRule2.equals(edgesRule2Other)))
 			return false;
-		
+
 		// Do both CRs map the span graph nodes to the same nodes in rules 1 and 2?
-		Map<Node,Node> paired = getPairedNodes(this, spanMap);
-		Map<Node,Node> pairedOther = getPairedNodes(other, spanMapOther);
+		Map<Node, Node> paired = getPairedNodes(this, spanMap);
+		Map<Node, Node> pairedOther = getPairedNodes(other, spanMapOther);
 		for (Node e1 : paired.keySet()) {
 			if (paired.get(e1) != pairedOther.get(e1))
 				return false;
 		}
-		
+
 		return true;
 	}
+
 	/**
 	 * @return the mappingsInRule1
 	 */
@@ -215,8 +213,9 @@ public class Span {
 
 	/**
 	 * returns the kernel rule of the first mapping or <code>null</code> if the set <code>mappings</code> is empty.
+	 * 
 	 * @param mappings
-	 * @return a <code>Rule</code> or null. 
+	 * @return a <code>Rule</code> or null.
 	 */
 	private Rule getRuleOfMappings(Set<Mapping> mappings) {
 		try {
@@ -261,17 +260,15 @@ public class Span {
 		}
 		this.mappingsInRule2 = mappingsInRule2;
 
-		this.rule1 = getRuleOfMappings(mappingsInRule1); 
+		this.rule1 = getRuleOfMappings(mappingsInRule1);
 		this.rule2 = getRuleOfMappings(mappingsInRule2);
 	}
-	
 
-	public Span (Span extSpan, Node origin, Node image) {
+	public Span(Span extSpan, Node origin, Node image) {
 		this(extSpan);
 		Node transformedOrigin = (Node) copierForSpanAndMappings.get(origin);
-		
-		Mapping r2Mapping = henshinFactory.createMapping(transformedOrigin,
-				image);
+
+		Mapping r2Mapping = henshinFactory.createMapping(transformedOrigin, image);
 		mappingsInRule2.add(r2Mapping);
 	}
 
@@ -295,48 +292,45 @@ public class Span {
 		return null;
 	}
 
-
 	public boolean validate(Rule rule1, Rule rule2) {
-		if(mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
+		if (mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
 			return false;
-		for(Node node : graph.getNodes()){
+		for (Node node : graph.getNodes()) {
 			Mapping mappingIntoRule1 = getMappingIntoRule1(node);
-			if(mappingIntoRule1.getImage() == null)
+			if (mappingIntoRule1.getImage() == null)
 				return false;
 			Node imageInRule1 = mappingIntoRule1.getImage();
-			if(imageInRule1.eContainer() != rule1.getLhs())
+			if (imageInRule1.eContainer() != rule1.getLhs())
 				return false;
 			Mapping mappingIntoRule2 = getMappingIntoRule2(node);
-			if(mappingIntoRule2.getImage() == null)
+			if (mappingIntoRule2.getImage() == null)
 				return false;
 			Node imageInRule2 = mappingIntoRule2.getImage();
-			if(imageInRule2.eContainer() != rule2.getLhs())
+			if (imageInRule2.eContainer() != rule2.getLhs())
 				return false;
-			
+
 		}
 		return true;
 	}
 
 	private Map<Node, Node> getPairedNodes(Span conflictReason, SpanMappings spanMap) {
-		Map<Node,Node> result = new HashMap<Node, Node>();
+		Map<Node, Node> result = new HashMap<Node, Node>();
 		for (Node n1 : spanMap.s1ToRule1.keySet()) {
 			result.put(spanMap.s1ToRule1.get(n1), spanMap.s1ToRule2.get(n1));
 		}
 		return result;
 	}
-	
-
 
 	/**
 	 * @param graph
 	 * @return
 	 */
 	public EPackage graphToEPackage() {
-		Set<String> added = new HashSet<>();
+		Set<String> added = new HashSet<String>();
 		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
 		result.setName(rule1.getName() + "_" + rule2.getName());
-		result.setNsURI("http://cdapackage/" + rule1.getName() + "/" + rule2.getName() + "/"
-				+ getClass().getSimpleName());
+		result.setNsURI(
+				"http://cdapackage/" + rule1.getName() + "/" + rule2.getName() + "/" + getClass().getSimpleName());
 		result.setNsPrefix("CDAPackage");
 		EList<EClassifier> classifiers = result.getEClassifiers();
 
@@ -349,20 +343,23 @@ public class Span {
 		for (Edge edge : graph.getEdges()) {
 			EClass s = getClassifier(edge.getSource());
 			EClass t = getClassifier(edge.getTarget());
-			
+
 			if (!added.contains(s.getName())) {
 				classifiers.add(s);
 				added.add(s.getName());
-			}
-			else s = (EClass) result.getEClassifier(s.getName());
+			} else
+				s = (EClass) result.getEClassifier(s.getName());
 			if (!added.contains(t.getName())) {
 				classifiers.add(t);
 				added.add(t.getName());
-			}
-			else t = (EClass) result.getEClassifier(t.getName());
-			
+			} else
+				t = (EClass) result.getEClassifier(t.getName());
+
 			EReference ref = EcoreFactory.eINSTANCE.createEReference();
 			ref.setName(edge.getType().getName());
+			if (!rule1.getRhs().getEdges().contains(edge)) {
+				ref.setName("#" + ref.getName() + "#");
+			}
 			ref.setEType(t);
 			s.getEStructuralFeatures().add(ref);
 
@@ -371,10 +368,14 @@ public class Span {
 		return result;
 	}
 
-	private static EClass getClassifier(Node node) {
+	private EClass getClassifier(Node node) {
 		EClassifier nodeClass = node.getType();
 		EClass eclass = EcoreFactory.eINSTANCE.createEClass();
 		eclass.setName(node.getName() + ":" + nodeClass.getName());
+
+		Node image = getMappingIntoRule1(node).getImage();
+		if (image.getAction().getType() == Type.DELETE)
+			eclass.setName("#" + eclass.getName() + "#");
 		return eclass;
 	}
 

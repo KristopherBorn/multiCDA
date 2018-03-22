@@ -10,16 +10,13 @@
 package org.eclipse.emf.henshin.multicda.cpa.result;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.eclipse.emf.henshin.interpreter.Change;
 import org.eclipse.emf.henshin.interpreter.EGraph;
 import org.eclipse.emf.henshin.interpreter.Engine;
 import org.eclipse.emf.henshin.interpreter.Match;
@@ -73,8 +70,8 @@ public class Conflict extends CriticalPair {
 	 * @param match2 The match of the rule <code>r2</code> into the <code>minimalModel</code>.
 	 * @param conflictKind The kind of the conflict.
 	 */
-	public Conflict(Rule r1, Rule r2, EPackage cpaEPackage, Match match1, Match match2, ConflictKind conflictKind) {
-		super(r1, r2, cpaEPackage);
+	public Conflict(Rule r1, Rule r2, EPackage cpaEPackage, Match match1, Match match2, ConflictKind conflictKind, AppliedAnalysis appliedAnalysis) {
+		super(r1, r2, cpaEPackage, appliedAnalysis);
 		this.match1 = match1;
 		this.match2 = match2;
 		this.conflictKind = conflictKind;
@@ -261,6 +258,15 @@ public class Conflict extends CriticalPair {
 		}else {
 			return minimalModelEGraph;	
 		}
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Conflict)
+			return super.equals(obj);
+		return false;
 	}
 }
 
