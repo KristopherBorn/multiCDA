@@ -94,5 +94,22 @@ public class EdgePair extends EdgeImpl implements GraphElement {
 	public void setTarget(NodePair target) {
 		this.target = target;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.henshin.model.impl.EdgeImpl#toString()
+	 */
+	@Override
+	public String toString() {
+		if (type!=null && type.getName()==null) {
+			EcoreUtil.resolveAll(this);
+		}
+		String src1Name = (edge1.getSource()!=null) ? ((edge1.getSource().getName()!=null) ? edge1.getSource().getName() : "_") : "?";
+		String trg1Name = (edge1.getTarget()!=null) ? ((edge1.getTarget().getName()!=null) ? edge1.getTarget().getName() : "_") : "?";
+		String edge1Type = ("(" + ((edge1.getType()!=null) ? edge1.getType().getName() : "?") + ")");
+		String src2Name = (edge2.getSource()!=null) ? ((edge2.getSource().getName()!=null) ? edge2.getSource().getName() : "_") : "?";
+		String trg2Name = (edge2.getTarget()!=null) ? ((edge2.getTarget().getName()!=null) ? edge2.getTarget().getName() : "_") : "?";
+		String edge2Type = ("(" + ((edge2.getType()!=null) ? edge2.getType().getName() : "?") + ")");
+		return "Edge (" + edge1Type + "," + edge2Type + ") (" + src1Name +","+ src2Name + ") -> (" + trg1Name +","+ trg2Name +")";
+	}
 
 }

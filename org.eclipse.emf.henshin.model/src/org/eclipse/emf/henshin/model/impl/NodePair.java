@@ -54,5 +54,20 @@ public class NodePair extends NodeImpl implements GraphElement {
 		this.node2 = node2;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.henshin.model.impl.NodeImpl#toString()
+	 */
+	@Override
+	public String toString() {
+		if (type != null && type.getName() == null) {
+			EcoreUtil.resolveAll(this);
+		}
+		String node1Name = (node1.getName() != null) ? node1.getName() : "";
+		String node2Name = (node2.getName() != null) ? node2.getName() : "";
+		String type1Name = (node1.getType() != null) ? ":" + node1.getType().getName() : "";
+		String type2Name = (node2.getType() != null) ? ":" + node2.getType().getName() : "";
+		return ("Node " + "(" + node1Name + type1Name + ") <> (" + node2Name + type2Name + ")").trim();
+	}
+	
 
 }
