@@ -48,7 +48,7 @@ public class PullbackTest {
 		rules.add(executeNonLoop);
 		CpaByAGG cpaByAGG = new CpaByAGG();
 		CDAOptions cpaOptions = new CDAOptions();
-		cpaOptions.setEssential(true);
+		cpaOptions.essentialCP = true;
 		CPAResult essCPs = null;
 		try {
 			cpaByAGG.init(rules, cpaOptions);

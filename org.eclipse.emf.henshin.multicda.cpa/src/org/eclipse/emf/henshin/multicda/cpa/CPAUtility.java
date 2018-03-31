@@ -30,6 +30,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EClassImpl;
+import org.eclipse.emf.ecore.impl.EReferenceImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -40,7 +42,8 @@ import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
-import org.eclipse.emf.henshin.multicda.cpa.persist.CriticalPairNode;
+import org.eclipse.emf.henshin.multicda.cpa.criticalpair.util.CriticalpairAdapterFactory;
+import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.Conflict;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalElement;
@@ -65,7 +68,7 @@ public class CPAUtility {
 	 * @param path The path for saving the full result set.
 	 * @return a <code>HashMap</code> of the saved results.
 	 */
-	public static HashMap<String, Set<CriticalPairNode>> persistCpaResult(CPAResult cpaResult, String path) {
+	public static HashMap<String, List<SpanNode>> persistCpaResult(List<CriticalPair> cpaResult, String path) {
 
 		Date timestamp = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd-HHmmss");
@@ -73,37 +76,39 @@ public class CPAUtility {
 
 		String pathWithDateStamp = path + File.separator + timestampFolder;
 
-		HashMap<String, Set<CriticalPairNode>> persistedCPs = new HashMap<String, Set<CriticalPairNode>>();
+		HashMap<String, List<SpanNode>> persistedCPs = new HashMap<>();
 
-		for (CriticalPair cp : cpaResult) {
-			// naming of each single conflict
-			String folderName = cp.getFirstRule().getName() + ", " + cp.getSecondRule().getName();
+		if (cpaResult != null)
+			for (CriticalPair cp : cpaResult)
+				if (cp != null) {
+					// naming of each single conflict
+					String folderName = cp.getFirstRule().getName() + ", " + cp.getSecondRule().getName();
 
-			int numberForRulePair = 1;
+					int numberForRulePair = 1;
 
-			if (persistedCPs.containsKey(folderName)) {
-				numberForRulePair = persistedCPs.get(folderName).size() + 1;
-			} else {
-				persistedCPs.put(folderName, new HashSet<CriticalPairNode>());
-			}
+					if (persistedCPs.containsKey(folderName)) {
+						numberForRulePair = persistedCPs.get(folderName).size() + 1;
+					} else {
+						persistedCPs.put(folderName, new ArrayList<SpanNode>());
+					}
 
-			String criticalPairKind = "";
-			if (cp instanceof Conflict) {
-				criticalPairKind = ((Conflict) cp).getConflictKind().toString();
-			} else if (cp instanceof Dependency) {
-				criticalPairKind = ((Dependency) cp).getDependencyKind().toString();
-			}
+					String criticalPairKind = "";
+					if (cp instanceof Conflict) {
+						criticalPairKind = ((Conflict) cp).getConflictKind().toString();
+					} else if (cp instanceof Dependency) {
+						criticalPairKind = ((Dependency) cp).getDependencyKind().toString();
+					}
 
-			String formatedNumberForRulePair = new DecimalFormat("00").format(numberForRulePair);
+					String formatedNumberForRulePair = new DecimalFormat("00").format(numberForRulePair);
 
-			String numberedNameOfCPKind = "(" + formatedNumberForRulePair + ") " + criticalPairKind;
+					String numberedNameOfCPKind = "(" + formatedNumberForRulePair + ") " + criticalPairKind;
 
-			// persist a single critical pair.
-			CriticalPairNode newCriticalPairNode = persistSingleCriticalPair(cp, numberedNameOfCPKind,
-					pathWithDateStamp);
+					// persist a single critical pair.
+					SpanNode newCriticalPairNode = persistSingleCriticalPair(cp, numberedNameOfCPKind,
+							pathWithDateStamp);
 
-			persistedCPs.get(folderName).add(newCriticalPairNode);
-		}
+					persistedCPs.get(folderName).add(newCriticalPairNode);
+				}
 
 		return persistedCPs;
 	}
@@ -116,8 +121,7 @@ public class CPAUtility {
 	 * @param path The path for saving the files.
 	 * @return a <code>CriticalPairNode</code>.
 	 */
-	private static CriticalPairNode persistSingleCriticalPair(CriticalPair cp, String numberedNameOfCriticalPair,
-			String path) {
+	private static SpanNode persistSingleCriticalPair(CriticalPair cp, String numberedNameOfCriticalPair, String path) {
 
 		ResourceSet commonResourceSet = new ResourceSetImpl();
 
@@ -182,7 +186,6 @@ public class CPAUtility {
 				eo2.setName("_" + r.getName() + ":" + eo2.getName());
 		}
 
-
 		String pathForCurrentCriticalPair = path + File.separator + firstRule.getName() + "_AND_" + secondRule.getName()
 				+ File.separator + numberedNameOfCriticalPair + File.separator;
 
@@ -214,8 +217,7 @@ public class CPAUtility {
 			node.setName(renameMap.get(node));
 		}
 
-		return new CriticalPairNode(numberedNameOfCriticalPair, firstRuleURI, secondRuleURI, overlapURI,
-				criticalPairURI);
+		return new SpanNode(numberedNameOfCriticalPair, firstRuleURI, secondRuleURI, overlapURI, criticalPairURI);
 	}
 
 	private static void changeNodeName(Node n, Node n2, Match firstMatch, Match secondMatch, Set<EClassifier> changed,
@@ -274,7 +276,6 @@ public class CPAUtility {
 		overlapResource.getContents().add(minimalModel);
 
 		Diagram d = createDiagram(minimalModel);
-
 
 		URI diagUri = URI.createFileURI(fullPathMinimalModel + "_diagram");
 		Resource diagramResource = resourceSet.createResource(diagUri, "ecore");

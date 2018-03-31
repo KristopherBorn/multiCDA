@@ -17,13 +17,9 @@ import org.eclipse.emf.common.util.URI;
  * @author Kristopher Born
  *
  */
-public class CriticalPairNode {
+public class SpanNode extends TreeFolder{
 
-	/**
-	 * A String concatenation of a sorting number and the kind of conflict/dependency.
-	 */
-	String numberedNameOfCPKind;
-
+	URI minimalModelURI;
 	/**
 	 * The <code>TreeFolder</code> in which the <code>CriticalPairNode</code> is contained.
 	 */
@@ -32,26 +28,32 @@ public class CriticalPairNode {
 	/**
 	 * The <code>URI</code>s of the three involved files.
 	 */
-	URI firstRuleURI, secondRuleURI, minimalModelURI;
+	URI firstRuleURI, secondRuleURI;
+	/**
+	 * A String concatenation of a sorting number and the kind of conflict/dependency.
+	 */
+	String numberedNameOfCPKind;
 
-	private URI criticalPairDummyURI;
+	private URI nodeURI;
 
 	/**
 	 * Default constructor.
 	 * 
-	 * @param numberedNameOfCPKind The String concatenation of a sorting number and the kind of conflict/dependency.
 	 * @param firstRuleURI The <code>URI</code> of the first rule.
 	 * @param secondRuleURI The <code>URI</code> of the second rule.
-	 * @param minimalModelURI The <code>URI</code> of the minimal model.
-	 * @param criticalPairURI
+	 * @param nodeURI
 	 */
-	public CriticalPairNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI minimalModelURI,
-			URI criticalPairURI) {
-		this.numberedNameOfCPKind = numberedNameOfCPKind;
+	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI minimalModelURI) {
+		this(numberedNameOfCPKind, firstRuleURI, secondRuleURI, minimalModelURI, null);
+	}
+
+	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI minimalModelURI, URI nodeURI) {
+		super(numberedNameOfCPKind);
 		this.firstRuleURI = firstRuleURI;
+		this.numberedNameOfCPKind = numberedNameOfCPKind;
 		this.secondRuleURI = secondRuleURI;
 		this.minimalModelURI = minimalModelURI;
-		this.criticalPairDummyURI = criticalPairURI;
+		this.nodeURI = nodeURI;
 	}
 
 	/**
@@ -73,15 +75,6 @@ public class CriticalPairNode {
 	}
 
 	/**
-	 * Returns the String concatenation of a sorting number and the kind of conflict/dependency.
-	 * 
-	 * @return The String concatenation of a sorting number and the kind of conflict/dependency.
-	 */
-	public String toString() {
-		return numberedNameOfCPKind;
-	}
-
-	/**
 	 * Returns the <code>URI</code> of the first rule.
 	 * 
 	 * @return The <code>URI</code> of the first rule.
@@ -99,6 +92,24 @@ public class CriticalPairNode {
 		return secondRuleURI;
 	}
 
+	public URI getNodeURI() {
+		return nodeURI;
+	}
+
+	public void setNodeURI(URI nodeURI) {
+		this.nodeURI = nodeURI;
+	}
+
+	/**
+	 * Returns the String concatenation of a sorting number and the kind of conflict/dependency.
+	 * 
+	 * @return The String concatenation of a sorting number and the kind of conflict/dependency.
+	 */
+	@Override
+	public String toString() {
+		return numberedNameOfCPKind;
+	}
+
 	/**
 	 * Returns the <code>URI</code> of the minimal model.
 	 * 
@@ -106,13 +117,5 @@ public class CriticalPairNode {
 	 */
 	public URI getMinimalModelURI() {
 		return minimalModelURI;
-	}
-
-	public URI getCriticalPairDummyURI() {
-		return criticalPairDummyURI;
-	}
-
-	public void setCriticalPairDummyURI(URI criticalPairDummyURI) {
-		this.criticalPairDummyURI = criticalPairDummyURI;
 	}
 }

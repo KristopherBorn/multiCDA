@@ -169,7 +169,7 @@ public class Runner {
 
 		// essential CPA setup
 		CDAOptions essentialOptions = new CDAOptions();
-		essentialOptions.setEssential(true);
+		essentialOptions.essentialCP = true;
 
 		int numberOfAllConflictAtoms = 0;
 		int numberOfAllMinimalConflictReasons = 0;

@@ -34,12 +34,14 @@ public class CPAResult implements Iterable<CriticalPair> {
 	/**
 	 * List of the critical pairs.
 	 */
+	private List<CriticalPair> essentialCriticalPairs;
 	private List<CriticalPair> criticalPairs;
 
 	/**
 	 * Default constructor.
 	 */
 	public CPAResult() {
+		essentialCriticalPairs = new ArrayList<CriticalPair>();
 		criticalPairs = new ArrayList<CriticalPair>();
 	}
 
@@ -50,15 +52,39 @@ public class CPAResult implements Iterable<CriticalPair> {
 	 *            a critical pair which will be added to the result.
 	 */
 	public void addResult(CriticalPair criticalPair) {
-		criticalPairs.add(criticalPair);
+		if (criticalPair.getAppliedAnalysis() == AppliedAnalysis.ESSENTIAL)
+			essentialCriticalPairs.add(criticalPair);
+		else
+			criticalPairs.add(criticalPair);
 	}
 
 	/**
-	 * Returns an iterator over the critical pairs of the result set in proper
+	 * Returns an iterator over essential critical pairs first, than the other critical pairs of the result set in proper
 	 * sequence.
 	 */
 	public Iterator<CriticalPair> iterator() {
-		return criticalPairs.iterator();
+		return new Iterator<CriticalPair>() {
+			Iterator<CriticalPair> cp = essentialCriticalPairs.iterator();
+			boolean first = true;
+
+			@Override
+			public boolean hasNext() {
+				if (cp.hasNext())
+					return true;
+				else if (first) {
+					cp = criticalPairs.iterator();
+					first = false;
+					return hasNext();
+				}
+				return false;
+			}
+
+			@Override
+			public CriticalPair next() {
+				return cp.next();
+			}
+		};
+
 	}
 
 	/**
@@ -67,7 +93,27 @@ public class CPAResult implements Iterable<CriticalPair> {
 	 * @return The list of critical pairs.
 	 */
 	public List<CriticalPair> getCriticalPairs() {
-		return criticalPairs;
+		List<CriticalPair> result = new ArrayList<>(essentialCriticalPairs);
+		result.addAll(criticalPairs);
+		return result;
+	}
+
+	/**
+	 * Returns the list of critical pairs.
+	 * 
+	 * @return The list of critical pairs.
+	 */
+	public List<CriticalPair> getEssentialCriticalPairs() {
+		return new ArrayList<>(essentialCriticalPairs);
+	}
+
+	/**
+	 * Returns the list of critical pairs.
+	 * 
+	 * @return The list of critical pairs.
+	 */
+	public List<CriticalPair> getOtherCriticalPairs() {
+		return new ArrayList<>(criticalPairs);
 	}
 
 	/**
@@ -76,8 +122,13 @@ public class CPAResult implements Iterable<CriticalPair> {
 	 * @return The list of critical pairs.
 	 */
 	public List<CriticalPair> getInitialCriticalPairs() {
+		return getInitialCriticalPairs(false);
+	}
+
+	public List<CriticalPair> getInitialCriticalPairs(boolean removeFromEssential) {
 		List<CriticalPair> result = new ArrayList<>();
-		for (CriticalPair pair : getCriticalPairs()) {
+		Set<CriticalPair> toRemove = new HashSet<CriticalPair>();
+		for (CriticalPair pair : essentialCriticalPairs) {
 			// Only retain those CPs without isolated boundary nodes.
 			// Since the set of isolated boundary nodes is hard to compute
 			// directly
@@ -110,24 +161,14 @@ public class CPAResult implements Iterable<CriticalPair> {
 
 			int isolatedBoundaryNodeCount = graph1Size + graph2Size - overlapSize - criticalNodeCount
 					- boundaryNodeCount;
-			if (isolatedBoundaryNodeCount == 0)
+			if (isolatedBoundaryNodeCount == 0) {
 				result.add(pair);
+				toRemove.add(pair);
+			}
+			if(removeFromEssential)
+				essentialCriticalPairs.removeAll(toRemove);
 		}
 		return result;
-	}
-
-	private void printCriticalElements(CriticalPair pair) {
-		System.out.print("Critical elements: {");
-		for (CriticalElement cr : pair.getCriticalElements()) {
-			System.out.print(cr.commonElementOfCriticalGraph + " ");
-		}
-		System.out.println("}");
-	}
-
-	public void setAppliedAnalysis(AppliedAnalysis appliedAnalysis) {
-		for (CriticalPair criticalPair : criticalPairs) {
-			criticalPair.setAppliedAnalysis(appliedAnalysis);
-		}
 	}
 
 }

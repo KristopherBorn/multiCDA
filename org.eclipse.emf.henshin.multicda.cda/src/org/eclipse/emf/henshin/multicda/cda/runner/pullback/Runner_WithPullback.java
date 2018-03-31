@@ -122,7 +122,7 @@ public class Runner_WithPullback {
 		// essential CPA setup
 		ICriticalPairAnalysis essentialCpa = new CpaByAGG();
 		CDAOptions essentialOptions = new CDAOptions();
-		essentialOptions.setEssential(true);
+		essentialOptions.essentialCP = true;
 
 		int numberOfAllEssentialConflicts = 0;
 		int numberOfFilteredEssentialConflicts = 0;
