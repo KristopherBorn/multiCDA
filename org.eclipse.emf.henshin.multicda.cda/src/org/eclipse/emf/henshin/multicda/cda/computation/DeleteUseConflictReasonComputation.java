@@ -6,6 +6,7 @@ package org.eclipse.emf.henshin.multicda.cda.computation;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,16 +16,21 @@ import org.apache.poi.ss.formula.functions.T;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
+import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.model.impl.EdgePair;
 import org.eclipse.emf.henshin.model.impl.GraphImpl;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
+import org.eclipse.emf.henshin.model.impl.NodePair;
 import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
@@ -116,7 +122,7 @@ public class DeleteUseConflictReasonComputation {
 			// System.out.println("noEmbeddingS1ToK2");
 			mapS1ToL1 = conflictReason.mappingsInRule1;
 			mapS1ToL2 = conflictReason.mappingsInRule2;
-			Object DeleteDeleteSet = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
+			GraphElement DeleteDeleteSet = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
 			// If DD(s1) is nonEmpty
 			// Then For each pair s2 in DD(s1):
 			// Add (s1,s2) to DDCR
@@ -129,7 +135,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Object ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
+	private GraphElement ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
 
 		Pair<Span, Span> ddSet;
 		for (Span sp2 : conflictReasonsFromR2) {
@@ -137,12 +143,19 @@ public class DeleteUseConflictReasonComputation {
 			if (s != null) {
 				if (!isEmpty(s.getGraph())) {
 					System.out.println(s);
-					Pushout pushout = new Pushout(sp1.rule1, s, sp2.rule1); //TODO geht nicht, da Span is not validate :(
-					// computeUniquePushout(pushout,)
+					Pushout pushout = new Pushout(rule1, s, rule2); // TODO
+																	// geht
+																	// nicht,
+																	// da
+																	// Span
+																	// is
+																	// not
+																	// validate
+																	// :(
+					// uniquePushout = computeUniquePushout(pushout,)
 				}
 			}
 		}
-
 		return null;
 	}
 
@@ -151,11 +164,9 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private boolean isEmpty(Graph graph) {
-
 		if (graph.getNodes().isEmpty() && graph.getEdges().isEmpty()) {
 			return true;
 		}
-
 		return false;
 	}
 
@@ -166,46 +177,44 @@ public class DeleteUseConflictReasonComputation {
 	 */
 	private Span compatibleSpans(Span sp1, Span sp2) {
 		HenshinFactoryImpl helper = new HenshinFactoryImpl();
-		Graph SApostrophe = null;
+		Graph sApostroph = null;
 		Span s = null;
-		EList<Pair<Object, Object>> s2Apostrophe;
-		EList<Pair<Object, Object>> s1Apostrophe;
+		Graph s2Apostrophe = null;
+		Graph s1Apostrophe = null;
 		s1Apostrophe = addCompatibleElements(sp1, sp2);
 		if (s1Apostrophe != null) {
 			s2Apostrophe = addCompatibleElements(sp2, sp1);
 			if (s2Apostrophe != null) {
-				SApostrophe = intersection(s1Apostrophe, s2Apostrophe, sp1, sp2);
+				sApostroph = intersection(s1Apostrophe, s2Apostrophe, sp1, sp2);
 				Set<Mapping> s1 = new HashSet<Mapping>();
 				Set<Mapping> s2 = new HashSet<Mapping>();
-				if (SApostrophe != null) {
+				if (sApostroph != null) {
 
-					for (Node node : SApostrophe.getNodes()) {
-						for (Pair<Object, Object> object : s1Apostrophe) {
-							if (object.first instanceof Node) {
-								Node n1 = (Node) object.first;
-								if (node.toString().equals(n1.toString())) {
-									s1.add(helper.createMapping(node, n1));
-								}
+					for (Node node : sApostroph.getNodes()) {
+						for (Node node1 : s1Apostrophe.getNodes()) {
+							NodePair nodePair = (NodePair) node1;
+							Node nodePairNode1 = nodePair.getNode1();
+							if (nodePairNode1.toString().equals(node.toString())) {
+								s1.add(helper.createMapping(node, nodePairNode1));
 							}
 						}
-						for (Pair<Object, Object> object : s2Apostrophe) {
-							if (object.first instanceof Node) {
-								Node n2 = (Node) object.first;
-								if (node.toString().equals(n2.toString())) {
-									s2.add(helper.createMapping(node, n2));
-								}
-
+						for (Node node2 : s2Apostrophe.getNodes()) {
+							NodePair nodePair = (NodePair) node2;
+							Node nodePairNode2 = nodePair.getNode2();
+							if (nodePairNode2.toString().equals(node.toString())) {
+								s2.add(helper.createMapping(node, nodePairNode2));
 							}
 						}
+
 					}
 				}
 
-				s = new Span(s1, SApostrophe, s2);
-				Rule ru1 = sp1.getRule1();
-				Rule ru2 = sp2.getRule1();
-				s.rule1 = ru1;
-				s.rule2 = ru2;
-
+				s = new Span(s1, sApostroph, s2);
+				s.rule1 = rule1;
+				s.rule2 = rule2;
+				if (!s.validate(rule1, rule2)) {
+					System.out.println("s is not valide!");
+				}
 			} else {
 				return null;
 			}
@@ -224,73 +233,56 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Graph intersection(EList<Pair<Object, Object>> s1Apostrophe, EList<Pair<Object, Object>> s2Apostrophe,
-			Span sp1, Span sp2) {
-		EList<Pair<Object, Object>> fromS1 = new BasicEList<Pair<Object, Object>>();
-		EList<Pair<Object, Object>> fromS2 = new BasicEList<Pair<Object, Object>>();
-		for (int i = 0; i < s1Apostrophe.size(); i++) {
-			Pair<Object, Object> pair11 = s1Apostrophe.get(i);
-			System.out.println(pair11.first.toString() + " : " + pair11.second.toString());
-			for (int j = 0; j < s2Apostrophe.size(); j++) {
-				Pair<Object, Object> pair12 = s2Apostrophe.get(j);
-				System.out.println(pair12.first.toString() + " : " + pair12.second.toString());
-				if (pair11.first.toString().equals(pair12.second.toString())
-						&& pair12.first.toString().equals(pair11.second.toString())) {
-					fromS1.add(pair11);
-				}
-			}
-		}
-		for (int i1 = 0; i1 < s2Apostrophe.size(); i1++) {
-			Pair<Object, Object> pair21 = s2Apostrophe.get(i1);
-			System.out.println(pair21.first.toString() + " : " + pair21.second.toString());
-			for (int j = 0; j < s1Apostrophe.size(); j++) {
-				Pair<Object, Object> pair22 = s1Apostrophe.get(j);
-				if (pair21.first.toString().equals(pair22.second.toString())
-						&& pair22.first.toString().equals(pair21.second.toString())) {
+	private Graph intersection(Graph s1Apostrophe, Graph s2Apostrophe, Span sp1, Span sp2) {
 
-					fromS2.add(pair22);
-				}
-			}
-		}
+		Graph fromS1 = new HenshinFactoryImpl().createGraph("S1<-S1'->S2");
+		Graph fromS2 = new HenshinFactoryImpl().createGraph("S1<-S2'->S2");
+		Graph result = new HenshinFactoryImpl().createGraph("S'");
 
-		Graph result = new HenshinFactoryImpl().createGraph();
+		EList<Node> s1Nodes = s1Apostrophe.getNodes();
+		EList<Edge> s1Edges = s1Apostrophe.getEdges();
+		EList<Node> s2Nodes = s2Apostrophe.getNodes();
+		EList<Edge> s2Edges = s2Apostrophe.getEdges();
 
-		if (fromS1.equals(fromS2)) {
-			for (Pair<Object, Object> pair : fromS1) {
-				if (pair.first instanceof Node) {
-					result.getNodes().add((Node) pair.first);
-				}
-				if (pair.first instanceof Edge) {
-					result.getEdges().add((Edge) pair.first);
-				}
-			}
-		}
-			for (Edge edge : result.getEdges()) {
-				for (Node node : result.getNodes()) {
-					if (edge.getSource().toString().equals(node.toString())) {
-						if (!edge.getSource().equals(node)){
-							edge.setSource(node);
-						}
-						if (!node.getOutgoing().contains(edge)){
-							node.getOutgoing().add(edge);
-						}
-						
+		for (Node node : s1Nodes) {
+			NodePair nodePair = (NodePair) node;
+			for (Node node2 : s2Nodes) {
+				NodePair nodePair2 = (NodePair) node2;
+				System.out.println(
+						"NodePair: " + nodePair.getNode1().toString() + " : " + nodePair.getNode2().toString());
+				System.out.println(
+						"NodePair: " + nodePair2.getNode1().toString() + " : " + nodePair2.getNode2().toString());
+
+				if (nodePair.getNode1().toString().equals(nodePair.getNode2().toString())
+						&& nodePair2.getNode1().toString().equals(nodePair2.getNode2().toString())) {
+					if (nodePair.getNode1().toString().equals(nodePair2.getNode1().toString())) {
+						result.getNodes().add(nodePair.getNode1());
 					}
-					if (edge.getTarget().toString().equals(node.toString())) {
-						if (!edge.getTarget().equals(node)){
-							edge.setTarget(node);
-						}
-						if (!node.getIncoming().contains(edge)){
-							node.getIncoming().add(edge);
-						}
-					
-					}
+
 				}
 
 			}
+		}
+
+		for (Edge edge : s1Edges) {
+			EdgePair edgePair = (EdgePair) edge;
+			for (Edge edge2 : s2Edges) {
+				EdgePair edgePair2 = (EdgePair) edge2;
+				if (edgePair.getEdge1().toString().equals(edgePair.getEdge2().toString())
+						&& edgePair2.getEdge1().toString().equals(edgePair2.getEdge2().toString())) {
+					if (edgePair.getEdge1().toString().equals(edgePair2.getEdge1().toString())) {
+						result.getEdges().add(edgePair.getEdge1());
+					}
+
+				}
+
+			}
+		}
+
+		System.out.println("Intersection");
 
 		
-
+		// Todo Checken ob Edges Target und Source stimmen?
 		return result;
 
 	}
@@ -301,23 +293,36 @@ public class DeleteUseConflictReasonComputation {
 	 * @param s1Apostrophe
 	 * @return
 	 */
-	private EList<Pair<Object, Object>> addCompatibleElements(Span sp1, Span sp2) {
-		EList<Pair<Object, Object>> s1Apostrophe = new BasicEList<Pair<Object, Object>>();
+	private Graph addCompatibleElements(Span sp1, Span sp2) {
+		Graph s1Apostrophe = new HenshinFactoryImpl().createGraph();
 		EList<Node> s1Nodes = sp1.getGraph().getNodes();
 		EList<Edge> s1Edges = sp1.getGraph().getEdges();
 		// System.out.println(s1Nodes + " : " + s1Edges);
 		// System.out.println(s2Nodes + " : " + s2Edges);
-		EList<Object> allObjectsS1 = new BasicEList<Object>();
+		EList<GraphElement> allObjectsS1 = new BasicEList<GraphElement>();
 		s1Nodes.forEach(n -> allObjectsS1.add(n));
 		s1Edges.forEach(e -> allObjectsS1.add(e));
-		for (Object x : allObjectsS1) {
+		for (GraphElement x : allObjectsS1) {
 			// System.out.println("----------------Suche nach Kompatiblem
 			// Element für:\t" + x);
 			try {
-				Object y = existCompatibleElement(x, sp1, sp2);
+				GraphElement y = existCompatibleElement(x, sp1, sp2);
+
 				if (y != null) {
-					Pair<Object, Object> pair = new Pair<Object, Object>(x, y);
-					s1Apostrophe.add(pair);
+					if (x instanceof Node) {
+						NodePair nodePair = new NodePair((Node) x, (Node) y);
+						s1Apostrophe.getNodes().add((NodePair) nodePair);
+					}
+					if (x instanceof Edge) {
+						EdgePair edgePair = new EdgePair((Edge) x, (Edge) y);
+						NodePair source = new NodePair(((Edge) x).getSource(), ((Edge) y).getSource());
+						NodePair target = new NodePair(((Edge) x).getTarget(), ((Edge) y).getTarget());
+						edgePair.setTarget(target);
+						edgePair.setSource(source);
+						System.out.println("EdgePair: " + edgePair);
+						s1Apostrophe.getEdges().add((EdgePair) edgePair);
+					}
+
 				}
 
 			} catch (NotCompatibleException e) {
@@ -325,13 +330,6 @@ public class DeleteUseConflictReasonComputation {
 				s1Apostrophe = null;
 			}
 		}
-		// System.out.println("-----\tS' enthält also:\t-----");
-		// for (int i = 0; i < s1Apostrophe.size(); i++) {
-		// Pair<Object, Object> pair = s1Apostrophe.get(i);
-		// System.out.println(pair.first + " = " + pair.second);
-		// }
-		// System.out.println("------------------------------");
-
 		return s1Apostrophe;
 	}
 
@@ -343,9 +341,9 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 * @throws Exception
 	 */
-	private Object existCompatibleElement(Object x, Span sp1, Span sp2) throws NotCompatibleException {
-		EList<Object> allObjectsS1 = new BasicEList<Object>();
-		EList<Object> allObjectsS2 = new BasicEList<Object>();
+	private GraphElement existCompatibleElement(GraphElement x, Span sp1, Span sp2) throws NotCompatibleException {
+		EList<GraphElement> allObjectsS1 = new BasicEList<GraphElement>();
+		EList<GraphElement> allObjectsS2 = new BasicEList<GraphElement>();
 		EList<Node> s1Nodes = sp1.getGraph().getNodes();
 		EList<Edge> s1Edges = sp1.getGraph().getEdges();
 		EList<Node> s2Nodes = sp2.getGraph().getNodes();
@@ -357,7 +355,7 @@ public class DeleteUseConflictReasonComputation {
 		if (allObjectsS1.contains(x)) {
 			// System.out.println(x + "\t is there!");
 			// System.out.println("S2: " + allObjectsS2);
-			for (Object y : allObjectsS2) {
+			for (GraphElement y : allObjectsS2) {
 				// System.out.println("Checking for:\t" + y);
 				if (checkEqualityMapping(x, y, sp1)) {
 					if (checkEqualityMapping(x, y, sp2)) { // If s12(x) = s22(y)
@@ -384,7 +382,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp
 	 * @return
 	 */
-	private boolean checkEqualityMapping(Object x, Object y, Span sp) {
+	private boolean checkEqualityMapping(GraphElement x, GraphElement y, Span sp) {
 		// If s11(x) = s21(y) L1 <-s11- S1 -s12-> L2
 		System.out.println("Checking:\t" + x + " ?= " + y);
 		if (x instanceof Node && y instanceof Node) {
