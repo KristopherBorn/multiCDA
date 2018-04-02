@@ -1,4 +1,7 @@
-package org.eclipse.emf.henshin.multicda.cda;
+/**
+ * 
+ */
+package org.eclipse.emf.henshin.model.impl;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,79 +11,90 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
-import org.eclipse.emf.henshin.model.HenshinFactory;
-import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.multicda.cda.Pushout;
+import org.eclipse.emf.henshin.multicda.cda.Span;
+import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
 
-public class Pushout {
-	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
+/**
+ * @author vincentcuccu
+ * 02.04.2018
+ */
+public class ConflictPushout {
 
-	/**
-	 * @return the mappingsOfRule1
-	 */
-	public List<Mapping> getRule1Mappings() {
-		return toMappingList(rule1toPOmap);
-	}
-
-	/**
-	 * @return the mappingsOfRule2
-	 */
-	public List<Mapping> getRule2Mappings() {
-		return toMappingList(rule2toPOmap);
-	}
-
-	private List<Mapping> toMappingList(HashMap<Node, Node> map) {
-		List<Mapping> result = new LinkedList<Mapping>();
-		for (Node node : map.keySet()) {
-			result.add(henshinFactory.createMapping(node, map.get(node)));
-		}
-		return result;
-	}
-
-	/**
-	 * @return the resultGraph
-	 */
-	public Graph getResultGraph() {
-		return graph;
-	}
-
-	Graph graph;
-
+	private Graph graphLeft;
+	private Span s;
+	private Graph graphRight;
+	private Graph resultGraph;
 	private HashMap<Node, Node> rule1toPOmap;
 	private HashMap<Node, Node> rule2toPOmap;
 
-	private Graph shadowGraph;
-
+	protected Graph shadowGraph;
+	
 	/**
-	 * @param rule1
-	 * @param s1span
-	 * @param rule2
+	 * @param graph1
+	 * @param s
+	 * @param graph2
 	 */
-	public Pushout(Rule rule1, Span s1span, Rule rule2) {
-		ConflictAnalysis.checkNull(rule1);
-		ConflictAnalysis.checkNull(s1span);
-		ConflictAnalysis.checkNull(rule2);
-		if (!s1span.validate(rule1, rule2))
-			throw new IllegalArgumentException("Span is in invalide state.");
-		Graph l1 = rule1.getLhs();
-		Graph l2 = rule2.getLhs();
-
-		graph = preparePushoutGraph(l1);
-		HashMap shadow2Rule2 = prepareShadowPushoutGraph(l2);
-
-		Graph s1 = s1span.getGraph();
+	public ConflictPushout(Graph graph1, Span s, Graph graph2) {
+		this.setGraph1(graph1);
+		this.setS(s);
+		this.setGraph2(graph2);
+		
+		resultGraph = preparePushoutGraph(graph1);
+		HashMap shadow2Rule2 = prepareShadowPushoutGraph(graph2);
+		
+		Graph s1 = s.getGraph();
 		for (Node node : s1.getNodes()) {
-			glue(s1span, new SpanMappings(s1span), node, shadow2Rule2);
+			glue(s, new SpanMappings(s), node, shadow2Rule2);
 		}
 
-		moveShadowContentsToPushout(graph, shadowGraph);
+		moveShadowContentsToPushout(resultGraph, shadowGraph);
 
-		validatePushout(l1, l2, s1);
-		graph.setName("Pushout");
-
+		validatePushout(graph1, graph2, s1);
+		resultGraph.setName("ConflictPushout");
+	}
+	
+	/**
+	 * @return
+	 */
+	public Graph getGraph1() {
+		return graphLeft;
 	}
 
+	/**
+	 * @param graph1
+	 */
+	public void setGraph1(Graph graph1) {
+		this.graphLeft = graph1;
+	}
+	/**
+	 * @return
+	 */
+	public Span getS() {
+		return s;
+	}
+
+	/**
+	 * @param s
+	 */
+	public void setS(Span s) {
+		this.s = s;
+	}
+	/**
+	 * @return
+	 */
+	public Graph getGraph2() {
+		return graphRight;
+	}
+
+	/**
+	 * @param graph2
+	 */
+	public void setGraph2(Graph graph2) {
+		this.graphRight = graph2;
+	}
 	@SuppressWarnings("unused")
 	private void glue(Span s1span, SpanMappings spanMappings, Node node, HashMap shadow2Rule2) {
 		Node l1node = s1span.getMappingIntoRule1(node).getImage();
@@ -146,13 +160,13 @@ public class Pushout {
 	private HashMap prepareShadowPushoutGraph(Graph l2) {
 		rule2toPOmap = new HashMap<Node, Node>();
 		Copier copierForRule2 = new Copier();
-		shadowGraph = (Graph) copierForRule2.copy(l2);
+		 shadowGraph = (Graph) copierForRule2.copy(l2);
 		copierForRule2.copyReferences();
 		for (Node node : l2.getNodes()) {
 			Node copyResultNode = (Node) copierForRule2.get(node);
 			rule2toPOmap.put(node, copyResultNode);
 		}
-		HashMap<EObject, EObject> shadow2Rule2 = new HashMap<EObject, EObject>();
+		HashMap<EObject,EObject> shadow2Rule2 = new HashMap<EObject, EObject>();
 		for (EObject o : copierForRule2.keySet()) {
 			shadow2Rule2.put(copierForRule2.get(o), o);
 		}
@@ -173,17 +187,18 @@ public class Pushout {
 
 	private void validatePushout(Graph l1, Graph l2, Graph s1) {
 		int numberOfExpectedNodes = (l1.getNodes().size() + l2.getNodes().size() - s1.getNodes().size());
-		if (graph.getNodes().size() != numberOfExpectedNodes) {
-			System.err.println("Number of nodes in created result graph (" + graph.getNodes().size()
+		if (resultGraph.getNodes().size() != numberOfExpectedNodes) {
+			System.err.println("Number of nodes in created result graph (" + resultGraph.getNodes().size()
 					+ ") not as expected (" + numberOfExpectedNodes + "). Difference: "
-					+ (graph.getNodes().size() - numberOfExpectedNodes));
+					+ (resultGraph.getNodes().size() - numberOfExpectedNodes));
 		}
 		int numberOfExpectedEdges = (l1.getEdges().size() + l2.getEdges().size() - s1.getEdges().size());
-		if (graph.getEdges().size() != numberOfExpectedEdges) {
-			System.err.println("Number of edges in created result graph (" + graph.getEdges().size()
+		if (resultGraph.getEdges().size() != numberOfExpectedEdges) {
+			System.err.println("Number of edges in created result graph (" + resultGraph.getEdges().size()
 					+ ") not as expected (" + numberOfExpectedEdges + "). Difference: "
-					+ (graph.getEdges().size() - numberOfExpectedEdges));
+					+ (resultGraph.getEdges().size() - numberOfExpectedEdges));
 		}
 	}
 
+	
 }

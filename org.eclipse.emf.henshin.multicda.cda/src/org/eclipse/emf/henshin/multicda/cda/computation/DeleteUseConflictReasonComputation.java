@@ -27,6 +27,7 @@ import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.model.impl.ConflictPushout;
 import org.eclipse.emf.henshin.model.impl.EdgePair;
 import org.eclipse.emf.henshin.model.impl.GraphImpl;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
@@ -142,9 +143,9 @@ public class DeleteUseConflictReasonComputation {
 			Span s = compatibleSpans(sp1, sp2);
 			if (s != null) {
 				if (!isEmpty(s.getGraph())) {
-					System.out.println(s);
-					Pushout pushout = new Pushout(rule1, s, rule2);
-
+					System.out.println("Span S' is\t" + s);
+					ConflictPushout pushout = new ConflictPushout(sp1.getGraph(), s, sp2.getGraph());
+					System.out.println("Pushout");
 					// uniquePushout = computeUniquePushout(pushout,)
 				}
 			}
@@ -213,6 +214,8 @@ public class DeleteUseConflictReasonComputation {
 				}
 
 				s = new Span(s1, sApostroph, s2);
+				s.getRule1().setLhs(sp1.getGraph());
+				s.getRule2().setLhs(sp2.getGraph());
 			} else
 
 			{
