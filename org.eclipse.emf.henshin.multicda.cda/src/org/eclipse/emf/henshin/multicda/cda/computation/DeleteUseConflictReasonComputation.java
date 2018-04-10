@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.poi.ss.formula.functions.T;
@@ -27,17 +28,16 @@ import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.model.impl.ConflictPushout;
 import org.eclipse.emf.henshin.model.impl.EdgePair;
 import org.eclipse.emf.henshin.model.impl.GraphImpl;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.model.impl.NodePair;
 import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
+import org.eclipse.emf.henshin.multicda.cda.ConflictPushout;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
-import org.eclipse.ui.internal.handlers.WizardHandler.New;
 import org.hamcrest.core.IsNull;
 
 import com.google.common.base.CaseFormat;
@@ -137,15 +137,18 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private GraphElement ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
-
+		Span span1 = new Span(sp1);
 		Pair<Span, Span> ddSet;
 		for (Span sp2 : conflictReasonsFromR2) {
-			Span s = compatibleSpans(sp1, sp2);
+			Span span2 = new Span(sp2);
+			Graph span1Graph = span1.getGraph();
+			Graph span2Graph = span2.getGraph();
+			Span s = compatibleSpans(sp1, sp2, span1Graph, span2Graph);
 			if (s != null) {
 				if (!isEmpty(s.getGraph())) {
-					System.out.println("Span S' is\t" + s);
-					ConflictPushout pushout = new ConflictPushout(sp1.getGraph(), s, sp2.getGraph());
-					System.out.println("Pushout");
+					System.out.println("S is not null and not empty:\t" + s);
+					ConflictPushout pushout = new ConflictPushout(sp1, s, sp2);
+
 					// uniquePushout = computeUniquePushout(pushout,)
 				}
 			}
@@ -169,7 +172,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Span compatibleSpans(Span sp1, Span sp2) {
+	private Span compatibleSpans(Span sp1, Span sp2, Graph span1Graph, Graph span2Graph) {
 		HenshinFactoryImpl helper = new HenshinFactoryImpl();
 		Graph sApostroph = null;
 		Span s = null;
@@ -179,6 +182,7 @@ public class DeleteUseConflictReasonComputation {
 		s1Apostrophe = addCompatibleElements(sp1, sp2);
 		Set<Mapping> s1 = new HashSet<Mapping>();
 		Set<Mapping> s2 = new HashSet<Mapping>();
+		Graph sGraph = helper.createGraph("S'");
 		if (s1Apostrophe != null) {
 			System.out.println("Generating compatible Elements S2' for cr2 in cr1");
 			s2Apostrophe = addCompatibleElements(sp2, sp1);
@@ -193,6 +197,9 @@ public class DeleteUseConflictReasonComputation {
 							NodePair s1NodePair = (NodePair) s1Node;
 							if (node instanceof NodePair) {
 								NodePair nodePair = (NodePair) node;
+								if (!sGraph.getNodes().contains(nodePair.getNode1())) {
+									sGraph.getNodes().add(nodePair.getNode1());
+								}
 								System.out.println("node is nodepair:" + nodePair);
 								if (nodePair.toString().equals(s1Node.toString())) {
 									s1.add(helper.createMapping(nodePair.getNode1(), s1NodePair.getNode1()));
@@ -204,18 +211,21 @@ public class DeleteUseConflictReasonComputation {
 							NodePair s2NodePair = (NodePair) s2Node;
 							if (node instanceof NodePair) {
 								NodePair nodePair = (NodePair) node;
+								if (!sGraph.getNodes().contains(nodePair.getNode1())) {
+									sGraph.getNodes().add(nodePair.getNode1());
+								}
 								System.out.println("node is nodepair:" + nodePair);
 								if (nodePair.toString().equals(s2Node.toString())) {
-									s2.add(helper.createMapping(nodePair.getNode2(), s2NodePair.getNode2()));
+									s2.add(helper.createMapping(nodePair.getNode1(), s2NodePair.getNode1()));
 								}
 							}
 						}
 					}
 				}
 
-				s = new Span(s1, sApostroph, s2);
-				s.getRule1().setLhs(sp1.getGraph());
-				s.getRule2().setLhs(sp2.getGraph());
+				
+				s = new Span(s1, sGraph, s2);
+				
 			} else
 
 			{
@@ -240,9 +250,10 @@ public class DeleteUseConflictReasonComputation {
 	 */
 	private Graph intersection(Graph s1Apostrophe, Graph s2Apostrophe, Span sp1, Span sp2) {
 
-		Graph fromS1 = new HenshinFactoryImpl().createGraph("S1<-S1'->S2");
-		Graph fromS2 = new HenshinFactoryImpl().createGraph("S1<-S2'->S2");
-		Graph result = new HenshinFactoryImpl().createGraph("S'");
+		HenshinFactoryImpl henshinFactoryImpl = new HenshinFactoryImpl();
+		Graph fromS1 = henshinFactoryImpl.createGraph("S1<-S1'->S2");
+		Graph fromS2 = henshinFactoryImpl.createGraph("S1<-S2'->S2");
+		Graph result = henshinFactoryImpl.createGraph("S'");
 
 		EList<Node> s1Nodes = s1Apostrophe.getNodes();
 		EList<Edge> s1Edges = s1Apostrophe.getEdges();
@@ -300,12 +311,12 @@ public class DeleteUseConflictReasonComputation {
 	private Graph addCompatibleElements(Span sp1, Span sp2) {
 		Graph s1Apostrophe = new HenshinFactoryImpl().createGraph();
 		EList<Node> s1Nodes = sp1.getGraph().getNodes();
-		EList<Edge> s1Edges = sp1.getGraph().getEdges();
+		// EList<Edge> s1Edges = sp1.getGraph().getEdges();
 		// System.out.println(s1Nodes + " : " + s1Edges);
 		// System.out.println(s2Nodes + " : " + s2Edges);
 		EList<GraphElement> allObjectsS1 = new BasicEList<GraphElement>();
 		s1Nodes.forEach(n -> allObjectsS1.add(n));
-		s1Edges.forEach(e -> allObjectsS1.add(e));
+		// s1Edges.forEach(e -> allObjectsS1.add(e));
 		for (GraphElement x : allObjectsS1) {
 			// System.out.println("----------------Suche nach Kompatiblem
 			// Element für:\t" + x);
@@ -317,15 +328,17 @@ public class DeleteUseConflictReasonComputation {
 						NodePair nodePair = new NodePair((Node) x, (Node) y);
 						s1Apostrophe.getNodes().add((NodePair) nodePair);
 					}
-					if (x instanceof Edge) {
-						EdgePair edgePair = new EdgePair((Edge) x, (Edge) y);
-						NodePair source = new NodePair(((Edge) x).getSource(), ((Edge) y).getSource());
-						NodePair target = new NodePair(((Edge) x).getTarget(), ((Edge) y).getTarget());
-						edgePair.setTarget(target);
-						edgePair.setSource(source);
-						System.out.println("EdgePair: " + edgePair);
-						s1Apostrophe.getEdges().add((EdgePair) edgePair);
-					}
+					// if (x instanceof Edge) {
+					// EdgePair edgePair = new EdgePair((Edge) x, (Edge) y);
+					// NodePair source = new NodePair(((Edge) x).getSource(),
+					// ((Edge) y).getSource());
+					// NodePair target = new NodePair(((Edge) x).getTarget(),
+					// ((Edge) y).getTarget());
+					// edgePair.setTarget(target);
+					// edgePair.setSource(source);
+					// System.out.println("EdgePair: " + edgePair);
+					// s1Apostrophe.getEdges().add((EdgePair) edgePair);
+					// }
 
 				}
 
@@ -361,6 +374,9 @@ public class DeleteUseConflictReasonComputation {
 			// System.out.println("S2: " + allObjectsS2);
 			for (GraphElement y : allObjectsS2) {
 				// System.out.println("Checking for:\t" + y);
+				if (x.equals(y)) {
+					System.out.println("x equals y!");
+				}
 				if (checkEqualityMapping(x, y, sp1)) {
 					if (checkEqualityMapping(x, y, sp2)) { // If s12(x) = s22(y)
 															// L1 <-s21- S2
@@ -407,12 +423,13 @@ public class DeleteUseConflictReasonComputation {
 			// System.out.println("sp.getMappingIntoRule1((Node) y): " + s2);
 
 			try {
-				if (s1.toString().equals(s2.toString())) {// Hier werden nur die
-															// Strings
-															// verglichen.
+				if (checkOriginNodes(s1.getOrigin(), s2.getOrigin())) {
+					System.out.println("true");
 					return true;
 				} else {
+					System.out.println("false");
 					return false;
+
 				}
 			} catch (NullPointerException e) {
 				e.printStackTrace();
@@ -449,16 +466,24 @@ public class DeleteUseConflictReasonComputation {
 	 */
 	public Mapping getMappingInRule(Node originNode, Set<Mapping> mappingsInRule) {
 		for (Mapping mapping : mappingsInRule) {
-			if (mapping.getOrigin().toString().equals(originNode.toString())) { // Hier
-																				// werden
-																				// nur
-																				// die
-																				// Strings
-																				// verglichen.
+			if (checkOriginNodes(originNode, mapping.getOrigin())) { // Hier
 				return mapping;
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @param originNode
+	 * @param origin
+	 * @return
+	 */
+	private boolean checkOriginNodes(Node originNode, Node originNode2) {
+		String[] revert = originNode.getName().split("_");
+		String[] revertMapping = originNode2.getName().split("_");
+		return (revert[0].equals(revertMapping[0]) && revert[1].equals(revertMapping[1])
+				|| revert[0].equals(revertMapping[1]) && revert[1].equals(revertMapping[0]))
+				&& (originNode.getType().equals(originNode2.getType()));
 	}
 
 	/**
