@@ -197,12 +197,12 @@ public class DeleteUseConflictReasonComputation {
 							NodePair s1NodePair = (NodePair) s1Node;
 							if (node instanceof NodePair) {
 								NodePair nodePair = (NodePair) node;
-								if (!sGraph.getNodes().contains(nodePair.getNode1())) {
-									sGraph.getNodes().add(nodePair.getNode1());
-								}
+								Node node1 = nodePair.getNode1();
+								Node node12 = s1NodePair.getNode1();
 								System.out.println("node is nodepair:" + nodePair);
-								if (nodePair.toString().equals(s1Node.toString())) {
-									s1.add(helper.createMapping(nodePair.getNode1(), s1NodePair.getNode1()));
+								
+								if (checkOriginNodes(node1, node12)) {
+									s1.add(helper.createMapping(node1, node12));
 								}
 							}
 						}
@@ -211,21 +211,21 @@ public class DeleteUseConflictReasonComputation {
 							NodePair s2NodePair = (NodePair) s2Node;
 							if (node instanceof NodePair) {
 								NodePair nodePair = (NodePair) node;
-								if (!sGraph.getNodes().contains(nodePair.getNode1())) {
-									sGraph.getNodes().add(nodePair.getNode1());
-								}
+								Node node1 = nodePair.getNode2();
+								Node node12 = s2NodePair.getNode2();
 								System.out.println("node is nodepair:" + nodePair);
-								if (nodePair.toString().equals(s2Node.toString())) {
-									s2.add(helper.createMapping(nodePair.getNode1(), s2NodePair.getNode1()));
+								if (checkOriginNodes(node1, node12)) {
+
+									s2.add(helper.createMapping(node1, node12));
 								}
 							}
 						}
 					}
 				}
 
-				
+				sGraph = sApostroph;
 				s = new Span(s1, sGraph, s2);
-				
+
 			} else
 
 			{
@@ -264,36 +264,33 @@ public class DeleteUseConflictReasonComputation {
 			NodePair nodePair = (NodePair) node;
 			for (Node node2 : s2Nodes) {
 				NodePair nodePair2 = (NodePair) node2;
-				System.out.println(
-						"NodePair: " + nodePair.getNode1().toString() + " : " + nodePair.getNode2().toString());
+				Node node1 = nodePair.getNode1();
+				Node node22 = nodePair2.getNode1();
+				System.out.println("NodePair: " + node1.toString() + " : " + node22.toString());
 				System.out.println(
 						"NodePair: " + nodePair2.getNode1().toString() + " : " + nodePair2.getNode2().toString());
 
-				if (nodePair.getNode1().toString().equals(nodePair.getNode2().toString())
-						&& nodePair2.getNode1().toString().equals(nodePair2.getNode2().toString())) {
-					if (nodePair.getNode1().toString().equals(nodePair2.getNode1().toString())) {
-						result.getNodes().add(new NodePair(nodePair.getNode1(), nodePair.getNode2()));
-					}
-
+				if (checkOriginNodes(node1, node22)) {
+					result.getNodes().add(new NodePair(node1, node22));
 				}
 
 			}
 		}
 
-		for (Edge edge : s1Edges) {
-			EdgePair edgePair = (EdgePair) edge;
-			for (Edge edge2 : s2Edges) {
-				EdgePair edgePair2 = (EdgePair) edge2;
-				if (edgePair.getEdge1().toString().equals(edgePair.getEdge2().toString())
-						&& edgePair2.getEdge1().toString().equals(edgePair2.getEdge2().toString())) {
-					if (edgePair.getEdge1().toString().equals(edgePair2.getEdge1().toString())) {
-						result.getEdges().add(new EdgePair(edgePair.getEdge1(), edgePair.getEdge2()));
-					}
-
-				}
-
-			}
-		}
+//		for (Edge edge : s1Edges) {
+//			EdgePair edgePair = (EdgePair) edge;
+//			for (Edge edge2 : s2Edges) {
+//				EdgePair edgePair2 = (EdgePair) edge2;
+//				if (edgePair.getEdge1().toString().equals(edgePair.getEdge2().toString())
+//						&& edgePair2.getEdge1().toString().equals(edgePair2.getEdge2().toString())) {
+//					if (edgePair.getEdge1().toString().equals(edgePair2.getEdge1().toString())) {
+//						result.getEdges().add(new EdgePair(edgePair.getEdge1(), edgePair.getEdge2()));
+//					}
+//
+//				}
+//
+//			}
+//		}
 
 		System.out.println("Intersection");
 

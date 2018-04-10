@@ -48,8 +48,11 @@ public class ConflictPushout {
 		EList<Node> nodes = graph.getNodes();
 		for (Node node : nodes) {
 			NodePair pair = (NodePair) node;
+			System.out.println(node);
 			Node pair1 = pair.getNode1();
+			System.out.println(pair1);
 			Node pair2 = pair.getNode2();
+			System.out.println(pair2);
 
 			nodesFromS1.add(pair1);
 			nodesFromS2.add(pair2);
@@ -66,7 +69,7 @@ public class ConflictPushout {
 				if (checkOriginNodes(node2, pair2)) {
 
 					Mapping createMapping = henshinFactoryImpl.createMapping(node2, node);
-					mappingsFromSpan1.add(createMapping);
+					mappingsFromSpan2.add(createMapping);
 				}
 			}
 
