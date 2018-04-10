@@ -65,6 +65,7 @@ public class DeleteUseConflictReasonComputation {
 	private Throwable notCompatible = new Throwable(notCompatibleException);
 	private NotCompatibleException compatibleException = new NotCompatibleException("Juhu! Eine Exception: ",
 			notCompatible);
+	private MinimalReasonComputation helperForCheckDangling;
 
 	/**
 	 * constructor
@@ -104,8 +105,7 @@ public class DeleteUseConflictReasonComputation {
 		this.conflictReason = conflictReason;
 		Rule rule1 = conflictReason.getRule1();
 		Rule conflictRule2 = conflictReason.getRule2();
-		// System.out.println("Mappings in Rule 1: " + L1S1L2);
-		MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
+		helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
 
 		if (findEmbeddingS1toK2(conflictReason, rule2)) {// If (there exists
 															// embedding
@@ -148,8 +148,13 @@ public class DeleteUseConflictReasonComputation {
 				if (!isEmpty(s.getGraph())) {
 					System.out.println("S is not null and not empty:\t" + s);
 					ConflictPushout pushout = new ConflictPushout(sp1, s, sp2);
-
-					// uniquePushout = computeUniquePushout(pushout,)
+					uniquePushout = computeUniquePushout(pushout);
+					Pushout po = new Pushout(rule1, uniquePushout, rule2);
+					if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, po.getRule1Mappings()).isEmpty()
+							&& helperForCheckDangling.findDanglingEdgesOfRule1(uniquePushout, po.getRule2Mappings())
+									.isEmpty()) { // fullfillDanglingG(pushout)
+						//Hier muss noch was rein
+					}
 				}
 			}
 		}
