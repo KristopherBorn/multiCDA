@@ -173,7 +173,7 @@ public class ConflictReason extends Span {
 			Node node1 = nodesOfUncoveredCA.get(0);
 			Node node2 = nodesOfUncoveredCA.get(1);
 
-			List<Node> potentialUsesN1R2 = new LinkedList<Node>(rule2.getLhs().getNodes(node1.getType()));
+			List<Node> potentialUsesN1R2 = new LinkedList<Node>(getRule2().getLhs().getNodes(node1.getType()));
 			potentialUsesN1R2.removeAll(usedR2);
 			boolean node1UsedInR1 = usedR1.contains(uncoveredCA.getMappingIntoRule1(node1).getImage());
 			boolean node1UsedInR2 = usedR2.contains(uncoveredCA.getMappingIntoRule2(node1).getImage());
@@ -184,7 +184,7 @@ public class ConflictReason extends Span {
 				}
 			}
 
-			List<Node> potentialUseNodesN2AloneR2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
+			List<Node> potentialUseNodesN2AloneR2 = new LinkedList<Node>(getRule2().getLhs().getNodes(node2.getType()));
 			potentialUsesN1R2.removeAll(usedR2);
 			// Knoten aus R2 d�rfen nicht mehrfach in ein CR involviert sein!
 			boolean node2AlreadyUsedInR1 = usedR1.contains(uncoveredCA.getMappingIntoRule1(node2).getImage());
@@ -222,7 +222,7 @@ public class ConflictReason extends Span {
 
 		if (extendedCR != null) {
 
-			List<Node> potentialUsesN2R2 = new LinkedList<Node>(rule2.getLhs().getNodes(node2.getType()));
+			List<Node> potentialUsesN2R2 = new LinkedList<Node>(getRule2().getLhs().getNodes(node2.getType()));
 			potentialUsesN2R2.removeAll(usedR2);
 			potentialUsesN2R2.remove(potentialUseN1R2);
 

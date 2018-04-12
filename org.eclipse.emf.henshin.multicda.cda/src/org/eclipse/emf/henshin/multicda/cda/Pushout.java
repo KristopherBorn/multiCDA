@@ -52,6 +52,11 @@ public class Pushout {
 
 	private Graph shadowGraph;
 
+	/**
+	 * @param rule1
+	 * @param s1span
+	 * @param rule2
+	 */
 	public Pushout(Rule rule1, Span s1span, Rule rule2) {
 		ConflictAnalysis.checkNull(rule1);
 		ConflictAnalysis.checkNull(s1span);
@@ -141,13 +146,13 @@ public class Pushout {
 	private HashMap prepareShadowPushoutGraph(Graph l2) {
 		rule2toPOmap = new HashMap<Node, Node>();
 		Copier copierForRule2 = new Copier();
-		 shadowGraph = (Graph) copierForRule2.copy(l2);
+		shadowGraph = (Graph) copierForRule2.copy(l2);
 		copierForRule2.copyReferences();
 		for (Node node : l2.getNodes()) {
 			Node copyResultNode = (Node) copierForRule2.get(node);
 			rule2toPOmap.put(node, copyResultNode);
 		}
-		HashMap<EObject,EObject> shadow2Rule2 = new HashMap<EObject, EObject>();
+		HashMap<EObject, EObject> shadow2Rule2 = new HashMap<EObject, EObject>();
 		for (EObject o : copierForRule2.keySet()) {
 			shadow2Rule2.put(copierForRule2.get(o), o);
 		}

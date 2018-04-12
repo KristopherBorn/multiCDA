@@ -71,8 +71,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		Set<Span> conflictReasons = new HashSet<Span>();
 		conflictHelper = new ConflictReasonComputation(rule2, rule1NonDelete);
 		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));
-		computeConflictReasons().forEach(r -> results.add(r));
-//		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r)); //TODO: Funktioniert noch nicht richtig
+		computeConflictReasons().forEach(r -> conflictReasons.add(r));
+		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r));
 		return results;
 	}
 

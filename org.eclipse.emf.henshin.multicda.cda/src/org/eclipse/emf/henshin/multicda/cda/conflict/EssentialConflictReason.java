@@ -97,7 +97,7 @@ public class EssentialConflictReason extends ConflictReason {
 
 	public Pushout getPushoutResult() {
 		// 		- Notwendig f�r die h�ufig Nutzung mit dem Comparator
-		return new Pushout(rule1, this, rule2);
+		return new Pushout(getRule1(), this, getRule2());
 	}
 
 
