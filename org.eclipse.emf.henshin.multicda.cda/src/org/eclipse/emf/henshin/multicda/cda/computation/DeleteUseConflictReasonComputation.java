@@ -178,9 +178,9 @@ public class DeleteUseConflictReasonComputation {
 		Rule rule2 = sp2.getRule1();
 		Graph lhs2 = rule2.getLhs();
 
-		Set<Mapping> mappingsInL1 = uniqueMapping(pushout, 1); // S --x-->
+		Set<Mapping> mappingsInL1 = uniqueMappingToL1(pushout); // S --x-->
 																// LHS1
-		Set<Mapping> mappingsInL2 = uniqueMapping(pushout, 2); // S --x-->
+		Set<Mapping> mappingsInL2 = uniqueMappingToL2(pushout); // S --x-->
 																// LHS2
 
 		uniqueSpan = new Span(mappingsInL1, s, mappingsInL2);
@@ -192,10 +192,9 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * @param pushout
-	 * @param lhs1
 	 * @return
 	 */
-	private Set<Mapping> uniqueMapping(ConflictPushout pushout, int j) {
+	private Set<Mapping> uniqueMappingToL1(ConflictPushout pushout) {
 
 		Set<Mapping> uniqMappings = new HashSet<Mapping>(); // Das ist unser x =
 															// S --x--> LHS
@@ -207,21 +206,8 @@ public class DeleteUseConflictReasonComputation {
 
 		Set<Mapping> a = sap.getMappingsInRule1();
 		Set<Mapping> b = sap.getMappingsInRule2();
-		Set<Mapping> e = null;
-		Set<Mapping> f = null;
-		if (j == 1) {
-
-			e = s1.getMappingsInRule1();
-
-			f = s2.getMappingsInRule2();
-		} else if (j == 2) {
-
-			e = s1.getMappingsInRule2();
-
-			f = s2.getMappingsInRule1();
-		} else {
-			return null;
-		}
+		Set<Mapping> e = s1.getMappingsInRule1();
+		Set<Mapping> f = s2.getMappingsInRule2();
 
 		ArrayList<Node> ae = new ArrayList<Node>(checking(a, s1, e));
 		ArrayList<Node> bf = new ArrayList<Node>(checking(b, s2, f));
@@ -263,6 +249,75 @@ public class DeleteUseConflictReasonComputation {
 			} else {
 				if (d != null) {
 					Node image = s2.getMappingIntoRule1(d).getImage();
+					Mapping createMapping = helper.createMapping(node, image);
+					uniqMappings.add(createMapping);
+				}
+			}
+
+		}
+
+		return uniqMappings;
+	}
+	
+	/**
+	 * @param pushout
+	 * @return
+	 */
+	private Set<Mapping> uniqueMappingToL2(ConflictPushout pushout) {
+
+		Set<Mapping> uniqMappings = new HashSet<Mapping>(); // Das ist unser x =
+															// S --x--> LHS
+		// Durch pushout existiert S' -- a --> S1 -- c --> S schon.
+		Graph s = pushout.getGraph();
+		Span sap = pushout.getSap();
+		Span s1 = pushout.getSpan1();
+		Span s2 = pushout.getSpan2();
+
+		Set<Mapping> a = sap.getMappingsInRule1();
+		Set<Mapping> b = sap.getMappingsInRule2();
+		Set<Mapping> e = s1.getMappingsInRule2();
+		Set<Mapping> f = s2.getMappingsInRule1();
+
+		ArrayList<Node> ae = new ArrayList<Node>(checking(a, s1, e));
+		ArrayList<Node> bf = new ArrayList<Node>(checking(b, s2, f));
+
+		Comparator<Node> comp = new Comparator<Node>() {
+
+			@Override
+			public int compare(Node n1, Node n2) {
+				String o1 = n1.getName();
+				String o2 = n2.getName();
+				int origins = o1.compareTo(o2);
+
+				return origins;
+			}
+		};
+		ae.sort(comp);
+		bf.sort(comp);
+
+		if (!ae.isEmpty() && !bf.isEmpty() && ae.size() == bf.size()) {
+			for (int i = 0; i < ae.size(); i++) {
+				if (!ae.get(i).toString().equals(bf.get(i).toString())) {
+					return null;
+				}
+
+			}
+		}
+
+		EList<Node> sNodes = s.getNodes();
+		for (Node node : sNodes) {
+			Node c = pushout.getMappingIntoSpan2(node);
+			Node d = pushout.getMappingIntoSpan1(node);
+			if (c == null && d == null) {
+				return null;
+			}
+			if (c != null) {
+				Node image = s2.getMappingIntoRule1(c).getImage();
+				Mapping createMapping = helper.createMapping(node, image);
+				uniqMappings.add(createMapping);
+			} else {
+				if (d != null) {
+					Node image = s1.getMappingIntoRule1(d).getImage();
 					Mapping createMapping = helper.createMapping(node, image);
 					uniqMappings.add(createMapping);
 				}
@@ -440,9 +495,40 @@ public class DeleteUseConflictReasonComputation {
 				Edge edge22 = edgePair2.getEdge2();
 				if (checkEdges(edge11, edge21)) {
 					EdgePair e = new EdgePair(edge11, edge21);
+					e.setType(edge11.getType());
 					result.getEdges().add(e);
 				}
 
+			}
+		}
+		
+		for (Edge edge : result.getEdges()){
+			if (edge instanceof EdgePair){
+				EdgePair edgePair = (EdgePair) edge;
+				Edge edge1 = edgePair.getEdge1();
+				Edge edge2 = edgePair.getEdge2();
+				Node e1Source = edge1.getSource();
+				Node e1Target = edge1.getTarget();
+				Node e2Source = edge2.getSource();
+				Node e2Target = edge2.getTarget();
+				for (Node node : result.getNodes()){
+					if (node instanceof NodePair){
+						NodePair nodePair = (NodePair) node;
+						Node node1 = nodePair.getNode1();
+						Node node2 = nodePair.getNode2();
+						if (checkOriginNodes(node1, e1Source) && checkOriginNodes(node2, e2Source)){//Check Source
+							node.getOutgoing().add(edge);
+							edge.setSource(node);
+						} else {
+							if (checkOriginNodes(node1, e1Target)&&checkOriginNodes(node2, e2Target)){
+								node.getIncoming().add(edge);
+								edge.setTarget(node);
+								
+							}
+						}
+					}
+				}
+				
 			}
 		}
 
