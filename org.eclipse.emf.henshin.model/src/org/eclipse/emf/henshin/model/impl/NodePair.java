@@ -21,7 +21,7 @@ public class NodePair extends NodeImpl implements GraphElement {
 	 * 
 	 */
 	public NodePair() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class NodePair extends NodeImpl implements GraphElement {
 	 */
 	public NodePair(String name, EClass type) {
 		super(name, type);
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public NodePair(Node node1, Node node2){
