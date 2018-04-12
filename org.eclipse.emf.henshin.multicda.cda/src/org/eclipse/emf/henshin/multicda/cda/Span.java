@@ -24,8 +24,8 @@ public class Span {
 
 	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
-	public Rule rule1;
-	public Rule rule2;
+	private Rule rule1;
+	private Rule rule2;
 
 	public Set<Mapping> mappingsInRule1;
 	public Set<Mapping> mappingsInRule2;
@@ -230,8 +230,8 @@ public class Span {
 		this.mappingsInRule1 = rule1Mappings; //wie verh�lt es sich mit einem leeren Graph, bzw. leeren mappngs?
 		this.mappingsInRule2 = rule2Mappings;
 		this.graph = s1;
-		this.rule1 = getRuleOfMappings(rule1Mappings); // might return null. Needs to be improved. if rules are not set NPE might occure. 
-		this.rule2 = getRuleOfMappings(rule2Mappings);
+		this.setRule1(getRuleOfMappings(rule1Mappings)); // might return null. Needs to be improved. if rules are not set NPE might occure. 
+		this.setRule2(getRuleOfMappings(rule2Mappings));
 	}
 
 	public Span(Span s1) {
@@ -260,8 +260,8 @@ public class Span {
 		}
 		this.mappingsInRule2 = mappingsInRule2;
 
-		this.rule1 = getRuleOfMappings(mappingsInRule1);
-		this.rule2 = getRuleOfMappings(mappingsInRule2);
+		this.setRule1(getRuleOfMappings(mappingsInRule1));
+		this.setRule2(getRuleOfMappings(mappingsInRule2));
 	}
 
 	public Span(Span extSpan, Node origin, Node image) {
@@ -328,9 +328,9 @@ public class Span {
 	public EPackage graphToEPackage() {
 		Set<String> added = new HashSet<String>();
 		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
-		result.setName(rule1.getName() + "_" + rule2.getName());
+		result.setName(getRule1().getName() + "_" + getRule2().getName());
 		result.setNsURI(
-				"http://cdapackage/" + rule1.getName() + "/" + rule2.getName() + "/" + getClass().getSimpleName());
+				"http://cdapackage/" + getRule1().getName() + "/" + getRule2().getName() + "/" + getClass().getSimpleName());
 		result.setNsPrefix("CDAPackage");
 		EList<EClassifier> classifiers = result.getEClassifiers();
 
@@ -357,7 +357,7 @@ public class Span {
 
 			EReference ref = EcoreFactory.eINSTANCE.createEReference();
 			ref.setName(edge.getType().getName());
-			if (!rule1.getRhs().getEdges().contains(edge)) {
+			if (!getRule1().getRhs().getEdges().contains(edge)) {
 				ref.setName("#" + ref.getName() + "#");
 			}
 			ref.setEType(t);
@@ -377,6 +377,14 @@ public class Span {
 		if (image.getAction().getType() == Type.DELETE)
 			eclass.setName("#" + eclass.getName() + "#");
 		return eclass;
+	}
+
+	public void setRule1(Rule rule1) {
+		this.rule1 = rule1;
+	}
+
+	public void setRule2(Rule rule2) {
+		this.rule2 = rule2;
 	}
 
 }

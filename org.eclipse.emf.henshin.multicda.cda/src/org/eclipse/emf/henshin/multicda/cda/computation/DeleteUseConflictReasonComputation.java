@@ -67,6 +67,7 @@ public class DeleteUseConflictReasonComputation {
 			notCompatible);
 	private MinimalReasonComputation helperForCheckDangling;
 	private Span intersection;
+	private HenshinFactoryImpl helper;
 
 	/**
 	 * constructor
@@ -179,6 +180,10 @@ public class DeleteUseConflictReasonComputation {
 		Set<Mapping> mappingsInL2 = uniqueMapping(pushout, lhs2); // S --x-->
 																	// LHS2
 
+		uniqueSpan = new Span(mappingsInL1, s, mappingsInL2);
+		uniqueSpan.setRule1(rule1);
+		uniqueSpan.setRule2(rule2);
+		
 		return uniqueSpan;
 	}
 
@@ -207,7 +212,7 @@ public class DeleteUseConflictReasonComputation {
 
 		ArrayList<Node> ae = new ArrayList<Node>(checking(a, s1, e));
 		ArrayList<Node> bf = new ArrayList<Node>(checking(b, s2, f));
-		
+
 		Comparator<Node> comp = new Comparator<Node>() {
 
 			@Override
@@ -219,44 +224,68 @@ public class DeleteUseConflictReasonComputation {
 				return origins;
 			}
 		};
-		 ae.sort(comp);
-		 bf.sort(comp);
-		 
-		
-		if (!ae.isEmpty() && !bf.isEmpty()){
-			
+		ae.sort(comp);
+		bf.sort(comp);
+
+		if (!ae.isEmpty() && !bf.isEmpty() && ae.size() == bf.size()) {
+			for (int i = 0; i < ae.size(); i++) {
+				if (!ae.get(i).toString().equals(bf.get(i).toString())) {
+					return null;
+				}
+
 			}
+		}
 
+		EList<Node> sNodes = s.getNodes();
+		for (Node node : sNodes) {
+			Node mappingIntoSpan1 = pushout.getMappingIntoSpan1(node);
+			Node mappingIntoSpan2 = pushout.getMappingIntoSpan2(node);
+			if (mappingIntoSpan1 == null && mappingIntoSpan2 == null) {
+				return null;
+			}
+			if (mappingIntoSpan1 != null) {
+				Node image = s1.getMappingIntoRule1(mappingIntoSpan1).getImage();
+				Mapping createMapping = helper.createMapping(node, image);
+				uniqMappings.add(createMapping);
+			} else {
+				if (mappingIntoSpan2 != null) {
+					Node image = s2.getMappingIntoRule1(mappingIntoSpan2).getImage();
+					Mapping createMapping = helper.createMapping(node, image);
+					uniqMappings.add(createMapping);
+				}
+			}
+			
 
-		return null;
+		}
+
+		return uniqMappings;
 	}
 
 	private HashSet<Node> checking(Set<Mapping> sapToSpan, Span span, Set<Mapping> spanToLhs) {
 
 		HashSet<Node> checkedNodes = new HashSet<Node>();
-		
+
 		for (Mapping mapping : sapToSpan) {
 			Node spanOrigin = mapping.getOrigin();
 			Node spanImage = mapping.getImage();
 			Graph graph = span.getGraph();
 			EList<Node> nodes = graph.getNodes();
-			if (nodes.contains(spanImage)){
+			if (nodes.contains(spanImage)) {
 				Node newOrigin = spanImage;
 				Mapping mappingSpanToLhs = getMappingInRule(newOrigin, spanToLhs);
 				Node lhsNode = mappingSpanToLhs.getImage();
-				if (lhsNode == null){
-					
+				if (lhsNode == null) {
+
 				} else {
 					checkedNodes.add(lhsNode);
 				}
 			} else {
-				
+
 			}
 		}
-		
+
 		return checkedNodes;
 
-		
 	}
 
 	/**
@@ -276,7 +305,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private Span compatibleSpans(Span sp1, Span sp2, Graph span1Graph, Graph span2Graph) {
-		HenshinFactoryImpl helper = new HenshinFactoryImpl();
+		helper = new HenshinFactoryImpl();
 		Graph sApostroph = null;
 		Span s = null;
 		Graph s2Apostrophe = null;
@@ -354,7 +383,7 @@ public class DeleteUseConflictReasonComputation {
 	 */
 	private Span intersection(Graph s1Apostrophe, Graph s2Apostrophe, Span sp1, Span sp2) {
 
-		HenshinFactoryImpl henshinFactoryImpl = new HenshinFactoryImpl();
+		HenshinFactoryImpl henshinFactoryImpl = helper;
 		Graph fromS1 = henshinFactoryImpl.createGraph("S1<-S1'->S2");
 		Graph fromS2 = henshinFactoryImpl.createGraph("S1<-S2'->S2");
 		Graph result = henshinFactoryImpl.createGraph("S'");
@@ -427,7 +456,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private Graph addCompatibleElements(Span sp1, Span sp2) {
-		Graph s1Apostrophe = new HenshinFactoryImpl().createGraph();
+		Graph s1Apostrophe = helper.createGraph();
 		EList<Node> s1Nodes = sp1.getGraph().getNodes();
 		// EList<Edge> s1Edges = sp1.getGraph().getEdges();
 		// System.out.println(s1Nodes + " : " + s1Edges);
@@ -554,25 +583,27 @@ public class DeleteUseConflictReasonComputation {
 				return false;
 			}
 		}
-//		if (x instanceof Edge && y instanceof Edge) {
-//			Edge e1 = (Edge) x;
-//			Edge e2 = (Edge) y;
-//			try {
-//				if (e1.getSource().toString().equals(e2.getSource().toString())) {
-//					if (e1.getTarget().toString().contentEquals(e2.getTarget().toString())) {
-//						return true;
-//					} else {
-//						return false;
-//					}
-//				} else {
-//					return false;
-//				}
-//			} catch (NullPointerException e) {
-//				e.printStackTrace();
-//				return false;
-//			}
-//
-//		}
+		// if (x instanceof Edge && y instanceof Edge) {
+		// Edge e1 = (Edge) x;
+		// Edge e2 = (Edge) y;
+		// try {
+		// if (e1.getSource().toString().equals(e2.getSource().toString())) {
+		// if
+		// (e1.getTarget().toString().contentEquals(e2.getTarget().toString()))
+		// {
+		// return true;
+		// } else {
+		// return false;
+		// }
+		// } else {
+		// return false;
+		// }
+		// } catch (NullPointerException e) {
+		// e.printStackTrace();
+		// return false;
+		// }
+		//
+		// }
 		return false;
 
 	}
@@ -671,7 +702,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private static ArrayList<Mapping> computeMappings(EList<Node> graphNodes1, EList<Node> graphNodes2) {
-		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE; // wird zur
+		HenshinFactory helper = HenshinFactory.eINSTANCE; // wird zur
 																	// Erstellung
 																	// der
 																	// Mappings
@@ -683,7 +714,7 @@ public class DeleteUseConflictReasonComputation {
 			for (Node image : graphNodes2) {
 				if (origin.getType() == image.getType()) { // Nur wenn Typen
 															// gleich sind.
-					Mapping mapping = henshinFactory.createMapping(origin, image);
+					Mapping mapping = helper.createMapping(origin, image);
 					G1toG2.add(mapping);
 				}
 			}

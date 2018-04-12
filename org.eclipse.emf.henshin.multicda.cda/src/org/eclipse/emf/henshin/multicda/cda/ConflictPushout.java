@@ -25,6 +25,8 @@ public class ConflictPushout {
 	HenshinFactoryImpl henshinFactoryImpl = new HenshinFactoryImpl();
 	private Set<Mapping> mappingsFromSpan1;
 	private Set<Mapping> mappingsFromSpan2;
+	private Set<Mapping> mappingsToSpan1;
+	private Set<Mapping> mappingsToSpan2;
 	private Graph graph;
 	private Span span1;
 	private Span sap;
@@ -48,6 +50,8 @@ public class ConflictPushout {
 
 		setMappingsFromSpan1(new HashSet<Mapping>());
 		setMappingsFromSpan2(new HashSet<Mapping>());
+		setMappingsToSpan1(new HashSet<Mapping>());
+		setMappingsToSpan2(new HashSet<Mapping>());
 
 		Set<Node> nodes1 = new HashSet<Node>();
 		Set<Node> cheked1 = new HashSet<Node>();
@@ -60,7 +64,7 @@ public class ConflictPushout {
 		EList<Node> snodes = s.getNodes();
 		setGraph(sap.getGraph());
 		EList<Node> nodes = getGraph().getNodes();
-		
+
 		for (Node node : nodes) {
 			NodePair pair = (NodePair) node;
 			System.out.println(node);
@@ -80,6 +84,8 @@ public class ConflictPushout {
 					}
 					Mapping createMapping = henshinFactoryImpl.createMapping(node1, node);
 					getMappingsFromSpan1().add(createMapping);
+					Mapping createMapping2 = henshinFactoryImpl.createMapping(node, node1);
+					getMappingsToSpan1().add(createMapping2);
 				}
 			}
 
@@ -90,29 +96,31 @@ public class ConflictPushout {
 					}
 					Mapping createMapping = henshinFactoryImpl.createMapping(node2, node);
 					getMappingsFromSpan2().add(createMapping);
+					Mapping createMapping2 = henshinFactoryImpl.createMapping(node, node2);
+					getMappingsToSpan2().add(createMapping2);
 				}
 			}
 
 		}
 
 		for (Node node : nodes1) {
-			if (!cheked1.contains(node)){
-				Node c = copyNode(node);; //TODO ist heir eine Kopie gut=?
+			if (!cheked1.contains(node)) {
+				Node c = copyNode(node);
+				; // TODO ist heir eine Kopie gut=?
 				getMappingsFromSpan1().add(henshinFactoryImpl.createMapping(node, c));
 				nodes.add(c);
-				
+
 			}
 		}
-		
+
 		for (Node node : nodes2) {
-			if (!cheked2.contains(node)){
-				Node c = copyNode(node); //TODO ist heir eine Kopie gut=?
+			if (!cheked2.contains(node)) {
+				Node c = copyNode(node); // TODO ist heir eine Kopie gut=?
 				getMappingsFromSpan2().add(henshinFactoryImpl.createMapping(node, c));
 				nodes.add(c);
-				
+
 			}
 		}
-		
 
 	}
 
@@ -124,9 +132,9 @@ public class ConflictPushout {
 		Graph graph = node.getGraph();
 		EClass type = node.getType();
 		String name = node.getName();
-		
+
 		return henshinFactoryImpl.createNode(graph, type, name);
-	
+
 	}
 
 	/**
@@ -188,6 +196,46 @@ public class ConflictPushout {
 
 	public void setSpan2(Span span2) {
 		this.span2 = span2;
+	}
+
+	public Set<Mapping> getMappingsToSpan1() {
+		return mappingsToSpan1;
+	}
+
+	public void setMappingsToSpan1(Set<Mapping> mappingsToSpan1) {
+		this.mappingsToSpan1 = mappingsToSpan1;
+	}
+
+	public Set<Mapping> getMappingsToSpan2() {
+		return mappingsToSpan2;
+	}
+
+	public void setMappingsToSpan2(Set<Mapping> mappingsToSpan2) {
+		this.mappingsToSpan2 = mappingsToSpan2;
+	}
+
+	public Node getMappingIntoSpan1(Node origin) {
+
+		for (Mapping mapping : mappingsToSpan1) {
+			if (mapping.getOrigin() == origin) {
+				return mapping.getImage();
+			}
+		}
+
+		return null;
+
+	}
+	
+	public Node getMappingIntoSpan2(Node origin) {
+
+		for (Mapping mapping : mappingsToSpan2) {
+			if (mapping.getOrigin() == origin) {
+				return mapping.getImage();
+			}
+		}
+
+		return null;
+
 	}
 
 }
