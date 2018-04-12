@@ -12,8 +12,8 @@ public class MinimalConflict extends CriticalPair {
 
 
 	// Graph should be the Span here!
-	public MinimalConflict(Rule r1, Rule r2, Graph minimalConflictReason) {
-		super(r1, r2, minimalConflictReason);
+	public MinimalConflict(Rule r1, Rule r2, Graph minimalConflictReason, AppliedAnalysis appliedAnalysis) {
+		super(r1, r2, minimalConflictReason, appliedAnalysis);
 	}
 
 	/* appliedAnalysis , rule1, rul2, minimalModel(EPackage), criticalElements(List<CriticalElement-AGG>)
@@ -22,8 +22,8 @@ public class MinimalConflict extends CriticalPair {
 	 */
 
 	public MinimalConflict(Rule firstRule, Rule originalRuleOfRule2, Span minimalConflictReason,
-			List<ConflictAtom> conflictAtoms, List<Span> conflictAtomCandidates) {
-		this(firstRule, originalRuleOfRule2, minimalConflictReason.getGraph());
+			List<ConflictAtom> conflictAtoms, List<Span> conflictAtomCandidates, AppliedAnalysis appliedAnalysis) {
+		this(firstRule, originalRuleOfRule2, minimalConflictReason.getGraph(), appliedAnalysis);
 		this.conflictAtoms = conflictAtoms;
 		this.conflictAtomCandidates = conflictAtomCandidates;
 	}
