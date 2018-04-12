@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
@@ -64,6 +65,7 @@ public class ConflictPushout {
 		EList<Node> snodes = s.getNodes();
 		setGraph(sap.getGraph());
 		EList<Node> nodes = getGraph().getNodes();
+		EList<Edge> sedges = s.getEdges();
 
 		for (Node node : nodes) {
 			NodePair pair = (NodePair) node;
@@ -106,7 +108,6 @@ public class ConflictPushout {
 		for (Node node : nodes1) {
 			if (!cheked1.contains(node)) {
 				Node c = copyNode(node);
-				; // TODO ist heir eine Kopie gut=?
 				getMappingsFromSpan1().add(henshinFactoryImpl.createMapping(node, c));
 				nodes.add(c);
 
@@ -115,12 +116,12 @@ public class ConflictPushout {
 
 		for (Node node : nodes2) {
 			if (!cheked2.contains(node)) {
-				Node c = copyNode(node); // TODO ist heir eine Kopie gut=?
+				Node c = copyNode(node);
 				getMappingsFromSpan2().add(henshinFactoryImpl.createMapping(node, c));
 				nodes.add(c);
 
 			}
-		}
+		} //TODO VC: Wie geht man hier mit den Kanten von Knoten auf PaarKnoten um?
 
 	}
 
