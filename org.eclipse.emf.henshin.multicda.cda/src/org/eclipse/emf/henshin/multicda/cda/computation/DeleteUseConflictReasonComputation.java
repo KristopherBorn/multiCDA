@@ -53,7 +53,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 public class DeleteUseConflictReasonComputation {
 
 	private Rule rule1;
-	private static Rule rule2;
+	private Rule rule2;
 	private Set<Span> conflictReasonsFromR2;
 
 	private ConflictAnalysis analyser;
@@ -124,7 +124,7 @@ public class DeleteUseConflictReasonComputation {
 			// System.out.println("noEmbeddingS1ToK2");
 			mapS1ToL1 = conflictReason.mappingsInRule1;
 			mapS1ToL2 = conflictReason.mappingsInRule2;
-			GraphElement DeleteDeleteSet = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
+			Span DeleteDeleteSet = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
 			// If DD(s1) is nonEmpty
 			// Then For each pair s2 in DD(s1):
 			// Add (s1,s2) to DDCR
@@ -137,7 +137,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private GraphElement ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
+	private Span ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
 		Span span1 = new Span(sp1);
 		Pair<Span, Span> ddSet;
 		for (Span sp2 : conflictReasonsFromR2) {
@@ -149,7 +149,7 @@ public class DeleteUseConflictReasonComputation {
 				if (!isEmpty(s.getGraph())) {
 					System.out.println("S is not null and not empty:\t" + s);
 					ConflictPushout pushout = new ConflictPushout(sp1, s, sp2);
-					Span uniquePushout = computeUniquePushout(pushout);
+					Span uniquePushout = computeUniquePushout(pushout, intersection);
 					Pushout po = new Pushout(rule1, uniquePushout, rule2);
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, po.getRule2Mappings())
@@ -164,11 +164,99 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * @param pushout
+	 * @param intersection2
 	 * @return
 	 */
-	private Span computeUniquePushout(ConflictPushout pushout) {
+	private Span computeUniquePushout(ConflictPushout pushout, Span intersection) {
+		Span uniqueSpan = null;
+		Graph s = pushout.getGraph();
+
+		Graph lhs1 = rule1.getLhs();
+		Graph lhs2 = rule2.getLhs();
+
+		Set<Mapping> mappingsInL1 = uniqueMapping(pushout, lhs1); // S --x-->
+																	// LHS1
+		Set<Mapping> mappingsInL2 = uniqueMapping(pushout, lhs2); // S --x-->
+																	// LHS2
+
+		return uniqueSpan;
+	}
+
+	/**
+	 * @param pushout
+	 * @param lhs1
+	 * @return
+	 */
+	private Set<Mapping> uniqueMapping(ConflictPushout pushout, Graph lhs) {
+
+		Set<Mapping> uniqMappings = new HashSet<Mapping>(); // Das ist unser x =
+															// S --x--> LHS
+		// Durch pushout existiert S' -- a --> S1 -- c --> S schon.
+		Graph s = pushout.getGraph();
+		Span sap = pushout.getSap();
+		Graph sapGraph = sap.getGraph();
+		Span s1 = pushout.getSpan1();
+		Span s2 = pushout.getSpan2();
+
+		Set<Mapping> a = sap.getMappingsInRule1();
+		Set<Mapping> b = sap.getMappingsInRule2();
+		Set<Mapping> c = pushout.getMappingsFromSpan1();
+		Set<Mapping> d = pushout.getMappingsFromSpan2();
+		Set<Mapping> e = s1.getMappingsInRule1();
+		Set<Mapping> f = s2.getMappingsInRule2();
+
+		ArrayList<Node> ae = new ArrayList<Node>(checking(a, s1, e));
+		ArrayList<Node> bf = new ArrayList<Node>(checking(b, s2, f));
+		
+		Comparator<Node> comp = new Comparator<Node>() {
+
+			@Override
+			public int compare(Node n1, Node n2) {
+				String o1 = n1.getName();
+				String o2 = n2.getName();
+				int origins = o1.compareTo(o2);
+
+				return origins;
+			}
+		};
+		 ae.sort(comp);
+		 bf.sort(comp);
+		 
+		
+		if (!ae.isEmpty() && !bf.isEmpty()){
+			
+			}
+
 
 		return null;
+	}
+
+	private HashSet<Node> checking(Set<Mapping> sapToSpan, Span span, Set<Mapping> spanToLhs) {
+
+		HashSet<Node> checkedNodes = new HashSet<Node>();
+		
+		for (Mapping mapping : sapToSpan) {
+			Node spanOrigin = mapping.getOrigin();
+			Node spanImage = mapping.getImage();
+			Graph graph = span.getGraph();
+			EList<Node> nodes = graph.getNodes();
+			if (nodes.contains(spanImage)){
+				Node newOrigin = spanImage;
+				Mapping mappingSpanToLhs = getMappingInRule(newOrigin, spanToLhs);
+				Node lhsNode = mappingSpanToLhs.getImage();
+				if (lhsNode == null){
+					
+				} else {
+					checkedNodes.add(lhsNode);
+				}
+			} else {
+				
+			}
+		}
+		
+		return checkedNodes;
+
+		
 	}
 
 	/**
@@ -228,7 +316,7 @@ public class DeleteUseConflictReasonComputation {
 							if (node instanceof NodePair) {
 								NodePair nodePair = (NodePair) node;
 								Node node1 = nodePair.getNode2();
-								Node node12 = s2NodePair.getNode2();
+								Node node12 = s2NodePair.getNode1();
 								System.out.println("node is nodepair:" + nodePair);
 								if (checkOriginNodes(node1, node12)) {
 
@@ -285,6 +373,7 @@ public class DeleteUseConflictReasonComputation {
 				NodePair nodePair2 = (NodePair) node2;
 				Node node11 = nodePair.getNode1();
 				Node node21 = nodePair2.getNode1();
+				Node node22 = nodePair2.getNode2();
 				System.out.println("NodePair: " + node11.toString() + " : " + node21.toString());
 				System.out.println(
 						"NodePair: " + nodePair2.getNode1().toString() + " : " + nodePair2.getNode2().toString());
@@ -294,7 +383,7 @@ public class DeleteUseConflictReasonComputation {
 					result.getNodes().add(e);
 					Mapping createMapping = henshinFactoryImpl.createMapping(e, node11);
 					span1Mappings.add(createMapping);
-					Mapping createMapping2 = henshinFactoryImpl.createMapping(e,node21);
+					Mapping createMapping2 = henshinFactoryImpl.createMapping(e, node22);
 					rule2Mappings.add(createMapping2);
 				}
 
@@ -465,25 +554,25 @@ public class DeleteUseConflictReasonComputation {
 				return false;
 			}
 		}
-		if (x instanceof Edge && y instanceof Edge) {
-			Edge e1 = (Edge) x;
-			Edge e2 = (Edge) y;
-			try {
-				if (e1.getSource().toString().equals(e2.getSource().toString())) {
-					if (e1.getTarget().toString().contentEquals(e2.getTarget().toString())) {
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-				return false;
-			}
-
-		}
+//		if (x instanceof Edge && y instanceof Edge) {
+//			Edge e1 = (Edge) x;
+//			Edge e2 = (Edge) y;
+//			try {
+//				if (e1.getSource().toString().equals(e2.getSource().toString())) {
+//					if (e1.getTarget().toString().contentEquals(e2.getTarget().toString())) {
+//						return true;
+//					} else {
+//						return false;
+//					}
+//				} else {
+//					return false;
+//				}
+//			} catch (NullPointerException e) {
+//				e.printStackTrace();
+//				return false;
+//			}
+//
+//		}
 		return false;
 
 	}
