@@ -25,6 +25,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
 import org.eclipse.emf.henshin.multicda.cpa.CDAOptions;
 import org.eclipse.emf.henshin.multicda.cpa.CpaByAGG;
 import org.eclipse.emf.henshin.multicda.cpa.UnsupportedRuleException;
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.GranularityType;
 import org.eclipse.emf.henshin.multicda.cpa.result.CPAResult;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalElement;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
@@ -114,7 +115,7 @@ public class CPATester extends Tester {
 		init(f, s, firstAll, secondAll, options);
 	}
 
-	private void init(List<Rule> first, List<Rule> second, boolean firstAll, boolean secondALl, Options... opt) {
+	private void init(List<Rule> first, List<Rule> second, boolean firstAll, boolean secondAll, Options... opt) {
 		if(opt.length!=0)
 			options = opt[0];
 		String ff = "", ss = "";
@@ -123,7 +124,7 @@ public class CPATester extends Tester {
 		else
 			for (Rule nameF : first)
 				ff += (ff.isEmpty() ? "" : ", ") + nameF.getName();
-		if (secondALl)
+		if (secondAll)
 			ss = "All";
 		for (Rule nameS : second)
 			ss += (ss.isEmpty() ? "" : ", ") + nameS.getName();
@@ -132,7 +133,7 @@ public class CPATester extends Tester {
 					"\n\t\t  " + ff + " --> " + ss + "\n\t\t\tCPA " + (options.is(Options.ESSENTIAL) ? "Essential" : ""));
 
 		CDAOptions o = new CDAOptions();
-		o.setEssential(options.is(Options.ESSENTIAL));
+		o.essentialCP = options.is(Options.ESSENTIAL);
 		o.setReduceSameRuleAndSameMatch(false);
 		o.setIgnoreSameRules(false);
 		o.setIgnoreMultiplicities(true);

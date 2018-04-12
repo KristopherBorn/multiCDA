@@ -1,9 +1,11 @@
 package org.eclipse.emf.henshin.multicda.cda.tester;
 
+/**
+ * @author Jevgenij Huebert
+ */
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,23 +20,26 @@ import org.eclipse.emf.henshin.multicda.cda.DependencyAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
-import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.MinimalDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.runner.RulePreparator;
-import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ECR;
-import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
-import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ConflictReasonConditions;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DDCConditions;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DRCConditions;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DUCConditions;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ECR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MinimalReasonConditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
-import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
-import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
 public class CDATester extends Tester {
 	public boolean PrintFounds = true;
@@ -55,7 +60,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Geeignet nur fï¿½r Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
+	 * Geeignet nur für Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
 	 * 
 	 * @param henshin
 	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
@@ -97,11 +102,11 @@ public class CDATester extends Tester {
 		} else {
 			first = (Rule) module.getUnit(firstRule);
 			second = (Rule) module.getUnit(secondRule);
-			if(first == null)
+			if (first == null)
 				System.out.println(firstRule + " nicht gefunden.");
-			if(second == null)
+			if (second == null)
 				System.out.println(secondRule + " nicht gefunden.");
-			if(first == null || second == null)
+			if (first == null || second == null)
 				return;
 		}
 		init(options);
@@ -122,7 +127,7 @@ public class CDATester extends Tester {
 
 	protected void init(Options... opt) {
 		Options options = new Options();
-		if(opt.length!=0)
+		if (opt.length != 0)
 			options = opt[0];
 		NAME = "CDA Tester";
 		if (options.is(Options.PRINT_HEADER))
@@ -141,7 +146,7 @@ public class CDATester extends Tester {
 		}
 
 		//if (options.is(Options.NONE_DELETION_SECOND_RULE))
-			//second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
+		//second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
 		if (options.is(Options.DEPENDENCY))
 			analyser = new DependencyAnalysis(first, second);
@@ -153,12 +158,12 @@ public class CDATester extends Tester {
 		computedAtoms = analyser.computeAtoms();
 		essentialConflictReasons = new HashSet<>();
 		Set<ConflictAtom> ca = new HashSet<>();
-		for(Span a :computedAtoms)
-			ca.add((ConflictAtom)a);
-		for(Span ir : conflictReasons)
-			essentialConflictReasons.addAll(((ConflictReason)ir).getAllDerivedConflictReasons(ca));
+		for (Span a : computedAtoms)
+			ca.add((ConflictAtom) a);
+		for (Span ir : conflictReasons)
+			essentialConflictReasons.addAll(((ConflictReason) ir).getAllDerivedConflictReasons(ca));
 
-		print(options.toCDAString()+"\n");
+		print(options.toCDAString() + "\n");
 		if (options.is(Options.PRINT_RESULT)) {
 			printMCR();
 			printICR();
@@ -177,8 +182,10 @@ public class CDATester extends Tester {
 	}
 
 	@Override
-	public boolean check(Class<?> type, Condition... conditions) {
-
+	public boolean check(Conditions typedConditions) { //Class<?> type, Condition... conditions) {
+		Class<?> type = typedConditions.getClass();
+		Condition[] conditions = typedConditions.getConditions();
+		
 		List<Condition> edgeNode = new ArrayList<Condition>();
 		for (Condition condition : conditions) {
 			if (condition instanceof CR) {
@@ -205,15 +212,8 @@ public class CDATester extends Tester {
 			for (Span span : conflictReasons) {
 				if (span instanceof ConflictReason) {
 					ConflictReason conflictReason = (ConflictReason) span;
-					Set<ModelElement> elements = conflictReason.getDeletionElementsInRule1();
-					// System.out.println(elements);
-					if (!checked.contains("ConflictReason" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
-						print("Found CR: " + elements + "\twith " + type.getSimpleName() + " "
-								+ getContent(conditions));
-						checked += "ConflictReason" + elements + "\n";
-						iCheckedCounter++;
+					if (iChecker(conflictReason, edgeNode, type, typedConditions.SHORT, conditions))
 						return true;
-					}
 				}
 			}
 		}
@@ -221,17 +221,45 @@ public class CDATester extends Tester {
 			for (Span span : minimalReasons) {
 				if (span instanceof ConflictReason) {
 					MinimalConflictReason minimalReason = (MinimalConflictReason) span;
-					Set<ModelElement> elements = minimalReason.getDeletionElementsInRule1();
-					// System.out.println(elements);
-					if (!checked.contains("Minimal" + elements + "") && checkReasons(elements, edgeNode.toArray())) {
-						print("Found MCR: " + elements + "\twith " + type.getSimpleName() + " "
-								+ getContent(conditions));
-						checked += "Minimal" + elements + "\n";
-						mCheckedCounter++;
+					if (iChecker(minimalReason, edgeNode, type, typedConditions.SHORT, conditions))
 						return true;
-					}
 				}
 			}
+		}
+		//______________________new conditions check________________________
+		if (type == Conditions.class || type == DRCConditions.class || type == DUCConditions.class) {
+			for (Span span : conflictReasons) {
+				if (span instanceof DeleteReadConflictReason) {
+					DeleteReadConflictReason drcr = (DeleteReadConflictReason) span;
+					if (iChecker(drcr, edgeNode, type, typedConditions.SHORT, conditions))
+						return true;
+				}
+			}
+		}
+		if (type == Conditions.class || type == DDCConditions.class || type == DUCConditions.class) {
+			for (Span span : conflictReasons) {
+				if (span instanceof DeleteDeleteConflictReason) {
+					DeleteDeleteConflictReason ddcr = (DeleteDeleteConflictReason) span;
+					if (iChecker(ddcr, edgeNode, type, typedConditions.SHORT, conditions))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param conflictReason
+	 */
+	private boolean iChecker(ConflictReason conflictReason, List<Condition> edgeNode, Class<?> type, String shortName, 
+			Condition... conditions) {
+		Set<ModelElement> elements = conflictReason.getDeletionElementsInRule1();
+		// System.out.println(elements);
+		if (!checked.contains(conflictReason.getClass().getSimpleName() +""+ elements) && checkReasons(elements, edgeNode.toArray())) {
+			print("Found " + shortName + ": " + elements + "\twith " + type.getSimpleName() + " " + getContent(conditions));
+			checked += conflictReason.getClass().getSimpleName()+ "" + elements + "\n";
+			iCheckedCounter++;
+			return true;
 		}
 		return false;
 	}
@@ -248,7 +276,7 @@ public class CDATester extends Tester {
 		for (Span span : spans) {
 			if (span instanceof DeleteUseConflictReason) {
 				((DeleteUseConflictReason) span).print();
-			}else{
+			} else {
 				if (span instanceof MinimalConflictReason)
 					type = "MCR";
 				else if (span instanceof ConflictReason)

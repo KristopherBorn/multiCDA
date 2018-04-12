@@ -2,8 +2,9 @@ package org.eclipse.emf.henshin.multicda.cda.tester;
 
 import static org.junit.Assert.assertTrue;
 
-public class Condition {
+public abstract class Condition {
 	protected String[] values;
+
 	protected String name = "Condition";
 
 	public Condition(String... values) {
@@ -18,73 +19,6 @@ public class Condition {
 			if (!elements[i].equals(values[i]))
 				return false;
 		return true;
-	}
-
-	public static class ConflictReasonConditions extends Conditions {
-		public ConflictReasonConditions(Condition... conditions) {
-			super(conditions);
-		}
-	}
-
-	public static class MinimalReasonConditions extends Conditions {
-		public MinimalReasonConditions(Condition... conditions) {
-			super(conditions);
-		}
-	}
-
-	public static class CriticalPairConditions extends Conditions {
-		public CriticalPairConditions(Condition... conditions) {
-			super(conditions);
-		}
-	}
-
-	public static class CriticalPairRightConditions extends Conditions {
-		public CriticalPairRightConditions(Condition... conditions) {
-			super(conditions);
-		}
-	}
-
-	public static class Conditions {
-		private Condition[] conditions;
-
-		public Conditions(Condition... conditions) {
-			this.conditions = conditions;
-		}
-
-		public Condition[] getConditions() {
-			return conditions;
-		}
-
-		@Override
-		public String toString() {
-			String result = "";
-			for (Condition condition : conditions)
-				result += ", " + condition;
-			return getClass().getSimpleName() + ": " + result.substring(2);
-		}
-	}
-
-	public static class Edge extends Condition {
-		public Edge(int a, int b) {
-			this(a + "", b + "");
-		}
-
-		public Edge(String a, String b) {
-			super(a, b);
-			name = "Edge";
-		}
-
-		@Override
-		public boolean proove(Object... elements) {
-			for (Object element : elements) {
-				if (!(element instanceof org.eclipse.emf.henshin.model.Edge))
-					return false;
-				if (!((org.eclipse.emf.henshin.model.Edge) element).getSource().getName().equals(values[0])
-						|| !((org.eclipse.emf.henshin.model.Edge) element).getTarget().getName().equals(values[1]))
-					return false;
-			}
-			return true;
-		}
 	}
 
 	public static class Node extends Condition {
@@ -108,12 +42,97 @@ public class Condition {
 			return true;
 		}
 	}
-
-	private static abstract class ConflictSize extends Condition {
-		public ConflictSize(int value) {
-			this(value + "");
+	
+	public static class Edge extends Condition {
+		public Edge(int a, int b) {
+			this(a + "", b + "");
 		}
 
+		public Edge(String a, String b) {
+			super(a, b);
+			name = "Edge";
+		}
+
+		@Override
+		public boolean proove(Object... elements) {
+			for (Object element : elements) {
+				if (!(element instanceof org.eclipse.emf.henshin.model.Edge))
+					return false;
+				if (!((org.eclipse.emf.henshin.model.Edge) element).getSource().getName().equals(values[0])
+						|| !((org.eclipse.emf.henshin.model.Edge) element).getTarget().getName().equals(values[1]))
+					return false;
+			}
+			return true;
+		}
+	}
+
+	public static class Conditions {
+		private Condition[] conditions;
+		public final String SHORT;
+
+		public Conditions(Condition... conditions) {
+			this.conditions = conditions;
+			SHORT = "";
+		}
+		private Conditions(String shortName, Condition... conditions) {
+			this.conditions = conditions;
+			SHORT = shortName;
+		}
+
+		public Condition[] getConditions() {
+			return conditions;
+		}
+
+		@Override
+		public String toString() {
+			String result = "";
+			for (Condition condition : conditions)
+				result += ", " + condition;
+			return getClass().getSimpleName() + ": " + result.substring(2);
+		}
+	}
+	
+	public static class ConflictReasonConditions extends Conditions {
+		public ConflictReasonConditions(Condition... conditions) {
+			super("CR", conditions);
+		}
+	}
+
+	public static class MinimalReasonConditions extends Conditions {
+		public MinimalReasonConditions(Condition... conditions) {
+			super("MCR", conditions);
+		}
+	}
+
+	public static class CriticalPairConditions extends Conditions {
+		public CriticalPairConditions(Condition... conditions) {
+			super("CP", conditions);
+		}
+	}
+
+	public static class CriticalPairRightConditions extends Conditions {
+		public CriticalPairRightConditions(Condition... conditions) {
+			super("CP right", conditions);
+		}
+	}
+	//__________________new conditions _______________________
+	public static class DUCConditions extends Conditions {
+		public DUCConditions(Condition... conditions) {
+			super("DUCR", conditions);
+		}
+	}
+	public static class DRCConditions extends Conditions {
+		public DRCConditions(Condition... conditions) {
+			super("DRCR", conditions);
+		}
+	}
+	public static class DDCConditions extends Conditions {
+		public DDCConditions(Condition... conditions) {
+			super("DDCR", conditions);
+		}
+	}
+
+	private static abstract class ConflictSize extends Condition {
 		public ConflictSize(String value) {
 			super(value);
 		}

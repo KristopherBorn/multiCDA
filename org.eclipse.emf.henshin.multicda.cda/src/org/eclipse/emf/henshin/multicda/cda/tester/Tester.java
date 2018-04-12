@@ -6,6 +6,9 @@ import java.util.Set;
 
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 
+/**
+ * @author Jevgenij Huebert
+ */
 public class Tester {
 	private Class<?> cl;
 	protected String NAME = "Tester";
@@ -69,8 +72,7 @@ public class Tester {
 	public static String getContent(boolean clazz, Object... objects) {
 		String result = "";
 		for (Object o : objects)
-			result += ", "
-					+ (clazz ? o instanceof Class ? ((Class) o).getSimpleName() : o.getClass().getSimpleName() : o);
+			result += ", " + (clazz ? o instanceof Class ? ((Class<?>) o).getSimpleName() : o.getClass().getSimpleName() : o);
 		return "(" + (result.isEmpty() ? "" : result.substring(2)) + ")";
 	}
 

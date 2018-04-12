@@ -67,7 +67,7 @@ public class CDAOptions {
 		}
 
 		public static int getGranularities(boolean... granularityTypes) {
-			if (granularityTypes.length > 4)
+			if (granularityTypes.length > GranularityType.values().length)
 				return -1;
 			int gType = 0;
 			GranularityType[] granularities = values();
