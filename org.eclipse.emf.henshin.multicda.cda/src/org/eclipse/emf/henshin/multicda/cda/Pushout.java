@@ -42,10 +42,10 @@ public class Pushout {
 	 * @return the resultGraph
 	 */
 	public Graph getResultGraph() {
-		return graph;
+		return getGraph();
 	}
 
-	Graph graph;
+	private Graph graph;
 
 	private HashMap<Node, Node> rule1toPOmap;
 	private HashMap<Node, Node> rule2toPOmap;
@@ -66,7 +66,7 @@ public class Pushout {
 		Graph l1 = rule1.getLhs();
 		Graph l2 = rule2.getLhs();
 
-		graph = preparePushoutGraph(l1);
+		setGraph(preparePushoutGraph(l1));
 		HashMap shadow2Rule2 = prepareShadowPushoutGraph(l2);
 
 		Graph s1 = s1span.getGraph();
@@ -74,10 +74,10 @@ public class Pushout {
 			glue(s1span, new SpanMappings(s1span), node, shadow2Rule2);
 		}
 
-		moveShadowContentsToPushout(graph, shadowGraph);
+		moveShadowContentsToPushout(getGraph(), shadowGraph);
 
 		validatePushout(l1, l2, s1);
-		graph.setName("Pushout");
+		getGraph().setName("Pushout");
 
 	}
 
@@ -173,16 +173,16 @@ public class Pushout {
 
 	private void validatePushout(Graph l1, Graph l2, Graph s1) {
 		int numberOfExpectedNodes = (l1.getNodes().size() + l2.getNodes().size() - s1.getNodes().size());
-		if (graph.getNodes().size() != numberOfExpectedNodes) {
-			System.err.println("Number of nodes in created result graph (" + graph.getNodes().size()
+		if (getGraph().getNodes().size() != numberOfExpectedNodes) {
+			System.err.println("Number of nodes in created result graph (" + getGraph().getNodes().size()
 					+ ") not as expected (" + numberOfExpectedNodes + "). Difference: "
-					+ (graph.getNodes().size() - numberOfExpectedNodes));
+					+ (getGraph().getNodes().size() - numberOfExpectedNodes));
 		}
 		int numberOfExpectedEdges = (l1.getEdges().size() + l2.getEdges().size() - s1.getEdges().size());
-		if (graph.getEdges().size() != numberOfExpectedEdges) {
-			System.err.println("Number of edges in created result graph (" + graph.getEdges().size()
+		if (getGraph().getEdges().size() != numberOfExpectedEdges) {
+			System.err.println("Number of edges in created result graph (" + getGraph().getEdges().size()
 					+ ") not as expected (" + numberOfExpectedEdges + "). Difference: "
-					+ (graph.getEdges().size() - numberOfExpectedEdges));
+					+ (getGraph().getEdges().size() - numberOfExpectedEdges));
 		}
 	}
 
