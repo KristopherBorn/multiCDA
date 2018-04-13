@@ -33,6 +33,7 @@ import org.eclipse.emf.henshin.model.impl.EdgePair;
 import org.eclipse.emf.henshin.model.impl.GraphImpl;
 import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.model.impl.NodePair;
+import org.eclipse.emf.henshin.model.impl.RuleImpl;
 import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.ConflictPushout;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
@@ -150,8 +151,15 @@ public class DeleteUseConflictReasonComputation {
 			if (s != null) {
 				if (!isEmpty(s.getGraph())) {
 					System.out.println("S is not null and not empty:\t" + s);
+					RuleImpl ruleSp1 = new RuleImpl();
+					ruleSp1.setLhs(span1Graph);
+					RuleImpl ruleSp2 = new RuleImpl();
+					ruleSp2.setLhs(span2Graph);
+					s.setRule1(ruleSp1);
+					s.setRule2(ruleSp2);
+//					Pushout spPushout = new Pushout(ruleSp1, s, ruleSp2); TODO VC Span aus s so bauen, dass Pushout funktioniert.
 					ConflictPushout pushout = new ConflictPushout(sp1, s, sp2);
-					Span uniquePushout = computeUniquePushout(pushout, sp2);
+					Span uniquePushout = computeUniquePushoutMorphisms(pushout, sp2); //TODO VC Benennung verbessern
 					Pushout po = new Pushout(rule1, uniquePushout, sp2.getRule1());
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, po.getRule2Mappings())
@@ -170,7 +178,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param intersection2
 	 * @return
 	 */
-	private Span computeUniquePushout(ConflictPushout pushout, Span sp2) {
+	private Span computeUniquePushoutMorphisms(ConflictPushout pushout, Span sp2) {
 		Span uniqueSpan = null;
 		Graph s = pushout.getGraph();
 
@@ -255,6 +263,8 @@ public class DeleteUseConflictReasonComputation {
 			}
 
 		}
+		
+		//TODO VC EdgeMappings
 
 		return uniqMappings;
 	}
@@ -379,8 +389,8 @@ public class DeleteUseConflictReasonComputation {
 		Graph s1Apostrophe = null;
 		System.out.println("Generating compatible Elements S1' for cr1 in cr2");
 		s1Apostrophe = addCompatibleElements(sp1, sp2);
-		Set<Mapping> s1 = new HashSet<Mapping>();
-		Set<Mapping> s2 = new HashSet<Mapping>();
+		Set<Mapping> setMapping1 = new HashSet<Mapping>();
+		Set<Mapping> setMapping2 = new HashSet<Mapping>();
 		Graph sGraph = helper.createGraph("S'");
 		if (s1Apostrophe != null) {
 			System.out.println("Generating compatible Elements S2' for cr2 in cr1");
@@ -402,7 +412,7 @@ public class DeleteUseConflictReasonComputation {
 								System.out.println("node is nodepair:" + nodePair);
 
 								if (checkOriginNodes(node1, node12)) {
-									s1.add(helper.createMapping(node1, node12));
+									setMapping1.add(helper.createMapping(node, node12));
 								}
 							}
 						}
@@ -416,7 +426,7 @@ public class DeleteUseConflictReasonComputation {
 								System.out.println("node is nodepair:" + nodePair);
 								if (checkOriginNodes(node1, node12)) {
 
-									s2.add(helper.createMapping(node1, node12));
+									setMapping2.add(helper.createMapping(node, node12));
 								}
 							}
 						}
@@ -424,7 +434,7 @@ public class DeleteUseConflictReasonComputation {
 				}
 
 				sGraph = sApostroph;
-				s = new Span(s1, sGraph, s2);
+				s = new Span(setMapping1, sGraph, setMapping2);
 
 			} else
 
