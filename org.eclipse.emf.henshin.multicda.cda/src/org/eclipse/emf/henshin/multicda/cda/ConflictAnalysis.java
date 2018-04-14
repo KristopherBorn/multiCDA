@@ -24,7 +24,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private Rule rule2NonDelete;
 	private Rule rule1NonDelete;
 	private ConflictReasonComputation conflictHelper;
-	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
+	private Set<ConflictReason> normalCR = new HashSet<>();
 	private Rule rule2;
 	
 
@@ -43,14 +43,12 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<Span> computeAtoms() {
-		Set<Span> results = new HashSet<Span>();
-		computeConflictAtoms().forEach(r -> results.add(r));
-		return results;
+	public Set<ConflictAtom> computeAtoms() {
+		return new HashSet<ConflictAtom>(computeConflictAtoms());
 	}
 
 	@Override
-	public Span computeResultsBinary() {
+	public ConflictAtom computeResultsBinary() {
 		ConflictAtom result = hasConflicts();
 		if (result == null)
 			return null;
@@ -59,21 +57,14 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<Span> computeResultsCoarse() {
-		Set<Span> results = new HashSet<Span>();
-		computeMinimalConflictReasons().forEach(r -> results.add(r));
-		return results;
+	public Set<MinimalConflictReason> computeResultsCoarse() {
+		return computeMinimalConflictReasons();
 	}
 
 	@Override
-	public Set<Span> computeResultsFine() {
-		Set<Span> results = new HashSet<Span>();
-		Set<Span> conflictReasons = new HashSet<Span>();
-		conflictHelper = new ConflictReasonComputation(rule2, rule1NonDelete);
-		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));
-		computeConflictReasons().forEach(r -> conflictReasons.add(r));
-		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r));
-		return results;
+	public Set<DeleteUseConflictReason> computeResultsFine() {
+		computeConflictReasons();
+		return computeDeleteUseConflictReasons(new ConflictReasonComputation(rule2, rule1NonDelete).computeConflictReasons());
 	}
 
 	public ConflictAtom hasConflicts() {
@@ -112,7 +103,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public Set<ConflictReason> computeConflictReasons() {
-		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
+		normalCR = new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
+		return normalCR;
 	}
 
 	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
@@ -154,8 +146,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
-		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<ConflictReason> DUCR){
+		return new DeleteUseConflictReasonComputation(rule1, rule2, normalCR, DUCR).computeDeleteUseConflictReason();
 
 	}
 

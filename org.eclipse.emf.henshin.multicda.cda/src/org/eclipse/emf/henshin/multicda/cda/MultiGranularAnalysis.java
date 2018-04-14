@@ -6,9 +6,9 @@ public interface MultiGranularAnalysis {
 	
 	
 	public Span computeResultsBinary();
-	public Set<Span> computeResultsCoarse();
-	public Set<Span> computeResultsFine();
+	public Set<? extends Span> computeResultsCoarse();
+	public Set<? extends Span> computeResultsFine();
 	//computeCriticalPairsCpa();
 	
-	public Set<Span> computeAtoms();
+	public Set<? extends Span> computeAtoms();
 }

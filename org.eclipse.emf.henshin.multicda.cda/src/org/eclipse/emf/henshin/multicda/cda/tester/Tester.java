@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 
 /**
@@ -130,12 +131,12 @@ public class Tester {
 		print("Ready");
 	}
 
-	protected boolean checkReasons(Set<?> elements, Object... conditions) {
+	protected boolean checkReasons(Set<ModelElement> elements, Object... conditions) {
 		String checked = "";
 		int index = 0;
 		if (elements.size() != conditions.length)
 			return false;
-		for (Object element : elements) {
+		for (ModelElement element : elements) {
 			boolean found = false;
 			for (Object condition : conditions) {
 				if (!(condition instanceof Condition))

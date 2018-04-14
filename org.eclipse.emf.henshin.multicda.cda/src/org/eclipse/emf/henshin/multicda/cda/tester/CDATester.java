@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.henshin.model.GraphElement;
+import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
@@ -46,10 +48,10 @@ public class CDATester extends Tester {
 	private MultiGranularAnalysis analyser;
 	private Rule first;
 	private Rule second;
-	private Set<Span> minimalReasons;
-	private Set<Span> conflictReasons;
+	private Set<? extends Span> minimalReasons;
+	private Set<? extends Span> conflictReasons;
 	private Set<Span> essentialConflictReasons;
-	private Set<Span> computedAtoms;
+	private Set<? extends Span> computedAtoms;
 	private String checked = "";
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
@@ -173,11 +175,11 @@ public class CDATester extends Tester {
 		System.out.println();
 	}
 
-	public Set<Span> getConflictReasons() {
+	public Set<? extends Span> getConflictReasons() {
 		return conflictReasons;
 	}
 
-	public Set<Span> getMinimalReasons() {
+	public Set<? extends Span> getMinimalReasons() {
 		return minimalReasons;
 	}
 
@@ -254,7 +256,6 @@ public class CDATester extends Tester {
 	private boolean iChecker(ConflictReason conflictReason, List<Condition> edgeNode, Class<?> type, String shortName, 
 			Condition... conditions) {
 		Set<ModelElement> elements = conflictReason.getDeletionElementsInRule1();
-		// System.out.println(elements);
 		if (!checked.contains(conflictReason.getClass().getSimpleName() +""+ elements) && checkReasons(elements, edgeNode.toArray())) {
 			print("Found " + shortName + ": " + elements + "\twith " + type.getSimpleName() + " " + getContent(conditions));
 			checked += conflictReason.getClass().getSimpleName()+ "" + elements + "\n";

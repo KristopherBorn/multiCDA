@@ -53,6 +53,7 @@ public class Pushout {
 	private Graph shadowGraph;
 
 	/**
+	 * Creates Pushout of L1 <-- S1 --> L2 and L1 --> G <-- L2
 	 * @param rule1
 	 * @param s1span
 	 * @param rule2
@@ -79,6 +80,34 @@ public class Pushout {
 		validatePushout(l1, l2, s1);
 		graph.setName("Pushout");
 
+	}
+
+	/**
+	 * Creates Pushout of sp1 <-- Si --> sp2 and sp1 --> S <-- sp2
+	 * @param sp1
+	 * @param Si
+	 * @param sp2
+	 */
+	public Pushout(Span sp1, Span Si, Span sp2) {
+		ConflictAnalysis.checkNull(sp1);
+		ConflictAnalysis.checkNull(Si);
+		ConflictAnalysis.checkNull(sp2);
+
+		Graph s1 = sp1.getGraph();
+		Graph s2 = sp2.getGraph();
+
+		graph = preparePushoutGraph(s1);
+		HashMap shadow2Rule2 = prepareShadowPushoutGraph(s2);
+
+		Graph s = Si.getGraph();
+		for (Node node : s.getNodes()) {
+			glue(Si, new SpanMappings(Si), node, shadow2Rule2);
+		}
+
+		moveShadowContentsToPushout(graph, shadowGraph);
+
+		validatePushout(s1, s2, s);
+		graph.setName("Pushout");
 	}
 
 	@SuppressWarnings("unused")

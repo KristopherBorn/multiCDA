@@ -5,46 +5,29 @@ package org.eclipse.emf.henshin.multicda.cda.computation;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
-import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.model.impl.EdgePair;
-import org.eclipse.emf.henshin.model.impl.GraphImpl;
-import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
-import org.eclipse.emf.henshin.model.impl.NodePair;
-import org.eclipse.emf.henshin.multicda.cda.ConflictAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.ConflictPushout;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
-import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
-import org.hamcrest.core.IsNull;
-
-import com.google.common.base.CaseFormat;
-
-import agg.util.Pair;
-
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 
 /**
  * 
@@ -54,20 +37,14 @@ public class DeleteUseConflictReasonComputation {
 
 	private Rule rule1;
 	private Rule rule2;
-	private Set<Span> conflictReasonsFromR2;
+	private Set<ConflictReason> normalCRs;
+	private Set<ConflictReason> DUCRs;
 
-	private ConflictAnalysis analyser;
 	private Set<Mapping> mapS1ToL1;
-	private ConflictReasonComputation conflictHelper;
 	private Span conflictReason;
 	private Set<Mapping> mapS1ToL2;
-	private String notCompatibleException;
-	private Throwable notCompatible = new Throwable(notCompatibleException);
-	private NotCompatibleException compatibleException = new NotCompatibleException("Juhu! Eine Exception: ",
-			notCompatible);
 	private MinimalReasonComputation helperForCheckDangling;
-	private Span intersection;
-	private HenshinFactoryImpl helper;
+	private HenshinFactory factory = HenshinFactory.eINSTANCE;
 
 	/**
 	 * constructor
@@ -76,10 +53,14 @@ public class DeleteUseConflictReasonComputation {
 	 * @param rule2
 	 * @param conflictReasonsFromR22
 	 */
-	public DeleteUseConflictReasonComputation(Rule rule1, Rule rule2, Set<Span> conflictReasonsFromR2) {
+	public DeleteUseConflictReasonComputation(Rule rule1, Rule rule2, Set<ConflictReason> normalCR,
+			Set<ConflictReason> DUCRs) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
-		this.conflictReasonsFromR2 = conflictReasonsFromR2;
+		this.normalCRs = new HashSet<>();
+		this.normalCRs.add(new ArrayList<>(normalCR).get(3));
+		this.DUCRs = new HashSet<>();
+		this.DUCRs.add(new ArrayList<>(DUCRs).get(1));
 	}
 
 	/**
@@ -88,11 +69,10 @@ public class DeleteUseConflictReasonComputation {
 	 * @param conflictReasons
 	 * @return result
 	 */
-	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason(Set<Span> conflictReasons) {
+	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason() {
 		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
-		for (Span conflictReason : conflictReasons) {
-			computeDeleteUseConflictReasons(conflictReason, result);
-		}
+		for (Span normalCR : normalCRs)
+			computeDeleteUseConflictReasons(normalCR, result);
 		return result;
 
 	}
@@ -100,35 +80,29 @@ public class DeleteUseConflictReasonComputation {
 	/**
 	 * the Method to encounter the delete read conflict reasons
 	 * 
-	 * @param conflictReason
+	 * @param s1
 	 * @param result
 	 */
-	private void computeDeleteUseConflictReasons(Span conflictReason, Set<DeleteUseConflictReason> result) {
-		this.conflictReason = conflictReason;
-		Rule rule1 = conflictReason.getRule1();
-		Rule conflictRule2 = conflictReason.getRule2();
+	private void computeDeleteUseConflictReasons(Span s1, Set<DeleteUseConflictReason> result) {
+		this.conflictReason = s1;
+		Rule rule1 = s1.getRule1();
+		Rule conflictRule2 = s1.getRule2();
 		helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
 
-		if (findEmbeddingS1toK2(conflictReason, rule2)) {// If (there exists
-															// embedding
-			// S1 to K2 with S1 to K2 to
-			// L2 = mappingsInRule2) {
-
-			Pushout pushout = new Pushout(rule1, conflictReason, conflictRule2);
+		if (findEmbeddingS1toK2(s1, rule2)) {
+			Pushout pushout = new Pushout(rule1, s1, conflictRule2);
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(conflictRule2, pushout.getRule2Mappings())
-							.isEmpty()) { // fullfillDanglingG(pushout)
-				DeleteUseConflictReason res = new DeleteUseConflictReason(conflictReason);
+							.isEmpty()) {
+				DeleteReadConflictReason res = new DeleteReadConflictReason(s1);
 				result.add(res);
 			}
 		} else {
-			// System.out.println("noEmbeddingS1ToK2");
-			mapS1ToL1 = conflictReason.mappingsInRule1;
-			mapS1ToL2 = conflictReason.mappingsInRule2;
-			Span DeleteDeleteSet = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
-			// If DD(s1) is nonEmpty
-			// Then For each pair s2 in DD(s1):
-			// Add (s1,s2) to DDCR
+			mapS1ToL1 = s1.mappingsInRule1;
+			mapS1ToL2 = s1.mappingsInRule2;
+			Set<Span> ddSet = ConstructDeleteDeleteSet(rule1, rule2, s1);
+			for (Span s2 : ddSet)
+				result.add(new DeleteDeleteConflictReason(s1, s2));
 		}
 	}
 
@@ -138,52 +112,46 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Span ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
-		Span span1 = new Span(sp1);
-		Pair<Span, Span> ddSet;
-		for (Span sp2 : conflictReasonsFromR2) {
-			Span span2 = new Span(sp2);
-			Graph span1Graph = span1.getGraph();
-			Graph span2Graph = span2.getGraph();
-			Span s = compatibleSpans(sp1, sp2, span1Graph, span2Graph);
-			if (s != null) {
-				if (!isEmpty(s.getGraph())) {
-					System.out.println("S is not null and not empty:\t" + s);
-					ConflictPushout pushout = new ConflictPushout(sp1, s, sp2);
-					Span uniquePushout = computeUniquePushout(pushout, intersection);
+	private Set<Span> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
+		Set<Span> s2Set = new HashSet<>();
+		for (Span sp2 : DUCRs) {
+			Span Si = compatibleSpans(sp1, sp2);
+			if (Si != null) {
+				if (!isEmpty(Si.getGraph())) {
+					Pushout pushout = new Pushout(sp1, Si, sp2);
+					Span uniquePushout = computeUniquePushout(pushout);
 					Pushout po = new Pushout(rule1, uniquePushout, rule2);
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, po.getRule2Mappings())
-									.isEmpty()) { // fullfillDanglingG(pushout)
-						// Hier muss noch was rein
+									.isEmpty()) {
+						s2Set.add(sp2);
 					}
 				}
 			}
 		}
-		return null;
+		return s2Set;
 	}
 
 	/**
 	 * @param pushout
-	 * @param intersection2
 	 * @return
 	 */
-	private Span computeUniquePushout(ConflictPushout pushout, Span intersection) {
+	private Span computeUniquePushout(Pushout pushout) { //TODO Unique Pushout reparieren... funzt wahrscheinlich nicht
 		Span uniqueSpan = null;
-		Graph s = pushout.getGraph();
+//		Graph s = pushout.getGraph();
+//
+//		Graph lhs1 = rule1.getLhs();
+//		Graph lhs2 = rule2.getLhs();
+//
+//		Set<Mapping> mappingsInL1 = uniqueMapping(pushout, lhs1); // S --x-->
+//																	// LHS1
+//		Set<Mapping> mappingsInL2 = uniqueMapping(pushout, lhs2); // S --x-->
+		// LHS2
 
-		Graph lhs1 = rule1.getLhs();
-		Graph lhs2 = rule2.getLhs();
+//		uniqueSpan = new Span(mappingsInL1, s, mappingsInL2);
+//		uniqueSpan.setRule1(rule1);
+//		uniqueSpan.setRule2(rule2);
 
-		Set<Mapping> mappingsInL1 = uniqueMapping(pushout, lhs1); // S --x-->
-																	// LHS1
-		Set<Mapping> mappingsInL2 = uniqueMapping(pushout, lhs2); // S --x-->
-																	// LHS2
-
-		uniqueSpan = new Span(mappingsInL1, s, mappingsInL2);
-		uniqueSpan.setRule1(rule1);
-		uniqueSpan.setRule2(rule2);
-		
 		return uniqueSpan;
 	}
 
@@ -196,7 +164,7 @@ public class DeleteUseConflictReasonComputation {
 
 		Set<Mapping> uniqMappings = new HashSet<Mapping>(); // Das ist unser x =
 															// S --x--> LHS
-		// Durch pushout existiert S' -- a --> S1 -- c --> S schon.
+															// Durch pushout existiert S' -- a --> S1 -- c --> S schon.
 		Graph s = pushout.getGraph();
 		Span sap = pushout.getSap();
 		Graph sapGraph = sap.getGraph();
@@ -245,16 +213,15 @@ public class DeleteUseConflictReasonComputation {
 			}
 			if (mappingIntoSpan1 != null) {
 				Node image = s1.getMappingIntoRule1(mappingIntoSpan1).getImage();
-				Mapping createMapping = helper.createMapping(node, image);
+				Mapping createMapping = factory.createMapping(node, image);
 				uniqMappings.add(createMapping);
 			} else {
 				if (mappingIntoSpan2 != null) {
 					Node image = s2.getMappingIntoRule1(mappingIntoSpan2).getImage();
-					Mapping createMapping = helper.createMapping(node, image);
+					Mapping createMapping = factory.createMapping(node, image);
 					uniqMappings.add(createMapping);
 				}
 			}
-			
 
 		}
 
@@ -304,64 +271,21 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Span compatibleSpans(Span sp1, Span sp2, Graph span1Graph, Graph span2Graph) {
-		helper = new HenshinFactoryImpl();
-		Graph sApostroph = null;
-		Span s = null;
-		Graph s2Apostrophe = null;
-		Graph s1Apostrophe = null;
-		System.out.println("Generating compatible Elements S1' for cr1 in cr2");
-		s1Apostrophe = addCompatibleElements(sp1, sp2);
-		Set<Mapping> s1 = new HashSet<Mapping>();
-		Set<Mapping> s2 = new HashSet<Mapping>();
-		Graph sGraph = helper.createGraph("S'");
-		if (s1Apostrophe != null) {
-			System.out.println("Generating compatible Elements S2' for cr2 in cr1");
-			s2Apostrophe = addCompatibleElements(sp2, sp1);
-			if (s2Apostrophe != null) {
-				System.out.println("Generating intersection S' for S1' and S2'");
-				intersection = intersection(s1Apostrophe, s2Apostrophe, sp1, sp2);
-				sApostroph = intersection.getGraph();
-				if (sApostroph != null) {
-					System.out.println("S' is not null");
-					for (Node node : sApostroph.getNodes()) {
-						System.out.println("For " + node + " find mapping into cr1");
-						for (Node s1Node : s1Apostrophe.getNodes()) {
-							NodePair s1NodePair = (NodePair) s1Node;
-							if (node instanceof NodePair) {
-								NodePair nodePair = (NodePair) node;
-								Node node1 = nodePair.getNode1();
-								Node node12 = s1NodePair.getNode1();
-								System.out.println("node is nodepair:" + nodePair);
+	private Span compatibleSpans(Span sp1, Span sp2) {
+		Span s1i = null;
+		Span s2i = null;
+		Span si = null;
 
-								if (checkOriginNodes(node1, node12)) {
-									s1.add(helper.createMapping(node1, node12));
-								}
-							}
-						}
-						System.out.println("For " + node + "find mapping into cr2");
-						for (Node s2Node : s2Apostrophe.getNodes()) {
-							NodePair s2NodePair = (NodePair) s2Node;
-							if (node instanceof NodePair) {
-								NodePair nodePair = (NodePair) node;
-								Node node1 = nodePair.getNode2();
-								Node node12 = s2NodePair.getNode1();
-								System.out.println("node is nodepair:" + nodePair);
-								if (checkOriginNodes(node1, node12)) {
-
-									s2.add(helper.createMapping(node1, node12));
-								}
-							}
-						}
-					}
+		s1i = addCompatibleElements(sp1, sp2);
+		if (s1i != null) {
+			s2i = addCompatibleElements(sp2, sp1);
+			if (s2i != null) {
+				si = intersection(s1i, s2i);
+				if (si != null) {
+					si.setRule1(sp1.getRule1());
+					si.setRule2(sp1.getRule2());
 				}
-
-				sGraph = sApostroph;
-				s = new Span(s1, sGraph, s2);
-
-			} else
-
-			{
+			} else {
 				return null;
 			}
 		} else
@@ -370,83 +294,42 @@ public class DeleteUseConflictReasonComputation {
 			return null;
 		}
 
-		return s;
+		return si;
 	}
 
 	/**
-	 * @param s1Apostrophe
-	 * @param s2Apostrophe
+	 * @param S1i
+	 * @param S2i
 	 *            intersection ist die Überschneidung der beiden Graphen
 	 * @param sp2
 	 * @param sp1
 	 * @return
 	 */
-	private Span intersection(Graph s1Apostrophe, Graph s2Apostrophe, Span sp1, Span sp2) {
+	private Span intersection(Span S1i, Span S2i) {
+		Graph Si = factory.createGraph("S'");
+		Set<Mapping> rule1Mappings = new HashSet<>();
+		Set<Mapping> rule2Mappings = new HashSet<>();
+		Map<Node, Node> nodes = new HashMap<>();
 
-		HenshinFactoryImpl henshinFactoryImpl = helper;
-		Graph fromS1 = henshinFactoryImpl.createGraph("S1<-S1'->S2");
-		Graph fromS2 = henshinFactoryImpl.createGraph("S1<-S2'->S2");
-		Graph result = henshinFactoryImpl.createGraph("S'");
-
-		EList<Node> s1Nodes = s1Apostrophe.getNodes();
-		EList<Edge> s1Edges = s1Apostrophe.getEdges();
-		EList<Node> s2Nodes = s2Apostrophe.getNodes();
-		EList<Edge> s2Edges = s2Apostrophe.getEdges();
-
-		Set<Mapping> span1Mappings = new HashSet<Mapping>();
-		Set<Mapping> rule2Mappings = new HashSet<Mapping>();
-
-		for (Node node : s1Nodes) {
-			NodePair nodePair = (NodePair) node;
-			for (Node node2 : s2Nodes) {
-				NodePair nodePair2 = (NodePair) node2;
-				Node node11 = nodePair.getNode1();
-				Node node21 = nodePair2.getNode1();
-				Node node22 = nodePair2.getNode2();
-				System.out.println("NodePair: " + node11.toString() + " : " + node21.toString());
-				System.out.println(
-						"NodePair: " + nodePair2.getNode1().toString() + " : " + nodePair2.getNode2().toString());
-
-				if (checkOriginNodes(node11, node21)) {
-					NodePair e = new NodePair(node11, node21);
-					result.getNodes().add(e);
-					Mapping createMapping = henshinFactoryImpl.createMapping(e, node11);
-					span1Mappings.add(createMapping);
-					Mapping createMapping2 = henshinFactoryImpl.createMapping(e, node22);
-					rule2Mappings.add(createMapping2);
+		for (Node n1 : S1i.getGraph().getNodes())
+			for (Node n2 : S2i.getGraph().getNodes())
+				if (Span.nodeEqual(n1.getName(), n2.getName())) {
+					rule1Mappings.add(factory.createMapping(n1, S1i.getMappingIntoRule1(n1).getImage()));
+					rule1Mappings.add(factory.createMapping(n1, S2i.getMappingIntoRule1(n2).getImage()));
+					rule2Mappings.add(factory.createMapping(n1, S1i.getMappingIntoRule2(n1).getImage()));
+					rule2Mappings.add(factory.createMapping(n1, S2i.getMappingIntoRule2(n2).getImage()));
+					nodes.put(n1, factory.createNode(Si, n1.getType(), n1.getName()));
+					break;
 				}
-
-			}
-		}
-
-		// for (Edge edge : s1Edges) {
-		// EdgePair edgePair = (EdgePair) edge;
-		// for (Edge edge2 : s2Edges) {
-		// EdgePair edgePair2 = (EdgePair) edge2;
-		// if
-		// (edgePair.getEdge1().toString().equals(edgePair.getEdge2().toString())
-		// &&
-		// edgePair2.getEdge1().toString().equals(edgePair2.getEdge2().toString()))
-		// {
-		// if
-		// (edgePair.getEdge1().toString().equals(edgePair2.getEdge1().toString()))
-		// {
-		// result.getEdges().add(new EdgePair(edgePair.getEdge1(),
-		// edgePair.getEdge2()));
-		// }
-		//
-		// }
-		//
-		// }
-		// }
-
-		System.out.println("Intersection");
-
-		Span span = new Span(span1Mappings, result, rule2Mappings);
-
-		// Todo Checken ob Edges Target und Source stimmen?
-		return span;
-
+		for (Edge e1 : S1i.getGraph().getEdges())
+			for (Edge e2 : S2i.getGraph().getEdges())
+				if (Span.nodeEqual(e1.getSource().getName(), e2.getSource().getName())
+						&& Span.nodeEqual(e1.getTarget().getName(), e2.getTarget().getName())) {
+					Node source = nodes.get(e1.getSource());
+					Node target = nodes.get(e1.getTarget());
+					Si.getEdges().add(factory.createEdge(source, target, e1.getType()));
+				}
+		return nodes.isEmpty() ? null : new Span(rule1Mappings, Si, rule2Mappings);
 	}
 
 	/**
@@ -455,46 +338,73 @@ public class DeleteUseConflictReasonComputation {
 	 * @param s1Apostrophe
 	 * @return
 	 */
-	private Graph addCompatibleElements(Span sp1, Span sp2) {
-		Graph s1Apostrophe = helper.createGraph();
-		EList<Node> s1Nodes = sp1.getGraph().getNodes();
-		// EList<Edge> s1Edges = sp1.getGraph().getEdges();
-		// System.out.println(s1Nodes + " : " + s1Edges);
-		// System.out.println(s2Nodes + " : " + s2Edges);
-		EList<GraphElement> allObjectsS1 = new BasicEList<GraphElement>();
-		s1Nodes.forEach(n -> allObjectsS1.add(n));
-		// s1Edges.forEach(e -> allObjectsS1.add(e));
-		for (GraphElement x : allObjectsS1) {
-			// System.out.println("----------------Suche nach Kompatiblem
-			// Element für:\t" + x);
+	private Span addCompatibleElements(Span sp1, Span sp2) {
+		Graph Si = factory.createGraph("S'");
+		EList<GraphElement> s1 = new BasicEList<>(sp1.getGraph().getNodes());
+		s1.addAll(sp1.getGraph().getEdges());
+
+		Set<Mapping> mappingsR1 = new HashSet<>();
+		Set<Mapping> mappingsR2 = new HashSet<>();
+
+		for (GraphElement ge : s1) {
 			try {
-				GraphElement y = existCompatibleElement(x, sp1, sp2);
-
-				if (y != null) {
-					if (x instanceof Node) {
-						NodePair nodePair = new NodePair((Node) x, (Node) y);
-						s1Apostrophe.getNodes().add((NodePair) nodePair);
-					}
-					// if (x instanceof Edge) {
-					// EdgePair edgePair = new EdgePair((Edge) x, (Edge) y);
-					// NodePair source = new NodePair(((Edge) x).getSource(),
-					// ((Edge) y).getSource());
-					// NodePair target = new NodePair(((Edge) x).getTarget(),
-					// ((Edge) y).getTarget());
-					// edgePair.setTarget(target);
-					// edgePair.setSource(source);
-					// System.out.println("EdgePair: " + edgePair);
-					// s1Apostrophe.getEdges().add((EdgePair) edgePair);
-					// }
-
+				if (ge instanceof Node) {
+					Node x = (Node) ge;
+					Node y = existCompatibleElement(x, sp1, sp2);
+					if (y != null)
+						addNodeToGraph(x, y, Si, mappingsR1, mappingsR2);
+				} else {
+					Edge x = (Edge) ge;
+					Edge y = existCompatibleElement(x, sp1, sp2);
+					if (y != null)
+						addEdgeToGraph(x, y, Si);
 				}
 
 			} catch (NotCompatibleException e) {
 				System.out.println(e.getMessage() + e.getCause());
-				s1Apostrophe = null;
+				Si = null;
 			}
 		}
-		return s1Apostrophe;
+		return new Span(mappingsR1, Si, mappingsR2);
+	}
+
+	private Edge addEdgeToGraph(Edge edge1, Edge edge2, Graph graph) {
+		if (edge1.getType() == edge2.getType()) {
+			Node source = graph.getNode(edge1.getSource().getName() + "<>" + edge2.getSource().getName());
+			Node target = graph.getNode(edge1.getTarget().getName() + "<>" + edge2.getTarget().getName());
+			if (source == null || target == null) {
+				source = graph.getNode(edge1.getSource().getName() + "--" + edge2.getSource().getName());
+				target = graph.getNode(edge1.getTarget().getName() + "--" + edge2.getTarget().getName());
+				if (source == null || target == null)
+					return null;
+			}
+			Edge edge = factory.createEdge(source, target, edge1.getType());
+			return edge;
+		}
+		return null;
+	}
+
+	private Node addNodeToGraph(Node node1, Node node2, Graph graph, Set<Mapping> rule1Mappings,
+			Set<Mapping> rule2Mappings) {
+		EClass subNodeType = identifySubNodeType(node1, node2);
+		String space = "<>";
+		if (node1.getName().contains("<>") || node2.getName().contains("<>"))
+			space = "--";
+		Node commonNode = factory.createNode(graph, subNodeType, node1.getName() + space + node2.getName());
+
+		rule1Mappings.add(factory.createMapping(commonNode, node1));
+		rule2Mappings.add(factory.createMapping(commonNode, node2));
+		return commonNode;
+	}
+
+	private EClass identifySubNodeType(Node node1, Node node2) {
+		if (node1.getType().equals(node2.getType()))
+			return node1.getType();
+		if (node1.getType().getEAllSuperTypes().contains(node2.getType()))
+			return node1.getType();
+		if (node2.getType().getEAllSuperTypes().contains(node1.getType()))
+			return node2.getType();
+		return null;
 	}
 
 	/**
@@ -505,107 +415,49 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 * @throws Exception
 	 */
-	private GraphElement existCompatibleElement(GraphElement x, Span sp1, Span sp2) throws NotCompatibleException {
-		EList<GraphElement> allObjectsS1 = new BasicEList<GraphElement>();
-		EList<GraphElement> allObjectsS2 = new BasicEList<GraphElement>();
-		EList<Node> s1Nodes = sp1.getGraph().getNodes();
-		EList<Edge> s1Edges = sp1.getGraph().getEdges();
-		EList<Node> s2Nodes = sp2.getGraph().getNodes();
-		EList<Edge> s2Edges = sp2.getGraph().getEdges();
-		s1Nodes.forEach(n -> allObjectsS1.add(n));
-		s1Edges.forEach(e -> allObjectsS1.add(e));
-		s2Nodes.forEach(n -> allObjectsS2.add(n));
-		s2Edges.forEach(e -> allObjectsS2.add(e));
-		if (allObjectsS1.contains(x)) {
-			// System.out.println(x + "\t is there!");
-			// System.out.println("S2: " + allObjectsS2);
-			for (GraphElement y : allObjectsS2) {
-				// System.out.println("Checking for:\t" + y);
-				if (x.equals(y)) {
-					System.out.println("x equals y!");
-				}
-				if (checkEqualityMapping(x, y, sp1)) {
-					if (checkEqualityMapping(x, y, sp2)) { // If s12(x) = s22(y)
-															// L1 <-s21- S2
-															// -s22-> L2
-						// System.out.println(checkEqualityMapping(x, y, sp2));
-						return y;
-					} else {
-						throw compatibleException;
-					}
-				}
+	private <GE extends GraphElement> GE existCompatibleElement(GE x, Span sp1, Span sp2)
+			throws NotCompatibleException {
+		EList<GraphElement> sp1Elements = new BasicEList<>(sp1.getGraph().getNodes());
+		sp1Elements.addAll(sp1.getGraph().getEdges());
 
-			}
+		EList<GraphElement> sp2Elements = new BasicEList<>(sp2.getGraph().getNodes());
+		sp2Elements.addAll(sp2.getGraph().getEdges());
+
+		if (sp1Elements.contains(x)) {
+			for (GraphElement y : sp2Elements)
+				if (checkEqualityMapping(x, y, sp1, sp2))
+					return (GE) y;
 			return null;
 		} else {
-			throw compatibleException;
+			throw new NotCompatibleException();
 		}
 
 	}
 
 	/**
-	 * @param x
-	 * @param y
+	 * @param a
+	 * @param b
 	 * @param sp
 	 * @return
 	 */
-	private boolean checkEqualityMapping(GraphElement x, GraphElement y, Span sp) {
-		// If s11(x) = s21(y) L1 <-s11- S1 -s12-> L2
-		System.out.println("Checking:\t" + x + " ?= " + y);
-		if (x instanceof Node && y instanceof Node) {
-
-			// System.out.println("checkEqualityMapping(x): " + x);
-			// System.out.println("checkEqualityMapping(y): " + y);
-			// System.out.println("sp.getMappingsInRule1(): " +
-			// sp.getMappingsInRule1());
-			// System.out.println("sp.getMappingsInRule2(): " +
-			// sp.getMappingsInRule2());
-			// Mapping s1 = sp.getMappingIntoRule1((Node) x);
-			Node n1 = (Node) x;
-			Mapping s1 = getMappingInRule(n1, sp.mappingsInRule1);
-			// Mapping s2 = sp.getMappingIntoRule2((Node) y);
-			Node n2 = (Node) y;
-			Mapping s2 = getMappingInRule(n2, sp.mappingsInRule2);
-			// System.out.println("sp.getMappingIntoRule1((Node) x): " + s1);
-			// System.out.println("sp.getMappingIntoRule1((Node) y): " + s2);
-
-			try {
-				if (checkOriginNodes(s1.getOrigin(), s2.getOrigin())) {
-					System.out.println("true");
+	private boolean checkEqualityMapping(GraphElement a, GraphElement b, Span sp1, Span sp2) {
+		if (a instanceof Node && b instanceof Node) {
+			Node x = sp1.getMappingIntoRule1((Node) a).getImage();
+			Node y = sp2.getMappingIntoRule2((Node) b).getImage();
+			if (x.getName().equals(y.getName()) && x.getType() == y.getType()) {
+				x = sp1.getMappingIntoRule2((Node) a).getImage();
+				y = sp2.getMappingIntoRule1((Node) b).getImage();
+				if (x.getName().equals(y.getName()) && x.getType() == y.getType())
 					return true;
-				} else {
-					System.out.println("false");
-					return false;
-
-				}
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-				return false;
 			}
+		} else if (a instanceof Edge && b instanceof Edge) {
+			Edge x = (Edge) a;
+			Edge y = (Edge) b;
+			if (checkEqualityMapping(x.getSource(), y.getSource(), sp1, sp2)
+					&& checkEqualityMapping(x.getTarget(), y.getTarget(), sp1, sp2))
+				return true;
 		}
-		// if (x instanceof Edge && y instanceof Edge) {
-		// Edge e1 = (Edge) x;
-		// Edge e2 = (Edge) y;
-		// try {
-		// if (e1.getSource().toString().equals(e2.getSource().toString())) {
-		// if
-		// (e1.getTarget().toString().contentEquals(e2.getTarget().toString()))
-		// {
-		// return true;
-		// } else {
-		// return false;
-		// }
-		// } else {
-		// return false;
-		// }
-		// } catch (NullPointerException e) {
-		// e.printStackTrace();
-		// return false;
-		// }
-		//
-		// }
 		return false;
-
 	}
 
 	/**
@@ -640,86 +492,75 @@ public class DeleteUseConflictReasonComputation {
 	 * match of S1 to lhs of rule 2
 	 * 
 	 * @param conflictReason
-	 * @param rule
+	 * @param rule2
 	 * @return boolean
 	 */
-	public static boolean findEmbeddingS1toK2(Span conflictReason, Rule rule) {
-		// Rule rule2 = conflictReason.getRule2();
+	public static boolean findEmbeddingS1toK2(Span conflictReason, Rule rule2) {
 		Graph s1 = conflictReason.getGraph();
-		Graph l2 = rule.getLhs();
-		Action preserve = new Action(Action.Type.PRESERVE);
-		// Get preserve Nodes of rule 2
-		EList<Node> k2nodes = rule.getActionNodes(preserve);
-		EList<Edge> k2Edges = rule.getActionEdges(preserve);
-		// System.out.println("findEmbeddingS1toK2, k2edges: " + k2Edges);
-		EList<Edge> l2Edges = conflictReason.getRule2().getActionEdges(preserve);
-		// System.out.println("findEmbeddingS1toK2, l2edges: " + l2Edges);
+		EList<Node> l2N = new BasicEList<>(rule2.getActionNodes(new Action(Action.Type.PRESERVE)));
+		EList<Edge> l2E = new BasicEList<>(rule2.getActionEdges(new Action(Action.Type.PRESERVE)));
 
-		// S1 -> K2
-		ArrayList<Mapping> s1tok2 = computeMappings(s1.getNodes(), k2nodes);
-		// S1 -> L2
-		ArrayList<Mapping> s1tol2 = computeMappings(s1.getNodes(), l2.getNodes());
+		ArrayList<Mapping> s1tol2 = computeMappings(s1, l2N, l2E);
 
-		// Comparator to define sorting of Mappings
-		// TODO: Push to MappingImpl?
-		Comparator<Mapping> comp = new Comparator<Mapping>() {
-
-			@Override
-			public int compare(Mapping o1, Mapping o2) {
-				String o1Origin = o1.getOrigin().getName();
-				String o2Origin = o2.getOrigin().getName();
-				String o1Image = o1.getImage().getName();
-				String o2Image = o2.getImage().getName();
-				int origins = o1Origin.compareTo(o2Origin);
-				if (origins == 0) {
-					return o1Image.compareTo(o2Image);
-				}
-				return origins;
-			}
-		};
-
-		// System.out.println("vor sortiertung: " + s1tok2);
-		s1tok2.sort(comp);
-		// System.out.println("nach sortierung: " + s1tok2);
-		// System.out.println("vor sortiertung: " + s1tol2);
-		s1tol2.sort(comp);
-		// System.out.println("nach sortierung: " + s1tol2);
-
-		if (s1tok2.toString().equals(s1tol2.toString())) {
-			if (k2Edges.toString().equals(l2Edges.toString())) {
-				return true;
-			}
-		}
-		return false;
+		return !s1tol2.isEmpty();
 
 	}
 
 	/**
 	 * computes Mappings of two ELists of Nodes our of two Graphs
 	 * 
-	 * @param graphNodes1
-	 * @param graphNodes2
+	 * @param g1
+	 * @param g2
 	 * @return
 	 */
-	private static ArrayList<Mapping> computeMappings(EList<Node> graphNodes1, EList<Node> graphNodes2) {
-		HenshinFactory helper = HenshinFactory.eINSTANCE; // wird zur
-																	// Erstellung
-																	// der
-																	// Mappings
-																	// benötigt
+	private static ArrayList<Mapping> computeMappings(Graph g1, EList<Node> g2N, EList<Edge> g2E) {
+		HenshinFactory helper = HenshinFactory.eINSTANCE;
 		ArrayList<Mapping> G1toG2 = new ArrayList<Mapping>();
 
-		for (Node origin : graphNodes1) { // Alle Knoten in S1 sollen auf alle
-											// Knoten in L1 gemappt werden
-			for (Node image : graphNodes2) {
-				if (origin.getType() == image.getType()) { // Nur wenn Typen
-															// gleich sind.
-					Mapping mapping = helper.createMapping(origin, image);
-					G1toG2.add(mapping);
+		for (Node first : g1.getNodes()) {
+			boolean found = false;
+			for (Node second : g2N) {
+				String[] names = first.getName().split("_");
+				if (first.getType() == second.getType())
+					if (names[0].equals(second.getName()) || names[1].equals(second.getName())) {
+						Mapping mapping = helper.createMapping(first, second);
+						G1toG2.add(mapping);
+						found = true;
+						break;
+					}
+			}
+			if (!found)
+				return new ArrayList<>();
+		}
+		Set<Edge> visited = new HashSet<>();
+		for (Edge first : g1.getEdges()) {
+			boolean found = false;
+			for (Edge second : g2E) {
+				String[] namesSource = first.getSource().getName().split("_");
+				String[] namesTarget = first.getTarget().getName().split("_");
+				if ((namesSource[0].equals(second.getSource().getName())
+						|| namesSource[1].equals(second.getSource().getName()))
+						&& (namesTarget[0].equals(second.getTarget().getName())
+								|| namesTarget[1].equals(second.getTarget().getName()))
+						&& visited.add(second)) {
+					found = true;
+					break;
 				}
 			}
+			if (!found)
+				return new ArrayList<>();
+
 		}
 		return G1toG2;
+	}
+
+	public static class NotCompatibleException extends Exception {
+		private static final long serialVersionUID = 3555111140711032351L;
+
+		public NotCompatibleException() {
+			super("Ein Fehler bei der Delete Use Conflict Reason berechnung ist aufgetaucht.");
+		}
+
 	}
 
 }

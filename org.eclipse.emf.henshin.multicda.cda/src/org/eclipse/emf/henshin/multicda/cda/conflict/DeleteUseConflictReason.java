@@ -8,7 +8,7 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 /**
  * @author vincentcuccu 23.02.2018
  */
-public class DeleteUseConflictReason extends ConflictReason {
+public abstract class DeleteUseConflictReason extends ConflictReason {
 
 	/**
 	 * @param s1
