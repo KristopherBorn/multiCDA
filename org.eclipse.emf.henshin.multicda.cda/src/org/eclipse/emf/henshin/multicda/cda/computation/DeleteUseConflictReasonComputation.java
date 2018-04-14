@@ -631,7 +631,7 @@ public class DeleteUseConflictReasonComputation {
 		Action preserve = new Action(Action.Type.PRESERVE);
 		EList<Node> k2nodes = rule.getActionNodes(preserve);
 		EList<Edge> k2Edges = rule.getActionEdges(preserve);
-		EList<Edge> l2Edges = conflictReason.getRule2().getActionEdges(preserve);
+		EList<Edge> l2Edges = rule.getActionEdges(preserve);
 
 		// S1 -> K2
 		ArrayList<Mapping> s1tok2 = computeMappings(s1.getNodes(), k2nodes);
@@ -657,6 +657,9 @@ public class DeleteUseConflictReasonComputation {
 
 		s1tok2.sort(comp);
 		s1tol2.sort(comp);
+		System.out.println(s1tok2);
+		System.out.println(s1tol2);
+
 
 		if (s1tok2.toString().equals(s1tol2.toString())) {
 			if (k2Edges.toString().equals(l2Edges.toString())) {
