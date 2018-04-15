@@ -88,7 +88,7 @@ public class DeleteUseConflictReasonComputation {
 	private void computeDeleteUseConflictReasons(Span conflictReason, Set<DeleteUseConflictReason> result) {
 		Rule conflictRule2 = conflictReason.getRule2();
 
-		if (findEmbeddingS1toK2(conflictReason, conflictRule2)) {
+		if (findEmbeddingS1toK2(conflictReason, rule2)) {
 			Pushout pushout = new Pushout(rule1, conflictReason, conflictRule2);
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(conflictRule2, pushout.getRule2Mappings())
@@ -632,7 +632,8 @@ public class DeleteUseConflictReasonComputation {
 
 		Map<GraphElement, GraphElement> s1tol2 = computeMappings(s1, l2N, l2E);
 
-		return !s1tol2.isEmpty();
+		boolean empty = s1tol2.isEmpty();
+		return !empty;
 
 	}
 
@@ -663,8 +664,12 @@ public class DeleteUseConflictReasonComputation {
 		}
 		for (Edge edge : s1.getEdges()) {
 			for (Edge edge2 : l2e) {
-				if (result.get(edge.getSource()).equals(edge2.getSource())
-						&& result.get(edge.getTarget()).equals(edge2.getTarget())) {
+				Node source = edge.getSource();
+				Node source2 = edge2.getSource();
+				Node target = edge.getTarget();
+				Node target2 = edge2.getTarget();
+				if (result.get(source).equals(source2)
+						&& result.get(target).equals(target2)) {
 					result.put(edge, edge2);
 				}
 			}
