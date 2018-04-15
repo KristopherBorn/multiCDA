@@ -13,6 +13,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature.Internal.SettingDelegate.Factory;
+import org.eclipse.emf.ecore.EStructuralFeature.Internal.SettingDelegate.Factory.Descriptor;
+import org.eclipse.emf.ecore.impl.EReferenceImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -44,7 +48,7 @@ public class DeleteUseConflictReasonComputation {
 	private Throwable notCompatible = new Throwable(notCompatibleException);
 	private NotCompatibleException compatibleException = new NotCompatibleException("Not compatible!", notCompatible);
 	private MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
-	private HenshinFactoryImpl helper = new HenshinFactoryImpl();
+	private static HenshinFactoryImpl helper = new HenshinFactoryImpl();
 
 	/**
 	 * constructor
@@ -613,10 +617,18 @@ public class DeleteUseConflictReasonComputation {
 		for (Node node : s1.getNodes()) {
 			EClass nType = node.getType();
 			String nName = node.getName();
+//			if (nName == null){
+//				nName  = "noName";
+//			}
 			String[] split = nName.split("_");
 			String searchName = split[1];
 			for (Node node2 : l2n) {
-				if (node2.getName().equals(searchName) && node2.getType().equals(nType)) {
+				String name = node2.getName();
+				EClass type = node2.getType();
+//				if (name == null){
+//					name = "noName";
+//				}
+				if (name.equals(searchName) && type.equals(nType)) {
 					result.put(node, node2);
 				}
 			}

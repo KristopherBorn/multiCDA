@@ -5,8 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.Mapping;
+import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.ConflictReasonComputation;
@@ -26,7 +30,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private ConflictReasonComputation conflictHelper;
 	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
 	private Rule rule2;
-	
 
 	/**
 	 * @param rule1
@@ -35,11 +38,41 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public ConflictAnalysis(Rule rule1, Rule rule2) {
 		checkNull(rule1);
 		checkNull(rule2);
-			this.rule1 = rule1;
-			this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
-			this.rule2 = rule2;
-			this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
-			
+		checkUnnamedNodes(rule1);
+		checkUnnamedNodes(rule2);
+		this.rule1 = rule1;
+		this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
+		this.rule2 = rule2;
+		this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
+
+	}
+
+	/**
+	 * @param rule
+	 */
+	private void checkUnnamedNodes(Rule rule) {
+		int counter = 0;
+		Graph lhs = rule.getLhs();
+		Graph rhs = rule.getRhs();
+		String newName = "" + counter;
+		for (Node lhsNode : lhs.getNodes()) {
+			String name = lhsNode.getName();
+			newName = "Node" + counter;
+			if (name == null) {
+				for (Node rhsNode : rhs.getNodes()) {
+						lhsNode.setName(newName);
+					}
+			}
+			counter += 1;
+		}
+		for (Node rhsNode : rhs.getNodes()) {
+			String name = rhsNode.getName();
+			if (name == null) {
+				rhsNode.setName(newName);
+				counter += 1;
+			}
+		}
+
 	}
 
 	@Override
@@ -89,7 +122,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		List<Span> candidates = new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 		for (Span candidate : candidates) {
 			Set<MinimalConflictReason> minimalConflictReasons = new HashSet<>();
-			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate, minimalConflictReasons);
+			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate,
+					minimalConflictReasons);
 
 			minimalConflictReasons.addAll(minimalConflictReasons);
 			if (!minimalConflictReasons.isEmpty()) {
@@ -154,8 +188,9 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
-		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons) {
+		return new DeleteUseConflictReasonComputation(rule1, rule2, conflictReasonsFromR2)
+				.computeDeleteUseConflictReason(conflictReasons);
 
 	}
 
