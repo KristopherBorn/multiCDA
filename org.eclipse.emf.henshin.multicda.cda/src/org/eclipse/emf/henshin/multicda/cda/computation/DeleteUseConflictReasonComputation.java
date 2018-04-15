@@ -3,8 +3,6 @@
  */
 package org.eclipse.emf.henshin.multicda.cda.computation;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,14 +11,12 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.Reflect.Helper;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.GraphElement;
-import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
@@ -28,7 +24,6 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.model.impl.RuleImpl;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
-import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 
 /**
@@ -142,21 +137,15 @@ public class DeleteUseConflictReasonComputation {
 	private Span computeUniquePushoutMorphisms(Rule rule1, Pushout pushout, Rule rule2, Span sap, Span sp1, Span sp2) {
 		Span uniqueSpan = null;
 		Graph pushoutGraph = pushout.getResultGraph();
-
 		boolean vorraussetzung = extracted(sap, sp1, sp2);
-
 		if (vorraussetzung) {
 			return null;
 		}
-
 		Set<Mapping> mappingsInL1 = uniqueMappingtoRule(pushout, rule1, sap, sp1, sp2);
-
 		Set<Mapping> mappingsInL2 = uniqueMappingtoRule(pushout, rule2, sap, sp2, sp1);
-
 		uniqueSpan = new Span(mappingsInL1, pushoutGraph, mappingsInL2);
 		uniqueSpan.setRule1(rule1);
 		uniqueSpan.setRule2(rule2);
-
 		return uniqueSpan;
 	}
 
@@ -170,7 +159,6 @@ public class DeleteUseConflictReasonComputation {
 	 */
 	private Set<Mapping> uniqueMappingtoRule(Pushout pushout, Rule rule, Span sap, Span sp1, Span sp2) {
 		HashSet<Mapping> result = new HashSet<Mapping>();
-
 		Graph pushoutGraph = pushout.getResultGraph();
 		List<Mapping> s1ToS = pushout.getRule1Mappings();
 		List<Mapping> s2ToS = pushout.getRule2Mappings();
@@ -180,7 +168,6 @@ public class DeleteUseConflictReasonComputation {
 		EList<Edge> edges = pushoutGraph.getEdges();
 		nodes.forEach(n -> elements.add(n));
 		edges.forEach(e -> elements.add(e));
-
 		for (GraphElement s : elements) {
 			if (s instanceof Node) {
 				Node node = (Node) s;
@@ -212,7 +199,6 @@ public class DeleteUseConflictReasonComputation {
 							}
 						}
 					}
-
 				} else if (d != null) {
 					Node s2Element = d.getOrigin();
 					Mapping f = null;
@@ -340,20 +326,13 @@ public class DeleteUseConflictReasonComputation {
 					intersection.setRule1(ruleSp1);
 					intersection.setRule2(ruleSp2);
 					return intersection;
-
 				}
-
-			} else
-
-			{
+			} else {
 				return null;
 			}
-		} else
-
-		{
+		} else {
 			return null;
 		}
-
 		return s;
 	}
 
@@ -388,10 +367,8 @@ public class DeleteUseConflictReasonComputation {
 					Mapping createMapping2 = helper.createMapping(newNode, image);
 					mappingsIntoSpan2.add(createMapping2);
 				}
-
 			}
 		}
-
 		for (Edge e1 : s1Edges) {
 			for (Edge e2 : s2Edges) {
 				Node source1 = e1.getSource();
@@ -437,7 +414,6 @@ public class DeleteUseConflictReasonComputation {
 		s1Edges.forEach(e -> allObjectsS1.add(e));
 		Set<Mapping> mappingsIntoSpan1 = new HashSet<Mapping>();
 		Set<Mapping> mappingsIntoSpan2 = new HashSet<Mapping>();
-
 		for (GraphElement x : allObjectsS1) {
 			try {
 				GraphElement y = existCompatibleElement(x, sp1, sp2);
@@ -452,7 +428,6 @@ public class DeleteUseConflictReasonComputation {
 						Mapping createMapping2 = helper.createMapping(newNode, yNode);
 						mappingsIntoSpan1.add(createMapping);
 						mappingsIntoSpan2.add(createMapping2);
-
 					}
 					if (x instanceof Edge) {
 						Edge xEdge = (Edge) x;
@@ -479,15 +454,12 @@ public class DeleteUseConflictReasonComputation {
 							helper.createEdge(source, target, type);
 						}
 					}
-
 				}
-
 			} catch (NotCompatibleException e) {
 				System.out.println(e.getMessage() + e.getCause());
 				compatibleGraph = null;
 			}
 		}
-
 		Span comSpan = new Span(mappingsIntoSpan1, compatibleGraph, mappingsIntoSpan2);
 		return comSpan;
 	}
@@ -512,7 +484,6 @@ public class DeleteUseConflictReasonComputation {
 		s2Nodes.forEach(n -> allObjectsS2.add(n));
 		s2Edges.forEach(e -> allObjectsS2.add(e));
 		if (allObjectsS1.contains(x)) {
-
 			for (GraphElement y : allObjectsS2) {
 				if (checkEquality(x, y, sp1)) {
 					if (checkEquality(x, y, sp2)) {
@@ -521,13 +492,11 @@ public class DeleteUseConflictReasonComputation {
 						throw compatibleException;
 					}
 				}
-
 			}
 			return null;
 		} else {
 			throw compatibleException;
 		}
-
 	}
 
 	/**
@@ -566,15 +535,12 @@ public class DeleteUseConflictReasonComputation {
 	}
 
 	private boolean checkEdges(Edge e1, Edge e2, String regex) {
-
 		EReference e1Type = e1.getType();
 		Node e1Source = e1.getSource();
 		Node e1target = e1.getTarget();
-
 		EReference e2Type = e2.getType();
 		Node e2Source = e2.getSource();
 		Node e2target = e2.getTarget();
-
 		if (!e1Type.equals(e2Type)) {
 			return false;
 		}
@@ -584,9 +550,7 @@ public class DeleteUseConflictReasonComputation {
 		if (!checkOriginNodes(e1target, e2target, regex)) {
 			return false;
 		}
-
 		return true;
-
 	}
 
 	/**
@@ -629,21 +593,16 @@ public class DeleteUseConflictReasonComputation {
 		Action action = new Action(Action.Type.PRESERVE);
 		EList<Node> l2N = rule2.getActionNodes(action);
 		EList<Edge> l2E = rule2.getActionEdges(action);
-
 		Map<GraphElement, GraphElement> s1tol2 = computeMappings(s1, l2N, l2E);
-
 		boolean empty = s1tol2.isEmpty();
 		return !empty;
-
 	}
 
 	/**
 	 * computes Mappings of two ELists of Nodes our of two Graphs
-	 * 
 	 * @param l2e
 	 * @param l2n
 	 * @param s1
-	 * 
 	 * @param conflictReason
 	 * @param k
 	 * @return
@@ -668,14 +627,11 @@ public class DeleteUseConflictReasonComputation {
 				Node source2 = edge2.getSource();
 				Node target = edge.getTarget();
 				Node target2 = edge2.getTarget();
-				if (result.get(source).equals(source2)
-						&& result.get(target).equals(target2)) {
+				if (result.get(source).equals(source2) && result.get(target).equals(target2)) {
 					result.put(edge, edge2);
 				}
 			}
 		}
-
 		return result;
 	}
-
 }
