@@ -13,7 +13,7 @@ public class DeleteReadConflictReason extends DeleteUseConflictReason{
 	 * @param s1
 	 */
 	public DeleteReadConflictReason(Span s1) {
-		super(s1, "DRCR");
+		super(s1);
 	}
 
 }

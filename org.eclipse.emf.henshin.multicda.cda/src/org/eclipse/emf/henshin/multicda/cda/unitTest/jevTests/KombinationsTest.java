@@ -7,7 +7,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.CPATester;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CP;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
-import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DUCR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
 import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
@@ -29,7 +29,7 @@ public class KombinationsTest {
 
 		CDATester tester = new CDATester(path, "decapsulateAttribute");
 		assertTrue("Minimal Conflict Reasons are not 2", tester.check(new MCR(2)));
-		assertTrue("Initial Conflict Reasons are not 3", tester.check(new DUCR(3)));
+		assertTrue("Initial Conflict Reasons are not 3", tester.check(new CR(3)));
 		assertTrue(_1 + " not found", tester.check(_1));
 		assertTrue(_2 + " not found", tester.check(_2));
 		assertTrue(_3 + " not found", tester.check(_3));
@@ -58,7 +58,7 @@ public class KombinationsTest {
 
 		CDATester tester = new CDATester(path, "decapsulateAttribute", "pullUpEncapsulatedAttribute");
 		assertTrue("Minimal Conflict Reasons are not 2", tester.check(new MCR(2)));
-		assertTrue("Initial Conflict Reasons are not 3", tester.check(new DUCR(3)));
+		assertTrue("Initial Conflict Reasons are not 3", tester.check(new CR(3)));
 		assertTrue(_1 + " not found", tester.check(_1));
 		assertTrue(_2 + " not found", tester.check(_2));
 		assertTrue(_3 + " not found", tester.check(_3));
@@ -91,7 +91,7 @@ public class KombinationsTest {
 
 		CDATester tester = new CDATester(path, "pullUpEncapsulatedAttribute");
 		assertTrue("Minimal Conflict Reasons are not 5", tester.check(new MCR(5)));
-		assertTrue("Initial Conflict Reasons are not 7", tester.check(new DUCR(13))); // 13
+		assertTrue("Initial Conflict Reasons are not 7", tester.check(new CR(13))); // 13
 		assertTrue(_1 + " not found", tester.check(_1));
 		assertTrue(_2 + " not found", tester.check(_2));
 		assertTrue(_3 + " not found", tester.check(_3));
@@ -127,7 +127,7 @@ public class KombinationsTest {
 
 		CDATester tester = new CDATester(path, "pullUpEncapsulatedAttribute", "decapsulateAttribute");
 		assertTrue("Minimal Conflict Reasons are not 5", tester.check(new MCR(5)));
-		assertTrue("Initial Conflict Reasons are not 13", tester.check(new DUCR(13)));
+		assertTrue("Initial Conflict Reasons are not 13", tester.check(new CR(13)));
 		assertTrue(_1 + " not found", tester.check(_1));
 		assertTrue(_2 + " not found", tester.check(_2));
 		assertTrue(_3 + " not found", tester.check(_3));

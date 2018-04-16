@@ -64,7 +64,8 @@ public class FindDanglingEdgesTest {
 		Pushout pushoutResult = new Pushout(decapsulateAttributeRule, span,
 				pullUpEncapsulatedAttributeRule);
 
-		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesOfRule1(pushoutResult.getRule1Mappings());
+		List<Edge> findDanglingEdges = atomicCoreCPA.findDanglingEdgesOfRule1(
+				pushoutResult.getRule1Mappings());
 
 		assertEquals(2, findDanglingEdges.size());
 

@@ -7,7 +7,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.CPATester;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CP;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ECR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ICP;
-import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DUCR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
 //import org.eclipse.emf.henshin.cpa.atomic.tester.Condition.MinimalConditions;
@@ -28,7 +28,7 @@ public class LoopsTest {
 
 	public void A() {
 
-		DUCR _1 = new DUCR(7);
+		CR _1 = new CR(7);
 		CDATester tester = new CDATester(path, loop3, new Options(true, false, true, true));
 		assertTrue(_1 + " not correct", tester.check(_1));
 

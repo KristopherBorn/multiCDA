@@ -8,25 +8,26 @@ import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 
+
 /**
  * A helper data structure for making the querying of span mappings
  * more readable and faster.
- * 
  * @author strueber
  *
  */
 public class SpanMappings {
 	public Span span;
-
+	
+	
 	public HashMap<Node, Node> rule1ToS1;
 	public HashMap<Node, Node> s1ToRule1;
 	public HashMap<Node, Node> rule2ToS1;
 	public HashMap<Node, Node> s1ToRule2;
-
+	
 	private Map<Edge, Edge> edgesS1Rule1;
 	private Map<Edge, Edge> edgesS1Rule2;
 	private Map<Edge, Edge> edgesRule1S1;
-	private Map<Edge, Edge> edgesRule2S1;
+	private Map<Edge, Edge> edgesRule2S1;	
 
 	public SpanMappings(Span span) {
 		this.span = span;
@@ -43,7 +44,7 @@ public class SpanMappings {
 			rule2ToS1.put(mapping.getImage(), mapping.getOrigin());
 		}
 	}
-
+	
 	public Map<Edge, Edge> getEdgeMappingsS1Rule1() {
 		if (edgesS1Rule1 == null)
 			computeEdgeMappings();
@@ -61,7 +62,7 @@ public class SpanMappings {
 			computeEdgeMappings();
 		return edgesRule1S1;
 	}
-
+	
 	public Map<Edge, Edge> getEdgeMappingsRule2S1() {
 		if (edgesRule2S1 == null)
 			computeEdgeMappings();
@@ -69,10 +70,10 @@ public class SpanMappings {
 	}
 
 	public void computeEdgeMappings() {
-		edgesS1Rule1 = new HashMap<Edge, Edge>();
-		edgesRule1S1 = new HashMap<Edge, Edge>();
+		 edgesS1Rule1 = new HashMap<Edge, Edge>();
+		 edgesRule1S1 = new HashMap<Edge, Edge>();
 		EList<Edge> edges = span.getGraph().getEdges();
-		for (Edge edgeS1 : edges) {
+		for (Edge edgeS1  : edges) {
 			Node sourceRule1 = s1ToRule1.get(edgeS1.getSource());
 			Node targetRule1 = s1ToRule1.get(edgeS1.getTarget());
 			Edge counterpart = null;
@@ -84,12 +85,12 @@ public class SpanMappings {
 				edgesS1Rule1.put(edgeS1, counterpart);
 				edgesRule1S1.put(counterpart, edgeS1);
 			}
-
+			
 		}
 
 		edgesS1Rule2 = new HashMap<Edge, Edge>();
 		edgesRule2S1 = new HashMap<Edge, Edge>();
-		for (Edge eSpan : edges) {
+		for (Edge eSpan  : edges) {
 			Node sourceRule2 = s1ToRule2.get(eSpan.getSource());
 			Node targetRule2 = s1ToRule2.get(eSpan.getTarget());
 			Edge counterpart = null;

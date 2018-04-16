@@ -32,66 +32,6 @@ public class Span {
 
 	public Graph graph;
 
-	private Copier copierForSpanAndMappings;
-
-	public Span(Span s1) {
-		// copy Graph and mappings!
-		// Copier
-		copierForSpanAndMappings = new Copier();
-		// copy of graph
-		Graph copiedGraph = (Graph) copierForSpanAndMappings.copy(s1.getGraph());
-		copierForSpanAndMappings.copyReferences();
-		this.graph = copiedGraph;
-
-		// extract to method
-		Set<Mapping> mappingsInRule1 = new HashSet<Mapping>();
-		for (Mapping mapping : s1.getMappingsInRule1()) {
-			Mapping copiedMapping = (Mapping) copierForSpanAndMappings.copy(mapping);
-			copierForSpanAndMappings.copyReferences();
-			mappingsInRule1.add(copiedMapping);
-		}
-		this.mappingsInRule1 = mappingsInRule1;
-
-		Set<Mapping> mappingsInRule2 = new HashSet<Mapping>();
-		for (Mapping mapping : s1.getMappingsInRule2()) {
-			Mapping copiedMapping = (Mapping) copierForSpanAndMappings.copy(mapping);
-			copierForSpanAndMappings.copyReferences();
-			mappingsInRule2.add(copiedMapping);
-		}
-		this.mappingsInRule2 = mappingsInRule2;
-
-		this.setRule1(getRuleOfMappings(mappingsInRule1));
-		this.setRule2(getRuleOfMappings(mappingsInRule2));
-	}
-
-	public Span(Span extSpan, Node origin, Node image) {
-		this(extSpan);
-		Node transformedOrigin = (Node) copierForSpanAndMappings.get(origin);
-
-		Mapping r2Mapping = henshinFactory.createMapping(transformedOrigin, image);
-		mappingsInRule2.add(r2Mapping);
-	}
-
-	public Span(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
-		this.graph = s1;
-		mappingsInRule1 = new HashSet<Mapping>();
-		mappingsInRule1.add(nodeInRule1Mapping);
-		mappingsInRule2 = new HashSet<Mapping>();
-		mappingsInRule2.add(nodeInRule2Mapping);
-	}
-
-	public Span(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
-		this.mappingsInRule1 = rule1Mappings; //wie verh�lt es sich mit einem leeren Graph, bzw. leeren mappngs?
-		this.mappingsInRule2 = rule2Mappings;
-		this.graph = s1;
-		this.setRule1(getRuleOfMappings(rule1Mappings)); // might return null. Needs to be improved. if rules are not set NPE might occure. 
-		this.setRule2(getRuleOfMappings(rule2Mappings));
-	}
-
-	public Graph getGraph() {
-		return graph;
-	}
-
 	/**
 	 * @return the rule1
 	 */
@@ -106,180 +46,7 @@ public class Span {
 		return rule2;
 	}
 
-	public void setRule1(Rule rule1) {
-		this.rule1 = rule1;
-	}
-
-	public void setRule2(Rule rule2) {
-		this.rule2 = rule2;
-	}
-
-	/**
-	 * @return the mappingsInRule1
-	 */
-	public Set<Mapping> getMappingsInRule1() {
-		return mappingsInRule1;
-	}
-
-	/**
-	 * @return the mappingsInRule2
-	 */
-	public Set<Mapping> getMappingsInRule2() {
-		return mappingsInRule2;
-	}
-
-	public Mapping getMappingFromGraphToRule2(Node imageNode) {
-		for (Mapping mappingInRule2 : mappingsInRule2) {
-			if (mappingInRule2.getImage() == imageNode)
-				return mappingInRule2;
-		}
-		return null;
-	}
-
-	public Mapping getMappingFromGraphToRule1(Node imageNode) {
-		for (Mapping mappingInRule1 : mappingsInRule1) {
-			if (mappingInRule1.getImage() == imageNode)
-				return mappingInRule1;
-		}
-		return null;
-	}
-
-	public Mapping getMappingIntoRule1(Node originNode) {
-		for (Mapping mapping : mappingsInRule1) {
-			if (mapping.getOrigin().getType() == originNode.getType()
-					&& nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
-				return mapping;
-		}
-		return null;
-	}
-
-	public Mapping getMappingIntoRule2(Node originNode) {
-		for (Mapping mapping : mappingsInRule2) {
-			if (mapping.getOrigin().getType() == originNode.getType()
-					&& nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
-				return mapping;
-		}
-		return null;
-	}
-
-	public static boolean nodeContains(Node n1, Node n2) {
-		return nodeContains(n1.getName(), n2.getName());
-	}
-
-	public static boolean nodeContains(String n1, String n2) {
-		String[] ns1 = n1.split("<>|--|_");
-		String[] ns2 = n2.split("<>|--|_");
-		for(String n : ns1)
-			for(String m : ns2)
-				if(n.equals(m))
-					return true;
-		return false;
-	}
-
-	public static boolean nodeEqual(Node n1, Node n2) {
-		return nodeEqual(n1.getName(), n2.getName());
-	}
-
-	public static boolean nodeEqual(String n1, String n2) {
-		String[] ns1 = n1.split("--");
-		String[] ns2 = n2.split("--");
-		if (ns1.length != ns2.length)
-			return false;
-		if (ns1.length == 2)
-			return nodeEqual(ns1[0], ns2[0]) && nodeEqual(ns1[1], ns2[1])
-					|| nodeEqual(ns1[1], ns2[0]) && nodeEqual(ns1[0], ns2[1]);
-		else if (ns1.length == 1) {
-			ns1 = n1.split("<>");
-			ns2 = n2.split("<>");
-			if (ns1.length != ns2.length)
-				return false;
-			if (ns1.length == 2)
-				return nodeEqual(ns1[0], ns2[0]) && nodeEqual(ns1[1], ns2[1])
-						|| nodeEqual(ns1[1], ns2[0]) && nodeEqual(ns1[0], ns2[1]);
-			else {
-				ns1 = n1.split("_");
-				ns2 = n2.split("_");
-				if (ns1.length != ns2.length)
-					return false;
-				if (ns1.length == 1)
-					return n1.equals(n2);
-				return nodeEqual(ns1[0], ns2[0]) && nodeEqual(ns1[1], ns2[1])
-						|| nodeEqual(ns1[1], ns2[0]) && nodeEqual(ns1[0], ns2[1]);
-			}
-		}
-		return false;
-	}
-
-	public boolean validate(Rule rule1, Rule rule2) {
-		return validate(rule1, rule2, rule1, rule2);
-	}
-	public boolean validate(Rule rule1, Rule rule2, Rule rule1NoneDelete, Rule rule2NoneDelete) {
-		if (mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
-			return false;
-		for (Node node : graph.getNodes()) {
-			Mapping mappingIntoRule1 = getMappingIntoRule1(node);
-			if (mappingIntoRule1.getImage() == null)
-				return false;
-			Node imageInRule1 = mappingIntoRule1.getImage();
-			if (imageInRule1.eContainer() != rule1.getLhs() && imageInRule1.eContainer() != rule1NoneDelete.getLhs())
-				return false;
-			Mapping mappingIntoRule2 = getMappingIntoRule2(node);
-			if (mappingIntoRule2.getImage() == null)
-				return false;
-			Node imageInRule2 = mappingIntoRule2.getImage();
-			if (imageInRule2.eContainer() != rule2.getLhs() && imageInRule2.eContainer() != rule2NoneDelete.getLhs())
-				return false;
-
-		}
-		return true;
-	}
-
-	/**
-	 * @param graph
-	 * @return
-	 */
-	public EPackage graphToEPackage() {
-		Set<String> added = new HashSet<String>();
-		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
-		result.setName(getRule1().getName() + "_" + getRule2().getName());
-		result.setNsURI("http://cdapackage/" + getRule1().getName() + "/" + getRule2().getName() + "/"
-				+ getClass().getSimpleName());
-		result.setNsPrefix("CDAPackage");
-		EList<EClassifier> classifiers = result.getEClassifiers();
-
-		for (Node node : graph.getNodes()) {
-			EClass n = getClassifier(node);
-			added.add(n.getName());
-			result.getEClassifiers().add(n);
-		}
-
-		for (Edge edge : graph.getEdges()) {
-			EClass s = getClassifier(edge.getSource());
-			EClass t = getClassifier(edge.getTarget());
-
-			if (!added.contains(s.getName())) {
-				classifiers.add(s);
-				added.add(s.getName());
-			} else
-				s = (EClass) result.getEClassifier(s.getName());
-			if (!added.contains(t.getName())) {
-				classifiers.add(t);
-				added.add(t.getName());
-			} else
-				t = (EClass) result.getEClassifier(t.getName());
-
-			EReference ref = EcoreFactory.eINSTANCE.createEReference();
-			ref.setName(edge.getType().getName());
-			if (!getRule1().getRhs().getEdges().contains(edge)) {
-				ref.setName("#" + ref.getName() + "#");
-			}
-			ref.setEType(t);
-			s.getEStructuralFeatures().add(ref);
-
-		}
-
-		return result;
-	}
+	private Copier copierForSpanAndMappings;
 
 	// Scheint derzeit ncoh �berfl�ssig zu sein!
 	/*
@@ -319,17 +86,48 @@ public class Span {
 		return "Span [" + sB.toString() + "]";
 	}
 
+	// e.g.  1,11->2,13:methods
+	private Object shortStringInfoOfGraphEdge(Edge edge) {
+		StringBuilder sB = new StringBuilder();
+		Node src = edge.getSource();
+		Node tgt = edge.getTarget();
+		sB.append(getMappingIntoRule1(src).getImage().getName());
+		sB.append(",");
+		sB.append(getMappingIntoRule2(src).getImage().getName());
+		sB.append("->");
+		sB.append(getMappingIntoRule1(tgt).getImage().getName());
+		sB.append(",");
+		sB.append(getMappingIntoRule2(tgt).getImage().getName());
+		sB.append(":");
+		sB.append(edge.getType().getName());
+		return sB.toString();
+	}
+
+	// e.g.: 2,3:Method
+	private String shortStringInfoOfGraphNode(Node node) {
+		StringBuilder sB = new StringBuilder();
+		Mapping mappingIntoRule1 = getMappingIntoRule1(node);
+		Mapping mappingIntoRule2 = getMappingIntoRule2(node);
+		sB.append(mappingIntoRule1.getImage().getName());
+		sB.append(",");
+		sB.append(mappingIntoRule2.getImage().getName());
+		sB.append(":");
+		sB.append(node.getType().getName());
+		return sB.toString();
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Span))
-			return false;
 		Span other = (Span) obj;
+
 		if (this == obj)
 			return true;
 		if (graph == null || other.graph == null)
+			return false;
+		if (!(obj instanceof Span))
 			return false;
 		if (graph.getNodes().size() != other.getGraph().getNodes().size())
 			return false;
@@ -376,6 +174,44 @@ public class Span {
 	}
 
 	/**
+	 * @return the mappingsInRule1
+	 */
+	public Set<Mapping> getMappingsInRule1() {
+		return mappingsInRule1;
+	}
+
+	/**
+	 * @return the mappingsInRule2
+	 */
+	public Set<Mapping> getMappingsInRule2() {
+		return mappingsInRule2;
+	}
+
+	public Span(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
+		this.graph = s1;
+		mappingsInRule1 = new HashSet<Mapping>();
+		mappingsInRule1.add(nodeInRule1Mapping);
+		mappingsInRule2 = new HashSet<Mapping>();
+		mappingsInRule2.add(nodeInRule2Mapping);
+	}
+
+	public Mapping getMappingFromGraphToRule2(Node imageNode) {
+		for (Mapping mappingInRule2 : mappingsInRule2) {
+			if (mappingInRule2.getImage() == imageNode)
+				return mappingInRule2;
+		}
+		return null;
+	}
+
+	public Mapping getMappingFromGraphToRule1(Node imageNode) {
+		for (Mapping mappingInRule1 : mappingsInRule1) {
+			if (mappingInRule1.getImage() == imageNode)
+				return mappingInRule1;
+		}
+		return null;
+	}
+
+	/**
 	 * returns the kernel rule of the first mapping or <code>null</code> if the set <code>mappings</code> is empty.
 	 * 
 	 * @param mappings
@@ -390,6 +226,93 @@ public class Span {
 		return null;
 	}
 
+	public Span(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
+		this.mappingsInRule1 = rule1Mappings; //wie verh�lt es sich mit einem leeren Graph, bzw. leeren mappngs?
+		this.mappingsInRule2 = rule2Mappings;
+		this.graph = s1;
+		this.setRule1(getRuleOfMappings(rule1Mappings)); // might return null. Needs to be improved. if rules are not set NPE might occure. 
+		this.setRule2(getRuleOfMappings(rule2Mappings));
+	}
+
+	public Span(Span s1) {
+		// copy Graph and mappings!
+		// Copier
+		copierForSpanAndMappings = new Copier();
+		// copy of graph
+		Graph copiedGraph = (Graph) copierForSpanAndMappings.copy(s1.getGraph());
+		copierForSpanAndMappings.copyReferences();
+		this.graph = copiedGraph;
+
+		// extract to method
+		Set<Mapping> mappingsInRule1 = new HashSet<Mapping>();
+		for (Mapping mapping : s1.getMappingsInRule1()) {
+			Mapping copiedMapping = (Mapping) copierForSpanAndMappings.copy(mapping);
+			copierForSpanAndMappings.copyReferences();
+			mappingsInRule1.add(copiedMapping);
+		}
+		this.mappingsInRule1 = mappingsInRule1;
+
+		Set<Mapping> mappingsInRule2 = new HashSet<Mapping>();
+		for (Mapping mapping : s1.getMappingsInRule2()) {
+			Mapping copiedMapping = (Mapping) copierForSpanAndMappings.copy(mapping);
+			copierForSpanAndMappings.copyReferences();
+			mappingsInRule2.add(copiedMapping);
+		}
+		this.mappingsInRule2 = mappingsInRule2;
+
+		this.setRule1(getRuleOfMappings(mappingsInRule1));
+		this.setRule2(getRuleOfMappings(mappingsInRule2));
+	}
+
+	public Span(Span extSpan, Node origin, Node image) {
+		this(extSpan);
+		Node transformedOrigin = (Node) copierForSpanAndMappings.get(origin);
+
+		Mapping r2Mapping = henshinFactory.createMapping(transformedOrigin, image);
+		mappingsInRule2.add(r2Mapping);
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public Mapping getMappingIntoRule1(Node originNode) {
+		for (Mapping mapping : mappingsInRule1) {
+			if (mapping.getOrigin().equals(originNode))
+				return mapping;
+		}
+		return null;
+	}
+
+	public Mapping getMappingIntoRule2(Node originNode) {
+		for (Mapping mapping : mappingsInRule2) {
+			if (mapping.getOrigin().equals(originNode))
+				return mapping;
+		}
+		return null;
+	}
+
+	public boolean validate(Rule rule1, Rule rule2) {
+		if (mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
+			return false;
+		for (Node node : graph.getNodes()) {
+			Mapping mappingIntoRule1 = getMappingIntoRule1(node);
+			if (mappingIntoRule1.getImage() == null)
+				return false;
+			Node imageInRule1 = mappingIntoRule1.getImage();
+			if (imageInRule1.eContainer() != rule1.getLhs())
+				return false;
+			Mapping mappingIntoRule2 = getMappingIntoRule2(node);
+			if (mappingIntoRule2.getImage() == null)
+				return false;
+			Node imageInRule2 = mappingIntoRule2.getImage();
+			if (imageInRule2.eContainer() != rule2.getLhs())
+				return false;
+
+		}
+		return true;
+	}
+
 	private Map<Node, Node> getPairedNodes(Span conflictReason, SpanMappings spanMap) {
 		Map<Node, Node> result = new HashMap<Node, Node>();
 		for (Node n1 : spanMap.s1ToRule1.keySet()) {
@@ -398,34 +321,51 @@ public class Span {
 		return result;
 	}
 
-	// e.g.  1,11->2,13:methods
-	private Object shortStringInfoOfGraphEdge(Edge edge) {
-		StringBuilder sB = new StringBuilder();
-		Node src = edge.getSource();
-		Node tgt = edge.getTarget();
-		sB.append(getMappingIntoRule1(src).getImage().getName());
-		sB.append(",");
-		sB.append(getMappingIntoRule2(src).getImage().getName());
-		sB.append("->");
-		sB.append(getMappingIntoRule1(tgt).getImage().getName());
-		sB.append(",");
-		sB.append(getMappingIntoRule2(tgt).getImage().getName());
-		sB.append(":");
-		sB.append(edge.getType().getName());
-		return sB.toString();
-	}
+	/**
+	 * @param graph
+	 * @return
+	 */
+	public EPackage graphToEPackage() {
+		Set<String> added = new HashSet<String>();
+		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
+		result.setName(getRule1().getName() + "_" + getRule2().getName());
+		result.setNsURI(
+				"http://cdapackage/" + getRule1().getName() + "/" + getRule2().getName() + "/" + getClass().getSimpleName());
+		result.setNsPrefix("CDAPackage");
+		EList<EClassifier> classifiers = result.getEClassifiers();
 
-	// e.g.: 2,3:Method
-	private String shortStringInfoOfGraphNode(Node node) {
-		StringBuilder sB = new StringBuilder();
-		Mapping mappingIntoRule1 = getMappingIntoRule1(node);
-		Mapping mappingIntoRule2 = getMappingIntoRule2(node);
-		sB.append(mappingIntoRule1.getImage().getName());
-		sB.append(",");
-		sB.append(mappingIntoRule2.getImage().getName());
-		sB.append(":");
-		sB.append(node.getType().getName());
-		return sB.toString();
+		for (Node node : graph.getNodes()) {
+			EClass n = getClassifier(node);
+			added.add(n.getName());
+			result.getEClassifiers().add(n);
+		}
+
+		for (Edge edge : graph.getEdges()) {
+			EClass s = getClassifier(edge.getSource());
+			EClass t = getClassifier(edge.getTarget());
+
+			if (!added.contains(s.getName())) {
+				classifiers.add(s);
+				added.add(s.getName());
+			} else
+				s = (EClass) result.getEClassifier(s.getName());
+			if (!added.contains(t.getName())) {
+				classifiers.add(t);
+				added.add(t.getName());
+			} else
+				t = (EClass) result.getEClassifier(t.getName());
+
+			EReference ref = EcoreFactory.eINSTANCE.createEReference();
+			ref.setName(edge.getType().getName());
+			if (!getRule1().getRhs().getEdges().contains(edge)) {
+				ref.setName("#" + ref.getName() + "#");
+			}
+			ref.setEType(t);
+			s.getEStructuralFeatures().add(ref);
+
+		}
+
+		return result;
 	}
 
 	private EClass getClassifier(Node node) {
@@ -437,6 +377,14 @@ public class Span {
 		if (image.getAction().getType() == Type.DELETE)
 			eclass.setName("#" + eclass.getName() + "#");
 		return eclass;
+	}
+
+	public void setRule1(Rule rule1) {
+		this.rule1 = rule1;
+	}
+
+	public void setRule2(Rule rule2) {
+		this.rule2 = rule2;
 	}
 
 }

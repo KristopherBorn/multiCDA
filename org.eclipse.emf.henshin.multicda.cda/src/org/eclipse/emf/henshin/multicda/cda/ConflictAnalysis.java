@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.model.Node;
+import org.eclipse.emf.henshin.model.Graph;
+import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.ConflictReasonComputation;
@@ -13,6 +14,7 @@ import org.eclipse.emf.henshin.multicda.cda.computation.DeleteUseConflictReasonC
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
@@ -22,8 +24,9 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private Rule rule2NonDelete;
 	private Rule rule1NonDelete;
 	private ConflictReasonComputation conflictHelper;
-	private Set<ConflictReason> normalCR = new HashSet<>();
+	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
 	private Rule rule2;
+	
 
 	/**
 	 * @param rule1
@@ -32,40 +35,22 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public ConflictAnalysis(Rule rule1, Rule rule2) {
 		checkNull(rule1);
 		checkNull(rule2);
-		this.rule1 = rule1;
-		this.rule2 = rule2;
-		prepare();
-		this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
-		this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
-		
-	}
-
-	/**
-	 * @param rule12
-	 */
-	private int count = 0;
-	private void prepare() {
-		for(Node n: rule1.getLhs().getNodes())
-			if(n.getName()==null)
-				n.setName("|" + count++  + "|");
-		for(Node n: rule1.getRhs().getNodes())
-			if(n.getName()==null)
-				n.setName("|" + count++  + "|");
-		for(Node n: rule2.getLhs().getNodes())
-			if(n.getName()==null)
-				n.setName("|" + count++  + "|");
-		for(Node n: rule2.getRhs().getNodes())
-			if(n.getName()==null)
-				n.setName("|" + count++  + "|");
+			this.rule1 = rule1;
+			this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
+			this.rule2 = rule2;
+			this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
+			
 	}
 
 	@Override
-	public Set<ConflictAtom> computeAtoms() {
-		return new HashSet<ConflictAtom>(computeConflictAtoms());
+	public Set<Span> computeAtoms() {
+		Set<Span> results = new HashSet<Span>();
+		computeConflictAtoms().forEach(r -> results.add(r));
+		return results;
 	}
 
 	@Override
-	public ConflictAtom computeResultsBinary() {
+	public Span computeResultsBinary() {
 		ConflictAtom result = hasConflicts();
 		if (result == null)
 			return null;
@@ -74,14 +59,21 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<MinimalConflictReason> computeResultsCoarse() {
-		return computeMinimalConflictReasons();
+	public Set<Span> computeResultsCoarse() {
+		Set<Span> results = new HashSet<Span>();
+		computeMinimalConflictReasons().forEach(r -> results.add(r));
+		return results;
 	}
 
 	@Override
 	public Set<Span> computeResultsFine() {
-		computeConflictReasons();
-		return computeDeleteUseConflictReasons(new ConflictReasonComputation(rule2, rule1NonDelete).computeConflictReasons());
+		Set<Span> results = new HashSet<Span>();
+		Set<Span> conflictReasons = new HashSet<Span>();
+		conflictHelper = new ConflictReasonComputation(rule2, rule1NonDelete);
+		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));
+		computeConflictReasons().forEach(r -> conflictReasons.add(r));
+		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r));
+		return results;
 	}
 
 	public ConflictAtom hasConflicts() {
@@ -97,8 +89,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		List<Span> candidates = new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 		for (Span candidate : candidates) {
 			Set<MinimalConflictReason> minimalConflictReasons = new HashSet<>();
-			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate,
-					minimalConflictReasons);
+			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate, minimalConflictReasons);
 
 			minimalConflictReasons.addAll(minimalConflictReasons);
 			if (!minimalConflictReasons.isEmpty()) {
@@ -121,8 +112,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public Set<ConflictReason> computeConflictReasons() {
-		normalCR = new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
-		return normalCR;
+		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
 	}
 
 	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
@@ -148,6 +138,13 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 			throw new IllegalArgumentException(name + " must not be null");
 	}
 
+	public Span newSpan(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
+		return new Span(nodeInRule1Mapping, s1, nodeInRule2Mapping);
+	}
+
+	public Span newSpan(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
+		return new Span(rule1Mappings, s1, rule2Mappings);
+	}
 
 	public List<Span> getCandidates() {
 		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
@@ -157,8 +154,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	private Set<Span> computeDeleteUseConflictReasons(Set<ConflictReason> DUCR){
-		return new DeleteUseConflictReasonComputation(rule1, rule2, normalCR, DUCR).computeDeleteUseConflictReason();
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
+		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
 
 	}
 
