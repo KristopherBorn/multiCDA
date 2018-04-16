@@ -162,6 +162,20 @@ public class Span {
 		return null;
 	}
 
+	public static boolean nodeContains(Node n1, Node n2) {
+		return nodeContains(n1.getName(), n2.getName());
+	}
+
+	public static boolean nodeContains(String n1, String n2) {
+		String[] ns1 = n1.split("<>|--|_");
+		String[] ns2 = n2.split("<>|--|_");
+		for(String n : ns1)
+			for(String m : ns2)
+				if(n.equals(m))
+					return true;
+		return false;
+	}
+
 	public static boolean nodeEqual(Node n1, Node n2) {
 		return nodeEqual(n1.getName(), n2.getName());
 	}

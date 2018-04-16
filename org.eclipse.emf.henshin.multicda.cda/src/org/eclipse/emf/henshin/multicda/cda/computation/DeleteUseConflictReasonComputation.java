@@ -108,12 +108,14 @@ public class DeleteUseConflictReasonComputation {
 			if (Si != null) {
 				if (!isEmpty(Si.getGraph())) {
 					Pushout pushout = new Pushout(sp1, sp2);
-					Span uniquePushout = computeUniquePushoutMorphisms(rule1, pushout, rule2, Si, sp1, sp2);
-					Pushout po = new Pushout(rule1, uniquePushout, rule2, sp2.getRule2(), sp1.getRule2());
-					if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, po.getRule1Mappings()).isEmpty()
-							&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, po.getRule2Mappings())
-									.isEmpty()) {
-						s2Set.add(sp2);
+					if (pushout.getResultGraph() != null) {
+						Span uniquePushout = computeUniquePushoutMorphisms(rule1, pushout, rule2, Si, sp1, sp2);
+						Pushout po = new Pushout(rule1, uniquePushout, rule2, sp2.getRule2(), sp1.getRule2());
+						if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, po.getRule1Mappings()).isEmpty()
+								&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, po.getRule2Mappings())
+										.isEmpty()) {
+							s2Set.add(sp2);
+						}
 					}
 				}
 			}
@@ -136,7 +138,7 @@ public class DeleteUseConflictReasonComputation {
 	private Span computeUniquePushoutMorphisms(Rule rule1, Pushout pushout, Rule rule2, Span sap, Span sp1, Span sp2) {
 		Span uniqueSpan = null;
 		Graph pushoutGraph = pushout.getResultGraph();
-		if (!extracted(sap, sp1, sp2)) 
+		if (!extracted(sap, sp1, sp2))
 			return null;
 		Set<Mapping> mappingsInL1 = uniqueMappingtoRule(pushout, rule1, sap, sp1, sp2);
 		Set<Mapping> mappingsInL2 = uniqueMappingtoRule(pushout, rule2, sap, sp2, sp1);
@@ -176,14 +178,14 @@ public class DeleteUseConflictReasonComputation {
 					return null;
 				}
 				Node lElement = e.getImage();
-				if(rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
-					if(rule2.getLhs().getNode(lElement.getName()) == null)
+				if (rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
+					if (rule2.getLhs().getNode(lElement.getName()) == null)
 						lElement = rule1.getLhs().getNode(lElement.getName());
 					else
 						lElement = rule2.getLhs().getNode(lElement.getName());
 				Mapping createMapping = factory.createMapping(node, lElement);
 				result.add(createMapping);
-				
+
 			} else if (d != null) {
 				Node s2Element = d.getOrigin();
 				Mapping f = null;
@@ -197,8 +199,8 @@ public class DeleteUseConflictReasonComputation {
 					return null;
 				}
 				Node lElement = f.getImage();
-				if(rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
-					if(rule2.getLhs().getNode(lElement.getName()) == null)
+				if (rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
+					if (rule2.getLhs().getNode(lElement.getName()) == null)
 						lElement = rule1.getLhs().getNode(lElement.getName());
 					else
 						lElement = rule2.getLhs().getNode(lElement.getName());
@@ -537,7 +539,7 @@ public class DeleteUseConflictReasonComputation {
 						break;
 					}
 			}
-			if(!found)
+			if (!found)
 				return new ArrayList<>();
 		}
 		Set<Edge> visited = new HashSet<>();
@@ -555,7 +557,7 @@ public class DeleteUseConflictReasonComputation {
 					break;
 				}
 			}
-			if(!found)
+			if (!found)
 				return new ArrayList<>();
 
 		}

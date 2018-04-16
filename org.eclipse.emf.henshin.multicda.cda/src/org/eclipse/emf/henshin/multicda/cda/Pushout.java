@@ -113,6 +113,10 @@ public class Pushout {
 			for (Node n1 : graph.getNodes()) {
 				if (Span.nodeEqual(n1, n2))
 					found = n1;
+				else if(Span.nodeContains(n1, n2)) {
+					graph = null;
+					return;
+				}
 				if (found != null)
 					break;
 			}
