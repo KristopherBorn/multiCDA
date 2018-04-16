@@ -26,7 +26,6 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 
 /**
  * 
@@ -34,6 +33,10 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
  */
 public class DeleteUseConflictReasonComputation {
 
+	/**
+	 * 
+	 */
+	private static final String NODESEPARATOR = "%";
 	private Rule rule1;
 	private Rule rule2;
 	private Set<ConflictReason> normalCRs;
@@ -47,7 +50,7 @@ public class DeleteUseConflictReasonComputation {
 	 * 
 	 * @param rule1
 	 * @param rule2
-	 * @param conflictReasonsFromR22
+	 * @param conflictReasonsFromR2
 	 */
 	public DeleteUseConflictReasonComputation(Rule rule1, Rule rule2, Set<ConflictReason> normalCR,
 			Set<ConflictReason> DUCRs) {
@@ -124,6 +127,7 @@ public class DeleteUseConflictReasonComputation {
 	}
 
 	/**
+	 * @param rule1
 	 * @param pushout
 	 * @return
 	 */
@@ -257,13 +261,11 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private Mapping getMappingFromSpan(Node node, List<Mapping> s1ToS) {
-
 		for (Mapping mapping : s1ToS) {
 			if (node.equals(mapping.getImage())) {
 				return mapping;
 			}
 		}
-
 		return null;
 	}
 
@@ -300,9 +302,7 @@ public class DeleteUseConflictReasonComputation {
 			} else {
 				return null;
 			}
-		} else
-
-		{
+		} else {
 			return null;
 		}
 
@@ -369,7 +369,6 @@ public class DeleteUseConflictReasonComputation {
 					if (y != null)
 						addEdgeToGraph(x, y, Si);
 				}
-
 			} catch (NotCompatibleException e) {
 				System.out.println(e.getMessage() + e.getCause());
 				Si = null;
@@ -441,7 +440,6 @@ public class DeleteUseConflictReasonComputation {
 		} else {
 			throw new NotCompatibleException();
 		}
-
 	}
 
 	/**
@@ -473,11 +471,11 @@ public class DeleteUseConflictReasonComputation {
 	/**
 	 * @param originNode
 	 * @param mappingsInRule
-	 * @return
+	 * @return Mapping
 	 */
 	public Mapping getMappingInRule(Node originNode, Set<Mapping> mappingsInRule) {
 		for (Mapping mapping : mappingsInRule) {
-			if (checkOriginNodes(originNode, mapping.getOrigin())) { // Hier
+			if (checkOriginNodes(originNode, mapping.getOrigin(), "_")) { // Hier
 				return mapping;
 			}
 		}
@@ -489,9 +487,9 @@ public class DeleteUseConflictReasonComputation {
 	 * @param origin
 	 * @return
 	 */
-	private boolean checkOriginNodes(Node originNode, Node originNode2) {
-		String[] revert = originNode.getName().split("_");
-		String[] revertMapping = originNode2.getName().split("_");
+	private boolean checkOriginNodes(Node originNode, Node originNode2, String regex) {
+		String[] revert = originNode.getName().split(regex);
+		String[] revertMapping = originNode2.getName().split(regex);
 		return (revert[0].equals(revertMapping[0]) && revert[1].equals(revertMapping[1])
 				|| revert[0].equals(revertMapping[1]) && revert[1].equals(revertMapping[0]))
 				&& (originNode.getType().equals(originNode2.getType()));
@@ -513,7 +511,6 @@ public class DeleteUseConflictReasonComputation {
 		ArrayList<Mapping> s1tol2 = computeMappings(s1, l2N, l2E);
 
 		return !s1tol2.isEmpty();
-
 	}
 
 	/**
@@ -572,5 +569,4 @@ public class DeleteUseConflictReasonComputation {
 		}
 
 	}
-
 }

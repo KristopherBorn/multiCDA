@@ -24,7 +24,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private ConflictReasonComputation conflictHelper;
 	private Set<ConflictReason> normalCR = new HashSet<>();
 	private Rule rule2;
-	
 
 	/**
 	 * @param rule1
@@ -38,7 +37,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		prepare();
 		this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
 		this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
-			
+		
 	}
 
 	/**
@@ -98,7 +97,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		List<Span> candidates = new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 		for (Span candidate : candidates) {
 			Set<MinimalConflictReason> minimalConflictReasons = new HashSet<>();
-			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate, minimalConflictReasons);
+			new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons(candidate,
+					minimalConflictReasons);
 
 			minimalConflictReasons.addAll(minimalConflictReasons);
 			if (!minimalConflictReasons.isEmpty()) {
