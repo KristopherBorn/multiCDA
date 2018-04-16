@@ -49,9 +49,10 @@ public class Pushout {
 	}
 
 	Graph graph;
+	Graph graphNoneDeletion;
 
-	private HashMap<Node, Node> rule1toPOmap;
-	private HashMap<Node, Node> rule2toPOmap;
+	private HashMap<Node, Node> rule1toPOmap = new HashMap<Node, Node>();
+	private HashMap<Node, Node> rule2toPOmap = new HashMap<Node, Node>();
 
 	private Graph shadowGraph;
 
@@ -63,10 +64,14 @@ public class Pushout {
 	 * @param rule2
 	 */
 	public Pushout(Rule rule1, Span s1span, Rule rule2) {
+		this(rule1, s1span, rule2, rule1, rule2);
+	}
+
+	public Pushout(Rule rule1, Span s1span, Rule rule2, Rule rule1NoneDelete, Rule rule2NoneDelete) {
 		ConflictAnalysis.checkNull(rule1);
 		ConflictAnalysis.checkNull(s1span);
 		ConflictAnalysis.checkNull(rule2);
-		if (!s1span.validate(rule1, rule2))
+		if (!s1span.validate(rule1, rule2, rule1NoneDelete, rule2NoneDelete))
 			throw new IllegalArgumentException("Span is in invalide state.");
 		Graph l1 = rule1.getLhs();
 		Graph l2 = rule2.getLhs();
@@ -100,44 +105,41 @@ public class Pushout {
 		Graph s1 = sp1.getGraph();
 		Graph s2 = sp2.getGraph();
 
-		Graph S = HenshinFactory.eINSTANCE.createGraph();
-
-		for (Node n1 : s1.getNodes())
-			HenshinFactory.eINSTANCE.createNode(S, n1.getType(), n1.getName());
+		graph = preparePushoutGraph(sp1.getGraph());
+		rule2toPOmap = new HashMap<Node, Node>();
 
 		for (Node n2 : s2.getNodes()) {
-			boolean found = false;
-			for (Node n1 : S.getNodes()) {
-				found = Span.nodeEqual(n1, n2);
-				if(found)
+			Node found = null;
+			for (Node n1 : graph.getNodes()) {
+				if (Span.nodeEqual(n1, n2))
+					found = n1;
+				if (found != null)
 					break;
 			}
-			if(!found)
-				HenshinFactory.eINSTANCE.createNode(S, n2.getType(), n2.getName());
+			if (found == null)
+				found = HenshinFactory.eINSTANCE.createNode(graph, n2.getType(), n2.getName());
+			rule2toPOmap.put(n2, found);
 		}
-
-		for (Edge e1 : s1.getEdges())
-			S.getEdges().add(HenshinFactory.eINSTANCE.createEdge(e1.getSource(), e1.getTarget(), e1.getType()));
-		List<Edge> s2Edges = s2.getEdges();
-		for (Edge e2 : s2Edges) {
+		for (Edge e2 : s2.getEdges()) {
 			boolean found = false;
-			for (Edge e1 : S.getEdges()) {
-				found = Span.nodeEqual(e1.getSource(), e2.getSource()) && Span.nodeEqual(e1.getTarget(), e2.getTarget());
-				if(found)
+			for (Edge e1 : graph.getEdges()) {
+				found = Span.nodeEqual(e1.getSource(), e2.getSource())
+						&& Span.nodeEqual(e1.getTarget(), e2.getTarget());
+				if (found)
 					break;
 			}
-			if(!found) {
+			if (!found) {
 				Node n1 = e2.getSource();
 				Node n2 = e2.getTarget();
-				for(Node n3 : S.getNodes())
-					if(Span.nodeEqual(n1, n3))
+				for (Node n3 : graph.getNodes())
+					if (Span.nodeEqual(n1, n3))
 						n1 = n3;
-					else if(Span.nodeEqual(n2, n3))
+					else if (Span.nodeEqual(n2, n3))
 						n2 = n3;
 				HenshinFactory.eINSTANCE.createEdge(n1, n2, e2.getType());
 			}
 		}
-		S.setName("S");
+		graph.setName("Pushout");
 	}
 
 	@SuppressWarnings("unused")
@@ -203,7 +205,6 @@ public class Pushout {
 	}
 
 	private HashMap prepareShadowPushoutGraph(Graph l2) {
-		rule2toPOmap = new HashMap<Node, Node>();
 		Copier copierForRule2 = new Copier();
 		shadowGraph = (Graph) copierForRule2.copy(l2);
 		copierForRule2.copyReferences();
@@ -219,7 +220,6 @@ public class Pushout {
 	}
 
 	private Graph preparePushoutGraph(Graph l1) {
-		rule1toPOmap = new HashMap<Node, Node>();
 		Copier copierForRule1Map = new Copier();
 		Graph pushout = (Graph) copierForRule1Map.copy(l1);
 		copierForRule1Map.copyReferences();

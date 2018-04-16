@@ -333,74 +333,75 @@
     </display>  
   </class>  
   <association id="32">    
-    <end type="SOURCE" refId="30" navigable="false">      
-      <attribute id="33" name="span">        
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="33" name="originMCRs">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="34" minimum="0" maximum="1">        
+      <multiplicity id="34" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="35">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="36" name="containedConflictAtom">        
+    <bendpoint x="961" y="41"/>    
+    <bendpoint x="822" y="40"/>    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="36" name="conflictHelper">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="37" minimum="0" maximum="2147483647">        
+      <multiplicity id="37" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="38">    
-    <bendpoint x="871" y="706"/>    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="39" name="unassignedCRs">        
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="39" name="minimalConflictReasons">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="40" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="41">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="23"/>  
-  </nesting>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="21"/>  
+  <generalization id="41">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
   </generalization>  
-  <association id="43">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="44" name="span2">        
+  <realization id="42">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="44">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="45" name="containedConflictAtom">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="45" minimum="0" maximum="1">        
+      <multiplicity id="46" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="46">    
+  <generalization id="47">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="28"/>  
   </generalization>  
-  <generalization id="47">    
+  <generalization id="48">    
     <end type="SOURCE" refId="28"/>    
     <end type="TARGET" refId="21"/>  
   </generalization>  
-  <realization id="48">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="27"/>  
-  </realization>  
   <association id="49">    
     <end type="SOURCE" refId="16" navigable="false">      
       <attribute id="50" name="span2pushout">        
@@ -414,158 +415,112 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="52">    
-    <end type="SOURCE" refId="29" navigable="false">      
-      <attribute id="53" name="normalCR">        
+    <bendpoint x="871" y="706"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="53" name="unassignedCRs">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="54" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="56" name="additionalConflictAtoms">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <bendpoint x="1126" y="424"/>    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="59" name="conflictAtoms">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="60" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <association id="62">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="63" name="checked">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="64" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="55">    
+  <association id="65">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="66" name="span">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="67" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="68">    
     <bendpoint x="446" y="469"/>    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <association id="56">    
-    <bendpoint x="961" y="41"/>    
-    <bendpoint x="822" y="40"/>    
-    <end type="SOURCE" refId="29" navigable="false">      
-      <attribute id="57" name="conflictHelper">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="58" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="59">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="60" name="minimalConflictReasons">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="61" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="62">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
+  <generalization id="69">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="21"/>  
   </generalization>  
-  <generalization id="63">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <association id="64">    
+  <association id="70">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="65" name="danglingCase">        
+      <attribute id="71" name="danglingCase">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="66" minimum="0" maximum="1">        
+      <multiplicity id="72" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="67">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="68" name="originMCRs">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="69" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="70">    
-    <bendpoint x="1126" y="424"/>    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="71" name="conflictAtoms">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="72" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="73">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <association id="74">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="75" name="checked">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="76" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="77">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="78" name="conflictAtomCandidates">        
-        <position height="18" width="124" x="1317" y="294"/>      
-      </attribute>      
-      <multiplicity id="79" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="80">    
-    <end type="SOURCE" refId="29"/>    
+  <nesting id="73">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="23"/>  
+  </nesting>  
+  <realization id="74">    
+    <end type="SOURCE" refId="25"/>    
     <end type="TARGET" refId="27"/>  
   </realization>  
-  <association id="81">    
-    <bendpoint x="1035" y="114"/>    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="82" name="normalCRs">        
-        <position height="0" width="0" x="0" y="0"/>      
+  <association id="75">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="76" name="conflictAtomCandidates">        
+        <position height="18" width="124" x="1317" y="294"/>      
       </attribute>      
-      <multiplicity id="83" minimum="0" maximum="2147483647">        
+      <multiplicity id="77" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="84">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="85" name="additionalConflictAtoms">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="86" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="87">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="88">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

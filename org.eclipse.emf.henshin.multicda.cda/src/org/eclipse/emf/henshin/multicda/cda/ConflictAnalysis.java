@@ -62,7 +62,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<DeleteUseConflictReason> computeResultsFine() {
+	public Set<Span> computeResultsFine() {
 		computeConflictReasons();
 		return computeDeleteUseConflictReasons(new ConflictReasonComputation(rule2, rule1NonDelete).computeConflictReasons());
 	}
@@ -130,13 +130,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 			throw new IllegalArgumentException(name + " must not be null");
 	}
 
-	public Span newSpan(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
-		return new Span(nodeInRule1Mapping, s1, nodeInRule2Mapping);
-	}
-
-	public Span newSpan(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
-		return new Span(rule1Mappings, s1, rule2Mappings);
-	}
 
 	public List<Span> getCandidates() {
 		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
@@ -146,7 +139,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<ConflictReason> DUCR){
+	private Set<Span> computeDeleteUseConflictReasons(Set<ConflictReason> DUCR){
 		return new DeleteUseConflictReasonComputation(rule1, rule2, normalCR, DUCR).computeDeleteUseConflictReason();
 
 	}

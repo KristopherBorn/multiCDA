@@ -7,7 +7,7 @@ import org.eclipse.emf.henshin.multicda.cda.tester.CPATester;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CP;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
-import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DUCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
 import org.eclipse.emf.henshin.multicda.cda.tester.Tester.Options;
@@ -29,7 +29,7 @@ public class VererbungsTest {
 		Conditions _1 = new Conditions(new Node(1));
 		CDATester tester = new CDATester(path, deleteS, useC);
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
-		assertTrue("Conflict Reasons are not 1", tester.check(new CR(1)));
+		assertTrue("Conflict Reasons are not 1", tester.check(new DUCR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
 		tester.ready();
 	}
@@ -51,7 +51,7 @@ public class VererbungsTest {
 		Conditions _1 = new Conditions(new Node(1));
 		CDATester tester = new CDATester(path, deleteS, useS);
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
-		assertTrue("Conflict Reasons are not 1", tester.check(new CR(1)));
+		assertTrue("Conflict Reasons are not 1", tester.check(new DUCR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
 		tester.ready();
 	}
@@ -74,7 +74,7 @@ public class VererbungsTest {
 		Conditions _1 = new Conditions(new Node(3));
 		CDATester tester = new CDATester(path, deleteC, useC);
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
-		assertTrue("Conflict Reasons are not 1", tester.check(new CR(1)));
+		assertTrue("Conflict Reasons are not 1", tester.check(new DUCR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
 		tester.ready();
 	}
@@ -96,7 +96,7 @@ public class VererbungsTest {
 		Conditions _1 = new Conditions(new Node(3));
 		CDATester tester = new CDATester(path, deleteC, useS);
 		assertTrue("Minimal Conflict Reasons are not 1", tester.check(new MCR(1)));
-		assertTrue("Conflict Reasons are not 1", tester.check(new CR(1)));
+		assertTrue("Conflict Reasons are not 1", tester.check(new DUCR(1)));
 		assertTrue(_1 + " not found", tester.check(_1));
 		tester.ready();
 	}

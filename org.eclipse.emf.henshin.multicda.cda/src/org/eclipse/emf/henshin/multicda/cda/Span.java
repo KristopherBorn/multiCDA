@@ -197,6 +197,9 @@ public class Span {
 	}
 
 	public boolean validate(Rule rule1, Rule rule2) {
+		return validate(rule1, rule2, rule1, rule2);
+	}
+	public boolean validate(Rule rule1, Rule rule2, Rule rule1NoneDelete, Rule rule2NoneDelete) {
 		if (mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
 			return false;
 		for (Node node : graph.getNodes()) {
@@ -204,13 +207,13 @@ public class Span {
 			if (mappingIntoRule1.getImage() == null)
 				return false;
 			Node imageInRule1 = mappingIntoRule1.getImage();
-			if (imageInRule1.eContainer() != rule1.getLhs())
+			if (imageInRule1.eContainer() != rule1.getLhs() && imageInRule1.eContainer() != rule1NoneDelete.getLhs())
 				return false;
 			Mapping mappingIntoRule2 = getMappingIntoRule2(node);
 			if (mappingIntoRule2.getImage() == null)
 				return false;
 			Node imageInRule2 = mappingIntoRule2.getImage();
-			if (imageInRule2.eContainer() != rule2.getLhs())
+			if (imageInRule2.eContainer() != rule2.getLhs() && imageInRule2.eContainer() != rule2NoneDelete.getLhs())
 				return false;
 
 		}

@@ -16,8 +16,7 @@ public class DeleteDeleteConflictReason extends DeleteUseConflictReason{
 	 * @param s1
 	 */
 	public DeleteDeleteConflictReason(Span s1, Span s2) {
-		super(s1);
+		super(s1, "DDCR");
 		this.s2 = s2;
 	}
-
 }

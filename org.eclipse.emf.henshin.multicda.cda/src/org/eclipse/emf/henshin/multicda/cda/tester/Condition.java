@@ -116,18 +116,18 @@ public abstract class Condition {
 		}
 	}
 	//__________________new conditions _______________________
-	public static class DUCConditions extends Conditions {
-		public DUCConditions(Condition... conditions) {
+	public static class DUCRConditions extends Conditions {
+		public DUCRConditions(Condition... conditions) {
 			super("DUCR", conditions);
 		}
 	}
-	public static class DRCConditions extends Conditions {
-		public DRCConditions(Condition... conditions) {
+	public static class DRCRConditions extends Conditions {
+		public DRCRConditions(Condition... conditions) {
 			super("DRCR", conditions);
 		}
 	}
-	public static class DDCConditions extends Conditions {
-		public DDCConditions(Condition... conditions) {
+	public static class DDCRConditions extends Conditions {
+		public DDCRConditions(Condition... conditions) {
 			super("DDCR", conditions);
 		}
 	}
@@ -166,14 +166,34 @@ public abstract class Condition {
 		}
 	}
 
-	public static class CR extends ConflictSize {
-		public CR(int value) {
+	public static class DUCR extends ConflictSize {
+		public DUCR(int value) {
 			this(value + "");
 		}
 
-		public CR(String value) {
+		public DUCR(String value) {
 			super(value);
-			name = "Conflict Reasons";
+			name = "Delete Use Conflict Reasons";
+		}
+	}
+	public static class DRCR extends ConflictSize {
+		public DRCR(int value) {
+			this(value + "");
+		}
+
+		public DRCR(String value) {
+			super(value);
+			name = "Delete Read Conflict Reasons";
+		}
+	}
+	public static class DDCR extends ConflictSize {
+		public DDCR(int value) {
+			this(value + "");
+		}
+
+		public DDCR(String value) {
+			super(value);
+			name = "Delete Delete Conflict Reasons";
 		}
 	}
 
