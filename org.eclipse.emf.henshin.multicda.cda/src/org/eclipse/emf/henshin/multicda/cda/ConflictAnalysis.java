@@ -5,8 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.model.Graph;
-import org.eclipse.emf.henshin.model.Mapping;
+import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
 import org.eclipse.emf.henshin.multicda.cda.computation.ConflictReasonComputation;
@@ -14,7 +13,6 @@ import org.eclipse.emf.henshin.multicda.cda.computation.DeleteUseConflictReasonC
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
@@ -35,11 +33,31 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public ConflictAnalysis(Rule rule1, Rule rule2) {
 		checkNull(rule1);
 		checkNull(rule2);
-			this.rule1 = rule1;
-			this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
-			this.rule2 = rule2;
-			this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
+		this.rule1 = rule1;
+		this.rule2 = rule2;
+		prepare();
+		this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
+		this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
 			
+	}
+
+	/**
+	 * @param rule12
+	 */
+	private int count = 0;
+	private void prepare() {
+		for(Node n: rule1.getLhs().getNodes())
+			if(n.getName()==null)
+				n.setName("|" + count++  + "|");
+		for(Node n: rule1.getRhs().getNodes())
+			if(n.getName()==null)
+				n.setName("|" + count++  + "|");
+		for(Node n: rule2.getLhs().getNodes())
+			if(n.getName()==null)
+				n.setName("|" + count++  + "|");
+		for(Node n: rule2.getRhs().getNodes())
+			if(n.getName()==null)
+				n.setName("|" + count++  + "|");
 	}
 
 	@Override
