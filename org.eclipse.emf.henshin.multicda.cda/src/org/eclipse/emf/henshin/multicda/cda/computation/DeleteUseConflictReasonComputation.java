@@ -60,7 +60,7 @@ public class DeleteUseConflictReasonComputation {
 		this.normalCRs = new HashSet<>();
 		this.normalCRs.add(new ArrayList<>(normalCR).get(3));
 		this.DUCRs = new HashSet<>();
-		this.DUCRs.add(new ArrayList<>(DUCRs).get(1));
+		this.DUCRs.add(new ArrayList<>(DUCRs).get(0));
 	}
 
 	/**
@@ -98,8 +98,6 @@ public class DeleteUseConflictReasonComputation {
 				result.add(res);
 			}
 		} else {
-			mapS1ToL1 = s1.mappingsInRule1;
-			mapS1ToL2 = s1.mappingsInRule2;
 			Set<Span> ddSet = ConstructDeleteDeleteSet(rule1, rule2, s1);
 			for (Span s2 : ddSet)
 				result.add(new DeleteDeleteConflictReason(s1, s2));
@@ -118,7 +116,7 @@ public class DeleteUseConflictReasonComputation {
 			Span Si = compatibleSpans(sp1, sp2);
 			if (Si != null) {
 				if (!isEmpty(Si.getGraph())) {
-					Pushout pushout = new Pushout(sp1, Si, sp2);
+					Pushout pushout = new Pushout(sp1, sp2);
 					Span uniquePushout = computeUniquePushout(pushout);
 					Pushout po = new Pushout(rule1, uniquePushout, rule2);
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, po.getRule1Mappings()).isEmpty()

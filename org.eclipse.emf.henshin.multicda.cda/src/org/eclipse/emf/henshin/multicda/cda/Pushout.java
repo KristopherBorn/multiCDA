@@ -1,8 +1,11 @@
 package org.eclipse.emf.henshin.multicda.cda;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
@@ -54,6 +57,7 @@ public class Pushout {
 
 	/**
 	 * Creates Pushout of L1 <-- S1 --> L2 and L1 --> G <-- L2
+	 * 
 	 * @param rule1
 	 * @param s1span
 	 * @param rule2
@@ -84,30 +88,56 @@ public class Pushout {
 
 	/**
 	 * Creates Pushout of sp1 <-- Si --> sp2 and sp1 --> S <-- sp2
+	 * 
 	 * @param sp1
 	 * @param Si
 	 * @param sp2
 	 */
-	public Pushout(Span sp1, Span Si, Span sp2) {
+	public Pushout(Span sp1, Span sp2) {
 		ConflictAnalysis.checkNull(sp1);
-		ConflictAnalysis.checkNull(Si);
 		ConflictAnalysis.checkNull(sp2);
 
 		Graph s1 = sp1.getGraph();
 		Graph s2 = sp2.getGraph();
 
-		graph = preparePushoutGraph(s1);
-		HashMap shadow2Rule2 = prepareShadowPushoutGraph(s2);
+		Graph S = HenshinFactory.eINSTANCE.createGraph();
 
-		Graph s = Si.getGraph();
-		for (Node node : s.getNodes()) {
-			glue(Si, new SpanMappings(Si), node, shadow2Rule2);
+		for (Node n1 : s1.getNodes())
+			HenshinFactory.eINSTANCE.createNode(S, n1.getType(), n1.getName());
+
+		for (Node n2 : s2.getNodes()) {
+			boolean found = false;
+			for (Node n1 : S.getNodes()) {
+				found = Span.nodeEqual(n1, n2);
+				if(found)
+					break;
+			}
+			if(!found)
+				HenshinFactory.eINSTANCE.createNode(S, n2.getType(), n2.getName());
 		}
 
-		moveShadowContentsToPushout(graph, shadowGraph);
-
-		validatePushout(s1, s2, s);
-		graph.setName("Pushout");
+		for (Edge e1 : s1.getEdges())
+			S.getEdges().add(HenshinFactory.eINSTANCE.createEdge(e1.getSource(), e1.getTarget(), e1.getType()));
+		List<Edge> s2Edges = s2.getEdges();
+		for (Edge e2 : s2Edges) {
+			boolean found = false;
+			for (Edge e1 : S.getEdges()) {
+				found = Span.nodeEqual(e1.getSource(), e2.getSource()) && Span.nodeEqual(e1.getTarget(), e2.getTarget());
+				if(found)
+					break;
+			}
+			if(!found) {
+				Node n1 = e2.getSource();
+				Node n2 = e2.getTarget();
+				for(Node n3 : S.getNodes())
+					if(Span.nodeEqual(n1, n3))
+						n1 = n3;
+					else if(Span.nodeEqual(n2, n3))
+						n2 = n3;
+				HenshinFactory.eINSTANCE.createEdge(n1, n2, e2.getType());
+			}
+		}
+		S.setName("S");
 	}
 
 	@SuppressWarnings("unused")

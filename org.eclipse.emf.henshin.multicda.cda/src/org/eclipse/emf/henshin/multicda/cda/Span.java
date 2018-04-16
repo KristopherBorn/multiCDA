@@ -42,7 +42,7 @@ public class Span {
 		Graph copiedGraph = (Graph) copierForSpanAndMappings.copy(s1.getGraph());
 		copierForSpanAndMappings.copyReferences();
 		this.graph = copiedGraph;
-	
+
 		// extract to method
 		Set<Mapping> mappingsInRule1 = new HashSet<Mapping>();
 		for (Mapping mapping : s1.getMappingsInRule1()) {
@@ -51,7 +51,7 @@ public class Span {
 			mappingsInRule1.add(copiedMapping);
 		}
 		this.mappingsInRule1 = mappingsInRule1;
-	
+
 		Set<Mapping> mappingsInRule2 = new HashSet<Mapping>();
 		for (Mapping mapping : s1.getMappingsInRule2()) {
 			Mapping copiedMapping = (Mapping) copierForSpanAndMappings.copy(mapping);
@@ -59,7 +59,7 @@ public class Span {
 			mappingsInRule2.add(copiedMapping);
 		}
 		this.mappingsInRule2 = mappingsInRule2;
-	
+
 		this.setRule1(getRuleOfMappings(mappingsInRule1));
 		this.setRule2(getRuleOfMappings(mappingsInRule2));
 	}
@@ -67,7 +67,7 @@ public class Span {
 	public Span(Span extSpan, Node origin, Node image) {
 		this(extSpan);
 		Node transformedOrigin = (Node) copierForSpanAndMappings.get(origin);
-	
+
 		Mapping r2Mapping = henshinFactory.createMapping(transformedOrigin, image);
 		mappingsInRule2.add(r2Mapping);
 	}
@@ -146,7 +146,8 @@ public class Span {
 
 	public Mapping getMappingIntoRule1(Node originNode) {
 		for (Mapping mapping : mappingsInRule1) {
-			if (mapping.getOrigin().getType() == originNode.getType() &&  nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
+			if (mapping.getOrigin().getType() == originNode.getType()
+					&& nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
 				return mapping;
 		}
 		return null;
@@ -154,12 +155,17 @@ public class Span {
 
 	public Mapping getMappingIntoRule2(Node originNode) {
 		for (Mapping mapping : mappingsInRule2) {
-			if (mapping.getOrigin().getType() == originNode.getType() &&  nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
+			if (mapping.getOrigin().getType() == originNode.getType()
+					&& nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
 				return mapping;
 		}
 		return null;
 	}
-	
+
+	public static boolean nodeEqual(Node n1, Node n2) {
+		return nodeEqual(n1.getName(), n2.getName());
+	}
+
 	public static boolean nodeEqual(String n1, String n2) {
 		String[] ns1 = n1.split("--");
 		String[] ns2 = n2.split("--");
@@ -219,8 +225,8 @@ public class Span {
 		Set<String> added = new HashSet<String>();
 		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
 		result.setName(getRule1().getName() + "_" + getRule2().getName());
-		result.setNsURI(
-				"http://cdapackage/" + getRule1().getName() + "/" + getRule2().getName() + "/" + getClass().getSimpleName());
+		result.setNsURI("http://cdapackage/" + getRule1().getName() + "/" + getRule2().getName() + "/"
+				+ getClass().getSimpleName());
 		result.setNsPrefix("CDAPackage");
 		EList<EClassifier> classifiers = result.getEClassifiers();
 
@@ -301,7 +307,7 @@ public class Span {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof Span))
+		if (!(obj instanceof Span))
 			return false;
 		Span other = (Span) obj;
 		if (this == obj)
@@ -316,10 +322,10 @@ public class Span {
 			return false;
 		if (mappingsInRule2.size() != other.getMappingsInRule2().size())
 			return false;
-	
+
 		SpanMappings spanMap = new SpanMappings(this);
 		SpanMappings spanMapOther = new SpanMappings(other);
-	
+
 		// Are same nodes in rules 1 and 2 used?
 		Set<Node> nodesRule1 = new HashSet<Node>(spanMap.s1ToRule1.values());
 		Set<Node> nodesRule2 = new HashSet<Node>(spanMap.s1ToRule2.values());
@@ -327,20 +333,20 @@ public class Span {
 		Set<Node> nodesRule2Other = new HashSet<Node>(spanMapOther.s1ToRule2.values());
 		if (!(nodesRule1.equals(nodesRule1Other) && nodesRule2.equals(nodesRule2Other)))
 			return false;
-	
+
 		// Are same edges in rules 1 and 2 used?
 		Map<Edge, Edge> edgeMapS1R1 = spanMap.getEdgeMappingsS1Rule1();
 		Map<Edge, Edge> edgeMapS1R2 = spanMap.getEdgeMappingsS1Rule2();
 		Map<Edge, Edge> edgeMapS1R1Other = spanMapOther.getEdgeMappingsS1Rule1();
 		Map<Edge, Edge> edgeMapS1R2Other = spanMapOther.getEdgeMappingsS1Rule2();
-	
+
 		Set<Edge> edgesRule1 = new HashSet<Edge>(edgeMapS1R1.values());
 		Set<Edge> edgesRule2 = new HashSet<Edge>(edgeMapS1R2.values());
 		Set<Edge> edgesRule1Other = new HashSet<Edge>(edgeMapS1R1Other.values());
 		Set<Edge> edgesRule2Other = new HashSet<Edge>(edgeMapS1R2Other.values());
 		if (!(edgesRule1.equals(edgesRule1Other) && edgesRule2.equals(edgesRule2Other)))
 			return false;
-	
+
 		// Do both CRs map the span graph nodes to the same nodes in rules 1 and 2?
 		Map<Node, Node> paired = getPairedNodes(this, spanMap);
 		Map<Node, Node> pairedOther = getPairedNodes(other, spanMapOther);
@@ -348,7 +354,7 @@ public class Span {
 			if (paired.get(e1) != pairedOther.get(e1))
 				return false;
 		}
-	
+
 		return true;
 	}
 
