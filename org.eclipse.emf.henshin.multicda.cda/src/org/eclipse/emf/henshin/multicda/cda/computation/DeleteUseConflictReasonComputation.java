@@ -24,6 +24,7 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.model.impl.RuleImpl;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
+import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 
 /**
@@ -589,17 +590,17 @@ public class DeleteUseConflictReasonComputation {
 	 * @return boolean
 	 */
 	public static boolean findEmbeddingS1toK2(Span conflictReason, Rule rule2) {
-		Graph s1 = conflictReason.getGraph();
 		Action action = new Action(Action.Type.PRESERVE);
 		EList<Node> l2N = rule2.getActionNodes(action);
 		EList<Edge> l2E = rule2.getActionEdges(action);
-		Map<GraphElement, GraphElement> s1tol2 = computeMappings(s1, l2N, l2E);
+		Map<GraphElement, GraphElement> s1tol2 = computeMappings(conflictReason, l2N, l2E);
 		boolean empty = s1tol2.isEmpty();
 		return !empty;
 	}
 
 	/**
 	 * computes Mappings of two ELists of Nodes our of two Graphs
+	 * 
 	 * @param l2e
 	 * @param l2n
 	 * @param s1
@@ -607,8 +608,46 @@ public class DeleteUseConflictReasonComputation {
 	 * @param k
 	 * @return
 	 */
-	private static Map<GraphElement, GraphElement> computeMappings(Graph s1, EList<Node> l2n, EList<Edge> l2e) {
+	private static Map<GraphElement, GraphElement> computeMappings(Span conflictReason, EList<Node> l2n,
+			EList<Edge> l2e) {
 		HashMap<GraphElement, GraphElement> result = new HashMap<GraphElement, GraphElement>();
+		HashMap<GraphElement, GraphElement> alls1nodes = new HashMap<GraphElement, GraphElement>();
+		Graph s1 = conflictReason.getGraph();
+		Action delete = new Action(Action.Type.DELETE);
+
+		EList<Edge> l1de = new BasicEList<Edge>();
+		EList<Node> l1dn = new BasicEList<Node>();
+
+		for (Node originNode : s1.getNodes()) {
+			Node image = conflictReason.getMappingIntoRule1(originNode).getImage();
+			if (image.getAction().equals(delete)) {
+				l1dn.add(originNode);
+			}
+		}
+		
+		SpanMappings spanMapping = new SpanMappings(conflictReason);
+		spanMapping.computeEdgeMappings();
+		
+		for (Edge edge : s1.getEdges()){
+			Edge l1edge = spanMapping.getEdgeMappingsS1Rule1().get(edge);
+			if (l1edge.getAction().equals(delete)){
+				l1de.add(edge);
+			}
+		}
+
+		for (Node node : l1dn) {
+			EClass nType = node.getType();
+			String nName = node.getName();
+			String[] split = nName.split("_");
+			String searchName = split[1];
+			for (Node node2 : l2n) {
+				String name = node2.getName();
+				EClass type = node2.getType();
+				if (name.equals(searchName) && type.equals(nType)) {
+					result.put(node, node2);
+				}
+			}
+		}
 
 		for (Node node : s1.getNodes()) {
 			EClass nType = node.getType();
@@ -616,18 +655,21 @@ public class DeleteUseConflictReasonComputation {
 			String[] split = nName.split("_");
 			String searchName = split[1];
 			for (Node node2 : l2n) {
-				if (node2.getName().equals(searchName) && node2.getType().equals(nType)) {
-					result.put(node, node2);
+				String name = node2.getName();
+				EClass type = node2.getType();
+				if (name.equals(searchName) && type.equals(nType)) {
+					alls1nodes.put(node, node2);
 				}
 			}
 		}
-		for (Edge edge : s1.getEdges()) {
+
+		for (Edge edge : l1de) {
 			for (Edge edge2 : l2e) {
 				Node source = edge.getSource();
 				Node source2 = edge2.getSource();
 				Node target = edge.getTarget();
 				Node target2 = edge2.getTarget();
-				if (result.get(source).equals(source2) && result.get(target).equals(target2)) {
+				if (alls1nodes.get(source).equals(source2) && alls1nodes.get(target).equals(target2)) {
 					result.put(edge, edge2);
 				}
 			}
