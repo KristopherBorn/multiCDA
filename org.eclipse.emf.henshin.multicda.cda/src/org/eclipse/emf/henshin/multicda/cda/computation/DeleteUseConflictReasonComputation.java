@@ -221,7 +221,7 @@ public class DeleteUseConflictReasonComputation {
 					} else {
 						for (Node n : nodes) {
 							if (n.getName().equals(lElement.getName())) {
-								Mapping createMapping = helper.createMapping(n, lElement);
+								Mapping createMapping = helper.createMapping(node, n);
 								result.add(createMapping);
 							}
 						}
