@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.henshin.model.NestedCondition;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.computation.AtomCandidateComputation;
@@ -21,7 +23,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private Rule rule1;
 	private Rule rule2NonDelete;
 	private Rule rule1NonDelete;
-	private ConflictReasonComputation conflictHelper;
 	private Set<ConflictReason> normalCR = new HashSet<>();
 	private Rule rule2;
 	
@@ -36,6 +37,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
 		prepare();
+		EList<NestedCondition> nacs = rule2.getLhs().getNACs();
 		this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
 		this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
 			
