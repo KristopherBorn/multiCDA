@@ -15,6 +15,7 @@ import org.eclipse.emf.henshin.multicda.cda.computation.DeleteUseConflictReasonC
 import org.eclipse.emf.henshin.multicda.cda.computation.MinimalReasonComputation;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
@@ -23,7 +24,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	private Rule rule1;
 	private Rule rule2NonDelete;
 	private Rule rule1NonDelete;
-	private Set<ConflictReason> normalCR = new HashSet<>();
 	private Rule rule2;
 	
 
@@ -82,9 +82,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	@Override
-	public Set<Span> computeResultsFine() {
-		computeConflictReasons();
-		return computeDeleteUseConflictReasons(new ConflictReasonComputation(rule2, rule1NonDelete).computeConflictReasons());
+	public Set<? extends Span> computeResultsFine() {
+		return computeDeleteUseConflictReasons(computeConflictReasons(), new ConflictReasonComputation(rule2, rule1NonDelete).computeConflictReasons());
 	}
 
 	public ConflictAtom hasConflicts() {
@@ -123,8 +122,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	}
 
 	public Set<ConflictReason> computeConflictReasons() {
-		normalCR = new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
-		return normalCR;
+		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
 	}
 
 	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
@@ -159,9 +157,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	private Set<Span> computeDeleteUseConflictReasons(Set<ConflictReason> DUCR){
+	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<ConflictReason> normalCR, Set<ConflictReason> DUCR){
 		return new DeleteUseConflictReasonComputation(rule1, rule2, normalCR, DUCR).computeDeleteUseConflictReason();
-
 	}
 
 }

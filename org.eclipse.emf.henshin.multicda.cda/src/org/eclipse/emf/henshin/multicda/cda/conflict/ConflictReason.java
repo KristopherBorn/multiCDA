@@ -19,7 +19,6 @@ public class ConflictReason extends Span {
 
 	Set<MinimalConflictReason> originMCRs;
 
-	protected Set<ModelElement> deletionElementsInRule1;
 
 	/*
 	 * (non-Javadoc)
@@ -69,13 +68,6 @@ public class ConflictReason extends Span {
 		return originMCRs;
 	}
 
-	/**
-	 * @return the deletionElementsInRule1
-	 */
-	public Set<ModelElement> getDeletionElementsInRule1() {
-		return deletionElementsInRule1;
-	}
-
 	public ConflictReason(Span minimalConflictReason) {
 		super(minimalConflictReason);
 		if (minimalConflictReason instanceof MinimalConflictReason) {
@@ -96,53 +88,6 @@ public class ConflictReason extends Span {
 		this.deletionElementsInRule1 = getDeletionElementsOfSpan(this);
 		this.originMCRs = originMCRs;
 	}
-
-	private Set<ModelElement> getDeletionElementsOfSpan(Set<Mapping> mappingsOfSpanInRule1, Graph graph,
-			Set<Mapping> mappingsOfSpanInRule2) {
-		Set<ModelElement> deletionElements = new HashSet<ModelElement>();
-		for (Mapping mapping : mappingsOfSpanInRule1) {
-			if (mapping.getImage().getAction().getType().equals(Action.Type.DELETE))
-				deletionElements.add(mapping.getImage());
-		}
-		// find all related Edges in Rule1
-		for (Edge egdeInS : graph.getEdges()) {
-			Node sourceNodeInS = egdeInS.getSource();
-			Node targetNodeInS = egdeInS.getTarget();
-			Mapping mappingOfSourceInR1 = getMappingIntoRule(mappingsOfSpanInRule1, sourceNodeInS);
-			Node sourceNodeInR1 = mappingOfSourceInR1.getImage();
-			Mapping mappingOfTargetInR1 = getMappingIntoRule(mappingsOfSpanInRule1, targetNodeInS);
-			Node targetNodeInR1 = mappingOfTargetInR1.getImage();
-			Edge associatedEdgeInR1 = sourceNodeInR1.getOutgoing(egdeInS.getType(), targetNodeInR1); 
-																										// Vorsicht!
-																										// hier
-																										// kann
-																										// auch
-																										// null
-																										// rauskommen,
-																										// wenn
-																										// es
-																										// ein
-																										// bug
-																										// ist!
-			if (associatedEdgeInR1 != null && associatedEdgeInR1.getAction().getType().equals(Action.Type.DELETE))
-				deletionElements.add(associatedEdgeInR1);
-		}
-		return deletionElements;
-	}
-
-	private Mapping getMappingIntoRule(Set<Mapping> mappingsFromSpanInRule, Node originNode) {
-		for (Mapping mapping : mappingsFromSpanInRule) {
-			if (mapping.getOrigin() == originNode)
-				return mapping;
-		}
-		return null;
-	}
-
-	private Set<ModelElement> getDeletionElementsOfSpan(Span minimalConflictReason) {
-		return getDeletionElementsOfSpan(minimalConflictReason.getMappingsInRule1(), minimalConflictReason.getGraph(),
-				minimalConflictReason.getMappingsInRule2());
-	}
-
 
 	public Set<ConflictAtom> getCoveredEdgeConflictAtoms() {
 		Set<ConflictAtom> edgeConflictAtoms = new HashSet<ConflictAtom>();

@@ -2,10 +2,12 @@ package org.eclipse.emf.henshin.multicda.cda.tester;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ConditionsSet;
 
 /**
  * @author Jevgenij Huebert
@@ -73,7 +75,8 @@ public class Tester {
 	public static String getContent(boolean clazz, Object... objects) {
 		String result = "";
 		for (Object o : objects)
-			result += ", " + (clazz ? o instanceof Class ? ((Class<?>) o).getSimpleName() : o.getClass().getSimpleName() : o);
+			result += ", "
+					+ (clazz ? o instanceof Class ? ((Class<?>) o).getSimpleName() : o.getClass().getSimpleName() : o);
 		return "(" + (result.isEmpty() ? "" : result.substring(2)) + ")";
 	}
 
@@ -109,18 +112,26 @@ public class Tester {
 		print(this.toString());
 	}
 
-	public String print(String message, boolean... out) {
-		if (out.length == 0 || out.length != 0 && out[0])
-			System.out.println(NAME + ": " + message);
-		return NAME + ": " + message;
+	public String print(String message, boolean... errorOut) {
+		message = NAME + ": " + message;
+		if (errorOut.length <= 1 || errorOut.length > 1 && errorOut[1])
+			if (errorOut.length == 0 || errorOut.length != 0 && !errorOut[0])
+				System.out.println(message);
+			else
+				System.err.println("\n" + message + "\n");
+		return message;
 	}
 
-	public boolean check(Conditions conditions) {
-		return check(conditions.getClass(), conditions.getConditions());
+	public void check(ConditionsSet conditionsSet) {
+		for (Condition condition : conditionsSet)
+			check(condition);
 	}
 
-	public boolean check(Condition... conditions) {
-		return check(null, conditions);
+	public boolean check(Condition condition) {
+		if (condition instanceof Conditions)
+			return check(((Conditions) condition).getClass(), condition);
+		else
+			return check(null, condition);
 	}
 
 	public boolean check(Class<?> type, Condition... conditions) {
@@ -131,10 +142,10 @@ public class Tester {
 		print("Ready");
 	}
 
-	protected boolean checkReasons(Set<ModelElement> elements, Object... conditions) {
+	protected boolean checkReasons(Set<ModelElement> elements, List<Condition> conditions) {
 		String checked = "";
 		int index = 0;
-		if (elements.size() != conditions.length)
+		if (elements.size() != conditions.size())
 			return false;
 		for (ModelElement element : elements) {
 			boolean found = false;
@@ -142,7 +153,7 @@ public class Tester {
 				if (!(condition instanceof Condition))
 					return false;
 				Condition c = (Condition) condition;
-				if (index >= conditions.length)
+				if (index >= conditions.size())
 					return false;
 				if (!checked.contains("::" + condition) && c.proove(element)) {
 					found = true;
@@ -154,7 +165,7 @@ public class Tester {
 			if (!found)
 				return false;
 		}
-		boolean result = index == conditions.length;
+		boolean result = index == conditions.size();
 //		if (PrintFounds && result)
 //			print("Found elements: " + elements + "\t\twith conditions: " + getContent(conditions));
 		return result;

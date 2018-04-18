@@ -24,9 +24,9 @@ import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason.DeleteDeleteConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason.DeleteReadConflictReason;
 
 /**
  * 
@@ -63,8 +63,8 @@ public class DeleteUseConflictReasonComputation {
 	 * @param conflictReasons
 	 * @return result
 	 */
-	public Set<Span> computeDeleteUseConflictReason() {
-		Set<Span> result = new HashSet<>();
+	public Set<DeleteUseConflictReason> computeDeleteUseConflictReason() {
+		Set<DeleteUseConflictReason> result = new HashSet<>();
 		for (Span normal : normalCRs)
 			computeDeleteUseConflictReasons(normal, result);
 		return result;
@@ -77,7 +77,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param s1
 	 * @param result
 	 */
-	private void computeDeleteUseConflictReasons(Span s1, Set<Span> result) {
+	private void computeDeleteUseConflictReasons(Span s1, Set<DeleteUseConflictReason> result) {
 		Rule rule12 = s1.getRule1();
 		Rule conflictRule2 = s1.getRule2();
 		helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);

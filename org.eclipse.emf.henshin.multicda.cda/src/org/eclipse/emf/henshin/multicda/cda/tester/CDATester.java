@@ -20,14 +20,23 @@ import org.eclipse.emf.henshin.multicda.cda.DependencyAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.MultiGranularAnalysis;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason.DeleteDeleteConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason.CreateDeleteDependencyReason;
+import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason.CreateReadDependencyReason;
+import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.MinimalDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.runner.RulePreparator;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CDDR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CDDRConditions;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CRDR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CRDRConditions;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CUDR;
+import org.eclipse.emf.henshin.multicda.cda.tester.Condition.CUDRConditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DDCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DDCRConditions;
@@ -35,7 +44,6 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DRCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DRCRConditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DUCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.DUCRConditions;
-import org.eclipse.emf.henshin.multicda.cda.tester.Condition.ECR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Edge;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MinimalReasonConditions;
@@ -52,7 +60,6 @@ public class CDATester extends Tester {
 	private Set<? extends Span> computedAtoms = new HashSet<>();
 	private String checked = "";
 	private int iCheckedCounter = 0;
-	private int mCheckedCounter = 0;
 	private Options options;
 
 	public CDATester(String henshin, String rule, Options... options) {
@@ -126,14 +133,14 @@ public class CDATester extends Tester {
 	}
 
 	protected void init(Options... opt) {
-		Options options = new Options();
+		options = new Options();
 		if (opt.length != 0)
 			options = opt[0];
 		NAME = "CDA Tester";
 		if (options.is(Options.PRINT_HEADER))
 			System.out.println("\n\t\t  " + first.getName() + " --> " + second.getName() + "\n\t\t\tCDA");
-		assertTrue(print("First rule not found", false), first != null && first instanceof Rule);
-		assertTrue(print("Second rule not found", false), second != null && second instanceof Rule);
+		assertTrue(print("First rule not found", true, false), first != null && first instanceof Rule);
+		assertTrue(print("Second rule not found", true, false), second != null && second instanceof Rule);
 
 		if (options.is(Options.PREPARE)) {
 			if (first != second) {
@@ -175,104 +182,133 @@ public class CDATester extends Tester {
 		return minimalReasons;
 	}
 
-	@Override
-	public boolean check(Conditions typedConditions) { //Class<?> type, Condition... conditions) {
-		Class<?> type = typedConditions.getClass();
-		Condition[] conditions = typedConditions.getConditions();
+	private List<Condition> edgeNode = new ArrayList<>();
 
-		List<Condition> edgeNode = new ArrayList<Condition>();
-		for (Condition condition : conditions) {
-			if (condition instanceof DUCR) {
-				if (!condition.proove(conflictReasons.size()))
+	private boolean check(Condition condition, boolean printError) {
+		if (condition instanceof Conditions) {
+			Conditions conditions = (Conditions) condition;
+			Class<?> type = condition.getClass();
+			Condition[] conditionsElements = conditions.getValues();
+			edgeNode = new ArrayList<>();
+			for (Condition conElement : conditionsElements)
+				check(conElement, printError);
+
+			if (edgeNode.size() == 0)
+				return true;
+			if (type == Conditions.class || type == MinimalReasonConditions.class) {
+				for (Span deleteUseConflictReason : minimalReasons) {
+					if (deleteUseConflictReason instanceof ConflictReason) {
+						MinimalConflictReason minimalReason = (MinimalConflictReason) deleteUseConflictReason;
+						if (iChecker(minimalReason, type, condition.name, edgeNode))
+							return true;
+					}
+				}
+			}
+			//______________________new conditions check________________________
+			if ((type == DRCRConditions.class || type == DUCRConditions.class || type == DDCRConditions.class)
+					&& options.is(Options.DEPENDENCY)) {
+				if (printError)
+					System.err.println("Condition type: '" + type + "' is not a Dependency Reason");
+				return false;
+			}
+			if ((type == CRDRConditions.class || type == CUDRConditions.class || type == CDDRConditions.class)
+					&& !options.is(Options.DEPENDENCY)) {
+				if (printError)
+					System.err.println("Condition type: '" + type + "' is not a Conflict Reason");
+				return false;
+			}
+			if (type == Conditions.class || type == DRCRConditions.class || type == DUCRConditions.class
+					|| type == CRDRConditions.class || type == CUDRConditions.class)
+				for (Span drReason : getDRReasons())
+					if (iChecker(drReason, type, condition.name, edgeNode))
+						return true;
+			if (type == Conditions.class || type == DDCRConditions.class || type == DUCRConditions.class
+					|| type == CDDRConditions.class || type == CUDRConditions.class)
+				for (Span ddReason : getDDReasons())
+					if (iChecker(ddReason, type, condition.name, edgeNode))
+						return true;
+			if (printError)
+				System.err.println("\n[" + condition + "] not found!\n");
+			return false;
+		} else {
+			if (condition instanceof CUDR && options.is(Options.DEPENDENCY)
+					|| condition instanceof DUCR && !options.is(Options.DEPENDENCY)) {
+				if (!condition.proove(getDUReasons().size())) {
+					print(condition + " failed", true);
 					return false;
+				}
 				print(condition + " accepted");
-			} else if (condition instanceof DRCR) {
-				if (!condition.proove(getDRCR().size()))
+			} else if (condition instanceof CRDR && options.is(Options.DEPENDENCY)
+					|| condition instanceof DRCR && !options.is(Options.DEPENDENCY)) {
+				if (!condition.proove(getDRReasons().size())) {
+					print(condition + " failed", true);
 					return false;
+				}
 				print(condition + " accepted");
-			} else if (condition instanceof DDCR) {
-				if (!condition.proove(getDDCR().size()))
+			} else if (condition instanceof CDDR && options.is(Options.DEPENDENCY)
+					|| condition instanceof DDCR && !options.is(Options.DEPENDENCY)) {
+				if (!condition.proove(getDDReasons().size())) {
+					print(condition + " failed", true);
 					return false;
+				}
 				print(condition + " accepted");
 			} else if (condition instanceof MCR) {
-				if (!condition.proove(minimalReasons.size()))
+				if (!condition.proove(minimalReasons.size())) {
+					print(condition + " failed", true);
 					return false;
-				print(condition + " accepted");
-			} else if (condition instanceof ECR) {
-				if (!condition.proove(essentialConflictReasons.size()))
-					return false;
+				}
 				print(condition + " accepted");
 			} else if (condition instanceof Edge || condition instanceof Node)
 				edgeNode.add(condition);
-			else
+			else if (printError)
 				System.err.println("This condition don't belong here --> " + condition);
-		}
-		if (edgeNode.size() == 0)
 			return true;
+		}
 
-		if (type == Conditions.class || type == MinimalReasonConditions.class) {
-			for (Span deleteUseConflictReason : minimalReasons) {
-				if (deleteUseConflictReason instanceof ConflictReason) {
-					MinimalConflictReason minimalReason = (MinimalConflictReason) deleteUseConflictReason;
-					if (iChecker(minimalReason, edgeNode, type, typedConditions.SHORT, conditions))
-						return true;
-				}
-			}
-		}
-		//______________________new conditions check________________________
-		if (type == Conditions.class || type == DRCRConditions.class || type == DUCRConditions.class) {
-			for (Span deleteUseConflictReason : conflictReasons) {
-				if (deleteUseConflictReason instanceof DeleteReadConflictReason) {
-					DeleteReadConflictReason drcr = (DeleteReadConflictReason) deleteUseConflictReason;
-					if (iChecker(drcr, edgeNode, type, typedConditions.SHORT, conditions))
-						return true;
-				}
-			}
-		}
-		if (type == Conditions.class || type == DDCRConditions.class || type == DUCRConditions.class) {
-			for (Span DeleteUseConflictReason : conflictReasons) {
-				if (DeleteUseConflictReason instanceof DeleteDeleteConflictReason) {
-					DeleteDeleteConflictReason ddcr = (DeleteDeleteConflictReason) DeleteUseConflictReason;
-					if (iChecker(ddcr, edgeNode, type, typedConditions.SHORT, conditions))
-						return true;
-				}
-			}
-		}
-		return false;
+	}
+
+	@Override
+	public boolean check(Condition condition) { //Class<?> type, Condition... conditions) {
+		return check(condition, true);
 	}
 
 	/**
 	 * @return
 	 */
-	private Set<DeleteDeleteConflictReason> getDDCR() {
-		Set<DeleteDeleteConflictReason> result = new HashSet<>();
-		for(Span ddcr: conflictReasons)
-			if(ddcr instanceof DeleteDeleteConflictReason)
-				result.add((DeleteDeleteConflictReason) ddcr);
+	private Set<? extends Span> getDUReasons() {
+		return conflictReasons;
+	}
+
+	/**
+	 * @return
+	 */
+	private Set<? extends Span> getDDReasons() {
+		Set<Span> result = new HashSet<>();
+		for (Span ddcr : conflictReasons)
+			if (ddcr instanceof DeleteDeleteConflictReason || ddcr instanceof CreateDeleteDependencyReason)
+				result.add(ddcr);
 		return result;
 	}
 
 	/**
 	 * @return
 	 */
-	private Set<? extends DeleteUseConflictReason> getDRCR() {
-		Set<DeleteReadConflictReason> result = new HashSet<>();
-		for(Span ddcr: conflictReasons)
-			if(ddcr instanceof DeleteReadConflictReason)
-				result.add((DeleteReadConflictReason) ddcr);
+	private Set<? extends Span> getDRReasons() {
+		Set<Span> result = new HashSet<>();
+		for (Span ddcr : conflictReasons)
+			if (ddcr instanceof DeleteReadConflictReason || ddcr instanceof CreateReadDependencyReason)
+				result.add(ddcr);
 		return result;
 	}
 
 	/**
 	 * @param conflictReason
 	 */
-	private boolean iChecker(ConflictReason conflictReason, List<Condition> edgeNode, Class<?> type, String shortName,
-			Condition... conditions) {
+	private boolean iChecker(Span conflictReason, Class<?> type, String shortName, List<Condition> edgeNodes) {
 		Set<ModelElement> elements = conflictReason.getDeletionElementsInRule1();
 		if (!checked.contains(conflictReason.getClass().getSimpleName() + "" + elements)
-				&& checkReasons(elements, edgeNode.toArray())) {
-			print("Found " + shortName + ": " + elements + "\twith " + type.getSimpleName() + " "
-					+ getContent(conditions));
+				&& checkReasons(elements, edgeNodes)) {
+			print("Found " + shortName + ": " + elements + "\twith " + type.getSimpleName() + " " + edgeNodes);
 			checked += conflictReason.getClass().getSimpleName() + "" + elements + "\n";
 			iCheckedCounter++;
 			return true;
@@ -282,7 +318,6 @@ public class CDATester extends Tester {
 
 	public void reset() {
 		iCheckedCounter = 0;
-		mCheckedCounter = 0;
 		checked = "";
 	}
 
@@ -292,20 +327,19 @@ public class CDATester extends Tester {
 		for (Span conflictReason : DeleteUseConflictReasons) {
 			if (conflictReason instanceof DeleteUseConflictReason) {
 				((DeleteUseConflictReason) conflictReason).print();
+			} else if (conflictReason instanceof CreateUseDependencyReason) {
+				((CreateUseDependencyReason) conflictReason).print();
 			} else {
 				if (conflictReason instanceof MinimalConflictReason)
 					type = "MCR";
-				else if (conflictReason instanceof ConflictReason)
-					type = "CR";
-				else if (conflictReason instanceof DependencyReason)
-					type = "DCR";
 				else if (conflictReason instanceof MinimalDependencyReason)
 					type = "MDCR";
 				else if (conflictReason instanceof EssentialConflictReason)
 					type = "ECR";
 				else
 					type = "DeleteUseConflictReason";
-				System.out.println(type + ": " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
+				System.out.println(type + ": " + conflictReason.getGraph().getEdges() + "\t| "
+						+ conflictReason.getGraph().getNodes());
 			}
 		}
 	}
@@ -337,12 +371,8 @@ public class CDATester extends Tester {
 	@Override
 	public void ready() {
 		int iRest = conflictReasons.size() - iCheckedCounter;
-		int mRest = minimalReasons.size() - mCheckedCounter;
 		if (iRest > 0)
 			print("Not all Conflict Reasons are tested. " + iRest + (iRest == 1 ? " is" : " are") + " remaining.");
-		if (mRest > 0)
-			print("Not all Minimal Conflict Reasons are tested. " + mRest + (mRest == 1 ? " is" : " are")
-					+ " remaining.");
 		super.ready();
 		reset();
 	}
@@ -350,11 +380,14 @@ public class CDATester extends Tester {
 	@Override
 	public String toString() {
 		if (analyser instanceof ConflictAnalysis)
-			return minimalReasons.size() + " Minimal Conflict Reasons, " + conflictReasons.size()
-					+ " Conflict Reasons, " + essentialConflictReasons.size() + " Essential Conflict Reasons";
+			return minimalReasons.size()
+					+ (minimalReasons.size() > 1 ? " Minimal Conflict Reasons, " : " Minimal Conflict Reason, ")
+					+ conflictReasons.size() + (conflictReasons.size() > 1 ? " Conflict Reasons" : " Conflict Reason");
+
 		if (analyser instanceof DependencyAnalysis)
-			return minimalReasons.size() + " Minimal Dependency Reasons, " + conflictReasons.size()
-					+ " Dependency Reasons, " + essentialConflictReasons.size() + " Essential Dependency Reasons";
+			return minimalReasons.size()
+					+ (minimalReasons.size() > 1 ? " Minimal Dependency Reasons, " : " Minimal Dependency Reason, ")
+					+ conflictReasons.size() + (conflictReasons.size() > 1 ? " Conflict Dependency" : " Dependency Reason");
 		else
 			return super.toString();
 

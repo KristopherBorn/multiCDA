@@ -13,10 +13,12 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.model.Action.Type;
+import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
+import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
@@ -33,6 +35,7 @@ public class Span {
 	public Graph graph;
 
 	private Copier copierForSpanAndMappings;
+	protected Set<ModelElement> deletionElementsInRule1;
 
 	public Span(Span s1) {
 		// copy Graph and mappings!
@@ -90,6 +93,13 @@ public class Span {
 
 	public Graph getGraph() {
 		return graph;
+	}
+
+	/**
+	 * @return the deletionElementsInRule1
+	 */
+	public Set<ModelElement> getDeletionElementsInRule1() {
+		return deletionElementsInRule1;
 	}
 
 	/**
@@ -164,6 +174,50 @@ public class Span {
 
 	public static boolean nodeContains(Node n1, Node n2) {
 		return nodeContains(n1.getName(), n2.getName());
+	}
+	
+	protected Set<ModelElement> getDeletionElementsOfSpan(Span minimalConflictReason) {
+		return getDeletionElementsOfSpan(minimalConflictReason.getMappingsInRule1(), minimalConflictReason.getGraph(),
+				minimalConflictReason.getMappingsInRule2());
+	}
+	protected Set<ModelElement> getDeletionElementsOfSpan(Set<Mapping> mappingsOfSpanInRule1, Graph graph,
+			Set<Mapping> mappingsOfSpanInRule2) {
+		Set<ModelElement> deletionElements = new HashSet<ModelElement>();
+		for (Mapping mapping : mappingsOfSpanInRule1) {
+			if (mapping.getImage().getAction().getType().equals(Action.Type.DELETE))
+				deletionElements.add(mapping.getImage());
+		}
+		// find all related Edges in Rule1
+		for (Edge egdeInS : graph.getEdges()) {
+			Node sourceNodeInS = egdeInS.getSource();
+			Node targetNodeInS = egdeInS.getTarget();
+			Mapping mappingOfSourceInR1 = getMappingIntoRule(mappingsOfSpanInRule1, sourceNodeInS);
+			Node sourceNodeInR1 = mappingOfSourceInR1.getImage();
+			Mapping mappingOfTargetInR1 = getMappingIntoRule(mappingsOfSpanInRule1, targetNodeInS);
+			Node targetNodeInR1 = mappingOfTargetInR1.getImage();
+			Edge associatedEdgeInR1 = sourceNodeInR1.getOutgoing(egdeInS.getType(), targetNodeInR1); 
+																										// Vorsicht!
+																										// hier
+																										// kann
+																										// auch
+																										// null
+																										// rauskommen,
+																										// wenn
+																										// es
+																										// ein
+																										// bug
+																										// ist!
+			if (associatedEdgeInR1 != null && associatedEdgeInR1.getAction().getType().equals(Action.Type.DELETE))
+				deletionElements.add(associatedEdgeInR1);
+		}
+		return deletionElements;
+	}
+	private Mapping getMappingIntoRule(Set<Mapping> mappingsFromSpanInRule, Node originNode) {
+		for (Mapping mapping : mappingsFromSpanInRule) {
+			if (mapping.getOrigin() == originNode)
+				return mapping;
+		}
+		return null;
 	}
 
 	public static boolean nodeContains(String n1, String n2) {

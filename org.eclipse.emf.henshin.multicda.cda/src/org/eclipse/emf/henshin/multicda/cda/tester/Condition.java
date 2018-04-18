@@ -2,12 +2,24 @@ package org.eclipse.emf.henshin.multicda.cda.tester;
 
 import static org.junit.Assert.assertTrue;
 
-public abstract class Condition {
-	protected String[] values;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
-	protected String name = "Condition";
+import org.eclipse.emf.henshin.model.GraphElement;
 
-	public Condition(String... values) {
+public class Condition {
+	protected Object[] values;
+
+	protected final String name;
+
+	public Condition(Object... values) {
+		this.name = "Condition";
+		this.values = values;
+	}
+
+	protected Condition(String name, Object... values) {
+		this.name = name;
 		this.values = values;
 	}
 
@@ -21,14 +33,20 @@ public abstract class Condition {
 		return true;
 	}
 
+	/**
+	 * @return the values
+	 */
+	public Object[] getValues() {
+		return values;
+	}
+
 	public static class Node extends Condition {
 		public Node(int a) {
 			this(a + "");
 		}
 
 		public Node(String a) {
-			super(a);
-			name = "Node";
+			super("Node", a);
 		}
 
 		@Override
@@ -42,15 +60,14 @@ public abstract class Condition {
 			return true;
 		}
 	}
-	
+
 	public static class Edge extends Condition {
 		public Edge(int a, int b) {
 			this(a + "", b + "");
 		}
 
 		public Edge(String a, String b) {
-			super(a, b);
-			name = "Edge";
+			super("Edge", a, b);
 		}
 
 		@Override
@@ -66,32 +83,35 @@ public abstract class Condition {
 		}
 	}
 
-	public static class Conditions {
-		private Condition[] conditions;
-		public final String SHORT;
+	public static class Conditions extends Condition {
 
 		public Conditions(Condition... conditions) {
-			this.conditions = conditions;
-			SHORT = "";
-		}
-		private Conditions(String shortName, Condition... conditions) {
-			this.conditions = conditions;
-			SHORT = shortName;
+			super("", conditions);
 		}
 
-		public Condition[] getConditions() {
-			return conditions;
+		protected Conditions(String name, Condition... conditions) {
+			super(name, conditions);
+		}
+
+		@Override
+		public Condition[] getValues() {
+			return (Condition[]) super.getValues();
 		}
 
 		@Override
 		public String toString() {
 			String result = "";
-			for (Condition condition : conditions)
-				result += ", " + condition;
+			for (Object condition : values)
+				if (condition instanceof Condition)
+					result += ", " + condition;
+				else {
+					result = ", ERROR!";
+					break;
+				}
 			return getClass().getSimpleName() + ": " + result.substring(2);
 		}
 	}
-	
+
 	public static class ConflictReasonConditions extends Conditions {
 		public ConflictReasonConditions(Condition... conditions) {
 			super("CR", conditions);
@@ -115,26 +135,75 @@ public abstract class Condition {
 			super("CP right", conditions);
 		}
 	}
+
 	//__________________new conditions _______________________
 	public static class DUCRConditions extends Conditions {
 		public DUCRConditions(Condition... conditions) {
 			super("DUCR", conditions);
 		}
 	}
+
 	public static class DRCRConditions extends Conditions {
 		public DRCRConditions(Condition... conditions) {
 			super("DRCR", conditions);
 		}
 	}
+
 	public static class DDCRConditions extends Conditions {
 		public DDCRConditions(Condition... conditions) {
 			super("DDCR", conditions);
 		}
 	}
 
+	public static class CUDRConditions extends Conditions {
+		public CUDRConditions(Condition... conditions) {
+			super("CUDR", conditions);
+		}
+	}
+
+	public static class CRDRConditions extends Conditions {
+		public CRDRConditions(Condition... conditions) {
+			super("CRDR", conditions);
+		}
+	}
+
+	public static class CDDRConditions extends Conditions {
+		public CDDRConditions(Condition... conditions) {
+			super("CDDR", conditions);
+		}
+	}
+
+	public static class ConditionsSet implements Iterable<Condition> {
+		private Condition[] conditions;
+
+		public ConditionsSet(Condition... conditions) {
+			this.conditions = conditions;
+		}
+
+		public Condition[] getConditions() {
+			return conditions;
+		}
+
+		@Override
+		public String toString() {
+			String result = "";
+			for (Condition condition : conditions)
+				result += "\n" + condition;
+			return result.isEmpty() ? "[]" : "[" + result.substring(1) + "]";
+		}
+
+		/* (non-Javadoc)
+		 * @see java.lang.Iterable#iterator()
+		 */
+		@Override
+		public Iterator<Condition> iterator() {
+			return Arrays.asList(conditions).iterator();
+		}
+	}
+
 	private static abstract class ConflictSize extends Condition {
-		public ConflictSize(String value) {
-			super(value);
+		public ConflictSize(String name, String value) {
+			super(name, value);
 		}
 
 		@Override
@@ -151,7 +220,8 @@ public abstract class Condition {
 
 		@Override
 		public String toString() {
-			return name + ": " + values[0];
+			return (Integer.parseInt(values[0] + "") != 1 ? name : name.substring(0, name.length() - 1)) + ": "
+					+ values[0];
 		}
 	}
 
@@ -161,8 +231,7 @@ public abstract class Condition {
 		}
 
 		public MCR(String value) {
-			super(value);
-			name = "Minimal Conflict Reasons";
+			super("Minimal Conflict Reasons", value);
 		}
 	}
 
@@ -172,28 +241,57 @@ public abstract class Condition {
 		}
 
 		public DUCR(String value) {
-			super(value);
-			name = "Delete Use Conflict Reasons";
+			super("Delete Use Conflict Reasons", value);
 		}
 	}
+
 	public static class DRCR extends ConflictSize {
 		public DRCR(int value) {
 			this(value + "");
 		}
 
 		public DRCR(String value) {
-			super(value);
-			name = "Delete Read Conflict Reasons";
+			super("Delete Read Conflict Reasons", value);
 		}
 	}
+
 	public static class DDCR extends ConflictSize {
 		public DDCR(int value) {
 			this(value + "");
 		}
 
 		public DDCR(String value) {
-			super(value);
-			name = "Delete Delete Conflict Reasons";
+			super("Delete Delete Conflict Reasons", value);
+		}
+	}
+
+	public static class CUDR extends ConflictSize {
+		public CUDR(int value) {
+			this(value + "");
+		}
+
+		public CUDR(String value) {
+			super("Create Use Dependency Reasons", value);
+		}
+	}
+
+	public static class CRDR extends ConflictSize {
+		public CRDR(int value) {
+			this(value + "");
+		}
+
+		public CRDR(String value) {
+			super("Create Read Dependency Reasons", value);
+		}
+	}
+
+	public static class CDDR extends ConflictSize {
+		public CDDR(int value) {
+			this(value + "");
+		}
+
+		public CDDR(String value) {
+			super("Create Delete Dependency Reasons", value);
 		}
 	}
 
@@ -203,19 +301,7 @@ public abstract class Condition {
 		}
 
 		public CP(String value) {
-			super(value);
-			name = "Critical Pairs";
-		}
-	}
-
-	public static class ECR extends ConflictSize {
-		public ECR(int value) {
-			this(value + "");
-		}
-
-		public ECR(String value) {
-			super(value);
-			name = "Essential Conflict Reason";
+			super("Critical Pairs", value);
 		}
 	}
 
@@ -225,15 +311,14 @@ public abstract class Condition {
 		}
 
 		public ICP(String value) {
-			super(value);
-			name = "Initial Critical Pairs";
+			super("Initial Critical Pairs", value);
 		}
 	}
 
 	@Override
 	public String toString() {
 		String result = "";
-		for (String string : values)
+		for (Object string : values)
 			result += ", " + string;
 		return name + ":" + " (" + result.substring(2) + ")";
 	}
