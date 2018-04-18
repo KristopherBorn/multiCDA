@@ -45,6 +45,7 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * constructor
+	 * 
 	 * @param rule1
 	 * @param rule2
 	 * @param conflictReasonsFromR2
@@ -57,6 +58,7 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * constructs all Initial Reasons as candidates for r1 and r2
+	 * 
 	 * @param conflictReasons
 	 * @return result
 	 */
@@ -91,6 +93,24 @@ public class DeleteUseConflictReasonComputation {
 				ddset.forEach(s -> result.add(s));
 			}
 		}
+	}
+
+	/**
+	 * returns true, if there is a match from S1 to K2, which is equal to the
+	 * match of S1 to lhs of rule 2
+	 * 
+	 * @param conflictReason
+	 * @param rule2
+	 * @return boolean
+	 */
+	public static boolean findEmbedding(Span conflictReason, Rule rule2) {
+		Graph s1 = conflictReason.getGraph();
+		Action preserve = new Action(Action.Type.PRESERVE);
+		EList<Node> l2N = rule2.getActionNodes(preserve);
+		EList<Edge> l2E = rule2.getActionEdges(preserve);
+		Map<GraphElement, GraphElement> s1tol2 = computeMappings(s1, l2N, l2E);
+		boolean empty = s1tol2.isEmpty();
+		return !empty;
 	}
 
 	/**
@@ -222,7 +242,9 @@ public class DeleteUseConflictReasonComputation {
 				}
 
 			} else if (s instanceof Edge) {
-				// TODO VC EdgeMapping? Normalerweise an dieser Stelle nicht nötig, da dies Automatisch von der Methode Pushout erledigt wird
+				// TODO VC EdgeMapping? Normalerweise an dieser Stelle nicht
+				// nötig, da dies Automatisch von der Methode Pushout erledigt
+				// wird
 			}
 		}
 
@@ -571,44 +593,23 @@ public class DeleteUseConflictReasonComputation {
 	}
 
 	/**
-	* returns true, if there is a match from S1 to K2, 
-	* which is equal to the
-	* match of S1 to lhs of rule 2
-	* 
-	* @param conflictReason
-	* @param rule2
-	* @return boolean
-	*/
-	public static boolean findEmbedding(Span conflictReason, 
-		Rule rule2) {
-		Graph s1 = conflictReason.getGraph();
-		Action action = new Action(Action.Type.PRESERVE);
-		EList<Node> l2N = rule2.getActionNodes(action);
-		EList<Edge> l2E = rule2.getActionEdges(action);
-		Map<GraphElement, GraphElement> s1tol2 = computeMappings(s1, l2N, l2E);
-		boolean empty = s1tol2.isEmpty();
-		return !empty;
-	}
+	 * computes Mappings of two ELists of Nodes our of two Graphs
+	 * 
+	 * @param l2e
+	 * @param l2n
+	 * @param s1
+	 * @param conflictReason
+	 * @param k
+	 * @return
+	 */
+	private static Map<GraphElement, GraphElement> computeMappings(Graph s1, EList<Node> l2n, EList<Edge> l2e) {
+		HashMap<GraphElement, GraphElement> result = new HashMap<GraphElement, GraphElement>();
 
-	/**
-	* computes Mappings of two ELists of Nodes our of two Graphs
-	* @param l2e
-	* @param l2n
-	* @param s1
-	* @param conflictReason
-	* @param k
-	* @return
-	*/
-	private static Map<GraphElement, GraphElement> computeMappings(Graph s1,
-		EList<Node> l2n, EList<Edge> l2e) {
-		HashMap<GraphElement, GraphElement> result 
-			= new HashMap<GraphElement, GraphElement>();
-		
 		int n = s1.getNodes().size();
 		int e = s1.getEdges().size();
 		int checkN = 0;
 		int checkE = 0;
-		
+
 		for (Node node : s1.getNodes()) {
 			EClass nType = node.getType();
 			String nName = node.getName();
@@ -617,8 +618,7 @@ public class DeleteUseConflictReasonComputation {
 			for (Node node2 : l2n) {
 				String name = node2.getName();
 				EClass type = node2.getType();
-				if (name.equals(searchName) &&
-				 type.equals(nType)) {
+				if (name.equals(searchName) && type.equals(nType)) {
 					result.put(node, node2);
 					checkN += 1;
 				}
@@ -630,14 +630,13 @@ public class DeleteUseConflictReasonComputation {
 				Node source2 = edge2.getSource();
 				Node target = edge.getTarget();
 				Node target2 = edge2.getTarget();
-				if (result.get(source).equals(source2)
-				 && result.get(target).equals(target2)) {
+				if (result.get(source).equals(source2) && result.get(target).equals(target2)) {
 					result.put(edge, edge2);
 					checkE += 1;
 				}
 			}
 		}
-		if (n == checkN && e == checkE){
+		if (n == checkN && e == checkE) {
 			return result;
 		} else {
 			return new HashMap<GraphElement, GraphElement>();
