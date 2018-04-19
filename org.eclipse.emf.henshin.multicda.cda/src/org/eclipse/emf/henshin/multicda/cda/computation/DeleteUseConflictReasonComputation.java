@@ -603,6 +603,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private static Map<GraphElement, GraphElement> computeMappings(Graph s1, EList<Node> l2n, EList<Edge> l2e) {
+		HashMap<GraphElement, GraphElement> empty = new HashMap<GraphElement, GraphElement>();
 		HashMap<GraphElement, GraphElement> result = new HashMap<GraphElement, GraphElement>();
 
 		int n = s1.getNodes().size();
@@ -624,6 +625,9 @@ public class DeleteUseConflictReasonComputation {
 				}
 			}
 		}
+		if (n != checkN) {
+			return empty;
+		}
 		for (Edge edge : s1.getEdges()) {
 			for (Edge edge2 : l2e) {
 				Node source = edge.getSource();
@@ -636,10 +640,10 @@ public class DeleteUseConflictReasonComputation {
 				}
 			}
 		}
-		if (n == checkN && e == checkE) {
+		if (e == checkE) {
 			return result;
 		} else {
-			return new HashMap<GraphElement, GraphElement>();
+			return empty;
 		}
 	}
 }
