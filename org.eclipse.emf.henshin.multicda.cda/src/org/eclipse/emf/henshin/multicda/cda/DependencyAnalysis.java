@@ -44,7 +44,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 
 	@Override
 	public Set<? extends Span> computeResultsFine() {
-		return computeInitialDependencyReasons();
+		return computeDependencyReasons();
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		return result;
 	}
 
-	public Set<CreateUseDependencyReason> computeInitialDependencyReasons() {
+	public Set<CreateUseDependencyReason> computeDependencyReasons() {
 		Set<CreateUseDependencyReason> result = new HashSet<>();
 
 		Rule invertedRule1 = invertRule(rule1);

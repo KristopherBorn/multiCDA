@@ -12,8 +12,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.eclipse.emf.henshin.model.Action.Type;
 import org.eclipse.emf.henshin.model.Action;
+import org.eclipse.emf.henshin.model.Action.Type;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.HenshinFactory;
@@ -36,7 +36,7 @@ public class Span {
 
 	private Copier copierForSpanAndMappings;
 	protected Set<ModelElement> deletionElementsInRule1;
-
+	
 	public Span(Span s1) {
 		// copy Graph and mappings!
 		// Copier
@@ -175,11 +175,12 @@ public class Span {
 	public static boolean nodeContains(Node n1, Node n2) {
 		return nodeContains(n1.getName(), n2.getName());
 	}
-	
+
 	protected Set<ModelElement> getDeletionElementsOfSpan(Span minimalConflictReason) {
 		return getDeletionElementsOfSpan(minimalConflictReason.getMappingsInRule1(), minimalConflictReason.getGraph(),
 				minimalConflictReason.getMappingsInRule2());
 	}
+
 	protected Set<ModelElement> getDeletionElementsOfSpan(Set<Mapping> mappingsOfSpanInRule1, Graph graph,
 			Set<Mapping> mappingsOfSpanInRule2) {
 		Set<ModelElement> deletionElements = new HashSet<ModelElement>();
@@ -195,23 +196,24 @@ public class Span {
 			Node sourceNodeInR1 = mappingOfSourceInR1.getImage();
 			Mapping mappingOfTargetInR1 = getMappingIntoRule(mappingsOfSpanInRule1, targetNodeInS);
 			Node targetNodeInR1 = mappingOfTargetInR1.getImage();
-			Edge associatedEdgeInR1 = sourceNodeInR1.getOutgoing(egdeInS.getType(), targetNodeInR1); 
-																										// Vorsicht!
-																										// hier
-																										// kann
-																										// auch
-																										// null
-																										// rauskommen,
-																										// wenn
-																										// es
-																										// ein
-																										// bug
-																										// ist!
+			Edge associatedEdgeInR1 = sourceNodeInR1.getOutgoing(egdeInS.getType(), targetNodeInR1);
+			// Vorsicht!
+			// hier
+			// kann
+			// auch
+			// null
+			// rauskommen,
+			// wenn
+			// es
+			// ein
+			// bug
+			// ist!
 			if (associatedEdgeInR1 != null && associatedEdgeInR1.getAction().getType().equals(Action.Type.DELETE))
 				deletionElements.add(associatedEdgeInR1);
 		}
 		return deletionElements;
 	}
+
 	private Mapping getMappingIntoRule(Set<Mapping> mappingsFromSpanInRule, Node originNode) {
 		for (Mapping mapping : mappingsFromSpanInRule) {
 			if (mapping.getOrigin() == originNode)
@@ -223,9 +225,9 @@ public class Span {
 	public static boolean nodeContains(String n1, String n2) {
 		String[] ns1 = n1.split("<>|--|_");
 		String[] ns2 = n2.split("<>|--|_");
-		for(String n : ns1)
-			for(String m : ns2)
-				if(n.equals(m))
+		for (String n : ns1)
+			for (String m : ns2)
+				if (n.equals(m))
 					return true;
 		return false;
 	}
@@ -267,6 +269,7 @@ public class Span {
 	public boolean validate(Rule rule1, Rule rule2) {
 		return validate(rule1, rule2, rule1, rule2);
 	}
+
 	public boolean validate(Rule rule1, Rule rule2, Rule rule1NoneDelete, Rule rule2NoneDelete) {
 		if (mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
 			return false;
