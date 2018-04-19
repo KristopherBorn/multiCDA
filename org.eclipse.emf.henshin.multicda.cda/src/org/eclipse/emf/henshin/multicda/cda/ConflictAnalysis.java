@@ -49,8 +49,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	 */
 	private int count = 0;
 	private void prepare() {
-		if(rule1 == rule2) 
-			rule2 = (Rule) new Copier().copy(rule1);
+//		if(rule1 == rule2) 
+//			rule2 = (Rule) new Copier().copy(rule1);
 		for(Node n: rule1.getLhs().getNodes())
 			if(n.getName()==null)
 				n.setName("|" + count++  + "|");
