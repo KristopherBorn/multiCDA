@@ -36,7 +36,7 @@ public class Span {
 
 	private Copier copierForSpanAndMappings;
 	protected Set<ModelElement> deletionElementsInRule1;
-	
+
 	public Span(Span s1) {
 		// copy Graph and mappings!
 		// Copier
@@ -156,8 +156,8 @@ public class Span {
 
 	public Mapping getMappingIntoRule1(Node originNode) {
 		for (Mapping mapping : mappingsInRule1) {
-			if (mapping.getOrigin().getType() == originNode.getType()
-					&& nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
+			if (mapping.getOrigin().getType() == originNode.getType() && (nodeEqual(mapping.getOrigin(), originNode)
+					|| mapping.getOrigin().getName().equals(originNode.getName())))
 				return mapping;
 		}
 		return null;
@@ -165,8 +165,8 @@ public class Span {
 
 	public Mapping getMappingIntoRule2(Node originNode) {
 		for (Mapping mapping : mappingsInRule2) {
-			if (mapping.getOrigin().getType() == originNode.getType()
-					&& nodeEqual(mapping.getOrigin().getName(), originNode.getName()))
+			if (mapping.getOrigin().getType() == originNode.getType() && (nodeEqual(mapping.getOrigin(), originNode)
+					|| mapping.getOrigin().getName().equals(originNode.getName())))
 				return mapping;
 		}
 		return null;
@@ -174,6 +174,11 @@ public class Span {
 
 	public static boolean nodeContains(Node n1, Node n2) {
 		return nodeContains(n1.getName(), n2.getName());
+	}
+
+	public static String nodeSwitchName(Node n1) {
+		String[] names = n1.getName().split("_");
+		return names.length == 2 ? names[1] + "_" + names[0] : n1.getName();
 	}
 
 	protected Set<ModelElement> getDeletionElementsOfSpan(Span minimalConflictReason) {
@@ -223,46 +228,34 @@ public class Span {
 	}
 
 	public static boolean nodeContains(String n1, String n2) {
-		String[] ns1 = n1.split("<>|--|_");
-		String[] ns2 = n2.split("<>|--|_");
-		for (String n : ns1)
-			for (String m : ns2)
-				if (n.equals(m))
-					return true;
-		return false;
+		String[] ns1 = n1.split("_");
+		String[] ns2 = n2.split("_");
+		return ns1[0].equals(ns2[1]) || ns1[1].equals(ns2[0]);
 	}
 
 	public static boolean nodeEqual(Node n1, Node n2) {
 		return nodeEqual(n1.getName(), n2.getName());
+
 	}
 
 	public static boolean nodeEqual(String n1, String n2) {
-		String[] ns1 = n1.split("--");
-		String[] ns2 = n2.split("--");
+
+		String[] ns1 = n1.split("<>");
+		String[] ns2 = n2.split("<>");
+
 		if (ns1.length != ns2.length)
 			return false;
-		if (ns1.length == 2)
-			return nodeEqual(ns1[0], ns2[0]) && nodeEqual(ns1[1], ns2[1])
-					|| nodeEqual(ns1[1], ns2[0]) && nodeEqual(ns1[0], ns2[1]);
 		else if (ns1.length == 1) {
-			ns1 = n1.split("<>");
-			ns2 = n2.split("<>");
+			ns1 = n1.split("_");
+			ns2 = n2.split("_");
 			if (ns1.length != ns2.length)
 				return false;
-			if (ns1.length == 2)
-				return nodeEqual(ns1[0], ns2[0]) && nodeEqual(ns1[1], ns2[1])
-						|| nodeEqual(ns1[1], ns2[0]) && nodeEqual(ns1[0], ns2[1]);
-			else {
-				ns1 = n1.split("_");
-				ns2 = n2.split("_");
-				if (ns1.length != ns2.length)
-					return false;
-				if (ns1.length == 1)
-					return n1.equals(n2);
-				return nodeEqual(ns1[0], ns2[0]) && nodeEqual(ns1[1], ns2[1])
-						|| nodeEqual(ns1[1], ns2[0]) && nodeEqual(ns1[0], ns2[1]);
-			}
-		}
+			else if (ns1.length == 1)
+				return n1.equals(n2);
+			else if (ns1.length == 2)
+				return nodeEqual(ns1[0], ns2[1]) && nodeEqual(ns1[1], ns2[0]);
+		} else if (ns1.length == 2)
+			return ns1[0].equals(ns2[1]) && ns1[1].equals(ns2[0]);
 		return false;
 	}
 
@@ -356,8 +349,7 @@ public class Span {
 	 */
 	@Override
 	public String toString() {
-		return "Span [mappingsInRule1=" + mappingsInRule1 + ", mappingsInRule2=" + mappingsInRule2 + ", graph: "
-				+ graph.getNodes().size() + " Nodes, " + graph.getEdges().size() + " Edges" + "]";
+		return getGraph().getEdges() + " : " + getGraph().getNodes(); 
 	}
 
 	public String toShortString() {

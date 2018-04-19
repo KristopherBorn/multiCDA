@@ -22,7 +22,8 @@ public class NonDeletingPreparator {
 			Copier copierForRule = new Copier();
 			Rule copyOfRule = (Rule) copierForRule.copy(ruleToCopy);
 
-			copyOfRule.setName(copyOfRule.getName().concat("_"));
+			String desc = copyOfRule.getDescription();
+			copyOfRule.setDescription("None deleting version! " + (desc==null?"":desc));
 			copierForRule.copyReferences();
 			
 			MappingList mappings = copyOfRule.getMappings();

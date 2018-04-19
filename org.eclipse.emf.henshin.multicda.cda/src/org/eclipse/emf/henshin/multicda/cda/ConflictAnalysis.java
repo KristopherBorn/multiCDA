@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.NestedCondition;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
@@ -37,7 +39,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
 		prepare();
-		EList<NestedCondition> nacs = rule2.getLhs().getNACs();
 		this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
 		this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
 			
@@ -48,6 +49,8 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	 */
 	private int count = 0;
 	private void prepare() {
+		if(rule1 == rule2) 
+			rule2 = (Rule) new Copier().copy(rule1);
 		for(Node n: rule1.getLhs().getNodes())
 			if(n.getName()==null)
 				n.setName("|" + count++  + "|");

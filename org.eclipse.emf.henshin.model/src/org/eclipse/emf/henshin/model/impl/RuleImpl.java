@@ -235,7 +235,7 @@ public class RuleImpl extends UnitImpl implements Rule {
 		}
 		return lhs;
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -1246,7 +1246,7 @@ public class RuleImpl extends UnitImpl implements Rule {
 	 */
 	@Override
 	public String toString() {
-		return super.toString();
+		return super.toString() + (description == null || description.isEmpty() ? "" : ": " + description);
 	}
 
 	/*
@@ -1260,5 +1260,4 @@ public class RuleImpl extends UnitImpl implements Rule {
 		return (EList<Unit>) ECollections.EMPTY_ELIST;
 	}
 
-	
 } // RuleImpl

@@ -54,7 +54,11 @@ public class DeleteUseConflictReasonComputation {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
 		this.normalCRs = normalCR;
+//		this.normalCRs = new HashSet<>();
+//		this.normalCRs.add(new ArrayList<>(normalCR).get(0));
 		this.DUCRs = DUCRs;
+//		this.DUCRs = new HashSet<>();
+//		this.DUCRs.add(new ArrayList<>(DUCRs).get(1));
 	}
 
 	/**
@@ -107,7 +111,7 @@ public class DeleteUseConflictReasonComputation {
 			Span Si = compatibleSpans(sp1, sp2);
 			if (Si != null) {
 				if (!isEmpty(Si.getGraph())) {
-					Pushout pushout = new Pushout(sp1, sp2);
+					Pushout pushout = new Pushout(sp1, Si, sp2);
 					if (pushout.getResultGraph() != null) {
 						Span uniquePushout = computeUniquePushoutMorphisms(rule1, pushout, rule2, Si, sp1, sp2);
 						Pushout po = new Pushout(rule1, uniquePushout, rule2, sp2.getRule2(), sp1.getRule2());
@@ -130,18 +134,18 @@ public class DeleteUseConflictReasonComputation {
 	/**
 	 * @param rule1
 	 * @param pushout
-	 * @param sap
+	 * @param Si
 	 * @param sp2
 	 * @param sp1
 	 * @return
 	 */
-	private Span computeUniquePushoutMorphisms(Rule rule1, Pushout pushout, Rule rule2, Span sap, Span sp1, Span sp2) {
+	private Span computeUniquePushoutMorphisms(Rule rule1, Pushout pushout, Rule rule2, Span Si, Span sp1, Span sp2) {
 		Span uniqueSpan = null;
 		Graph pushoutGraph = pushout.getResultGraph();
-		if (!extracted(sap, sp1, sp2))
+		if (!extracted(Si, sp1, sp2))
 			return null;
-		Set<Mapping> mappingsInL1 = uniqueMappingtoRule(pushout, rule1, sap, sp1, sp2);
-		Set<Mapping> mappingsInL2 = uniqueMappingtoRule(pushout, rule2, sap, sp2, sp1);
+		Set<Mapping> mappingsInL1 = uniqueMappingToRule(pushout, rule1, Si, sp1, sp2);
+		Set<Mapping> mappingsInL2 = uniqueMappingToRule(pushout, rule2, Si, sp2, sp1);
 		uniqueSpan = new Span(mappingsInL1, pushoutGraph, mappingsInL2);
 		uniqueSpan.setRule1(rule1);
 		uniqueSpan.setRule2(rule2);
@@ -150,69 +154,120 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * @param pushout
-	 * @param sap
-	 * @param sp2
-	 * @param sp1
+	 * @param Si
+	 * @param s2
+	 * @param s1
 	 * @param rule12
 	 * @return
 	 */
-	private Set<Mapping> uniqueMappingtoRule(Pushout pushout, Rule rule, Span sap, Span sp1, Span sp2) {
+	private Set<Mapping> uniqueMappingToRule(Pushout pushout, Rule rule, Span Si, Span s1, Span s2) {
 		HashSet<Mapping> result = new HashSet<Mapping>();
 		Graph pushoutGraph = pushout.getResultGraph();
-		List<Mapping> s1ToS = pushout.getRule1Mappings();
-		List<Mapping> s2ToS = pushout.getRule2Mappings();
+		boolean normal = s1.getRule1() == rule1;
+		List<Mapping> s1ToS;
+		List<Mapping> s2ToS;
+		if (normal) {
+			s1ToS = pushout.getRule1Mappings();
+			s2ToS = pushout.getRule2Mappings();
+		} else {
+			s1ToS = pushout.getRule2Mappings();
+			s2ToS = pushout.getRule1Mappings();
+		}
 		EList<Node> nodes = pushoutGraph.getNodes();
-		for (Node node : nodes) {
-			Mapping c = getMappingFromSpan(node, s1ToS);
-			Mapping d = getMappingFromSpan(node, s2ToS);
-			if (c != null) {
-				Node s1Element = c.getOrigin();
-				Mapping e = null;
-				Mapping e1 = sp1.getMappingIntoRule1(s1Element);
-				Mapping e2 = sp2.getMappingIntoRule2(s1Element);
-				if (e1 != null) {
-					e = e1;
-				} else if (e2 != null) {
-					e = e2;
-				} else {
-					return null;
-				}
-				Node lElement = e.getImage();
-				if (rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
-					if (rule2.getLhs().getNode(lElement.getName()) == null)
-						lElement = rule1.getLhs().getNode(lElement.getName());
-					else
-						lElement = rule2.getLhs().getNode(lElement.getName());
-				Mapping createMapping = factory.createMapping(node, lElement);
-				result.add(createMapping);
-
-			} else if (d != null) {
-				Node s2Element = d.getOrigin();
-				Mapping f = null;
-				Mapping f1 = sp2.getMappingIntoRule2(s2Element);
-				Mapping f2 = sp1.getMappingIntoRule1(s2Element);
-				if (f1 != null) {
-					f = f1;
-				} else if (f2 != null) {
-					f = f2;
-				} else {
-					return null;
-				}
-				Node lElement = f.getImage();
-				if (rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
-					if (rule2.getLhs().getNode(lElement.getName()) == null)
-						lElement = rule1.getLhs().getNode(lElement.getName());
-					else
-						lElement = rule2.getLhs().getNode(lElement.getName());
-				Mapping createMapping = factory.createMapping(node, lElement);
-				result.add(createMapping);
+		for (Node sNode : nodes) {
+			Node image = null;
+			boolean fromFirstRule = !sNode.getName().contains("$fromSecondRule$");
+			if (!(normal ^ !fromFirstRule)) {
+				Node origin = getMappingFromSpan(sNode, s2ToS).getOrigin();
+				image = getStrongMapping(s2.getMappingsInRule2(), origin).getImage();
+			} else {
+				Node origin = getMappingFromSpan(sNode, s1ToS).getOrigin();
+				image = getStrongMapping(s1.getMappingsInRule1(), origin).getImage();
 			}
+			if (normal) {
+				if (rule1 != image.getGraph().getRule())
+					image = rule1.getLhs().getNode(image.getName());
+//				else if (!fromFirstRule && rule1 != image.getGraph().getRule())
+//					image = rule1.getLhs().getNode(image.getName());
+			} else {
+				if (rule2 != image.getGraph().getRule())
+					image = rule2.getLhs().getNode(image.getName());
+//				else if (!fromFirstRule && rule2 != image.getGraph().getRule())
+//					image = rule2.getLhs().getNode(image.getName());
+			}
+			Mapping createMapping = factory.createMapping(sNode, image);
+			result.add(createMapping);
 		}
 		return result;
+
+//		s1ToS = pushout.getRule1Mappings();
+//		s2ToS = pushout.getRule2Mappings();
+//		for (Node node : nodes) {
+//			Mapping c = getMappingFromSpan(node, s1ToS);
+//			Mapping d = getMappingFromSpan(node, s2ToS);
+//			if (c != null) {
+//				Node s1Element = c.getOrigin();
+//				Mapping e = null;
+//				Mapping e1 = getStrongMapping(s1.getMappingsInRule1(), s1Element);
+//				Mapping e2 = getStrongMapping(s2.getMappingsInRule2(), s1Element);
+////				Mapping e1 = s1.getMappingIntoRule1(s1Element);
+////				Mapping e2 = s2.getMappingIntoRule2(s1Element);
+//				if (e1 != null) {
+//					e = e1;
+//				} else if (e2 != null) {
+//					e = e2;
+//				} else {
+//					return null;
+//				}
+//				Node lElement = e.getImage();
+//				if (rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
+//					if (rule2.getLhs().getNode(lElement.getName()) == null)
+//						lElement = rule1.getLhs().getNode(lElement.getName());
+//					else
+//						lElement = rule2.getLhs().getNode(lElement.getName());
+//				Mapping createMapping = factory.createMapping(node, lElement);
+//				result.add(createMapping);
+//
+//			} else if (d != null) {
+//				Node s2Element = d.getOrigin();
+//				Mapping f = null;
+//				Mapping f1 = getStrongMapping(s2.getMappingsInRule2(), s2Element);
+//				Mapping f2 = getStrongMapping(s1.getMappingsInRule1(), s2Element);
+////				Mapping f1 = s2.getMappingIntoRule2(s2Element);
+////				Mapping f2 = s1.getMappingIntoRule1(s2Element);
+//				if (f2 != null) {
+//					f = f2;
+//				} else if (f1 != null) {
+//					f = f1;
+//				} else {
+//					return null;
+//				}
+//				Node lElement = f.getImage();
+//				if (rule1 != lElement.getGraph().getRule() && rule2 != lElement.getGraph().getRule())
+//					if (rule2.getLhs().getNode(lElement.getName()) == null)
+//						lElement = rule1.getLhs().getNode(lElement.getName());
+//					else
+//						lElement = rule2.getLhs().getNode(lElement.getName());
+//				Mapping createMapping = factory.createMapping(node, lElement);
+//				result.add(createMapping);
+//			}
+//		}
+//		return result;
+	}
+
+	/**
+	 * @param mappings
+	 * @param s1Element
+	 * @return
+	 */
+	private Mapping getStrongMapping(Set<Mapping> mappings, Node origin) {
+		for (Mapping map : mappings)
+			if (map.getOrigin().getName().equals(origin.getName()))
+				return map;
+		return null;
 	}
 
 	private boolean extracted(Span sap, Span sp1, Span sp2) {
-		boolean result = false;
 		Graph sapGraph = sap.getGraph();
 		EList<Node> sapNodes = sapGraph.getNodes();
 		for (Node node : sapNodes) {
@@ -231,24 +286,18 @@ public class DeleteUseConflictReasonComputation {
 						Node l1fElement = f1.getImage();
 						Node l2eElement = e2.getImage();
 						Node l2fElement = f2.getImage();
-						if (Span.nodeEqual(l1eElement, l1fElement) && Span.nodeEqual(l2eElement, l2fElement)) {
-							result = true;
-						} else {
-							result = false;
-						}
-					} else {
-						result = false;
-					}
+						if (!Span.nodeEqual(l1eElement, l1fElement) || !Span.nodeEqual(l2eElement, l2fElement))
+							return false;
+					} else
+						return false;
 
-				} else {
-					result = false;
-				}
-			} else {
-				result = false;
-			}
+				} else
+					return false;
+			} else
+				return false;
 
 		}
-		return result;
+		return true;
 	}
 
 	/**
@@ -371,7 +420,6 @@ public class DeleteUseConflictReasonComputation {
 				}
 
 			} catch (NotCompatibleException e) {
-				System.out.println(e.getMessage() + e.getCause());
 				Si = null;
 			}
 		}
@@ -532,7 +580,7 @@ public class DeleteUseConflictReasonComputation {
 			for (Node second : g2N) {
 				String[] names = first.getName().split("_");
 				if (first.getType() == second.getType())
-					if (names[0].equals(second.getName()) || names[1].equals(second.getName())) {
+					if (names[1].equals(second.getName())) {
 						Mapping mapping = factory.createMapping(first, second);
 						G1toG2.add(mapping);
 						found = true;
@@ -548,11 +596,8 @@ public class DeleteUseConflictReasonComputation {
 			for (Edge second : g2E) {
 				String[] namesSource = first.getSource().getName().split("_");
 				String[] namesTarget = first.getTarget().getName().split("_");
-				if ((namesSource[0].equals(second.getSource().getName())
-						|| namesSource[1].equals(second.getSource().getName()))
-						&& (namesTarget[0].equals(second.getTarget().getName())
-								|| namesTarget[1].equals(second.getTarget().getName()))
-						&& visited.add(second)) {
+				if (namesSource[1].equals(second.getSource().getName())
+						&& namesTarget[1].equals(second.getTarget().getName()) && visited.add(second)) {
 					found = true;
 					break;
 				}

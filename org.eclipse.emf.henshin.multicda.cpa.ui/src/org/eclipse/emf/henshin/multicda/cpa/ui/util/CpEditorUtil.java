@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.multicda.cda.Span;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason;
 import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
 import org.eclipse.emf.henshin.multicda.cpa.ui.presentation.HenshinCPEditor;
@@ -91,6 +93,10 @@ public class CpEditorUtil {
 					}
 
 					String spanKind = span.getClass().getSimpleName();
+					if(span instanceof DeleteUseConflictReason)
+						spanKind = ((DeleteUseConflictReason) span).NAME;
+					if(span instanceof CreateUseDependencyReason)
+						spanKind = ((CreateUseDependencyReason) span).NAME;
 //			Replace(str, @"([a-z])([A-Z])", "$1 $2")
 					spanKind = spanKind.replaceAll("([a-z])([A-Z])", "$1 $2");
 

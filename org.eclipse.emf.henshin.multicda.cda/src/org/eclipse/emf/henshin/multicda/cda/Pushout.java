@@ -98,20 +98,20 @@ public class Pushout {
 	 * @param Si
 	 * @param sp2
 	 */
-	public Pushout(Span sp1, Span sp2) {
+	public Pushout(Span sp1, Span si, Span sp2) {
 		ConflictAnalysis.checkNull(sp1);
 		ConflictAnalysis.checkNull(sp2);
 
 		Graph s1 = sp1.getGraph();
 		Graph s2 = sp2.getGraph();
 
-		graph = preparePushoutGraph(sp1.getGraph());
+		graph = preparePushoutGraph(s1);
 		rule2toPOmap = new HashMap<Node, Node>();
 
 		for (Node n2 : s2.getNodes()) {
 			Node found = null;
 			for (Node n1 : graph.getNodes()) {
-				if (Span.nodeEqual(n1, n2))
+				if (Span.nodeEqual(n1, n2)) 
 					found = n1;
 				else if(Span.nodeContains(n1, n2)) {
 					graph = null;
@@ -121,7 +121,7 @@ public class Pushout {
 					break;
 			}
 			if (found == null)
-				found = HenshinFactory.eINSTANCE.createNode(graph, n2.getType(), n2.getName());
+				found = HenshinFactory.eINSTANCE.createNode(graph, n2.getType(), n2.getName() + " $fromSecondRule$");
 			rule2toPOmap.put(n2, found);
 		}
 		for (Edge e2 : s2.getEdges()) {
@@ -133,14 +133,16 @@ public class Pushout {
 					break;
 			}
 			if (!found) {
-				Node n1 = e2.getSource();
-				Node n2 = e2.getTarget();
-				for (Node n3 : graph.getNodes())
-					if (Span.nodeEqual(n1, n3))
-						n1 = n3;
-					else if (Span.nodeEqual(n2, n3))
-						n2 = n3;
-				HenshinFactory.eINSTANCE.createEdge(n1, n2, e2.getType());
+				Node n2s = e2.getSource();
+				Node n2t = e2.getTarget();
+				for (Node n1_2 : graph.getNodes())
+					if (Span.nodeEqual(n2s, n1_2) || (n2s.getName() + " $fromSecondRule$").equals(n1_2.getName()))
+						n2s = n1_2;
+					else if (Span.nodeEqual(n2t, n1_2) || (n2t.getName() + " $fromSecondRule$").equals(n1_2.getName()))
+						n2t = n1_2;
+				if(n2s.getGraph() == e2.getSource().getGraph() || n2t.getGraph() == e2.getTarget().getGraph())
+					System.err.println("Error! This Pushout:\n[" + this + "]\ndo not contains the Nodes: " + n2s + " or " + n2t + ". Dangling Edge will be produced");
+				HenshinFactory.eINSTANCE.createEdge(n2s, n2t, e2.getType());
 			}
 		}
 		graph.setName("Pushout");
@@ -248,5 +250,11 @@ public class Pushout {
 					+ (graph.getEdges().size() - numberOfExpectedEdges));
 		}
 	}
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return graph.toString();
+	}
 }
