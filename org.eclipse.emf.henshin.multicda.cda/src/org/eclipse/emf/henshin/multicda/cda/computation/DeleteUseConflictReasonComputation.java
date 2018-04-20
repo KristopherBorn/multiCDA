@@ -327,39 +327,29 @@ public class DeleteUseConflictReasonComputation {
 		return false;
 	}
 
-	/**
-	 * @param sp2
-	 * @param sp1
-	 * @return
-	 */
 	private Span compatibleSpans(Span sp1, Span sp2) {
-		Span s1i = null;
-		Span s2i = null;
-		Span si = null;
-
-		s1i = addCompatibleElements(sp1, sp2);
-		if (s1i != null) {
-			s2i = addCompatibleElements(sp2, sp1);
-			if (s2i != null) {
-				si = intersection(s1i, s2i);
-				if (si != null) {
+		Span s1Apostrophe = addCompatibleElements(sp1, sp2);
+		if (s1Apostrophe != null) {
+			Span s2Apostrophe = addCompatibleElements(sp2, sp1);
+			if (s2Apostrophe != null) {
+				Span intersection = intersection(s1Apostrophe, s2Apostrophe);
+				Graph sApostroph = intersection.getGraph();
+				if (intersection != null && sApostroph != null) {
 					Rule ruleSp1 = factory.createRule();
 					ruleSp1.setLhs(sp1.getGraph());
 					Rule ruleSp2 = factory.createRule();
 					ruleSp2.setLhs(sp2.getGraph());
-					si.setRule1(ruleSp1);
-					si.setRule2(ruleSp2);
+					intersection.setRule1(ruleSp1);
+					intersection.setRule2(ruleSp2);
+					return intersection;
 				}
 			} else {
 				return null;
 			}
-		} else
-
-		{
+		} else {
 			return null;
 		}
-
-		return si;
+		return null;
 	}
 
 	/**
