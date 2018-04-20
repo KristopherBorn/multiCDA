@@ -165,75 +165,63 @@ public class DeleteUseConflictReasonComputation {
 		Graph pushoutGraph = pushout.getResultGraph();
 		List<Mapping> s1ToS = pushout.getRule1Mappings();
 		List<Mapping> s2ToS = pushout.getRule2Mappings();
-		EList<GraphElement> elements = new BasicEList<GraphElement>();
-		EList<Node> poNodes = pushoutGraph.getNodes();
-		EList<Node> nodes = poNodes;
-		EList<Edge> edges = pushoutGraph.getEdges();
-		nodes.forEach(n -> elements.add(n));
-		edges.forEach(e -> elements.add(e));
-		for (GraphElement s : elements) {
-			if (s instanceof Node) {
-				Node node = (Node) s;
-				Mapping c = getMappingFromSpan(node, s1ToS);
-				Mapping d = getMappingFromSpan(node, s2ToS);
-				if (c != null) {
-					Node s1Element = c.getOrigin();
-					Mapping e = null;
-					Mapping e1 = sp1.getMappingIntoRule1(s1Element);
-					Mapping e2 = sp2.getMappingIntoRule2(s1Element);
-					if (e1 != null) {
-						e = e1;
-					} else if (e2 != null) {
-						e = e2;
-					} else {
-						return null;
-					}
-					Node lElement = e.getImage();
-					Graph lhs = rule.getLhs();
-					nodes = lhs.getNodes();
-					if (nodes.contains(lElement)) {
-						Mapping createMapping = factory.createMapping(node, lElement);
-						result.add(createMapping);
-					} else {
-						for (Node n : nodes) {
-							if (n.getName().equals(lElement.getName())) {
-								Mapping createMapping = factory.createMapping(node, n);
-								result.add(createMapping);
-							}
-						}
-					}
-				} else if (d != null) {
-					Node s2Element = d.getOrigin();
-					Mapping f = null;
-					Mapping f1 = sp2.getMappingIntoRule2(s2Element);
-					Mapping f2 = sp1.getMappingIntoRule1(s2Element);
-					if (f1 != null) {
-						f = f1;
-					} else if (f2 != null) {
-						f = f2;
-					} else {
-						return null;
-					}
-					Node lElement = f.getImage();
-					Graph lhs = rule.getLhs();
-					nodes = lhs.getNodes();
-					if (nodes.contains(lElement)) {
-						Mapping createMapping = factory.createMapping(node, lElement);
-						result.add(createMapping);
-					} else {
-						for (Node n : nodes) {
-							if (n.getName().equals(lElement.getName())) {
-								Mapping createMapping = factory.createMapping(node, n);
-								result.add(createMapping);
-							}
+		EList<Node> nodes = pushoutGraph.getNodes();
+		for (Node s : nodes) {
+			Node node = (Node) s;
+			Mapping c = getMappingFromSpan(node, s1ToS);
+			Mapping d = getMappingFromSpan(node, s2ToS);
+			if (c != null) {
+				Node s1Element = c.getOrigin();
+				Mapping e = null;
+				Mapping e1 = sp1.getMappingIntoRule1(s1Element);
+				Mapping e2 = sp2.getMappingIntoRule2(s1Element);
+				if (e1 != null) {
+					e = e1;
+				} else if (e2 != null) {
+					e = e2;
+				} else {
+					return null;
+				}
+				Node lElement = e.getImage();
+				Graph lhs = rule.getLhs();
+				nodes = lhs.getNodes();
+				if (nodes.contains(lElement)) {
+					Mapping createMapping = factory.createMapping(node, lElement);
+					result.add(createMapping);
+				} else {
+					for (Node n : nodes) {
+						if (n.getName().equals(lElement.getName())) {
+							Mapping createMapping = factory.createMapping(node, n);
+							result.add(createMapping);
 						}
 					}
 				}
-
-			} else if (s instanceof Edge) {
-				// TODO VC EdgeMapping? Normalerweise an dieser Stelle nicht
-				// nötig, da dies Automatisch von der Methode Pushout erledigt
-				// wird
+			} else if (d != null) {
+				Node s2Element = d.getOrigin();
+				Mapping f = null;
+				Mapping f1 = sp2.getMappingIntoRule2(s2Element);
+				Mapping f2 = sp1.getMappingIntoRule1(s2Element);
+				if (f1 != null) {
+					f = f1;
+				} else if (f2 != null) {
+					f = f2;
+				} else {
+					return null;
+				}
+				Node lElement = f.getImage();
+				Graph lhs = rule.getLhs();
+				nodes = lhs.getNodes();
+				if (nodes.contains(lElement)) {
+					Mapping createMapping = factory.createMapping(node, lElement);
+					result.add(createMapping);
+				} else {
+					for (Node n : nodes) {
+						if (n.getName().equals(lElement.getName())) {
+							Mapping createMapping = factory.createMapping(node, n);
+							result.add(createMapping);
+						}
+					}
+				}
 			}
 		}
 
