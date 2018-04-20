@@ -193,5 +193,9 @@ public class Pushout {
 	public void setGraph(Graph graph) {
 		this.graph = graph;
 	}
+	@Override
+	public String toString() {
+		return "Pushout:\n" + graph.getEdges() + " : " + graph.getNodes() + "\nShadow graph:\n" + shadowGraph.getEdges() + " : " + shadowGraph.getNodes();
+	}
 
 }
