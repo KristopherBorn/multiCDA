@@ -63,15 +63,12 @@ public class Pushout {
 	 * @param s1span
 	 * @param rule2
 	 */
-	public Pushout(Rule rule1, Span s1span, Rule rule2) {
-		this(rule1, s1span, rule2, rule1, rule2);
-	}
 
-	public Pushout(Rule rule1, Span s1span, Rule rule2, Rule rule1NoneDelete, Rule rule2NoneDelete) {
+	public Pushout(Rule rule1, Span s1span, Rule rule2) {
 		ConflictAnalysis.checkNull(rule1);
 		ConflictAnalysis.checkNull(s1span);
 		ConflictAnalysis.checkNull(rule2);
-		if (!s1span.validate(rule1, rule2, rule1NoneDelete, rule2NoneDelete))
+		if (!s1span.validate(rule1, rule2))
 			throw new IllegalArgumentException("Span is in invalide state.");
 		Graph l1 = rule1.getLhs();
 		Graph l2 = rule2.getLhs();
@@ -89,63 +86,6 @@ public class Pushout {
 		validatePushout(l1, l2, s1);
 		graph.setName("Pushout");
 
-	}
-
-	/**
-	 * Creates Pushout of sp1 <-- Si --> sp2 and sp1 --> S <-- sp2
-	 * 
-	 * @param sp1
-	 * @param Si
-	 * @param sp2
-	 */
-	public Pushout(Span sp1, Span si, Span sp2) {
-		ConflictAnalysis.checkNull(sp1);
-		ConflictAnalysis.checkNull(sp2);
-
-		Graph s1 = sp1.getGraph();
-		Graph s2 = sp2.getGraph();
-
-		graph = preparePushoutGraph(s1);
-		rule2toPOmap = new HashMap<Node, Node>();
-
-		for (Node n2 : s2.getNodes()) {
-			Node found = null;
-			for (Node n1 : graph.getNodes()) {
-				if (Span.nodeEqual(n1, n2)) 
-					found = n1;
-				else if(Span.nodeContains(n1, n2)) {
-					graph = null;
-					return;
-				}
-				if (found != null)
-					break;
-			}
-			if (found == null)
-				found = HenshinFactory.eINSTANCE.createNode(graph, n2.getType(), n2.getName() + " $fromSecondRule$");
-			rule2toPOmap.put(n2, found);
-		}
-		for (Edge e2 : s2.getEdges()) {
-			boolean found = false;
-			for (Edge e1 : graph.getEdges()) {
-				found = Span.nodeEqual(e1.getSource(), e2.getSource())
-						&& Span.nodeEqual(e1.getTarget(), e2.getTarget());
-				if (found)
-					break;
-			}
-			if (!found) {
-				Node n2s = e2.getSource();
-				Node n2t = e2.getTarget();
-				for (Node n1_2 : graph.getNodes())
-					if (Span.nodeEqual(n2s, n1_2) || (n2s.getName() + " $fromSecondRule$").equals(n1_2.getName()))
-						n2s = n1_2;
-					else if (Span.nodeEqual(n2t, n1_2) || (n2t.getName() + " $fromSecondRule$").equals(n1_2.getName()))
-						n2t = n1_2;
-				if(n2s.getGraph() == e2.getSource().getGraph() || n2t.getGraph() == e2.getTarget().getGraph())
-					System.err.println("Error! This Pushout:\n[" + this + "]\ndo not contains the Nodes: " + n2s + " or " + n2t + ". Dangling Edge will be produced");
-				HenshinFactory.eINSTANCE.createEdge(n2s, n2t, e2.getType());
-			}
-		}
-		graph.setName("Pushout");
 	}
 
 	@SuppressWarnings("unused")
