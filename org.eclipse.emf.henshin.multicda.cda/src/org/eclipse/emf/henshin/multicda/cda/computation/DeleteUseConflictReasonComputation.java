@@ -111,7 +111,7 @@ public class DeleteUseConflictReasonComputation {
 			Span Si = compatibleSpans(sp1, sp2);
 			if (Si != null) {
 				if (!isEmpty(Si.getGraph())) {
-					Pushout pushout = new Pushout(sp1, Si, sp2);
+					Pushout pushout = new Pushout(Si.getRule1(), Si, Si.getRule2());
 					if (pushout.getResultGraph() != null) {
 						Span uniquePushout = computeUniquePushoutMorphisms(rule1, pushout, rule2, Si, sp1, sp2);
 						Pushout po = new Pushout(rule1, uniquePushout, rule2, sp2.getRule2(), sp1.getRule2());
@@ -343,8 +343,12 @@ public class DeleteUseConflictReasonComputation {
 			if (s2i != null) {
 				si = intersection(s1i, s2i);
 				if (si != null) {
-					si.setRule1(sp1.getRule1());
-					si.setRule2(sp1.getRule2());
+					Rule ruleSp1 = factory.createRule();
+					ruleSp1.setLhs(sp1.getGraph());
+					Rule ruleSp2 = factory.createRule();
+					ruleSp2.setLhs(sp2.getGraph());
+					si.setRule1(ruleSp1);
+					si.setRule2(ruleSp2);
 				}
 			} else {
 				return null;

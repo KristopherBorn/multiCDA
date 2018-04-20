@@ -255,6 +255,6 @@ public class Pushout {
 	 */
 	@Override
 	public String toString() {
-		return graph.toString();
+		return "Pushout: " + graph + "\nShadow graph: " + shadowGraph;
 	}
 }
