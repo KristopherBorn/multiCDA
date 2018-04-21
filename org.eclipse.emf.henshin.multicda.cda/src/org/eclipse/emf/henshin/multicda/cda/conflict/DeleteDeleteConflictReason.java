@@ -26,8 +26,8 @@ public class DeleteDeleteConflictReason extends DeleteUseConflictReason{
 	 */
 	public void print() {
 		if (span2 != null) {
-			System.out.println("DDCR: <(\t" + this.getGraph().getEdges() + "\t| " + this.getGraph().getNodes() + "\t)"
-					+ "(\t" + span2.getGraph().getEdges() + " |\t" + span2.getGraph().getNodes() + "\t)>");
+			System.out.println("<( " + this.getGraph().getEdges() + "\t| " + this.getGraph().getNodes() + " )"
+					+ "( " + span2.getGraph().getEdges() + " |\t" + span2.getGraph().getNodes() + " )>");
 		}
 	}
 

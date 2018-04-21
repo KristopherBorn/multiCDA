@@ -18,7 +18,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.dependency.DeleteUseDependencyReason;
+import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyAtom;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.MinimalDependencyReason;
@@ -43,7 +43,6 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		computeDeleteUseDependencyReasons().forEach(r -> results.add(r));
 		return results;
 	}
-	
 
 	@Override
 	public Set<Span> computeAtoms() {
@@ -51,6 +50,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		computeDependencyAtoms().forEach(r -> results.add(r));
 		return results;
 	}
+
 	private Rule rule1;
 	private Rule rule2;
 	private Rule invertedRule1;
@@ -62,32 +62,30 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		invertedRule1 = invertRule(rule1);
 	}
 
-
-
 	public DependencyAtom hasDependencies() {
-//		Rule invertedRule1 = invertRule(rule1);
+		// Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
-		 ConflictAtom conflictAtom = ca.hasConflicts();
+		ConflictAtom conflictAtom = ca.hasConflicts();
 		if (conflictAtom != null) {
 			return new DependencyAtom(conflictAtom);
-		} else return null;
+		} else
+			return null;
 	}
 
 	public Set<DependencyAtom> computeDependencyAtoms() {
 		Set<DependencyAtom> result = new HashSet<DependencyAtom>();
-//		Rule invertedRule1 = invertRule(rule1);
+		// Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
-		 List<ConflictAtom> conflictAtoms = ca.computeConflictAtoms();
+		List<ConflictAtom> conflictAtoms = ca.computeConflictAtoms();
 		for (ConflictAtom cr : conflictAtoms) {
 			result.add(new DependencyAtom(cr));
 		}
 		return result;
 	}
 
-
 	public Set<DependencyReason> computeInitialDependencyReasons() {
 		Set<DependencyReason> result = new HashSet<DependencyReason>();
-//		Rule invertedRule1 = invertRule(rule1);
+		// Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
 		Set<ConflictReason> conflictReasons = ca.computeConflictReasons();
 		for (ConflictReason cr : conflictReasons) {
@@ -95,10 +93,10 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		}
 		return result;
 	}
-	
+
 	public Set<MinimalDependencyReason> computeMinimalDependencyReasons() {
 		Set<MinimalDependencyReason> result = new HashSet<MinimalDependencyReason>();
-//		Rule invertedRule1 = invertRule(rule1);
+		// Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
 		Set<MinimalConflictReason> conflictReasons = ca.computeMinimalConflictReasons();
 		for (MinimalConflictReason cr : conflictReasons) {
@@ -106,19 +104,19 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		}
 		return result;
 	}
-	
-	public Set<Span> computeDeleteUseDependencyReasons(){
+
+	public Set<Span> computeDeleteUseDependencyReasons() {
 		Set<Span> result = new HashSet<Span>();
-//		Rule invertedRule1 = invertRule(rule1);
+		// Rule invertedRule1 = invertRule(rule1);
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
 		Set<Span> conflictReasons = ca.computeResultsFine();
 		for (Span cr : conflictReasons) {
-			result.add(new DeleteUseDependencyReason(cr));
+			result.add(new CreateUseDependencyReason(cr));
 		}
 		return result;
-		
+
 	}
-	
+
 	/**
 	 * werden - wie wird damit umgeganen, wenn die Knoten oder Mappings nicht
 	 * erstellt wurde? - wird NULL zur�ck gegeben, oder wird eine Exception
@@ -130,7 +128,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 	 */
 	public static Rule invertRule(Rule rule1) {
 		Map<Rule, Copier> mappingOfInvertedRuleToRhsToLhsCopier = new HashMap<>();
-		
+
 		HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
 		Rule invRule1 = henshinFactory.createRule(rule1.getName() + "_INV");
@@ -159,12 +157,12 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 			// identifizieren der ORIGIN in der neuen Regel
 			Node imageInOriginalRule = mappingInOriginalRule1.getImage();
 			EObject originInNewRule = copierForRhsToLhs.get(imageInOriginalRule);
-			Node originInNewRuleNode = (Node) originInNewRule; 
+			Node originInNewRuleNode = (Node) originInNewRule;
 
 			// identifizieren des IMAGE in der neuen Regel
 			Node originInOriginalRule = mappingInOriginalRule1.getOrigin();
 			EObject imageInNewRule = copierForLhsToRhs.get(originInOriginalRule);
-			Node imageInNewRuleNode = (Node) imageInNewRule; 
+			Node imageInNewRuleNode = (Node) imageInNewRule;
 
 			Mapping createdMapping = henshinFactory.createMapping(originInNewRuleNode, imageInNewRuleNode);
 			invRule1.getMappings().add(createdMapping);

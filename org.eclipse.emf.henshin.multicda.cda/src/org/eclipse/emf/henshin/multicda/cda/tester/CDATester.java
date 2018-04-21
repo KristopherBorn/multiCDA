@@ -25,6 +25,7 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.MinimalDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.runner.RulePreparator;
@@ -60,7 +61,7 @@ public class CDATester extends Tester {
 	}
 
 	/**
-	 * Geeignet nur für Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
+	 * Geeignet nur fï¿½r Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
 	 * 
 	 * @param henshin
 	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
@@ -290,21 +291,24 @@ public class CDATester extends Tester {
 		String type = "";
 
 		for (Span conflictReason : DeleteUseConflictReasons) {
-			if (conflictReason instanceof DeleteUseConflictReason) {
-				((DeleteUseConflictReason) conflictReason).print();
+			if (conflictReason instanceof DeleteDeleteConflictReason) {
+				System.out.print("DDCR: ");
+				((DeleteDeleteConflictReason) conflictReason).print();
 			} else {
 				if (conflictReason instanceof MinimalConflictReason)
 					type = "MCR";
-				else if (conflictReason instanceof ConflictReason)
-					type = "CR";
+//				else if (conflictReason instanceof ConflictReason)
+//					type = "CR";
 				else if (conflictReason instanceof DependencyReason)
 					type = "DCR";
 				else if (conflictReason instanceof MinimalDependencyReason)
 					type = "MDCR";
+				else if (conflictReason instanceof CreateUseDependencyReason)
+					type = "MDCR";
 				else if (conflictReason instanceof EssentialConflictReason)
 					type = "ECR";
-				else
-					type = "DeleteUseConflictReason";
+				else if (conflictReason instanceof DeleteReadConflictReason)
+					type = "DRCR";
 				System.out.println(type + ": " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
 			}
 		}

@@ -21,7 +21,7 @@ public class DeleteReadConflictReason extends DeleteUseConflictReason{
 	 */
 	@Override
 	public void print() {
-		System.out.println("DRCR: " + this.getGraph().getEdges() + " |\t" + this.getGraph().getNodes());
+		System.out.println(this.getGraph().getEdges() + " |\t" + this.getGraph().getNodes());
 	}
 
 }
