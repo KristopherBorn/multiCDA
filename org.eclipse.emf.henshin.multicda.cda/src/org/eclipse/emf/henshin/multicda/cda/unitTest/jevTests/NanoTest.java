@@ -75,8 +75,9 @@ public class NanoTest {
 					resultNormal += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
 							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
 							+ " Initial Critical Pairs\n";
-//					System.err.println(
-//							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+					// System.err.println(
+					// "Result:\n" + icr + " Initial Conflict Reasons\n" + icp +
+					// " Initial Critical Pairs");
 				}
 			}
 		}
@@ -106,11 +107,25 @@ public class NanoTest {
 					resultPreserve += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
 							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
 							+ " Initial Critical Pairs\n\n";
-//					System.err.println(
-//							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+					// System.err.println(
+					// "Result:\n" + icr + " Initial Conflict Reasons\n" + icp +
+					// " Initial Critical Pairs");
 				}
 			}
 
+		}
+	}
+
+	@Test
+	public void ddcrTest() {
+
+		Options optionen = new Options();
+		optionen.add(Options.PRINT_HEADER);
+		optionen.add(Options.PRINT_RESULT);
+		for (Rule r : rules) {
+			for (Rule r2 : rules) {
+				aTester = new CDATester(r, r2, optionen);
+			}
 		}
 	}
 
