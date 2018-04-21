@@ -40,7 +40,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 	@Override
 	public Set<Span> computeResultsFine() {
 		Set<Span> results = new HashSet<Span>();
-		computeInitialDependencyReasons().forEach(r -> results.add(r));
+		computeDeleteUseDependencyReasons().forEach(r -> results.add(r));
 		return results;
 	}
 	
