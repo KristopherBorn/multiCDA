@@ -186,7 +186,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return null;
 	}
 
-	private Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
+	public Set<DeleteUseConflictReason> computeDeleteUseConflictReasons(Set<Span> conflictReasons){
 		return new DeleteUseConflictReasonComputation(rule1, rule2,conflictReasonsFromR2).computeDeleteUseConflictReason(conflictReasons);
 
 	}

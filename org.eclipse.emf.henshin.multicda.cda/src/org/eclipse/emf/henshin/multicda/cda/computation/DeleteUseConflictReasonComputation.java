@@ -24,6 +24,8 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.model.impl.RuleImpl;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 
 /**
@@ -84,11 +86,11 @@ public class DeleteUseConflictReasonComputation {
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(conflictRule2, pushout.getRule2Mappings())
 							.isEmpty()) {
-				DeleteUseConflictReason res = new DeleteUseConflictReason(conflictReason);
+				DeleteReadConflictReason res = new DeleteReadConflictReason(conflictReason);
 				result.add(res);
 			}
 		} else {
-			Set<DeleteUseConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
+			Set<DeleteDeleteConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
 			if (!ddset.isEmpty()) {
 				ddset.forEach(s -> result.add(s));
 			}
@@ -119,8 +121,8 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Set<DeleteUseConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
-		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
+	private Set<DeleteDeleteConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
+		Set<DeleteDeleteConflictReason> result = new HashSet<DeleteDeleteConflictReason>();
 		for (Span sp2 : conflictReasonsFromR2) {
 			Span s = compatibleSpans(sp1, sp2);
 			if (s != null) {
@@ -130,8 +132,7 @@ public class DeleteUseConflictReasonComputation {
 					Pushout po = new Pushout(r1, l1Sl2, r2);
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings()).isEmpty()) {
-						DeleteUseConflictReason res = new DeleteUseConflictReason(sp1);
-						res.setSpan2(sp2);
+						DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
 						result.add(res);
 					}
 				}

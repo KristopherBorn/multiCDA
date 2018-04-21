@@ -15,5 +15,13 @@ public class DeleteReadConflictReason extends DeleteUseConflictReason{
 	public DeleteReadConflictReason(Span s1) {
 		super(s1);
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason#print()
+	 */
+	@Override
+	public void print() {
+		System.out.println("DRCR: " + this.getGraph().getEdges() + " |\t" + this.getGraph().getNodes());
+	}
 
 }
