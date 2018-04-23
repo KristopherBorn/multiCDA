@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_JOv2EIQsEeahnb1CuKz0kQ">
+  <imports href="classDiagramMM.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_LZz_cIQsEeahnb1CuKz0kQ" name="decapsulateAttribute">
+    <parameters xmi:id="_MTQesIpoEeaAQbd2omPwng" name="clN"/>
+    <parameters xmi:id="_ZFhEgYpNEeaAQbd2omPwng" name="attrN"/>
+    <parameters xmi:id="_ZFhrkIpNEeaAQbd2omPwng" name="getterN"/>
+    <parameters xmi:id="_ZFhrkYpNEeaAQbd2omPwng" name="setterN"/>
+    <lhs xmi:id="_LZ6tIIQsEeahnb1CuKz0kQ" name="Lhs">
+      <nodes xmi:id="_fnYE8IQsEeazN5kGEUQNbg" name="1" outgoing="_tDBKsIQsEeazN5kGEUQNbg _kq248Kc2EeaPspxRYECKJA _lDEkoKc2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_YZegMIZjEearFcW47UN1vg" value="clN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_gmKBYIQsEeazN5kGEUQNbg" name="4" incoming="_tDBKsIQsEeazN5kGEUQNbg" outgoing="_wWbeAIZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_jAZbkIZjEearFcW47UN1vg" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_k8beEIQsEeazN5kGEUQNbg" name="2" incoming="_lDEkoKc2EeaPspxRYECKJA" outgoing="_l4fJsKc2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_gvIqQKc2EeaPspxRYECKJA" value="getterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_lXC9gIQsEeazN5kGEUQNbg" name="3" incoming="_kq248Kc2EeaPspxRYECKJA" outgoing="_lbV6sKc2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_i6P28Kc2EeaPspxRYECKJA" value="setterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_oEhQYIQsEeazN5kGEUQNbg" name="5" incoming="_lbV6sKc2EeaPspxRYECKJA" outgoing="_vKaVAIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Parameter"/>
+      </nodes>
+      <nodes xmi:id="_seDeQIZiEearFcW47UN1vg" name="6" incoming="_vKaVAIQsEeazN5kGEUQNbg _wWbeAIZiEearFcW47UN1vg _l4fJsKc2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <edges xmi:id="_tDBKsIQsEeazN5kGEUQNbg" source="_fnYE8IQsEeazN5kGEUQNbg" target="_gmKBYIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+      <edges xmi:id="_vKaVAIQsEeazN5kGEUQNbg" source="_oEhQYIQsEeazN5kGEUQNbg" target="_seDeQIZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Parameter/type"/>
+      </edges>
+      <edges xmi:id="_wWbeAIZiEearFcW47UN1vg" source="_gmKBYIQsEeazN5kGEUQNbg" target="_seDeQIZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+      <edges xmi:id="_kq248Kc2EeaPspxRYECKJA" source="_fnYE8IQsEeazN5kGEUQNbg" target="_lXC9gIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_lDEkoKc2EeaPspxRYECKJA" source="_fnYE8IQsEeazN5kGEUQNbg" target="_k8beEIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_lbV6sKc2EeaPspxRYECKJA" source="_lXC9gIQsEeazN5kGEUQNbg" target="_oEhQYIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Executable/parameters"/>
+      </edges>
+      <edges xmi:id="_l4fJsKc2EeaPspxRYECKJA" source="_k8beEIQsEeazN5kGEUQNbg" target="_seDeQIZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Executable/type"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_LZ6tIYQsEeahnb1CuKz0kQ" name="Rhs">
+      <nodes xmi:id="_fnYE8YQsEeazN5kGEUQNbg" name="1" outgoing="_tDBKsYQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_a7hmMIZjEearFcW47UN1vg" value="clN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_gmKBYYQsEeazN5kGEUQNbg" name="4" incoming="_tDBKsYQsEeazN5kGEUQNbg" outgoing="_wWbeAYZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_ozTOUIZjEearFcW47UN1vg" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_teZg8IZiEearFcW47UN1vg" name="6" incoming="_wWbeAYZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <edges xmi:id="_tDBKsYQsEeazN5kGEUQNbg" source="_fnYE8YQsEeazN5kGEUQNbg" target="_gmKBYYQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+      <edges xmi:id="_wWbeAYZiEearFcW47UN1vg" source="_gmKBYYQsEeazN5kGEUQNbg" target="_teZg8IZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fnYsAIQsEeazN5kGEUQNbg" origin="_fnYE8IQsEeazN5kGEUQNbg" image="_fnYE8YQsEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_gmKBYoQsEeazN5kGEUQNbg" origin="_gmKBYIQsEeazN5kGEUQNbg" image="_gmKBYYQsEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_teZg8YZiEearFcW47UN1vg" origin="_seDeQIZiEearFcW47UN1vg" image="_teZg8IZiEearFcW47UN1vg"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_wov7QIQsEeazN5kGEUQNbg" name="pullUpEncapsulatedAttribute">
+    <parameters xmi:id="_Ld488IpoEeaAQbd2omPwng" name="subClN"/>
+    <parameters xmi:id="_Ld488YpoEeaAQbd2omPwng" name="superClN"/>
+    <parameters xmi:id="_WGwNUYpNEeaAQbd2omPwng" name="attrN"/>
+    <parameters xmi:id="_WGwNUopNEeaAQbd2omPwng" name="getterN"/>
+    <parameters xmi:id="_WGwNU4pNEeaAQbd2omPwng" name="setterN"/>
+    <lhs xmi:id="_wov7QYQsEeazN5kGEUQNbg" name="Lhs">
+      <nodes xmi:id="_wov7QoQsEeazN5kGEUQNbg" name="11" outgoing="_wov7R4QsEeazN5kGEUQNbg _wov7SIQsEeazN5kGEUQNbg _wov7SYQsEeazN5kGEUQNbg _Pl7lIIQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_YoKnAIZkEearFcW47UN1vg" value="subClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_wov7Q4QsEeazN5kGEUQNbg" name="12" incoming="_wov7R4QsEeazN5kGEUQNbg" outgoing="_z5n38IZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_hTh0oIZkEearFcW47UN1vg" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_wov7RIQsEeazN5kGEUQNbg" name="13" incoming="_wov7SIQsEeazN5kGEUQNbg" outgoing="_tm1VcKc2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_xfr2UKc2EeaPspxRYECKJA" value="getterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_wov7RYQsEeazN5kGEUQNbg" name="14" incoming="_wov7SYQsEeazN5kGEUQNbg" outgoing="_uMj4sKc2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_zybVAKc2EeaPspxRYECKJA" value="setterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_wov7RoQsEeazN5kGEUQNbg" name="15" incoming="_uMj4sKc2EeaPspxRYECKJA" outgoing="_wov7S4QsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Parameter"/>
+      </nodes>
+      <nodes xmi:id="_H96D0IQtEeazN5kGEUQNbg" name="9" incoming="_P856sIQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_q6dSoIZkEearFcW47UN1vg" value="superClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_Ice2MIQtEeazN5kGEUQNbg" name="10" incoming="_Pl7lIIQtEeazN5kGEUQNbg" outgoing="_P856sIQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_r0Bp0IZiEearFcW47UN1vg" name="16" incoming="_wov7S4QsEeazN5kGEUQNbg _z5n38IZiEearFcW47UN1vg _tm1VcKc2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <edges xmi:id="_wov7R4QsEeazN5kGEUQNbg" source="_wov7QoQsEeazN5kGEUQNbg" target="_wov7Q4QsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+      <edges xmi:id="_wov7SIQsEeazN5kGEUQNbg" source="_wov7QoQsEeazN5kGEUQNbg" target="_wov7RIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_wov7SYQsEeazN5kGEUQNbg" source="_wov7QoQsEeazN5kGEUQNbg" target="_wov7RYQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_wov7S4QsEeazN5kGEUQNbg" source="_wov7RoQsEeazN5kGEUQNbg" target="_r0Bp0IZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Parameter/type"/>
+      </edges>
+      <edges xmi:id="_Pl7lIIQtEeazN5kGEUQNbg" source="_wov7QoQsEeazN5kGEUQNbg" target="_Ice2MIQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/generalized"/>
+      </edges>
+      <edges xmi:id="_P856sIQtEeazN5kGEUQNbg" source="_Ice2MIQtEeazN5kGEUQNbg" target="_H96D0IQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Generalization/by"/>
+      </edges>
+      <edges xmi:id="_z5n38IZiEearFcW47UN1vg" source="_wov7Q4QsEeazN5kGEUQNbg" target="_r0Bp0IZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+      <edges xmi:id="_tm1VcKc2EeaPspxRYECKJA" source="_wov7RIQsEeazN5kGEUQNbg" target="_r0Bp0IZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Executable/type"/>
+      </edges>
+      <edges xmi:id="_uMj4sKc2EeaPspxRYECKJA" source="_wov7RYQsEeazN5kGEUQNbg" target="_wov7RoQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Executable/parameters"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_wov7TIQsEeazN5kGEUQNbg" name="Rhs">
+      <nodes xmi:id="_wov7TYQsEeazN5kGEUQNbg" name="11" outgoing="_Pl8MMIQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_euuVkIZkEearFcW47UN1vg" value="subClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_wov7ToQsEeazN5kGEUQNbg" name="12" incoming="_NW2YoISUEeaBAc0PWfONiQ" outgoing="_z5n38YZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_jDWMcIZkEearFcW47UN1vg" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_6vh-AIQsEeazN5kGEUQNbg" name="13" incoming="_NEuG0ISUEeaBAc0PWfONiQ" outgoing="_tm1Vcac2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_xfr2Uac2EeaPspxRYECKJA" value="getterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_7P78YIQsEeazN5kGEUQNbg" name="14" incoming="_MdBNoISUEeaBAc0PWfONiQ" outgoing="_uMj4sac2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_zybVAac2EeaPspxRYECKJA" value="setterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_7P8jcYQsEeazN5kGEUQNbg" name="15" incoming="_uMj4sac2EeaPspxRYECKJA" outgoing="_TsqWUIZkEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Parameter"/>
+      </nodes>
+      <nodes xmi:id="_H96D0YQtEeazN5kGEUQNbg" name="9" incoming="_P856sYQtEeazN5kGEUQNbg" outgoing="_NW2YoISUEeaBAc0PWfONiQ _NEuG0ISUEeaBAc0PWfONiQ _MdBNoISUEeaBAc0PWfONiQ">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_uWU8kIZkEearFcW47UN1vg" value="superClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_Ice2MYQtEeazN5kGEUQNbg" name="10" incoming="_Pl8MMIQtEeazN5kGEUQNbg" outgoing="_P856sYQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_r0DfAIZiEearFcW47UN1vg" name="16" incoming="_z5n38YZiEearFcW47UN1vg _TsqWUIZkEearFcW47UN1vg _tm1Vcac2EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <edges xmi:id="_Pl8MMIQtEeazN5kGEUQNbg" source="_wov7TYQsEeazN5kGEUQNbg" target="_Ice2MYQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/generalized"/>
+      </edges>
+      <edges xmi:id="_P856sYQtEeazN5kGEUQNbg" source="_Ice2MYQtEeazN5kGEUQNbg" target="_H96D0YQtEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Generalization/by"/>
+      </edges>
+      <edges xmi:id="_NW2YoISUEeaBAc0PWfONiQ" source="_H96D0YQtEeazN5kGEUQNbg" target="_wov7ToQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+      <edges xmi:id="_NEuG0ISUEeaBAc0PWfONiQ" source="_H96D0YQtEeazN5kGEUQNbg" target="_6vh-AIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_MdBNoISUEeaBAc0PWfONiQ" source="_H96D0YQtEeazN5kGEUQNbg" target="_7P78YIQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_z5n38YZiEearFcW47UN1vg" source="_wov7ToQsEeazN5kGEUQNbg" target="_r0DfAIZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+      <edges xmi:id="_TsqWUIZkEearFcW47UN1vg" source="_7P8jcYQsEeazN5kGEUQNbg" target="_r0DfAIZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Parameter/type"/>
+      </edges>
+      <edges xmi:id="_tm1Vcac2EeaPspxRYECKJA" source="_6vh-AIQsEeazN5kGEUQNbg" target="_r0DfAIZiEearFcW47UN1vg">
+        <type href="classDiagramMM.ecore#//Executable/type"/>
+      </edges>
+      <edges xmi:id="_uMj4sac2EeaPspxRYECKJA" source="_7P78YIQsEeazN5kGEUQNbg" target="_7P8jcYQsEeazN5kGEUQNbg">
+        <type href="classDiagramMM.ecore#//Executable/parameters"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_wov7UIQsEeazN5kGEUQNbg" origin="_wov7QoQsEeazN5kGEUQNbg" image="_wov7TYQsEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_wov7UYQsEeazN5kGEUQNbg" origin="_wov7Q4QsEeazN5kGEUQNbg" image="_wov7ToQsEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_6vh-AYQsEeazN5kGEUQNbg" origin="_wov7RIQsEeazN5kGEUQNbg" image="_6vh-AIQsEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_7P78YYQsEeazN5kGEUQNbg" origin="_wov7RYQsEeazN5kGEUQNbg" image="_7P78YIQsEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_7P8jcoQsEeazN5kGEUQNbg" origin="_wov7RoQsEeazN5kGEUQNbg" image="_7P8jcYQsEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_H96D0oQtEeazN5kGEUQNbg" origin="_H96D0IQtEeazN5kGEUQNbg" image="_H96D0YQtEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_Ice2MoQtEeazN5kGEUQNbg" origin="_Ice2MIQtEeazN5kGEUQNbg" image="_Ice2MYQtEeazN5kGEUQNbg"/>
+    <mappings xmi:id="_r0DfAYZiEearFcW47UN1vg" origin="_r0Bp0IZiEearFcW47UN1vg" image="_r0DfAIZiEearFcW47UN1vg"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_gwrs8Kc3EeaPspxRYECKJA" name="decapsulateAttributeWithExecutable">
+    <parameters xmi:id="_6NllIKc3EeaPspxRYECKJA" name="clN"/>
+    <parameters xmi:id="_6NmMMKc3EeaPspxRYECKJA" name="attrN"/>
+    <parameters xmi:id="_6NmMMac3EeaPspxRYECKJA" name="getterN"/>
+    <parameters xmi:id="_6NmMMqc3EeaPspxRYECKJA" name="setterN"/>
+    <lhs xmi:id="_gwxzkKc3EeaPspxRYECKJA" name="Lhs">
+      <nodes xmi:id="_9k9JkKc3EeaPspxRYECKJA" name="1" outgoing="_K96HsKc4EeaPspxRYECKJA _yCRMsKc7EeaPspxRYECKJA _ycVSgKc7EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="__0Hv0Kc3EeaPspxRYECKJA" value="clN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_-YT5IKc3EeaPspxRYECKJA" name="6" incoming="_KvR10Kc4EeaPspxRYECKJA _zMXoUKc7EeaPspxRYECKJA _zdso4Kc7EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <nodes xmi:id="__IupcKc3EeaPspxRYECKJA" name="4" incoming="_K96HsKc4EeaPspxRYECKJA" outgoing="_KvR10Kc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_AWWTIKc4EeaPspxRYECKJA" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_Bm4G4Kc4EeaPspxRYECKJA" name="3" incoming="_yCRMsKc7EeaPspxRYECKJA" outgoing="_y25HkKc7EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable"/>
+        <attributes xmi:id="_GmajAKc4EeaPspxRYECKJA" value="setterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_CHs8AKc4EeaPspxRYECKJA" name="2" incoming="_ycVSgKc7EeaPspxRYECKJA" outgoing="_zdso4Kc7EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable"/>
+        <attributes xmi:id="_HeSmMKc4EeaPspxRYECKJA" value="getterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_Dkd08Kc4EeaPspxRYECKJA" name="5" incoming="_y25HkKc7EeaPspxRYECKJA" outgoing="_zMXoUKc7EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Parameter"/>
+      </nodes>
+      <edges xmi:id="_KvR10Kc4EeaPspxRYECKJA" source="__IupcKc3EeaPspxRYECKJA" target="_-YT5IKc3EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+      <edges xmi:id="_K96HsKc4EeaPspxRYECKJA" source="_9k9JkKc3EeaPspxRYECKJA" target="__IupcKc3EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+      <edges xmi:id="_yCRMsKc7EeaPspxRYECKJA" source="_9k9JkKc3EeaPspxRYECKJA" target="_Bm4G4Kc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_ycVSgKc7EeaPspxRYECKJA" source="_9k9JkKc3EeaPspxRYECKJA" target="_CHs8AKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_y25HkKc7EeaPspxRYECKJA" source="_Bm4G4Kc4EeaPspxRYECKJA" target="_Dkd08Kc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable/parameters"/>
+      </edges>
+      <edges xmi:id="_zMXoUKc7EeaPspxRYECKJA" source="_Dkd08Kc4EeaPspxRYECKJA" target="_-YT5IKc3EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Parameter/type"/>
+      </edges>
+      <edges xmi:id="_zdso4Kc7EeaPspxRYECKJA" source="_CHs8AKc4EeaPspxRYECKJA" target="_-YT5IKc3EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable/type"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_gwxzkac3EeaPspxRYECKJA" name="Rhs">
+      <nodes xmi:id="_9k9Jkac3EeaPspxRYECKJA" name="1" outgoing="_K96Hsac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="__0Hv0ac3EeaPspxRYECKJA" value="clN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_-YT5Iac3EeaPspxRYECKJA" name="6" incoming="_KvR10ac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <nodes xmi:id="__Iupcac3EeaPspxRYECKJA" name="4" incoming="_K96Hsac4EeaPspxRYECKJA" outgoing="_KvR10ac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_AWWTIac4EeaPspxRYECKJA" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_KvR10ac4EeaPspxRYECKJA" source="__Iupcac3EeaPspxRYECKJA" target="_-YT5Iac3EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+      <edges xmi:id="_K96Hsac4EeaPspxRYECKJA" source="_9k9Jkac3EeaPspxRYECKJA" target="__Iupcac3EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_9k9Jkqc3EeaPspxRYECKJA" origin="_9k9JkKc3EeaPspxRYECKJA" image="_9k9Jkac3EeaPspxRYECKJA"/>
+    <mappings xmi:id="_-YT5Iqc3EeaPspxRYECKJA" origin="_-YT5IKc3EeaPspxRYECKJA" image="_-YT5Iac3EeaPspxRYECKJA"/>
+    <mappings xmi:id="__Iupcqc3EeaPspxRYECKJA" origin="__IupcKc3EeaPspxRYECKJA" image="__Iupcac3EeaPspxRYECKJA"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_3zycMKc3EeaPspxRYECKJA" name="pullUpEncapsulatedAttributeWitExecutable">
+    <parameters xmi:id="_5BEusKc3EeaPspxRYECKJA" name="subClN"/>
+    <parameters xmi:id="_5BEusac3EeaPspxRYECKJA" name="superClN"/>
+    <parameters xmi:id="_5BEusqc3EeaPspxRYECKJA" name="attrN"/>
+    <parameters xmi:id="_5BEus6c3EeaPspxRYECKJA" name="getterN"/>
+    <parameters xmi:id="_5BEutKc3EeaPspxRYECKJA" name="setterN"/>
+    <lhs xmi:id="_3z1fgKc3EeaPspxRYECKJA" name="Lhs">
+      <nodes xmi:id="_f2I60Kc4EeaPspxRYECKJA" name="9" incoming="_wzga4Kc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_lc02gKc4EeaPspxRYECKJA" value="superClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_gBdaAKc4EeaPspxRYECKJA" name="11" outgoing="_rfKzcKc4EeaPspxRYECKJA _z3lP4Kc4EeaPspxRYECKJA _in1pkKc8EeaPspxRYECKJA _i8iHMKc8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_m3A8kKc4EeaPspxRYECKJA" value="subClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_gXsvwKc4EeaPspxRYECKJA" name="10" incoming="_rfKzcKc4EeaPspxRYECKJA" outgoing="_wzga4Kc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_iQ00kKc4EeaPspxRYECKJA" name="16" incoming="_04aawKc4EeaPspxRYECKJA _65FjwKc4EeaPspxRYECKJA _sZX1EKc8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <nodes xmi:id="_ixDMwKc4EeaPspxRYECKJA" name="12" incoming="_z3lP4Kc4EeaPspxRYECKJA" outgoing="_04aawKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_nYQocKc4EeaPspxRYECKJA" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_kXZfgKc4EeaPspxRYECKJA" name="15" incoming="_sqzjUKc8EeaPspxRYECKJA" outgoing="_65FjwKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Parameter"/>
+      </nodes>
+      <nodes xmi:id="_k0PMgKc4EeaPspxRYECKJA" name="13" incoming="_in1pkKc8EeaPspxRYECKJA" outgoing="_sZX1EKc8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable"/>
+        <attributes xmi:id="_oiVO4Kc4EeaPspxRYECKJA" value="getterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_k7XIMKc4EeaPspxRYECKJA" name="14" incoming="_i8iHMKc8EeaPspxRYECKJA" outgoing="_sqzjUKc8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable"/>
+        <attributes xmi:id="_pg6XAKc4EeaPspxRYECKJA" value="setterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_rfKzcKc4EeaPspxRYECKJA" source="_gBdaAKc4EeaPspxRYECKJA" target="_gXsvwKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/generalized"/>
+      </edges>
+      <edges xmi:id="_wzga4Kc4EeaPspxRYECKJA" source="_gXsvwKc4EeaPspxRYECKJA" target="_f2I60Kc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Generalization/by"/>
+      </edges>
+      <edges xmi:id="_z3lP4Kc4EeaPspxRYECKJA" source="_gBdaAKc4EeaPspxRYECKJA" target="_ixDMwKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+      <edges xmi:id="_04aawKc4EeaPspxRYECKJA" source="_ixDMwKc4EeaPspxRYECKJA" target="_iQ00kKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+      <edges xmi:id="_65FjwKc4EeaPspxRYECKJA" source="_kXZfgKc4EeaPspxRYECKJA" target="_iQ00kKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Parameter/type"/>
+      </edges>
+      <edges xmi:id="_in1pkKc8EeaPspxRYECKJA" source="_gBdaAKc4EeaPspxRYECKJA" target="_k0PMgKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_i8iHMKc8EeaPspxRYECKJA" source="_gBdaAKc4EeaPspxRYECKJA" target="_k7XIMKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_sZX1EKc8EeaPspxRYECKJA" source="_k0PMgKc4EeaPspxRYECKJA" target="_iQ00kKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable/type"/>
+      </edges>
+      <edges xmi:id="_sqzjUKc8EeaPspxRYECKJA" source="_k7XIMKc4EeaPspxRYECKJA" target="_kXZfgKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable/parameters"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_3z1fgac3EeaPspxRYECKJA" name="Rhs">
+      <nodes xmi:id="_f2LXEKc4EeaPspxRYECKJA" name="9" incoming="_wzga4ac4EeaPspxRYECKJA" outgoing="_jhOvsKc8EeaPspxRYECKJA _jR-LsKc8EeaPspxRYECKJA _kEJPgKc8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_lc02gac4EeaPspxRYECKJA" value="superClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_gBdaAac4EeaPspxRYECKJA" name="11" outgoing="_rfKzcac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+        <attributes xmi:id="_m3A8kac4EeaPspxRYECKJA" value="subClN">
+          <type href="classDiagramMM.ecore#//Class/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_gXsvwac4EeaPspxRYECKJA" name="10" incoming="_rfKzcac4EeaPspxRYECKJA" outgoing="_wzga4ac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Generalization"/>
+      </nodes>
+      <nodes xmi:id="_iQ1boKc4EeaPspxRYECKJA" name="16" incoming="_04aawac4EeaPspxRYECKJA _65Fjwac4EeaPspxRYECKJA _sZX1Eac8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class"/>
+      </nodes>
+      <nodes xmi:id="_ixDMwac4EeaPspxRYECKJA" name="12" incoming="_kEJPgKc8EeaPspxRYECKJA" outgoing="_04aawac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute"/>
+        <attributes xmi:id="_nYQocac4EeaPspxRYECKJA" value="attrN">
+          <type href="classDiagramMM.ecore#//Attribute/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_kXZfgac4EeaPspxRYECKJA" name="15" incoming="_sqzjUac8EeaPspxRYECKJA" outgoing="_65Fjwac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Parameter"/>
+      </nodes>
+      <nodes xmi:id="_k0PMgac4EeaPspxRYECKJA" name="13" incoming="_jR-LsKc8EeaPspxRYECKJA" outgoing="_sZX1Eac8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_oiVO4ac4EeaPspxRYECKJA" value="getterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_k7XIMac4EeaPspxRYECKJA" name="14" incoming="_jhOvsKc8EeaPspxRYECKJA" outgoing="_sqzjUac8EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Method"/>
+        <attributes xmi:id="_pg6XAac4EeaPspxRYECKJA" value="setterN">
+          <type href="classDiagramMM.ecore#//Executable/name"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_rfKzcac4EeaPspxRYECKJA" source="_gBdaAac4EeaPspxRYECKJA" target="_gXsvwac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/generalized"/>
+      </edges>
+      <edges xmi:id="_wzga4ac4EeaPspxRYECKJA" source="_gXsvwac4EeaPspxRYECKJA" target="_f2LXEKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Generalization/by"/>
+      </edges>
+      <edges xmi:id="_04aawac4EeaPspxRYECKJA" source="_ixDMwac4EeaPspxRYECKJA" target="_iQ1boKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Attribute/type"/>
+      </edges>
+      <edges xmi:id="_65Fjwac4EeaPspxRYECKJA" source="_kXZfgac4EeaPspxRYECKJA" target="_iQ1boKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Parameter/type"/>
+      </edges>
+      <edges xmi:id="_jhOvsKc8EeaPspxRYECKJA" source="_f2LXEKc4EeaPspxRYECKJA" target="_k7XIMac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_jR-LsKc8EeaPspxRYECKJA" source="_f2LXEKc4EeaPspxRYECKJA" target="_k0PMgac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/methods"/>
+      </edges>
+      <edges xmi:id="_kEJPgKc8EeaPspxRYECKJA" source="_f2LXEKc4EeaPspxRYECKJA" target="_ixDMwac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Class/variables"/>
+      </edges>
+      <edges xmi:id="_sZX1Eac8EeaPspxRYECKJA" source="_k0PMgac4EeaPspxRYECKJA" target="_iQ1boKc4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable/type"/>
+      </edges>
+      <edges xmi:id="_sqzjUac8EeaPspxRYECKJA" source="_k7XIMac4EeaPspxRYECKJA" target="_kXZfgac4EeaPspxRYECKJA">
+        <type href="classDiagramMM.ecore#//Executable/parameters"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_f2L-IKc4EeaPspxRYECKJA" origin="_f2I60Kc4EeaPspxRYECKJA" image="_f2LXEKc4EeaPspxRYECKJA"/>
+    <mappings xmi:id="_gBdaAqc4EeaPspxRYECKJA" origin="_gBdaAKc4EeaPspxRYECKJA" image="_gBdaAac4EeaPspxRYECKJA"/>
+    <mappings xmi:id="_gXsvwqc4EeaPspxRYECKJA" origin="_gXsvwKc4EeaPspxRYECKJA" image="_gXsvwac4EeaPspxRYECKJA"/>
+    <mappings xmi:id="_iQ1boac4EeaPspxRYECKJA" origin="_iQ00kKc4EeaPspxRYECKJA" image="_iQ1boKc4EeaPspxRYECKJA"/>
+    <mappings xmi:id="_ixDMwqc4EeaPspxRYECKJA" origin="_ixDMwKc4EeaPspxRYECKJA" image="_ixDMwac4EeaPspxRYECKJA"/>
+    <mappings xmi:id="_kXZfgqc4EeaPspxRYECKJA" origin="_kXZfgKc4EeaPspxRYECKJA" image="_kXZfgac4EeaPspxRYECKJA"/>
+    <mappings xmi:id="_k0PMgqc4EeaPspxRYECKJA" origin="_k0PMgKc4EeaPspxRYECKJA" image="_k0PMgac4EeaPspxRYECKJA"/>
+    <mappings xmi:id="_k7XvQKc4EeaPspxRYECKJA" origin="_k7XIMKc4EeaPspxRYECKJA" image="_k7XIMac4EeaPspxRYECKJA"/>
+  </units>
+</henshin:Module>

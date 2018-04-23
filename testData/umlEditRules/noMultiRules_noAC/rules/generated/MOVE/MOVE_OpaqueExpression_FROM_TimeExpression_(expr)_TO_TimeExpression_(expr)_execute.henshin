@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DLSPEAorEeaLVYS0mq5KrA" name="MOVE_OpaqueExpression_FROM_TimeExpression_(expr)_TO_TimeExpression_(expr)" description="MOVEs OpaqueExpression from TimeExpression(Reference:expr) to TimeExpression(Reference:expr">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DLSPEQorEeaLVYS0mq5KrA" name="moveOpaqueExpression_FROM_TimeExpression_expr_TO_TimeExpression_TimeExpression" description="Moves OpaqueExpression from TimeExpression(Reference:expr) toTimeExpression(Reference:TimeExpression)">
+    <parameters xmi:id="_DLSPEgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_DLSPEworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+    </parameters>
+    <parameters xmi:id="_DLSPFAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+    </parameters>
+    <lhs xmi:id="_DLSPFQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_DLSPFgorEeaLVYS0mq5KrA" name="Selected" incoming="_DLSPGQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_DLSPFworEeaLVYS0mq5KrA" name="OldSource" outgoing="_DLSPGQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+      </nodes>
+      <nodes xmi:id="_DLSPGAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+      </nodes>
+      <edges xmi:id="_DLSPGQorEeaLVYS0mq5KrA" source="_DLSPFworEeaLVYS0mq5KrA" target="_DLSPFgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression/expr"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_DLSPGgorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_DLSPGworEeaLVYS0mq5KrA" name="Selected" incoming="_DLSPHgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_DLSPHAorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+      </nodes>
+      <nodes xmi:id="_DLSPHQorEeaLVYS0mq5KrA" name="NewSource" outgoing="_DLSPHgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+      </nodes>
+      <edges xmi:id="_DLSPHgorEeaLVYS0mq5KrA" source="_DLSPHQorEeaLVYS0mq5KrA" target="_DLSPGworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression/expr"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_DLSPHworEeaLVYS0mq5KrA" origin="_DLSPFgorEeaLVYS0mq5KrA" image="_DLSPGworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DLSPIAorEeaLVYS0mq5KrA" origin="_DLSPFworEeaLVYS0mq5KrA" image="_DLSPHAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DLSPIQorEeaLVYS0mq5KrA" origin="_DLSPGAorEeaLVYS0mq5KrA" image="_DLSPHQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_DLSPIgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_DLSPEQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_DLSPIworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_DLSPJAorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+    </parameters>
+    <parameters xmi:id="_DLSPJQorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TimeExpression"/>
+    </parameters>
+    <parameterMappings xmi:id="_DLSPJgorEeaLVYS0mq5KrA" source="_DLSPIworEeaLVYS0mq5KrA" target="_DLSPEgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DLSPJworEeaLVYS0mq5KrA" source="_DLSPJAorEeaLVYS0mq5KrA" target="_DLSPEworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DLSPKAorEeaLVYS0mq5KrA" source="_DLSPJQorEeaLVYS0mq5KrA" target="_DLSPFAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

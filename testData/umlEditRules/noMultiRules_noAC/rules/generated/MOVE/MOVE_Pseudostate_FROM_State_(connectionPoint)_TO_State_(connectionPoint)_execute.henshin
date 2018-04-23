@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fv-LwArUEeaHpbC5MOSUqw" name="MOVE_Pseudostate_FROM_State_(connectionPoint)_TO_State_(connectionPoint)" description="MOVEs Pseudostate from State(Reference:connectionPoint) to State(Reference:connectionPoint">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fv-LwQrUEeaHpbC5MOSUqw" name="movePseudostate_FROM_State_connectionPoint_TO_State_State" description="Moves Pseudostate from State(Reference:connectionPoint) toState(Reference:State)">
+    <parameters xmi:id="_fv-LwgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fv-LwwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_fv-LxArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <lhs xmi:id="_fv-LxQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fv-LxgrUEeaHpbC5MOSUqw" name="Selected" incoming="_fv-LyQrUEeaHpbC5MOSUqw" outgoing="_fv-LygrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+      </nodes>
+      <nodes xmi:id="_fv-LxwrUEeaHpbC5MOSUqw" name="OldSource" incoming="_fv-LygrUEeaHpbC5MOSUqw" outgoing="_fv-LyQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <nodes xmi:id="_fv-LyArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <edges xmi:id="_fv-LyQrUEeaHpbC5MOSUqw" source="_fv-LxwrUEeaHpbC5MOSUqw" target="_fv-LxgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/connectionPoint"/>
+      </edges>
+      <edges xmi:id="_fv-LygrUEeaHpbC5MOSUqw" source="_fv-LxgrUEeaHpbC5MOSUqw" target="_fv-LxwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/state"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fv-LywrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fv-LzArUEeaHpbC5MOSUqw" name="Selected" incoming="_fv-LzwrUEeaHpbC5MOSUqw" outgoing="_fv-L0ArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+      </nodes>
+      <nodes xmi:id="_fv-LzQrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <nodes xmi:id="_fv-LzgrUEeaHpbC5MOSUqw" name="NewSource" incoming="_fv-L0ArUEeaHpbC5MOSUqw" outgoing="_fv-LzwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <edges xmi:id="_fv-LzwrUEeaHpbC5MOSUqw" source="_fv-LzgrUEeaHpbC5MOSUqw" target="_fv-LzArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/connectionPoint"/>
+      </edges>
+      <edges xmi:id="_fv-L0ArUEeaHpbC5MOSUqw" source="_fv-LzArUEeaHpbC5MOSUqw" target="_fv-LzgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/state"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fv-L0QrUEeaHpbC5MOSUqw" origin="_fv-LxgrUEeaHpbC5MOSUqw" image="_fv-LzArUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fv-L0grUEeaHpbC5MOSUqw" origin="_fv-LxwrUEeaHpbC5MOSUqw" image="_fv-LzQrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fv-L0wrUEeaHpbC5MOSUqw" origin="_fv-LyArUEeaHpbC5MOSUqw" image="_fv-LzgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fv-L1ArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fv-LwQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fv-L1QrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fv-L1grUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_fv-L1wrUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameterMappings xmi:id="_fv-L2ArUEeaHpbC5MOSUqw" source="_fv-L1QrUEeaHpbC5MOSUqw" target="_fv-LwgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fv-L2QrUEeaHpbC5MOSUqw" source="_fv-L1grUEeaHpbC5MOSUqw" target="_fv-LwwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fv-L2grUEeaHpbC5MOSUqw" source="_fv-L1wrUEeaHpbC5MOSUqw" target="_fv-LxArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

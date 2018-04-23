@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_daTE4Pf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_CombinedFragment_Visibility" description="Sets CombinedFragment Visibility">
+  <annotations xmi:id="_daTE4ff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_CombinedFragment_Visibility"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_daTE4vf8EeWvvZD_9IfuzA" name="setCombinedFragmentVisibility" description="Sets the EAttribute visibility">
+    <parameters xmi:id="_daTE4_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_daTE5Pf8EeWvvZD_9IfuzA" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <lhs xmi:id="_daTE5ff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_daTE5vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_daTE5_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_daTE6Pf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_daTE6ff8EeWvvZD_9IfuzA" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_daTE6vf8EeWvvZD_9IfuzA" origin="_daTE5vf8EeWvvZD_9IfuzA" image="_daTE6Pf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_daTE6_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_daTE4vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_daTE7Pf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_daTE7ff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_daTE7vf8EeWvvZD_9IfuzA" name="Visibility">
+      <annotations xmi:id="_daTE7_f8EeWvvZD_9IfuzA" key="INVERSE" value="Visibility"/>
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_daTE8Pf8EeWvvZD_9IfuzA" source="_daTE7Pf8EeWvvZD_9IfuzA" target="_daTE4_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_daTE8ff8EeWvvZD_9IfuzA" source="_daTE7vf8EeWvvZD_9IfuzA" target="_daTE5Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_egjLQArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Property_IsID" description="Sets Property IsID">
+  <annotations xmi:id="_egjLQQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Property_IsID"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_egjLQgrUEeaHpbC5MOSUqw" name="setPropertyIsID" description="Sets the EAttribute isID">
+    <parameters xmi:id="_egjLQwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_egjLRArUEeaHpbC5MOSUqw" name="IsID">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_egjLRQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_egjLRgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_egjLRwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_egjLSArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_egjLSQrUEeaHpbC5MOSUqw" value="IsID">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/isID"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_egjLSgrUEeaHpbC5MOSUqw" origin="_egjLRgrUEeaHpbC5MOSUqw" image="_egjLSArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_egjLSwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_egjLQgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_egjLTArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_egjLTQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_egjLTgrUEeaHpbC5MOSUqw" name="IsID">
+      <annotations xmi:id="_egjLTwrUEeaHpbC5MOSUqw" key="INVERSE" value="IsID"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_egjLUArUEeaHpbC5MOSUqw" source="_egjLTArUEeaHpbC5MOSUqw" target="_egjLQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_egjLUQrUEeaHpbC5MOSUqw" source="_egjLTgrUEeaHpbC5MOSUqw" target="_egjLRArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

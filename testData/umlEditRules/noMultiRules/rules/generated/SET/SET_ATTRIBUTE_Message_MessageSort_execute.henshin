@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fwyEEArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Message_MessageSort" description="Sets Message MessageSort">
+  <annotations xmi:id="_fwyEEQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Message_MessageSort"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fwyEEgrUEeaHpbC5MOSUqw" name="setMessageMessageSort" description="Sets the EAttribute messageSort">
+    <parameters xmi:id="_fwyEEwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_fwyEFArUEeaHpbC5MOSUqw" name="MessageSort">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <lhs xmi:id="_fwyEFQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fwyEFgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fwyEFwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fwyEGArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+        <attributes xmi:id="_fwyEGQrUEeaHpbC5MOSUqw" value="MessageSort">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/messageSort"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fwyEGgrUEeaHpbC5MOSUqw" origin="_fwyEFgrUEeaHpbC5MOSUqw" image="_fwyEGArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fwyEGwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fwyEEgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fwyEHArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fwyEHQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameters xmi:id="_fwyEHgrUEeaHpbC5MOSUqw" name="MessageSort">
+      <annotations xmi:id="_fwyEHwrUEeaHpbC5MOSUqw" key="INVERSE" value="MessageSort"/>
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//MessageSort"/>
+    </parameters>
+    <parameterMappings xmi:id="_fwyEIArUEeaHpbC5MOSUqw" source="_fwyEHArUEeaHpbC5MOSUqw" target="_fwyEEwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fwyEIQrUEeaHpbC5MOSUqw" source="_fwyEHgrUEeaHpbC5MOSUqw" target="_fwyEFArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

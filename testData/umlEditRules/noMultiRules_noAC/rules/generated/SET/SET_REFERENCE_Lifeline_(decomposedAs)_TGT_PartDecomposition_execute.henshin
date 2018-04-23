@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dAI4cPf8EeWvvZD_9IfuzA" name="SET_REFERENCE_Lifeline_(decomposedAs)_TGT_PartDecomposition" description="Sets Lifeline's reference decomposedAs the target PartDecomposition">
+  <annotations xmi:id="_dAI4cff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_REFERENCE_Lifeline_(decomposedAs)_TGT_PartDecomposition"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dAI4cvf8EeWvvZD_9IfuzA" name="setLifeline_decomposedAs_TO_PartDecomposition" description="SetLifelineRefdecomposedAsToPartDecomposition">
+    <parameters xmi:id="_dAI4c_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dAI4dPf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//PartDecomposition"/>
+    </parameters>
+    <lhs xmi:id="_dAI4dff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dAI4dvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_dAI4d_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//PartDecomposition"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dAI4ePf8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dAI4eff8EeWvvZD_9IfuzA" name="Selected" outgoing="_dAI4e_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_dAI4evf8EeWvvZD_9IfuzA" name="NewTarget" incoming="_dAI4e_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//PartDecomposition"/>
+      </nodes>
+      <edges xmi:id="_dAI4e_f8EeWvvZD_9IfuzA" source="_dAI4eff8EeWvvZD_9IfuzA" target="_dAI4evf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/decomposedAs"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_dAI4fPf8EeWvvZD_9IfuzA" origin="_dAI4dvf8EeWvvZD_9IfuzA" image="_dAI4eff8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_dAI4fff8EeWvvZD_9IfuzA" origin="_dAI4d_f8EeWvvZD_9IfuzA" image="_dAI4evf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dAI4fvf8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dAI4cvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dAI4f_f8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dAI4gPf8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dAI4gff8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_dAI4gvf8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//PartDecomposition"/>
+    </parameters>
+    <parameterMappings xmi:id="_dAI4g_f8EeWvvZD_9IfuzA" source="_dAI4f_f8EeWvvZD_9IfuzA" target="_dAI4c_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dAI4hPf8EeWvvZD_9IfuzA" source="_dAI4gff8EeWvvZD_9IfuzA" target="_dAI4dPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e8TTIArUEeaHpbC5MOSUqw" name="DELETE_BehaviorExecutionSpecification_IN_InteractionOperand_(fragment)" description="Deletes one BehaviorExecutionSpecification in InteractionOperand">
+  <annotations xmi:id="_e8TTIQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_BehaviorExecutionSpecification_IN_InteractionOperand_(fragment)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e8TTIgrUEeaHpbC5MOSUqw" name="deleteBehaviorExecutionSpecification_IN_InteractionOperand" description="deletes one BehaviorExecutionSpecification in the context: InteractionOperand">
+    <parameters xmi:id="_e8TTIwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_e8TTJArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehaviorExecutionSpecification"/>
+    </parameters>
+    <parameters xmi:id="_e8TTJQrUEeaHpbC5MOSUqw" name="Existing">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_e8TTJgrUEeaHpbC5MOSUqw" name="Existing1">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <lhs xmi:id="_e8TTJwrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_e8TTKArUEeaHpbC5MOSUqw" name="Selected" incoming="_e8TTLQrUEeaHpbC5MOSUqw" outgoing="_e8TTLArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_e8TTKQrUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_e8TTLArUEeaHpbC5MOSUqw" outgoing="_e8TTLQrUEeaHpbC5MOSUqw _e8TTLgrUEeaHpbC5MOSUqw _e8TTLwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehaviorExecutionSpecification"/>
+      </nodes>
+      <nodes xmi:id="_e8TTKgrUEeaHpbC5MOSUqw" name="Existing" incoming="_e8TTLgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_e8TTKwrUEeaHpbC5MOSUqw" name="Existing1" incoming="_e8TTLwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <edges xmi:id="_e8TTLArUEeaHpbC5MOSUqw" source="_e8TTKArUEeaHpbC5MOSUqw" target="_e8TTKQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/fragment"/>
+      </edges>
+      <edges xmi:id="_e8TTLQrUEeaHpbC5MOSUqw" source="_e8TTKQrUEeaHpbC5MOSUqw" target="_e8TTKArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment/enclosingOperand"/>
+      </edges>
+      <edges xmi:id="_e8TTLgrUEeaHpbC5MOSUqw" source="_e8TTKQrUEeaHpbC5MOSUqw" target="_e8TTKgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionSpecification/finish"/>
+      </edges>
+      <edges xmi:id="_e8TTLwrUEeaHpbC5MOSUqw" source="_e8TTKQrUEeaHpbC5MOSUqw" target="_e8TTKwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionSpecification/start"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_e8TTMArUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_e8TTMQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_e8TTMgrUEeaHpbC5MOSUqw" name="Existing">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_e8TTMwrUEeaHpbC5MOSUqw" name="Existing1">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e8TTNArUEeaHpbC5MOSUqw" origin="_e8TTKArUEeaHpbC5MOSUqw" image="_e8TTMQrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_e8TTNQrUEeaHpbC5MOSUqw" origin="_e8TTKgrUEeaHpbC5MOSUqw" image="_e8TTMgrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_e8TTNgrUEeaHpbC5MOSUqw" origin="_e8TTKwrUEeaHpbC5MOSUqw" image="_e8TTMwrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e8TTNwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e8TTIgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e8TTOArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_e8TTOQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_e8TTOgrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_e8TTOwrUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehaviorExecutionSpecification"/>
+    </parameters>
+    <parameters xmi:id="_e8TTPArUEeaHpbC5MOSUqw" name="Existing">
+      <annotations xmi:id="_e8TTPQrUEeaHpbC5MOSUqw" key="INVERSE" value="Existing"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_e8TTPgrUEeaHpbC5MOSUqw" name="Existing1">
+      <annotations xmi:id="_e8TTPwrUEeaHpbC5MOSUqw" key="INVERSE" value="Existing1"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameterMappings xmi:id="_e8TTQArUEeaHpbC5MOSUqw" source="_e8TTOArUEeaHpbC5MOSUqw" target="_e8TTIwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e8TTQQrUEeaHpbC5MOSUqw" source="_e8TTOgrUEeaHpbC5MOSUqw" target="_e8TTJArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e8TTQgrUEeaHpbC5MOSUqw" source="_e8TTPArUEeaHpbC5MOSUqw" target="_e8TTJQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e8TTQwrUEeaHpbC5MOSUqw" source="_e8TTPgrUEeaHpbC5MOSUqw" target="_e8TTJgrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fq0mAArUEeaHpbC5MOSUqw" name="DELETE_InteractionOperand_IN_InteractionOperand_(fragment)" description="Deletes one InteractionOperand in InteractionOperand">
+  <annotations xmi:id="_fq0mAQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_InteractionOperand_IN_InteractionOperand_(fragment)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fq0mAgrUEeaHpbC5MOSUqw" name="deleteInteractionOperand_IN_InteractionOperand" description="deletes one InteractionOperand in the context: InteractionOperand">
+    <parameters xmi:id="_fq0mAwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_fq0mBArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <lhs xmi:id="_fq0mBQrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fq0mBgrUEeaHpbC5MOSUqw" name="Selected" incoming="_fq0mCQrUEeaHpbC5MOSUqw" outgoing="_fq0mCArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_fq0mBwrUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_fq0mCArUEeaHpbC5MOSUqw" outgoing="_fq0mCQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <edges xmi:id="_fq0mCArUEeaHpbC5MOSUqw" source="_fq0mBgrUEeaHpbC5MOSUqw" target="_fq0mBwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/fragment"/>
+      </edges>
+      <edges xmi:id="_fq0mCQrUEeaHpbC5MOSUqw" source="_fq0mBwrUEeaHpbC5MOSUqw" target="_fq0mBgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment/enclosingOperand"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fq0mCgrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fq0mCwrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fq0mDArUEeaHpbC5MOSUqw" origin="_fq0mBgrUEeaHpbC5MOSUqw" image="_fq0mCwrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fq0mDQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fq0mAgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fq0mDgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fq0mDwrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_fq0mEArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_fq0mEQrUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameterMappings xmi:id="_fq0mEgrUEeaHpbC5MOSUqw" source="_fq0mDgrUEeaHpbC5MOSUqw" target="_fq0mAwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fq0mEwrUEeaHpbC5MOSUqw" source="_fq0mEArUEeaHpbC5MOSUqw" target="_fq0mBArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

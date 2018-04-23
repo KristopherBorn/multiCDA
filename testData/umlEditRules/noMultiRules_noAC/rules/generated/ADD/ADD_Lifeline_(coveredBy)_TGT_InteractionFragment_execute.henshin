@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_C4UP2QorEeaLVYS0mq5KrA" name="ADD_Lifeline_(coveredBy)_TGT_InteractionFragment" description="Adds to Lifeline's reference coveredBy the target InteractionFragment">
+  <annotations xmi:id="_C4UP2gorEeaLVYS0mq5KrA" key="INVERSE" value="REMOVE_Lifeline_(coveredBy)_TGT_InteractionFragment"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_C4UP2worEeaLVYS0mq5KrA" name="addToLifeline_coveredBy_InteractionFragment" description="Adds to Lifeline's reference coveredBy the target InteractionFragment">
+    <parameters xmi:id="_C4UP3AorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_C4UP3QorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment"/>
+    </parameters>
+    <lhs xmi:id="_C4UP3gorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_C4UP3worEeaLVYS0mq5KrA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_C4UP4AorEeaLVYS0mq5KrA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_C4UP4QorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_C4UP4gorEeaLVYS0mq5KrA" name="Selected" incoming="_C4UP5QorEeaLVYS0mq5KrA" outgoing="_C4UP5AorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_C4UP4worEeaLVYS0mq5KrA" name="NewTarget" incoming="_C4UP5AorEeaLVYS0mq5KrA" outgoing="_C4UP5QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment"/>
+      </nodes>
+      <edges xmi:id="_C4UP5AorEeaLVYS0mq5KrA" source="_C4UP4gorEeaLVYS0mq5KrA" target="_C4UP4worEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/coveredBy"/>
+      </edges>
+      <edges xmi:id="_C4UP5QorEeaLVYS0mq5KrA" source="_C4UP4worEeaLVYS0mq5KrA" target="_C4UP4gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment/covered"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_C4UP5gorEeaLVYS0mq5KrA" origin="_C4UP3worEeaLVYS0mq5KrA" image="_C4UP4gorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_C4UP5worEeaLVYS0mq5KrA" origin="_C4UP4AorEeaLVYS0mq5KrA" image="_C4UP4worEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_C4UP6AorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_C4UP2worEeaLVYS0mq5KrA">
+    <parameters xmi:id="_C4UP6QorEeaLVYS0mq5KrA" name="selectedEObject">
+      <annotations xmi:id="_C4UP6gorEeaLVYS0mq5KrA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_C4UP6worEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment"/>
+    </parameters>
+    <parameterMappings xmi:id="_C4UP7AorEeaLVYS0mq5KrA" source="_C4UP6QorEeaLVYS0mq5KrA" target="_C4UP3AorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_C4UP7QorEeaLVYS0mq5KrA" source="_C4UP6worEeaLVYS0mq5KrA" target="_C4UP3QorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_evp-QArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Operation_IsQuery" description="Sets Operation IsQuery">
+  <annotations xmi:id="_evp-QQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Operation_IsQuery"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_evp-QgrUEeaHpbC5MOSUqw" name="setOperationIsQuery" description="Sets the EAttribute isQuery">
+    <parameters xmi:id="_evp-QwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+    </parameters>
+    <parameters xmi:id="_evp-RArUEeaHpbC5MOSUqw" name="IsQuery">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_evp-RQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_evp-RgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_evp-RwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_evp-SArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+        <attributes xmi:id="_evp-SQrUEeaHpbC5MOSUqw" value="IsQuery">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation/isQuery"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_evp-SgrUEeaHpbC5MOSUqw" origin="_evp-RgrUEeaHpbC5MOSUqw" image="_evp-SArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_evp-SwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_evp-QgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_evp-TArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_evp-TQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+    </parameters>
+    <parameters xmi:id="_evp-TgrUEeaHpbC5MOSUqw" name="IsQuery">
+      <annotations xmi:id="_evp-TwrUEeaHpbC5MOSUqw" key="INVERSE" value="IsQuery"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_evp-UArUEeaHpbC5MOSUqw" source="_evp-TArUEeaHpbC5MOSUqw" target="_evp-QwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_evp-UQrUEeaHpbC5MOSUqw" source="_evp-TgrUEeaHpbC5MOSUqw" target="_evp-RArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

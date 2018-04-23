@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fyfUQArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_CombinedFragment_interactionOperator_FROM_opt_TO_loop" description="Changes the attribute value of interactionOperator_FROM_opt_TO_loop">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fyfUQQrUEeaHpbC5MOSUqw" name="changeCombinedFragmentInteractionOperator_FROM_Opt_TO_loop" description="Changes the attribute value of interactionOperator_FROM_opt_TO_loop">
+    <parameters xmi:id="_fyfUQgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fyfUQwrUEeaHpbC5MOSUqw" name="&quot;opt&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fyfURArUEeaHpbC5MOSUqw" name="&quot;loop&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_fyfURQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fyfURgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fyfURwrUEeaHpbC5MOSUqw" value="&quot;opt&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fyfUSArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fyfUSQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_fyfUSgrUEeaHpbC5MOSUqw" value="&quot;loop&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fyfUSwrUEeaHpbC5MOSUqw" origin="_fyfURgrUEeaHpbC5MOSUqw" image="_fyfUSQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fyfUTArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fyfUQQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fyfUTQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_fyfUTgrUEeaHpbC5MOSUqw" name="&quot;opt&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_fyfUTwrUEeaHpbC5MOSUqw" name="&quot;loop&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fyfUUArUEeaHpbC5MOSUqw" source="_fyfUTQrUEeaHpbC5MOSUqw" target="_fyfUQgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fyfUUQrUEeaHpbC5MOSUqw" source="_fyfUTgrUEeaHpbC5MOSUqw" target="_fyfUQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fyfUUgrUEeaHpbC5MOSUqw" source="_fyfUTwrUEeaHpbC5MOSUqw" target="_fyfURArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

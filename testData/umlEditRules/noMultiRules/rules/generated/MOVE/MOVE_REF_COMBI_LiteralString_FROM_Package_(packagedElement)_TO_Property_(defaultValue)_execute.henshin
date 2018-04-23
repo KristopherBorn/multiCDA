@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fp71MArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_LiteralString_FROM_Package_(packagedElement)_TO_Property_(defaultValue)" description="MOVEs LiteralString from Package(Reference:packagedElement) to Property(Reference:defaultValue">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fp71MQrUEeaHpbC5MOSUqw" name="moveLiteralString_FROM_Package_packagedElement_TO_Property_Property" description="Moves LiteralString from Package(Reference:packagedElement) toProperty(Reference:Property)">
+    <parameters xmi:id="_fp71MgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_fp71MwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_fp71NArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <lhs xmi:id="_fp71NQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fp71NgrUEeaHpbC5MOSUqw" name="Selected" incoming="_fp71OQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_fp71NwrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_fp71OQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <nodes xmi:id="_fp71OArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <edges xmi:id="_fp71OQrUEeaHpbC5MOSUqw" source="_fp71NwrUEeaHpbC5MOSUqw" target="_fp71NgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_fp71OgrUEeaHpbC5MOSUqw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_fp71OwrUEeaHpbC5MOSUqw">
+          <conclusion xmi:id="_fp71PArUEeaHpbC5MOSUqw" name="ub0">
+            <nodes xmi:id="_fp71PQrUEeaHpbC5MOSUqw" outgoing="_fp71PwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+            </nodes>
+            <nodes xmi:id="_fp71PgrUEeaHpbC5MOSUqw" incoming="_fp71PwrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+            </nodes>
+            <edges xmi:id="_fp71PwrUEeaHpbC5MOSUqw" source="_fp71PQrUEeaHpbC5MOSUqw" target="_fp71PgrUEeaHpbC5MOSUqw">
+              <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/defaultValue"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_fp71QArUEeaHpbC5MOSUqw" origin="_fp71OArUEeaHpbC5MOSUqw" image="_fp71PQrUEeaHpbC5MOSUqw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_fp71QQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fp71QgrUEeaHpbC5MOSUqw" name="Selected" incoming="_fp71RQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_fp71QwrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <nodes xmi:id="_fp71RArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_fp71RQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+      <edges xmi:id="_fp71RQrUEeaHpbC5MOSUqw" source="_fp71RArUEeaHpbC5MOSUqw" target="_fp71QgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property/defaultValue"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fp71RgrUEeaHpbC5MOSUqw" origin="_fp71NgrUEeaHpbC5MOSUqw" image="_fp71QgrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fp71RwrUEeaHpbC5MOSUqw" origin="_fp71NwrUEeaHpbC5MOSUqw" image="_fp71QwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fp71SArUEeaHpbC5MOSUqw" origin="_fp71OArUEeaHpbC5MOSUqw" image="_fp71RArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fp71SQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fp71MQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fp71SgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_fp71SwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameters xmi:id="_fp71TArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameterMappings xmi:id="_fp71TQrUEeaHpbC5MOSUqw" source="_fp71SgrUEeaHpbC5MOSUqw" target="_fp71MgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fp71TgrUEeaHpbC5MOSUqw" source="_fp71SwrUEeaHpbC5MOSUqw" target="_fp71MwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fp71TwrUEeaHpbC5MOSUqw" source="_fp71TArUEeaHpbC5MOSUqw" target="_fp71NArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DoquoAorEeaLVYS0mq5KrA" name="CHANGE_REFERENCE_Trigger_(event)_TGT_Event" description="CHANGEs Trigger's reference event the target Event">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DoquoQorEeaLVYS0mq5KrA" name="changeTrigger_event_TO_Event" description="Change the EReference event">
+    <parameters xmi:id="_DoquogorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+    </parameters>
+    <parameters xmi:id="_DoquoworEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+    </parameters>
+    <parameters xmi:id="_DoqupAorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+    </parameters>
+    <lhs xmi:id="_DoqupQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_DoqupgorEeaLVYS0mq5KrA" name="Selected" outgoing="_DoquqQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+      </nodes>
+      <nodes xmi:id="_DoqupworEeaLVYS0mq5KrA" name="OldTarget" incoming="_DoquqQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+      </nodes>
+      <nodes xmi:id="_DoquqAorEeaLVYS0mq5KrA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+      </nodes>
+      <edges xmi:id="_DoquqQorEeaLVYS0mq5KrA" source="_DoqupgorEeaLVYS0mq5KrA" target="_DoqupworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger/event"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_DoquqgorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_DoquqworEeaLVYS0mq5KrA" name="Selected" outgoing="_DoqurgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+      </nodes>
+      <nodes xmi:id="_DoqurAorEeaLVYS0mq5KrA" name="OldTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+      </nodes>
+      <nodes xmi:id="_DoqurQorEeaLVYS0mq5KrA" name="NewTarget" incoming="_DoqurgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+      </nodes>
+      <edges xmi:id="_DoqurgorEeaLVYS0mq5KrA" source="_DoquqworEeaLVYS0mq5KrA" target="_DoqurQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger/event"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_DoqurworEeaLVYS0mq5KrA" origin="_DoqupgorEeaLVYS0mq5KrA" image="_DoquqworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DoqusAorEeaLVYS0mq5KrA" origin="_DoqupworEeaLVYS0mq5KrA" image="_DoqurAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DoqusQorEeaLVYS0mq5KrA" origin="_DoquqAorEeaLVYS0mq5KrA" image="_DoqurQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_DoqusgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_DoquoQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_DoqusworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Trigger"/>
+    </parameters>
+    <parameters xmi:id="_DoqutAorEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+    </parameters>
+    <parameters xmi:id="_DoqutQorEeaLVYS0mq5KrA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Event"/>
+    </parameters>
+    <parameterMappings xmi:id="_DoqutgorEeaLVYS0mq5KrA" source="_DoqusworEeaLVYS0mq5KrA" target="_DoquogorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DoqutworEeaLVYS0mq5KrA" source="_DoqutAorEeaLVYS0mq5KrA" target="_DoquoworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DoquuAorEeaLVYS0mq5KrA" source="_DoqutQorEeaLVYS0mq5KrA" target="_DoqupAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

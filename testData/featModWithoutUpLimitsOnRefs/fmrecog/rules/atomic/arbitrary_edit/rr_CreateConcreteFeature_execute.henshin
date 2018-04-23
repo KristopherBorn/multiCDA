@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_HP8-wCyjEeaUoOe5QJiW-g" name="RR: CreateConcreteFeature" description="Recognize: Creates a non-abstract mandatory feature in a feature (arbitrary edit)">
+  <imports href="http://www.sidiff.org/difference/symmetric/1.0#/"/>
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_HP8-wSyjEeaUoOe5QJiW-g" name="rr:createConcreteFeature_IN_Feature" description="Recognize: creates one concrete Feature in the context: Feature">
+    <parameters xmi:id="_HP8-wiyjEeaUoOe5QJiW-g" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_HP8-wyyjEeaUoOe5QJiW-g" name="New">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_HP8-xCyjEeaUoOe5QJiW-g" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <lhs xmi:id="_HP8-xSyjEeaUoOe5QJiW-g" name="Lhs">
+      <nodes xmi:id="_HP8-xiyjEeaUoOe5QJiW-g" name="B.Selected" incoming="_HP8-0SyjEeaUoOe5QJiW-g" outgoing="_HP8-1CyjEeaUoOe5QJiW-g">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_HP8-xyyjEeaUoOe5QJiW-g" name="" outgoing="_HP8-0CyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddObject"/>
+      </nodes>
+      <nodes xmi:id="_HP8-yCyjEeaUoOe5QJiW-g" name="B.New" incoming="_HP8-0CyjEeaUoOe5QJiW-g _HP8-0iyjEeaUoOe5QJiW-g _HP8-1CyjEeaUoOe5QJiW-g">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_HP8-ySyjEeaUoOe5QJiW-g" value="Name">
+          <type href="http://de.imotep.variability/featuremodel#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_HP8-yiyjEeaUoOe5QJiW-g" value="true">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+        </attributes>
+        <attributes xmi:id="_HP8-yyyjEeaUoOe5QJiW-g" value="false">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/abstract"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_HP8-zCyjEeaUoOe5QJiW-g" name="" outgoing="_HP8-0SyjEeaUoOe5QJiW-g _HP8-0iyjEeaUoOe5QJiW-g _HP8-0yyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference"/>
+      </nodes>
+      <nodes xmi:id="_HP8-zSyjEeaUoOe5QJiW-g" name="" incoming="_HP8-0yyjEeaUoOe5QJiW-g">
+        <type href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
+        <attributes xmi:id="_HP8-ziyjEeaUoOe5QJiW-g" value="&quot;children&quot;">
+          <type href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_HP8-zyyjEeaUoOe5QJiW-g" name="">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//SymmetricDifference"/>
+      </nodes>
+      <edges xmi:id="_HP8-0CyjEeaUoOe5QJiW-g" source="_HP8-xyyjEeaUoOe5QJiW-g" target="_HP8-yCyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddObject/obj"/>
+      </edges>
+      <edges xmi:id="_HP8-0SyjEeaUoOe5QJiW-g" source="_HP8-zCyjEeaUoOe5QJiW-g" target="_HP8-xiyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference/src"/>
+      </edges>
+      <edges xmi:id="_HP8-0iyjEeaUoOe5QJiW-g" source="_HP8-zCyjEeaUoOe5QJiW-g" target="_HP8-yCyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference/tgt"/>
+      </edges>
+      <edges xmi:id="_HP8-0yyjEeaUoOe5QJiW-g" source="_HP8-zCyjEeaUoOe5QJiW-g" target="_HP8-zSyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference/type"/>
+      </edges>
+      <edges xmi:id="_HP8-1CyjEeaUoOe5QJiW-g" source="_HP8-xiyjEeaUoOe5QJiW-g" target="_HP8-yCyjEeaUoOe5QJiW-g">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_HP8-1SyjEeaUoOe5QJiW-g" name="Rhs">
+      <nodes xmi:id="_HP8-1iyjEeaUoOe5QJiW-g" name="B.Selected" incoming="_HP8-5iyjEeaUoOe5QJiW-g" outgoing="_HP8-6SyjEeaUoOe5QJiW-g">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_HP8-1yyjEeaUoOe5QJiW-g" name="" incoming="_HP8-6iyjEeaUoOe5QJiW-g" outgoing="_HP8-5SyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddObject"/>
+      </nodes>
+      <nodes xmi:id="_HP8-2CyjEeaUoOe5QJiW-g" name="B.New" incoming="_HP8-5SyjEeaUoOe5QJiW-g _HP8-5yyjEeaUoOe5QJiW-g _HP8-6SyjEeaUoOe5QJiW-g">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_HP8-2SyjEeaUoOe5QJiW-g" name="" incoming="_HP8-6yyjEeaUoOe5QJiW-g" outgoing="_HP8-5iyjEeaUoOe5QJiW-g _HP8-5yyjEeaUoOe5QJiW-g _HP8-6CyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference"/>
+      </nodes>
+      <nodes xmi:id="_HP8-2iyjEeaUoOe5QJiW-g" name="" incoming="_HP8-6CyjEeaUoOe5QJiW-g">
+        <type href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
+      </nodes>
+      <nodes xmi:id="_HP8-2yyjEeaUoOe5QJiW-g" incoming="_HP8-7CyjEeaUoOe5QJiW-g" outgoing="_HP8-6iyjEeaUoOe5QJiW-g _HP8-6yyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet"/>
+        <attributes xmi:id="_HP8-3CyjEeaUoOe5QJiW-g" value="&quot;CreateConcreteFeature&quot;">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/name"/>
+        </attributes>
+        <attributes xmi:id="_HP8-3SyjEeaUoOe5QJiW-g" value="&quot;Creates a non-abstract mandatory feature in a feature (arbitrary edit)&quot;">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/description"/>
+        </attributes>
+        <attributes xmi:id="_HP8-3iyjEeaUoOe5QJiW-g" value="&quot;CreateConcreteFeature&quot;">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/editRName"/>
+        </attributes>
+        <attributes xmi:id="_HP8-3yyjEeaUoOe5QJiW-g" value="&quot;RR: CreateConcreteFeature&quot;">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/recognitionRName"/>
+        </attributes>
+        <attributes xmi:id="_HP8-4CyjEeaUoOe5QJiW-g" value="0">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/priority"/>
+        </attributes>
+        <attributes xmi:id="_HP8-4SyjEeaUoOe5QJiW-g" value="0">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/numberOfACs"/>
+        </attributes>
+        <attributes xmi:id="_HP8-4iyjEeaUoOe5QJiW-g" value="3">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/numberOfParams"/>
+        </attributes>
+        <attributes xmi:id="_HP8-4yyjEeaUoOe5QJiW-g" value="4">
+          <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/refinementLevel"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_HP8-5CyjEeaUoOe5QJiW-g" name="" outgoing="_HP8-7CyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//SymmetricDifference"/>
+      </nodes>
+      <edges xmi:id="_HP8-5SyjEeaUoOe5QJiW-g" source="_HP8-1yyjEeaUoOe5QJiW-g" target="_HP8-2CyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddObject/obj"/>
+      </edges>
+      <edges xmi:id="_HP8-5iyjEeaUoOe5QJiW-g" source="_HP8-2SyjEeaUoOe5QJiW-g" target="_HP8-1iyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference/src"/>
+      </edges>
+      <edges xmi:id="_HP8-5yyjEeaUoOe5QJiW-g" source="_HP8-2SyjEeaUoOe5QJiW-g" target="_HP8-2CyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference/tgt"/>
+      </edges>
+      <edges xmi:id="_HP8-6CyjEeaUoOe5QJiW-g" source="_HP8-2SyjEeaUoOe5QJiW-g" target="_HP8-2iyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//AddReference/type"/>
+      </edges>
+      <edges xmi:id="_HP8-6SyjEeaUoOe5QJiW-g" source="_HP8-1iyjEeaUoOe5QJiW-g" target="_HP8-2CyjEeaUoOe5QJiW-g">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_HP8-6iyjEeaUoOe5QJiW-g" source="_HP8-2yyjEeaUoOe5QJiW-g" target="_HP8-1yyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/changes"/>
+      </edges>
+      <edges xmi:id="_HP8-6yyjEeaUoOe5QJiW-g" source="_HP8-2yyjEeaUoOe5QJiW-g" target="_HP8-2SyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//SemanticChangeSet/changes"/>
+      </edges>
+      <edges xmi:id="_HP8-7CyjEeaUoOe5QJiW-g" source="_HP8-5CyjEeaUoOe5QJiW-g" target="_HP8-2yyjEeaUoOe5QJiW-g">
+        <type href="http://www.sidiff.org/difference/symmetric/1.0#//SymmetricDifference/changeSets"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_HP8-7SyjEeaUoOe5QJiW-g" origin="_HP8-xiyjEeaUoOe5QJiW-g" image="_HP8-1iyjEeaUoOe5QJiW-g"/>
+    <mappings xmi:id="_HP8-7iyjEeaUoOe5QJiW-g" origin="_HP8-xyyjEeaUoOe5QJiW-g" image="_HP8-1yyjEeaUoOe5QJiW-g"/>
+    <mappings xmi:id="_HP8-7yyjEeaUoOe5QJiW-g" origin="_HP8-yCyjEeaUoOe5QJiW-g" image="_HP8-2CyjEeaUoOe5QJiW-g"/>
+    <mappings xmi:id="_HP8-8CyjEeaUoOe5QJiW-g" origin="_HP8-zCyjEeaUoOe5QJiW-g" image="_HP8-2SyjEeaUoOe5QJiW-g"/>
+    <mappings xmi:id="_HP8-8SyjEeaUoOe5QJiW-g" origin="_HP8-zSyjEeaUoOe5QJiW-g" image="_HP8-2iyjEeaUoOe5QJiW-g"/>
+    <mappings xmi:id="_HP8-8iyjEeaUoOe5QJiW-g" origin="_HP8-zyyjEeaUoOe5QJiW-g" image="_HP8-5CyjEeaUoOe5QJiW-g"/>
+  </units>
+</henshin:Module>

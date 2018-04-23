@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eXFtQArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_deepHistory_TO_choice" description="Changes the attribute value of kind_FROM_deepHistory_TO_choice">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eXFtQQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_DeepHistory_TO_choice" description="Changes the attribute value of kind_FROM_deepHistory_TO_choice">
+    <parameters xmi:id="_eXFtQgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_eXFtQwrUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_eXFtRArUEeaHpbC5MOSUqw" name="&quot;choice&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_eXFtRQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eXFtRgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_eXFtRwrUEeaHpbC5MOSUqw" value="&quot;deepHistory&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_eXFtSArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eXFtSQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_eXFtSgrUEeaHpbC5MOSUqw" value="&quot;choice&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eXFtSwrUEeaHpbC5MOSUqw" origin="_eXFtRgrUEeaHpbC5MOSUqw" image="_eXFtSQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eXFtTArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eXFtQQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eXFtTQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_eXFtTgrUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_eXFtTwrUEeaHpbC5MOSUqw" name="&quot;choice&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_eXFtUArUEeaHpbC5MOSUqw" source="_eXFtTQrUEeaHpbC5MOSUqw" target="_eXFtQgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eXFtUQrUEeaHpbC5MOSUqw" source="_eXFtTgrUEeaHpbC5MOSUqw" target="_eXFtQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eXFtUgrUEeaHpbC5MOSUqw" source="_eXFtTwrUEeaHpbC5MOSUqw" target="_eXFtRArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fYp38ArUEeaHpbC5MOSUqw" name="DELETE_InteractionConstraint_IN_InteractionOperand_(guard)" description="Deletes one InteractionConstraint in InteractionOperand">
+  <annotations xmi:id="_fYp38QrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_InteractionConstraint_IN_InteractionOperand_(guard)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fYp38grUEeaHpbC5MOSUqw" name="deleteInteractionConstraint_IN_InteractionOperand" description="deletes one InteractionConstraint in the context: InteractionOperand">
+    <parameters xmi:id="_fYp38wrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_fYp39ArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_fYp39QrUEeaHpbC5MOSUqw" name="Child">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+    </parameters>
+    <lhs xmi:id="_fYp39grUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fYp39wrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fYp3-grUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_fYp3-ArUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_fYp3-grUEeaHpbC5MOSUqw" outgoing="_fYp3-wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_fYp3-QrUEeaHpbC5MOSUqw" name="Child" incoming="_fYp3-wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+      </nodes>
+      <edges xmi:id="_fYp3-grUEeaHpbC5MOSUqw" source="_fYp39wrUEeaHpbC5MOSUqw" target="_fYp3-ArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/guard"/>
+      </edges>
+      <edges xmi:id="_fYp3-wrUEeaHpbC5MOSUqw" source="_fYp3-ArUEeaHpbC5MOSUqw" target="_fYp3-QrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint/specification"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fYp3_ArUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fYp3_QrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fYp3_grUEeaHpbC5MOSUqw" origin="_fYp39wrUEeaHpbC5MOSUqw" image="_fYp3_QrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fYp3_wrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fYp38grUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fYp4AArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_fYp4AQrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_fYp4AgrUEeaHpbC5MOSUqw" name="Child">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+    </parameters>
+    <parameterMappings xmi:id="_fYp4AwrUEeaHpbC5MOSUqw" source="_fYp4AArUEeaHpbC5MOSUqw" target="_fYp38wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fYp4BArUEeaHpbC5MOSUqw" source="_fYp4AQrUEeaHpbC5MOSUqw" target="_fYp39ArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fYp4BQrUEeaHpbC5MOSUqw" source="_fYp4AgrUEeaHpbC5MOSUqw" target="_fYp39QrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

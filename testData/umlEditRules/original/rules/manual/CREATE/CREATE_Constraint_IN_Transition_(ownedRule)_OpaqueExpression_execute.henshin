@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_PZMkIBVaEeOob4g1gWX1jA" name="CREATE_Constraint_IN_Transition_(ownedRule)_OpaqueExpression_" description="Creates one Constraint in Transition">
+  <imports href="http://www.eclipse.org/uml2/4.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_PZMkIRVaEeOob4g1gWX1jA" name="createConstraint_IN_Transition_OpaqueExpression_" description="creates one Constraint in the context: Transition">
+    <parameters xmi:id="_PZMkIhVaEeOob4g1gWX1jA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_PZMkIxVaEeOob4g1gWX1jA" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_PZMkJhVaEeOob4g1gWX1jA" name="Child" description="">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_0JswQK39EeSZkI3EySFw4g" name="ConstraintName"/>
+    <parameters xmi:id="_3DRlcK39EeSZkI3EySFw4g" name="ConstraintVisibility"/>
+    <parameters xmi:id="_8A-1kK39EeSZkI3EySFw4g" name="OEBody"/>
+    <parameters xmi:id="_9lsJkK39EeSZkI3EySFw4g" name="OELanguage"/>
+    <parameters xmi:id="__zVF0K39EeSZkI3EySFw4g" name="OEName"/>
+    <parameters xmi:id="_BPqg8K3-EeSZkI3EySFw4g" name="OEVisibility"/>
+    <lhs xmi:id="_PZMkKRVaEeOob4g1gWX1jA" name="Lhs">
+      <nodes xmi:id="_PZMkKhVaEeOob4g1gWX1jA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//Transition"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_PZMkKxVaEeOob4g1gWX1jA" name="Rhs">
+      <nodes xmi:id="_PZMkLBVaEeOob4g1gWX1jA" name="Selected" incoming="_PZMkNBVaEeOob4g1gWX1jA" outgoing="_PZMkMxVaEeOob4g1gWX1jA _hDDE8K38EeS5-Otl48ygCw">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_PZMkLRVaEeOob4g1gWX1jA" name="New" incoming="_PZMkMxVaEeOob4g1gWX1jA _hDDE8K38EeS5-Otl48ygCw" outgoing="_PZMkNBVaEeOob4g1gWX1jA _PZMkNRVaEeOob4g1gWX1jA">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        <attributes xmi:id="_VTOyYK39EeSZkI3EySFw4g" value="ConstraintName">
+          <type href="http://www.eclipse.org/uml2/4.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_WC3fkK39EeSZkI3EySFw4g" value="ConstraintVisibility">
+          <type href="http://www.eclipse.org/uml2/4.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_PZMkMBVaEeOob4g1gWX1jA" name="Child" incoming="_PZMkNRVaEeOob4g1gWX1jA">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//OpaqueExpression"/>
+        <attributes xmi:id="_bbz6MK39EeSZkI3EySFw4g" value="OEBody">
+          <type href="http://www.eclipse.org/uml2/4.0.0/UML#//OpaqueExpression/body"/>
+        </attributes>
+        <attributes xmi:id="_dVCssK39EeSZkI3EySFw4g" value="OELanguage">
+          <type href="http://www.eclipse.org/uml2/4.0.0/UML#//OpaqueExpression/language"/>
+        </attributes>
+        <attributes xmi:id="_etiwsK39EeSZkI3EySFw4g" value="OEName">
+          <type href="http://www.eclipse.org/uml2/4.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_f-EkcK39EeSZkI3EySFw4g" value="OEVisibility">
+          <type href="http://www.eclipse.org/uml2/4.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_PZMkMxVaEeOob4g1gWX1jA" source="_PZMkLBVaEeOob4g1gWX1jA" target="_PZMkLRVaEeOob4g1gWX1jA">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//Namespace/ownedRule"/>
+      </edges>
+      <edges xmi:id="_PZMkNBVaEeOob4g1gWX1jA" source="_PZMkLRVaEeOob4g1gWX1jA" target="_PZMkLBVaEeOob4g1gWX1jA">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint/context"/>
+      </edges>
+      <edges xmi:id="_PZMkNRVaEeOob4g1gWX1jA" source="_PZMkLRVaEeOob4g1gWX1jA" target="_PZMkMBVaEeOob4g1gWX1jA">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint/specification"/>
+      </edges>
+      <edges xmi:id="_hDDE8K38EeS5-Otl48ygCw" source="_PZMkLBVaEeOob4g1gWX1jA" target="_PZMkLRVaEeOob4g1gWX1jA">
+        <type href="http://www.eclipse.org/uml2/4.0.0/UML#//Transition/guard"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_PZMkNhVaEeOob4g1gWX1jA" origin="_PZMkKhVaEeOob4g1gWX1jA" image="_PZMkLBVaEeOob4g1gWX1jA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_PZMkNxVaEeOob4g1gWX1jA" name="mainUnit" description="Creates one Constraint depending on available contexts in model instance" subUnits="_PZMkIRVaEeOob4g1gWX1jA">
+    <parameters xmi:id="_kNocIBX5EeOKU8hi7sU4Cg" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_PZMkOBVaEeOob4g1gWX1jA" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_PZMkPBVaEeOob4g1gWX1jA" name="Child">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_MaL4oK3-EeSZkI3EySFw4g" name="ConstraintVisibility"/>
+    <parameters xmi:id="_MajsEK3-EeSZkI3EySFw4g" name="ConstraintName"/>
+    <parameters xmi:id="_Ma2nAK3-EeSZkI3EySFw4g" name="OEBody"/>
+    <parameters xmi:id="_MbEpcK3-EeSZkI3EySFw4g" name="OELanguage"/>
+    <parameters xmi:id="_MbfgMK3-EeSZkI3EySFw4g" name="OEName"/>
+    <parameters xmi:id="_Mb6W8K3-EeSZkI3EySFw4g" name="OEVisibility"/>
+    <parameterMappings xmi:id="_1PHPgAdREeSnDO33cVSAjA" source="_kNocIBX5EeOKU8hi7sU4Cg" target="_PZMkIhVaEeOob4g1gWX1jA"/>
+    <parameterMappings xmi:id="_1PH2kgdREeSnDO33cVSAjA" source="_PZMkIxVaEeOob4g1gWX1jA" target="_PZMkOBVaEeOob4g1gWX1jA"/>
+    <parameterMappings xmi:id="_1PH2mAdREeSnDO33cVSAjA" source="_PZMkJhVaEeOob4g1gWX1jA" target="_PZMkPBVaEeOob4g1gWX1jA"/>
+    <parameterMappings xmi:id="_MaL4oa3-EeSZkI3EySFw4g" source="_MaL4oK3-EeSZkI3EySFw4g" target="_3DRlcK39EeSZkI3EySFw4g"/>
+    <parameterMappings xmi:id="_MajsEa3-EeSZkI3EySFw4g" source="_MajsEK3-EeSZkI3EySFw4g" target="_0JswQK39EeSZkI3EySFw4g"/>
+    <parameterMappings xmi:id="_Ma2nAa3-EeSZkI3EySFw4g" source="_Ma2nAK3-EeSZkI3EySFw4g" target="_8A-1kK39EeSZkI3EySFw4g"/>
+    <parameterMappings xmi:id="_MbEpca3-EeSZkI3EySFw4g" source="_MbEpcK3-EeSZkI3EySFw4g" target="_9lsJkK39EeSZkI3EySFw4g"/>
+    <parameterMappings xmi:id="_MbfgMa3-EeSZkI3EySFw4g" source="_MbfgMK3-EeSZkI3EySFw4g" target="__zVF0K39EeSZkI3EySFw4g"/>
+    <parameterMappings xmi:id="_Mb6W8a3-EeSZkI3EySFw4g" source="_Mb6W8K3-EeSZkI3EySFw4g" target="_BPqg8K3-EeSZkI3EySFw4g"/>
+  </units>
+</henshin:Module>

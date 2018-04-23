@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_c0cl0Pf8EeWvvZD_9IfuzA" name="UNSET_REFERENCE_ExecutionOccurrenceSpecification_(execution)_TGT_ExecutionSpecification" description="UNSET_REFERENCE_ExecutionOccurrenceSpecification_(execution)_TGT_ExecutionSpecification">
+  <annotations xmi:id="_c0cl0ff8EeWvvZD_9IfuzA" key="INVERSE" value="SET_REFERENCE_ExecutionOccurrenceSpecification_(execution)_TGT_ExecutionSpecification"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_c0cl0vf8EeWvvZD_9IfuzA" name="unsetExecutionOccurrenceSpecification_execution_TO_ExecutionSpecification" description="unsetExecutionOccurrenceSpecification_execution_TO_ExecutionSpecification">
+    <parameters xmi:id="_c0cl0_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionOccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_c0cl1Pf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionSpecification"/>
+    </parameters>
+    <lhs xmi:id="_c0cl1ff8EeWvvZD_9IfuzA" name="LHS">
+      <nodes xmi:id="_c0cl1vf8EeWvvZD_9IfuzA" name="Selected" outgoing="_cb4I8AC8Eea8rsYEtyw2Ow">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionOccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_c0cl1_f8EeWvvZD_9IfuzA" name="NewTarget" incoming="_cb4I8AC8Eea8rsYEtyw2Ow">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionSpecification"/>
+      </nodes>
+      <edges xmi:id="_cb4I8AC8Eea8rsYEtyw2Ow" source="_c0cl1vf8EeWvvZD_9IfuzA" target="_c0cl1_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionOccurrenceSpecification/execution"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_c0cl2ff8EeWvvZD_9IfuzA" name="RHS">
+      <nodes xmi:id="_c0cl2vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionOccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_c0cl2_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_c0cl3Pf8EeWvvZD_9IfuzA" origin="_c0cl1vf8EeWvvZD_9IfuzA" image="_c0cl2vf8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_c0cl3ff8EeWvvZD_9IfuzA" origin="_c0cl1_f8EeWvvZD_9IfuzA" image="_c0cl2_f8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_c0cl3vf8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_c0cl0vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_c0cl3_f8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_c0cl4Pf8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionOccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_c0cl4ff8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_c0cl4vf8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionSpecification"/>
+    </parameters>
+    <parameterMappings xmi:id="_c0cl4_f8EeWvvZD_9IfuzA" source="_c0cl3_f8EeWvvZD_9IfuzA" target="_c0cl0_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_c0cl5Pf8EeWvvZD_9IfuzA" source="_c0cl4ff8EeWvvZD_9IfuzA" target="_c0cl1Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

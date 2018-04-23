@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fs1YMArUEeaHpbC5MOSUqw" name="UNSET_REFERENCE_Transition_(guard)_TGT_Constraint" description="Sets Transition's reference guard the target Constraint">
+  <annotations xmi:id="_fs1_QArUEeaHpbC5MOSUqw" key="INVERSE" value="SET_REFERENCE_Transition_(guard)_TGT_Constraint"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fs1_QQrUEeaHpbC5MOSUqw" name="setTransition_guard_TO_Constraint" description="SetTransitionRefguardToConstraint">
+    <parameters xmi:id="_fs1_QgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_fs1_QwrUEeaHpbC5MOSUqw" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <lhs xmi:id="_fs1_RArUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fs1_RQrUEeaHpbC5MOSUqw" name="Selected" outgoing="_fs1_RwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_fs1_RgrUEeaHpbC5MOSUqw" name="NewTarget" incoming="_fs1_RwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <edges xmi:id="_fs1_RwrUEeaHpbC5MOSUqw" source="_fs1_RQrUEeaHpbC5MOSUqw" target="_fs1_RgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/guard"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fs1_SArUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fs1_SQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_fs1_SgrUEeaHpbC5MOSUqw" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fs1_SwrUEeaHpbC5MOSUqw" origin="_fs1_RQrUEeaHpbC5MOSUqw" image="_fs1_SQrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fs1_TArUEeaHpbC5MOSUqw" origin="_fs1_RgrUEeaHpbC5MOSUqw" image="_fs1_SgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fs1_TQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fs1_QQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fs1_TgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_fs1_TwrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_fs1_UArUEeaHpbC5MOSUqw" name="NewTarget">
+      <annotations xmi:id="_fs1_UQrUEeaHpbC5MOSUqw" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameterMappings xmi:id="_fs1_UgrUEeaHpbC5MOSUqw" source="_fs1_TgrUEeaHpbC5MOSUqw" target="_fs1_QgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fs1_UwrUEeaHpbC5MOSUqw" source="_fs1_UArUEeaHpbC5MOSUqw" target="_fs1_QwrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

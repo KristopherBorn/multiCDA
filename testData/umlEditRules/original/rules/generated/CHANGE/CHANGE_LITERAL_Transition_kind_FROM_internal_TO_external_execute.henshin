@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_flnV4ArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Transition_kind_FROM_internal_TO_external" description="Changes the attribute value of kind_FROM_internal_TO_external">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_flnV4QrUEeaHpbC5MOSUqw" name="changeTransitionKind_FROM_Internal_TO_external" description="Changes the attribute value of kind_FROM_internal_TO_external">
+    <parameters xmi:id="_flnV4grUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_flnV4wrUEeaHpbC5MOSUqw" name="&quot;internal&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//TransitionKind"/>
+    </parameters>
+    <parameters xmi:id="_flnV5ArUEeaHpbC5MOSUqw" name="&quot;external&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//TransitionKind"/>
+    </parameters>
+    <lhs xmi:id="_flnV5QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_flnV5grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+        <attributes xmi:id="_flnV5wrUEeaHpbC5MOSUqw" value="&quot;internal&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_flnV6ArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_flnV6QrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+        <attributes xmi:id="_flnV6grUEeaHpbC5MOSUqw" value="&quot;external&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_flnV6wrUEeaHpbC5MOSUqw" origin="_flnV5grUEeaHpbC5MOSUqw" image="_flnV6QrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_flnV7ArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_flnV4QrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_flnV7QrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Transition"/>
+    </parameters>
+    <parameters xmi:id="_flnV7grUEeaHpbC5MOSUqw" name="&quot;internal&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//TransitionKind"/>
+    </parameters>
+    <parameters xmi:id="_flnV7wrUEeaHpbC5MOSUqw" name="&quot;external&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//TransitionKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_flnV8ArUEeaHpbC5MOSUqw" source="_flnV7QrUEeaHpbC5MOSUqw" target="_flnV4grUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flnV8QrUEeaHpbC5MOSUqw" source="_flnV7grUEeaHpbC5MOSUqw" target="_flnV4wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flnV8grUEeaHpbC5MOSUqw" source="_flnV7wrUEeaHpbC5MOSUqw" target="_flnV5ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DS3dwAorEeaLVYS0mq5KrA" name="REMOVE_Comment_(annotatedElement)_TGT_Element" description="Removes Comment's reference annotatedElement the target Element">
+  <annotations xmi:id="_DS3dwQorEeaLVYS0mq5KrA" key="INVERSE" value="ADD_Comment_(annotatedElement)_TGT_Element"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DS3dwgorEeaLVYS0mq5KrA" name="removeFromComment_annotatedElement_Element" description="Removes from Comment's reference annotatedElement the target Element">
+    <parameters xmi:id="_DS3dwworEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+    </parameters>
+    <parameters xmi:id="_DS3dxAorEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+    </parameters>
+    <lhs xmi:id="_DS3dxQorEeaLVYS0mq5KrA" name="LHS">
+      <nodes xmi:id="_DS3dxgorEeaLVYS0mq5KrA" name="Selected" outgoing="_DS3dyAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+      </nodes>
+      <nodes xmi:id="_DS3dxworEeaLVYS0mq5KrA" name="OldTarget" incoming="_DS3dyAorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+      </nodes>
+      <edges xmi:id="_DS3dyAorEeaLVYS0mq5KrA" source="_DS3dxgorEeaLVYS0mq5KrA" target="_DS3dxworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment/annotatedElement"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_DS3dyQorEeaLVYS0mq5KrA" name="RHS">
+      <nodes xmi:id="_DS3dygorEeaLVYS0mq5KrA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+      </nodes>
+      <nodes xmi:id="_DS3dyworEeaLVYS0mq5KrA" name="OldTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_DS3dzAorEeaLVYS0mq5KrA" origin="_DS3dxgorEeaLVYS0mq5KrA" image="_DS3dygorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DS3dzQorEeaLVYS0mq5KrA" origin="_DS3dxworEeaLVYS0mq5KrA" image="_DS3dyworEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_DS3dzgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_DS3dwgorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_DS3dzworEeaLVYS0mq5KrA" name="selectedEObject">
+      <annotations xmi:id="_DS3d0AorEeaLVYS0mq5KrA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment"/>
+    </parameters>
+    <parameters xmi:id="_DS3d0QorEeaLVYS0mq5KrA" name="OldTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+    </parameters>
+    <parameterMappings xmi:id="_DS3d0gorEeaLVYS0mq5KrA" source="_DS3dzworEeaLVYS0mq5KrA" target="_DS3dwworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DS3d0worEeaLVYS0mq5KrA" source="_DS3d0QorEeaLVYS0mq5KrA" target="_DS3dxAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

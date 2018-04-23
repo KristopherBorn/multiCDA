@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e31p4ArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_LiteralInteger_Value" description="Sets LiteralInteger Value">
+  <annotations xmi:id="_e31p4QrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_LiteralInteger_Value"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e31p4grUEeaHpbC5MOSUqw" name="setLiteralIntegerValue" description="Sets the EAttribute value">
+    <parameters xmi:id="_e31p4wrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_e31p5ArUEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Integer"/>
+    </parameters>
+    <lhs xmi:id="_e31p5QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_e31p5grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_e31p5wrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_e31p6ArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+        <attributes xmi:id="_e31p6QrUEeaHpbC5MOSUqw" value="Value">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger/value"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e31p6grUEeaHpbC5MOSUqw" origin="_e31p5grUEeaHpbC5MOSUqw" image="_e31p6ArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e31p6wrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e31p4grUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e31p7ArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_e31p7QrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralInteger"/>
+    </parameters>
+    <parameters xmi:id="_e31p7grUEeaHpbC5MOSUqw" name="Value">
+      <annotations xmi:id="_e31p7wrUEeaHpbC5MOSUqw" key="INVERSE" value="Value"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Integer"/>
+    </parameters>
+    <parameterMappings xmi:id="_e31p8ArUEeaHpbC5MOSUqw" source="_e31p7ArUEeaHpbC5MOSUqw" target="_e31p4wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e31p8QrUEeaHpbC5MOSUqw" source="_e31p7grUEeaHpbC5MOSUqw" target="_e31p5ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

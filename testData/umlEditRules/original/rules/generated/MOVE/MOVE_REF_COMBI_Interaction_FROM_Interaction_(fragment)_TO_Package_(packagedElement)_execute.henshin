@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fhnmsArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_Interaction_FROM_Interaction_(fragment)_TO_Package_(packagedElement)" description="MOVEs Interaction from Interaction(Reference:fragment) to Package(Reference:packagedElement">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fhnmsQrUEeaHpbC5MOSUqw" name="moveInteraction_FROM_Interaction_fragment_TO_Package_Package" description="Moves Interaction from Interaction(Reference:fragment) toPackage(Reference:Package)">
+    <parameters xmi:id="_fhnmsgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_fhnmswrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_fhnmtArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <lhs xmi:id="_fhnmtQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fhnmtgrUEeaHpbC5MOSUqw" name="Selected" incoming="_fhnmuQrUEeaHpbC5MOSUqw" outgoing="_fhnmugrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+      <nodes xmi:id="_fhnmtwrUEeaHpbC5MOSUqw" name="OldSource" incoming="_fhnmugrUEeaHpbC5MOSUqw" outgoing="_fhnmuQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+      <nodes xmi:id="_fhnmuArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <edges xmi:id="_fhnmuQrUEeaHpbC5MOSUqw" source="_fhnmtwrUEeaHpbC5MOSUqw" target="_fhnmtgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction/fragment"/>
+      </edges>
+      <edges xmi:id="_fhnmugrUEeaHpbC5MOSUqw" source="_fhnmtgrUEeaHpbC5MOSUqw" target="_fhnmtwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment/enclosingInteraction"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fhnmuwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fhnmvArUEeaHpbC5MOSUqw" name="Selected" incoming="_fhnmvwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+      <nodes xmi:id="_fhnmvQrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+      <nodes xmi:id="_fhnmvgrUEeaHpbC5MOSUqw" name="NewSource" outgoing="_fhnmvwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <edges xmi:id="_fhnmvwrUEeaHpbC5MOSUqw" source="_fhnmvgrUEeaHpbC5MOSUqw" target="_fhnmvArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_fhnmwArUEeaHpbC5MOSUqw" origin="_fhnmtgrUEeaHpbC5MOSUqw" image="_fhnmvArUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fhnmwQrUEeaHpbC5MOSUqw" origin="_fhnmtwrUEeaHpbC5MOSUqw" image="_fhnmvQrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_fhnmwgrUEeaHpbC5MOSUqw" origin="_fhnmuArUEeaHpbC5MOSUqw" image="_fhnmvgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fhnmwwrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fhnmsQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fhnmxArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_fhnmxQrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_fhnmxgrUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameterMappings xmi:id="_fhnmxwrUEeaHpbC5MOSUqw" source="_fhnmxArUEeaHpbC5MOSUqw" target="_fhnmsgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fhnmyArUEeaHpbC5MOSUqw" source="_fhnmxQrUEeaHpbC5MOSUqw" target="_fhnmswrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fhnmyQrUEeaHpbC5MOSUqw" source="_fhnmxgrUEeaHpbC5MOSUqw" target="_fhnmtArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

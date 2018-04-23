@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cUvyEPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_InteractionConstraint_Name" description="Sets InteractionConstraint Name">
+  <annotations xmi:id="_cUvyEff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_InteractionConstraint_Name"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cUvyEvf8EeWvvZD_9IfuzA" name="setInteractionConstraintName" description="Sets the EAttribute name">
+    <parameters xmi:id="_cUvyE_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_cUvyFPf8EeWvvZD_9IfuzA" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_cUvyFff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_cUvyFvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_cUvyF_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_cUvyGPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+        <attributes xmi:id="_cUvyGff8EeWvvZD_9IfuzA" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_cUvyGvf8EeWvvZD_9IfuzA" origin="_cUvyFvf8EeWvvZD_9IfuzA" image="_cUvyGPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cUvyG_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cUvyEvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cUvyHPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cUvyHff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_cUvyHvf8EeWvvZD_9IfuzA" name="Name">
+      <annotations xmi:id="_cUvyH_f8EeWvvZD_9IfuzA" key="INVERSE" value="Name"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_cUvyIPf8EeWvvZD_9IfuzA" source="_cUvyHPf8EeWvvZD_9IfuzA" target="_cUvyE_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cUvyIff8EeWvvZD_9IfuzA" source="_cUvyHvf8EeWvvZD_9IfuzA" target="_cUvyFPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

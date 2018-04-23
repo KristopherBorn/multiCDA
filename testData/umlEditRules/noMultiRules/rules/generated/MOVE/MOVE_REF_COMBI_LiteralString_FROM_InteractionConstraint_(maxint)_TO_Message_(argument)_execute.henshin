@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eF858ArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_LiteralString_FROM_InteractionConstraint_(maxint)_TO_Message_(argument)" description="MOVEs LiteralString from InteractionConstraint(Reference:maxint) to Message(Reference:argument">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eF9hAArUEeaHpbC5MOSUqw" name="moveLiteralString_FROM_InteractionConstraint_maxint_TO_Message_Message" description="Moves LiteralString from InteractionConstraint(Reference:maxint) toMessage(Reference:Message)">
+    <parameters xmi:id="_eF9hAQrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_eF9hAgrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_eF9hAwrUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <lhs xmi:id="_eF9hBArUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eF9hBQrUEeaHpbC5MOSUqw" name="Selected" incoming="_eF9hCArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_eF9hBgrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_eF9hCArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_eF9hBwrUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+      <edges xmi:id="_eF9hCArUEeaHpbC5MOSUqw" source="_eF9hBgrUEeaHpbC5MOSUqw" target="_eF9hBQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint/maxint"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_eF9hCQrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eF9hCgrUEeaHpbC5MOSUqw" name="Selected" incoming="_eF9hDQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <nodes xmi:id="_eF9hCwrUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_eF9hDArUEeaHpbC5MOSUqw" name="NewSource" outgoing="_eF9hDQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+      </nodes>
+      <edges xmi:id="_eF9hDQrUEeaHpbC5MOSUqw" source="_eF9hDArUEeaHpbC5MOSUqw" target="_eF9hCgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Message/argument"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_eF9hDgrUEeaHpbC5MOSUqw" origin="_eF9hBQrUEeaHpbC5MOSUqw" image="_eF9hCgrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eF9hDwrUEeaHpbC5MOSUqw" origin="_eF9hBgrUEeaHpbC5MOSUqw" image="_eF9hCwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eF9hEArUEeaHpbC5MOSUqw" origin="_eF9hBwrUEeaHpbC5MOSUqw" image="_eF9hDArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eF9hEQrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eF9hAArUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eF9hEgrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_eF9hEwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_eF9hFArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Message"/>
+    </parameters>
+    <parameterMappings xmi:id="_eF9hFQrUEeaHpbC5MOSUqw" source="_eF9hEgrUEeaHpbC5MOSUqw" target="_eF9hAQrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eF9hFgrUEeaHpbC5MOSUqw" source="_eF9hEwrUEeaHpbC5MOSUqw" target="_eF9hAgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eF9hFwrUEeaHpbC5MOSUqw" source="_eF9hFArUEeaHpbC5MOSUqw" target="_eF9hAwrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_ffRdUArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_BehavioralFeature_concurrency_FROM_guarded_TO_concurrent" description="Changes the attribute value of concurrency_FROM_guarded_TO_concurrent">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_ffRdUQrUEeaHpbC5MOSUqw" name="changeBehavioralFeatureConcurrency_FROM_Guarded_TO_concurrent" description="Changes the attribute value of concurrency_FROM_guarded_TO_concurrent">
+    <parameters xmi:id="_ffRdUgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+    </parameters>
+    <parameters xmi:id="_ffRdUwrUEeaHpbC5MOSUqw" name="&quot;guarded&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//CallConcurrencyKind"/>
+    </parameters>
+    <parameters xmi:id="_ffRdVArUEeaHpbC5MOSUqw" name="&quot;concurrent&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//CallConcurrencyKind"/>
+    </parameters>
+    <lhs xmi:id="_ffRdVQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_ffRdVgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+        <attributes xmi:id="_ffRdVwrUEeaHpbC5MOSUqw" value="&quot;guarded&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/concurrency"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_ffRdWArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_ffRdWQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+        <attributes xmi:id="_ffRdWgrUEeaHpbC5MOSUqw" value="&quot;concurrent&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/concurrency"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_ffRdWwrUEeaHpbC5MOSUqw" origin="_ffRdVgrUEeaHpbC5MOSUqw" image="_ffRdWQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_ffRdXArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_ffRdUQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_ffRdXQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+    </parameters>
+    <parameters xmi:id="_ffRdXgrUEeaHpbC5MOSUqw" name="&quot;guarded&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//CallConcurrencyKind"/>
+    </parameters>
+    <parameters xmi:id="_ffRdXwrUEeaHpbC5MOSUqw" name="&quot;concurrent&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//CallConcurrencyKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_ffRdYArUEeaHpbC5MOSUqw" source="_ffRdXQrUEeaHpbC5MOSUqw" target="_ffRdUgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_ffRdYQrUEeaHpbC5MOSUqw" source="_ffRdXgrUEeaHpbC5MOSUqw" target="_ffRdUwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_ffRdYgrUEeaHpbC5MOSUqw" source="_ffRdXwrUEeaHpbC5MOSUqw" target="_ffRdVArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

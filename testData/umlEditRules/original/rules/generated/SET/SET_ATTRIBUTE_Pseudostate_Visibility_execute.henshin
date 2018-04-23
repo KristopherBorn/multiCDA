@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cOG-kPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Pseudostate_Visibility" description="Sets Pseudostate Visibility">
+  <annotations xmi:id="_cOG-kff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Pseudostate_Visibility"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cOG-kvf8EeWvvZD_9IfuzA" name="setPseudostateVisibility" description="Sets the EAttribute visibility">
+    <parameters xmi:id="_cOG-k_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_cOG-lPf8EeWvvZD_9IfuzA" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <lhs xmi:id="_cOG-lff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_cOG-lvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_cOG-l_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_cOG-mPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_cOG-mff8EeWvvZD_9IfuzA" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_cOG-mvf8EeWvvZD_9IfuzA" origin="_cOG-lvf8EeWvvZD_9IfuzA" image="_cOG-mPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cOG-m_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cOG-kvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cOG-nPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cOG-nff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_cOG-nvf8EeWvvZD_9IfuzA" name="Visibility">
+      <annotations xmi:id="_cOG-n_f8EeWvvZD_9IfuzA" key="INVERSE" value="Visibility"/>
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_cOG-oPf8EeWvvZD_9IfuzA" source="_cOG-nPf8EeWvvZD_9IfuzA" target="_cOG-k_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cOG-off8EeWvvZD_9IfuzA" source="_cOG-nvf8EeWvvZD_9IfuzA" target="_cOG-lPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

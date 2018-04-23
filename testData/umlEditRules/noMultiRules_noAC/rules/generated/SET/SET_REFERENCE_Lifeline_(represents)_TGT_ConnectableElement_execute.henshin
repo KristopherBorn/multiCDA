@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dAZ-MPf8EeWvvZD_9IfuzA" name="SET_REFERENCE_Lifeline_(represents)_TGT_ConnectableElement" description="Sets Lifeline's reference represents the target ConnectableElement">
+  <annotations xmi:id="_dAZ-Mff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_REFERENCE_Lifeline_(represents)_TGT_ConnectableElement"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dAZ-Mvf8EeWvvZD_9IfuzA" name="setLifeline_represents_TO_ConnectableElement" description="SetLifelineRefrepresentsToConnectableElement">
+    <parameters xmi:id="_dAZ-M_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dAZ-NPf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+    </parameters>
+    <lhs xmi:id="_dAZ-Nff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dAZ-Nvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_dAZ-N_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dAZ-OPf8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dAZ-Off8EeWvvZD_9IfuzA" name="Selected" outgoing="_dAZ-O_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+      <nodes xmi:id="_dAZ-Ovf8EeWvvZD_9IfuzA" name="NewTarget" incoming="_dAZ-O_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+      </nodes>
+      <edges xmi:id="_dAZ-O_f8EeWvvZD_9IfuzA" source="_dAZ-Off8EeWvvZD_9IfuzA" target="_dAZ-Ovf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline/represents"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_dAZ-PPf8EeWvvZD_9IfuzA" origin="_dAZ-Nvf8EeWvvZD_9IfuzA" image="_dAZ-Off8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_dAZ-Pff8EeWvvZD_9IfuzA" origin="_dAZ-N_f8EeWvvZD_9IfuzA" image="_dAZ-Ovf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dAZ-Pvf8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dAZ-Mvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dAZ-P_f8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dAZ-QPf8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dAZ-Qff8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_dAZ-Qvf8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ConnectableElement"/>
+    </parameters>
+    <parameterMappings xmi:id="_dAZ-Q_f8EeWvvZD_9IfuzA" source="_dAZ-P_f8EeWvvZD_9IfuzA" target="_dAZ-M_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dAZ-RPf8EeWvvZD_9IfuzA" source="_dAZ-Qff8EeWvvZD_9IfuzA" target="_dAZ-NPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

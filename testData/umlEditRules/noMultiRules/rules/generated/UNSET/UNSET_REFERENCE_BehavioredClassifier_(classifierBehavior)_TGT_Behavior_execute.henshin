@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cLhkoPf8EeWvvZD_9IfuzA" name="UNSET_REFERENCE_BehavioredClassifier_(classifierBehavior)_TGT_Behavior" description="Sets BehavioredClassifier's reference classifierBehavior the target Behavior">
+  <annotations xmi:id="_cLhkoff8EeWvvZD_9IfuzA" key="INVERSE" value="SET_REFERENCE_BehavioredClassifier_(classifierBehavior)_TGT_Behavior"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cLhkovf8EeWvvZD_9IfuzA" name="setBehavioredClassifier_classifierBehavior_TO_Behavior" description="SetBehavioredClassifierRefclassifierBehaviorToBehavior">
+    <parameters xmi:id="_cLhko_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+    </parameters>
+    <parameters xmi:id="_cLhkpPf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+    </parameters>
+    <lhs xmi:id="_cLhkpff8EeWvvZD_9IfuzA" name="LHS">
+      <nodes xmi:id="_cLhkpvf8EeWvvZD_9IfuzA" name="Selected" outgoing="_cLhkqPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+      </nodes>
+      <nodes xmi:id="_cLhkp_f8EeWvvZD_9IfuzA" name="NewTarget" incoming="_cLhkqPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+      </nodes>
+      <edges xmi:id="_cLhkqPf8EeWvvZD_9IfuzA" source="_cLhkpvf8EeWvvZD_9IfuzA" target="_cLhkp_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier/classifierBehavior"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_cLhkqff8EeWvvZD_9IfuzA" name="RHS">
+      <nodes xmi:id="_cLhkqvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+      </nodes>
+      <nodes xmi:id="_cLhkq_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_cLhkrPf8EeWvvZD_9IfuzA" origin="_cLhkpvf8EeWvvZD_9IfuzA" image="_cLhkqvf8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_cLhkrff8EeWvvZD_9IfuzA" origin="_cLhkp_f8EeWvvZD_9IfuzA" image="_cLhkq_f8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cLhkrvf8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cLhkovf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cLhkr_f8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cLhksPf8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+    </parameters>
+    <parameters xmi:id="_cLhksff8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_cLhksvf8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+    </parameters>
+    <parameterMappings xmi:id="_cLhks_f8EeWvvZD_9IfuzA" source="_cLhkr_f8EeWvvZD_9IfuzA" target="_cLhko_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cLhktPf8EeWvvZD_9IfuzA" source="_cLhksff8EeWvvZD_9IfuzA" target="_cLhkpPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

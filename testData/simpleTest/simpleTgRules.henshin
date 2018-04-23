@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_CuNJ0B9yEeebWeM2yfTPDw">
+  <imports href="simpleTG.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_PYBxEB9yEeebWeM2yfTPDw" name="createA">
+    <lhs xmi:id="_PYMwMB9yEeebWeM2yfTPDw" name="Lhs"/>
+    <rhs xmi:id="_PYMwMR9yEeebWeM2yfTPDw" name="Rhs">
+      <nodes xmi:id="_bKEbwB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+    </rhs>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_QfCccB9yEeebWeM2yfTPDw" name="deleteA">
+    <lhs xmi:id="_QfGG0B9yEeebWeM2yfTPDw" name="Lhs">
+      <nodes xmi:id="_bViE4B9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_QfGG0R9yEeebWeM2yfTPDw" name="Rhs"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_czQAEB9yEeebWeM2yfTPDw" name="createA_withContainer">
+    <lhs xmi:id="_czQAER9yEeebWeM2yfTPDw" name="Lhs">
+      <nodes xmi:id="_lgbLkB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_czQAEh9yEeebWeM2yfTPDw" name="Rhs">
+      <nodes xmi:id="_czQAEx9yEeebWeM2yfTPDw" incoming="_oAi-8B9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="_myi6wB9yEeebWeM2yfTPDw" outgoing="_oAi-8B9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+      <edges xmi:id="_oAi-8B9yEeebWeM2yfTPDw" source="_myi6wB9yEeebWeM2yfTPDw" target="_czQAEx9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//Container/as"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_myi6wR9yEeebWeM2yfTPDw" origin="_lgbLkB9yEeebWeM2yfTPDw" image="_myi6wB9yEeebWeM2yfTPDw"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_czQAFB9yEeebWeM2yfTPDw" name="deleteA_withContainer">
+    <lhs xmi:id="_czQAFR9yEeebWeM2yfTPDw" name="Lhs">
+      <nodes xmi:id="_czQAFh9yEeebWeM2yfTPDw" incoming="_oK1jYB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="_lkjdoB9yEeebWeM2yfTPDw" outgoing="_oK1jYB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+      <edges xmi:id="_oK1jYB9yEeebWeM2yfTPDw" source="_lkjdoB9yEeebWeM2yfTPDw" target="_czQAFh9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//Container/as"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_czQAFx9yEeebWeM2yfTPDw" name="Rhs">
+      <nodes xmi:id="_mAzUwB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_mAzUwR9yEeebWeM2yfTPDw" origin="_lkjdoB9yEeebWeM2yfTPDw" image="_mAzUwB9yEeebWeM2yfTPDw"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_6TwQkB9yEeebWeM2yfTPDw" name="useA">
+    <lhs xmi:id="_6Tz68B9yEeebWeM2yfTPDw" name="Lhs">
+      <nodes xmi:id="_8_dB0B9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_6Tz68R9yEeebWeM2yfTPDw" name="Rhs">
+      <nodes xmi:id="_8_dB0R9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_8_dB0h9yEeebWeM2yfTPDw" origin="_8_dB0B9yEeebWeM2yfTPDw" image="_8_dB0R9yEeebWeM2yfTPDw"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_9dJDYB9yEeebWeM2yfTPDw" name="useAwithB">
+    <lhs xmi:id="_9dLfoB9yEeebWeM2yfTPDw" name="Lhs">
+      <nodes xmi:id="__Gr0EB9yEeebWeM2yfTPDw" outgoing="__itowB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="__RYoMB9yEeebWeM2yfTPDw" incoming="__itowB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//B"/>
+      </nodes>
+      <edges xmi:id="__itowB9yEeebWeM2yfTPDw" source="__Gr0EB9yEeebWeM2yfTPDw" target="__RYoMB9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A/b"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_9dLfoR9yEeebWeM2yfTPDw" name="Rhs">
+      <nodes xmi:id="__Gr0ER9yEeebWeM2yfTPDw" outgoing="__itowR9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="__RYoMR9yEeebWeM2yfTPDw" incoming="__itowR9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//B"/>
+      </nodes>
+      <edges xmi:id="__itowR9yEeebWeM2yfTPDw" source="__Gr0ER9yEeebWeM2yfTPDw" target="__RYoMR9yEeebWeM2yfTPDw">
+        <type href="simpleTG.ecore#//A/b"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="__Gr0Eh9yEeebWeM2yfTPDw" origin="__Gr0EB9yEeebWeM2yfTPDw" image="__Gr0ER9yEeebWeM2yfTPDw"/>
+    <mappings xmi:id="__RYoMh9yEeebWeM2yfTPDw" origin="__RYoMB9yEeebWeM2yfTPDw" image="__RYoMR9yEeebWeM2yfTPDw"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_fJM_QB98Eee9iosZRbRbXw" name="deleteAfromB">
+    <lhs xmi:id="_fKSkYB98Eee9iosZRbRbXw" name="Lhs">
+      <nodes xmi:id="_gM4CwB98Eee9iosZRbRbXw" name="a" incoming="_NYUFoB9-Eee9iosZRbRbXw" outgoing="_gx6CcB98Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="_gfSBYB98Eee9iosZRbRbXw" name="b" incoming="_gx6CcB98Eee9iosZRbRbXw _CbY9sB-BEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//B"/>
+      </nodes>
+      <nodes xmi:id="_A89YMB9-Eee9iosZRbRbXw" name="con" outgoing="_NYUFoB9-Eee9iosZRbRbXw _CbY9sB-BEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+      <edges xmi:id="_gx6CcB98Eee9iosZRbRbXw" source="_gM4CwB98Eee9iosZRbRbXw" target="_gfSBYB98Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//A/b"/>
+      </edges>
+      <edges xmi:id="_NYUFoB9-Eee9iosZRbRbXw" source="_A89YMB9-Eee9iosZRbRbXw" target="_gM4CwB98Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container/as"/>
+      </edges>
+      <edges xmi:id="_CbY9sB-BEee9iosZRbRbXw" source="_A89YMB9-Eee9iosZRbRbXw" target="_gfSBYB98Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container/bs"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fKSkYR98Eee9iosZRbRbXw" name="Rhs">
+      <nodes xmi:id="_gfSBYR98Eee9iosZRbRbXw" name="b" incoming="_CbY9sR-BEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//B"/>
+      </nodes>
+      <nodes xmi:id="_Bef_AB9-Eee9iosZRbRbXw" name="con" outgoing="_9Z4LoB-AEee9iosZRbRbXw _CbY9sR-BEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+      <nodes xmi:id="_9Z3kkB-AEee9iosZRbRbXw" name="a" incoming="_9Z4LoB-AEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <edges xmi:id="_9Z4LoB-AEee9iosZRbRbXw" source="_Bef_AB9-Eee9iosZRbRbXw" target="_9Z3kkB-AEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container/as"/>
+      </edges>
+      <edges xmi:id="_CbY9sR-BEee9iosZRbRbXw" source="_Bef_AB9-Eee9iosZRbRbXw" target="_gfSBYR98Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container/bs"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_gfSBYh98Eee9iosZRbRbXw" origin="_gfSBYB98Eee9iosZRbRbXw" image="_gfSBYR98Eee9iosZRbRbXw"/>
+    <mappings xmi:id="_Bef_AR9-Eee9iosZRbRbXw" origin="_A89YMB9-Eee9iosZRbRbXw" image="_Bef_AB9-Eee9iosZRbRbXw"/>
+    <mappings xmi:id="_9Z3kkR-AEee9iosZRbRbXw" origin="_gM4CwB98Eee9iosZRbRbXw" image="_9Z3kkB-AEee9iosZRbRbXw"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_kijCgB98Eee9iosZRbRbXw" name="deleteB">
+    <lhs xmi:id="_kipwMB98Eee9iosZRbRbXw" name="Lhs">
+      <nodes xmi:id="_lSM90B98Eee9iosZRbRbXw" name="b" incoming="_8uVUQB-AEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//B"/>
+      </nodes>
+      <nodes xmi:id="_Cid9cB9-Eee9iosZRbRbXw" name="con" outgoing="_uzeN0B9-Eee9iosZRbRbXw _8uVUQB-AEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+      <nodes xmi:id="_uSfnsB9-Eee9iosZRbRbXw" name="a" incoming="_uzeN0B9-Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <edges xmi:id="_uzeN0B9-Eee9iosZRbRbXw" source="_Cid9cB9-Eee9iosZRbRbXw" target="_uSfnsB9-Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container/as"/>
+      </edges>
+      <edges xmi:id="_8uVUQB-AEee9iosZRbRbXw" source="_Cid9cB9-Eee9iosZRbRbXw" target="_lSM90B98Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container/bs"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_kipwMR98Eee9iosZRbRbXw" name="Rhs">
+      <nodes xmi:id="_EHjE4B9-Eee9iosZRbRbXw" name="con" outgoing="_uzeN0R9-Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container"/>
+      </nodes>
+      <nodes xmi:id="_uSfnsR9-Eee9iosZRbRbXw" name="a" incoming="_uzeN0R9-Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <edges xmi:id="_uzeN0R9-Eee9iosZRbRbXw" source="_EHjE4B9-Eee9iosZRbRbXw" target="_uSfnsR9-Eee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//Container/as"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_EHjE4R9-Eee9iosZRbRbXw" origin="_Cid9cB9-Eee9iosZRbRbXw" image="_EHjE4B9-Eee9iosZRbRbXw"/>
+    <mappings xmi:id="_uSgOwB9-Eee9iosZRbRbXw" origin="_uSfnsB9-Eee9iosZRbRbXw" image="_uSfnsR9-Eee9iosZRbRbXw"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_fE_ekB-FEee9iosZRbRbXw" name="deleteAfromB">
+    <lhs xmi:id="_fE_ekR-FEee9iosZRbRbXw" name="Lhs">
+      <nodes xmi:id="_fE_ekh-FEee9iosZRbRbXw" outgoing="_koUkQB-FEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="_jIcF4B-FEee9iosZRbRbXw" incoming="_koUkQB-FEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//B"/>
+      </nodes>
+      <edges xmi:id="_koUkQB-FEee9iosZRbRbXw" source="_fE_ekh-FEee9iosZRbRbXw" target="_jIcF4B-FEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//A/b"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fE_ekx-FEee9iosZRbRbXw" name="Rhs">
+      <nodes xmi:id="_jlvs8B-FEee9iosZRbRbXw">
+        <type href="simpleTG.ecore#//B"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_jlvs8R-FEee9iosZRbRbXw" origin="_jIcF4B-FEee9iosZRbRbXw" image="_jlvs8B-FEee9iosZRbRbXw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dt8ZoPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Lifeline_Visibility" description="Sets Lifeline Visibility">
+  <annotations xmi:id="_dt8Zoff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Lifeline_Visibility"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dt8Zovf8EeWvvZD_9IfuzA" name="setLifelineVisibility" description="Sets the EAttribute visibility">
+    <parameters xmi:id="_dt8Zo_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dt8ZpPf8EeWvvZD_9IfuzA" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <lhs xmi:id="_dt8Zpff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dt8Zpvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dt8Zp_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dt8ZqPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+        <attributes xmi:id="_dt8Zqff8EeWvvZD_9IfuzA" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dt8Zqvf8EeWvvZD_9IfuzA" origin="_dt8Zpvf8EeWvvZD_9IfuzA" image="_dt8ZqPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dt8Zq_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dt8Zovf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dt8ZrPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dt8Zrff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+    </parameters>
+    <parameters xmi:id="_dt8Zrvf8EeWvvZD_9IfuzA" name="Visibility">
+      <annotations xmi:id="_dt8Zr_f8EeWvvZD_9IfuzA" key="INVERSE" value="Visibility"/>
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_dt8ZsPf8EeWvvZD_9IfuzA" source="_dt8ZrPf8EeWvvZD_9IfuzA" target="_dt8Zo_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dt8Zsff8EeWvvZD_9IfuzA" source="_dt8Zrvf8EeWvvZD_9IfuzA" target="_dt8ZpPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

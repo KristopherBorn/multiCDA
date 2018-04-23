@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_e4YccArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_CombinedFragment_InteractionOperator" description="Sets CombinedFragment InteractionOperator">
+  <annotations xmi:id="_e4YccQrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_CombinedFragment_InteractionOperator"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_e4YccgrUEeaHpbC5MOSUqw" name="setCombinedFragmentInteractionOperator" description="Sets the EAttribute interactionOperator">
+    <parameters xmi:id="_e4YccwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_e4YcdArUEeaHpbC5MOSUqw" name="InteractionOperator">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_e4YcdQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_e4YcdgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_e4YcdwrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_e4YceArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_e4YceQrUEeaHpbC5MOSUqw" value="InteractionOperator">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_e4YcegrUEeaHpbC5MOSUqw" origin="_e4YcdgrUEeaHpbC5MOSUqw" image="_e4YceArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_e4YcewrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_e4YccgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_e4YcfArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_e4YcfQrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_e4YcfgrUEeaHpbC5MOSUqw" name="InteractionOperator">
+      <annotations xmi:id="_e4YcfwrUEeaHpbC5MOSUqw" key="INVERSE" value="InteractionOperator"/>
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_e4YcgArUEeaHpbC5MOSUqw" source="_e4YcfArUEeaHpbC5MOSUqw" target="_e4YccwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_e4YcgQrUEeaHpbC5MOSUqw" source="_e4YcfgrUEeaHpbC5MOSUqw" target="_e4YcdArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eFPIQArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_CombinedFragment_interactionOperator_FROM_neg_TO_strict" description="Changes the attribute value of interactionOperator_FROM_neg_TO_strict">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eFPIQQrUEeaHpbC5MOSUqw" name="changeCombinedFragmentInteractionOperator_FROM_Neg_TO_strict" description="Changes the attribute value of interactionOperator_FROM_neg_TO_strict">
+    <parameters xmi:id="_eFPIQgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_eFPIQwrUEeaHpbC5MOSUqw" name="&quot;neg&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_eFPIRArUEeaHpbC5MOSUqw" name="&quot;strict&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <lhs xmi:id="_eFPIRQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eFPIRgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_eFPIRwrUEeaHpbC5MOSUqw" value="&quot;neg&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_eFPISArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eFPISQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+        <attributes xmi:id="_eFPISgrUEeaHpbC5MOSUqw" value="&quot;strict&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/interactionOperator"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eFPISwrUEeaHpbC5MOSUqw" origin="_eFPIRgrUEeaHpbC5MOSUqw" image="_eFPISQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eFPITArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eFPIQQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eFPITQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_eFPITgrUEeaHpbC5MOSUqw" name="&quot;neg&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameters xmi:id="_eFPITwrUEeaHpbC5MOSUqw" name="&quot;strict&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperatorKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_eFPIUArUEeaHpbC5MOSUqw" source="_eFPITQrUEeaHpbC5MOSUqw" target="_eFPIQgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eFPIUQrUEeaHpbC5MOSUqw" source="_eFPITgrUEeaHpbC5MOSUqw" target="_eFPIQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eFPIUgrUEeaHpbC5MOSUqw" source="_eFPITwrUEeaHpbC5MOSUqw" target="_eFPIRArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

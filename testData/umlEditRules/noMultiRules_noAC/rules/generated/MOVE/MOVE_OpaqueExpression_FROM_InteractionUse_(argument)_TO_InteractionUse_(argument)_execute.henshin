@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Cw-4sAorEeaLVYS0mq5KrA" name="MOVE_OpaqueExpression_FROM_InteractionUse_(argument)_TO_InteractionUse_(argument)" description="MOVEs OpaqueExpression from InteractionUse(Reference:argument) to InteractionUse(Reference:argument">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Cw-4sQorEeaLVYS0mq5KrA" name="moveOpaqueExpression_FROM_InteractionUse_argument_TO_InteractionUse_InteractionUse" description="Moves OpaqueExpression from InteractionUse(Reference:argument) toInteractionUse(Reference:InteractionUse)">
+    <parameters xmi:id="_Cw-4sgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_Cw-4sworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+    </parameters>
+    <parameters xmi:id="_Cw-4tAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+    </parameters>
+    <lhs xmi:id="_Cw-4tQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_Cw-4tgorEeaLVYS0mq5KrA" name="Selected" incoming="_Cw-4uQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_Cw-4tworEeaLVYS0mq5KrA" name="OldSource" outgoing="_Cw-4uQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+      </nodes>
+      <nodes xmi:id="_Cw-4uAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+      </nodes>
+      <edges xmi:id="_Cw-4uQorEeaLVYS0mq5KrA" source="_Cw-4tworEeaLVYS0mq5KrA" target="_Cw-4tgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse/argument"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_Cw-4ugorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_Cw-4uworEeaLVYS0mq5KrA" name="Selected" incoming="_Cw-4vgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_Cw-4vAorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+      </nodes>
+      <nodes xmi:id="_Cw-4vQorEeaLVYS0mq5KrA" name="NewSource" outgoing="_Cw-4vgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+      </nodes>
+      <edges xmi:id="_Cw-4vgorEeaLVYS0mq5KrA" source="_Cw-4vQorEeaLVYS0mq5KrA" target="_Cw-4uworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse/argument"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Cw-4vworEeaLVYS0mq5KrA" origin="_Cw-4tgorEeaLVYS0mq5KrA" image="_Cw-4uworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Cw-4wAorEeaLVYS0mq5KrA" origin="_Cw-4tworEeaLVYS0mq5KrA" image="_Cw-4vAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_Cw-4wQorEeaLVYS0mq5KrA" origin="_Cw-4uAorEeaLVYS0mq5KrA" image="_Cw-4vQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Cw-4wgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_Cw-4sQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_Cw-4wworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_Cw-4xAorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+    </parameters>
+    <parameters xmi:id="_Cw-4xQorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionUse"/>
+    </parameters>
+    <parameterMappings xmi:id="_Cw-4xgorEeaLVYS0mq5KrA" source="_Cw-4wworEeaLVYS0mq5KrA" target="_Cw-4sgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Cw-4xworEeaLVYS0mq5KrA" source="_Cw-4xAorEeaLVYS0mq5KrA" target="_Cw-4sworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Cw-4yAorEeaLVYS0mq5KrA" source="_Cw-4xQorEeaLVYS0mq5KrA" target="_Cw-4tAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

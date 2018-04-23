@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eEeTQArUEeaHpbC5MOSUqw" name="MOVE_REF_COMBI_StateMachine_FROM_State_(entry)_TO_Package_(packagedElement)" description="MOVEs StateMachine from State(Reference:entry) to Package(Reference:packagedElement">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eEeTQQrUEeaHpbC5MOSUqw" name="moveStateMachine_FROM_State_entry_TO_Package_Package" description="Moves StateMachine from State(Reference:entry) toPackage(Reference:Package)">
+    <parameters xmi:id="_eEeTQgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+    </parameters>
+    <parameters xmi:id="_eEeTQwrUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_eEeTRArUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <lhs xmi:id="_eEeTRQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eEeTRgrUEeaHpbC5MOSUqw" name="Selected" incoming="_eEeTSQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+      </nodes>
+      <nodes xmi:id="_eEeTRwrUEeaHpbC5MOSUqw" name="OldSource" outgoing="_eEeTSQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <nodes xmi:id="_eEeTSArUEeaHpbC5MOSUqw" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <edges xmi:id="_eEeTSQrUEeaHpbC5MOSUqw" source="_eEeTRwrUEeaHpbC5MOSUqw" target="_eEeTRgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State/entry"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_eEeTSgrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eEeTSwrUEeaHpbC5MOSUqw" name="Selected" incoming="_eEeTTgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+      </nodes>
+      <nodes xmi:id="_eEeTTArUEeaHpbC5MOSUqw" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+      </nodes>
+      <nodes xmi:id="_eEeTTQrUEeaHpbC5MOSUqw" name="NewSource" outgoing="_eEeTTgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </nodes>
+      <edges xmi:id="_eEeTTgrUEeaHpbC5MOSUqw" source="_eEeTTQrUEeaHpbC5MOSUqw" target="_eEeTSwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_eEeTTwrUEeaHpbC5MOSUqw" origin="_eEeTRgrUEeaHpbC5MOSUqw" image="_eEeTSwrUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eEeTUArUEeaHpbC5MOSUqw" origin="_eEeTRwrUEeaHpbC5MOSUqw" image="_eEeTTArUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_eEeTUQrUEeaHpbC5MOSUqw" origin="_eEeTSArUEeaHpbC5MOSUqw" image="_eEeTTQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eEeTUgrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eEeTQQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eEeTUwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StateMachine"/>
+    </parameters>
+    <parameters xmi:id="_eEeTVArUEeaHpbC5MOSUqw" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+    </parameters>
+    <parameters xmi:id="_eEeTVQrUEeaHpbC5MOSUqw" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+    </parameters>
+    <parameterMappings xmi:id="_eEeTVgrUEeaHpbC5MOSUqw" source="_eEeTUwrUEeaHpbC5MOSUqw" target="_eEeTQgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eEeTVwrUEeaHpbC5MOSUqw" source="_eEeTVArUEeaHpbC5MOSUqw" target="_eEeTQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eEeTWArUEeaHpbC5MOSUqw" source="_eEeTVQrUEeaHpbC5MOSUqw" target="_eEeTRArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

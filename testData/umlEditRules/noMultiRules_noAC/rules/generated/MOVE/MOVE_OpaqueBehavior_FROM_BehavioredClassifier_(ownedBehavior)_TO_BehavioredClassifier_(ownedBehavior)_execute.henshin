@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DzkXEAorEeaLVYS0mq5KrA" name="MOVE_OpaqueBehavior_FROM_BehavioredClassifier_(ownedBehavior)_TO_BehavioredClassifier_(ownedBehavior)" description="MOVEs OpaqueBehavior from BehavioredClassifier(Reference:ownedBehavior) to BehavioredClassifier(Reference:ownedBehavior">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DzkXEQorEeaLVYS0mq5KrA" name="moveOpaqueBehavior_FROM_BehavioredClassifier_ownedBehavior_TO_BehavioredClassifier_BehavioredClassifier" description="Moves OpaqueBehavior from BehavioredClassifier(Reference:ownedBehavior) toBehavioredClassifier(Reference:BehavioredClassifier)">
+    <parameters xmi:id="_DzkXEgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_DzkXEworEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+    </parameters>
+    <parameters xmi:id="_DzkXFAorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+    </parameters>
+    <lhs xmi:id="_DzkXFQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_DzkXFgorEeaLVYS0mq5KrA" name="Selected" incoming="_DzkXGQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+      </nodes>
+      <nodes xmi:id="_DzkXFworEeaLVYS0mq5KrA" name="OldSource" outgoing="_DzkXGQorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+      </nodes>
+      <nodes xmi:id="_DzkXGAorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+      </nodes>
+      <edges xmi:id="_DzkXGQorEeaLVYS0mq5KrA" source="_DzkXFworEeaLVYS0mq5KrA" target="_DzkXFgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier/ownedBehavior"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_DzkXGgorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_DzkXGworEeaLVYS0mq5KrA" name="Selected" incoming="_DzkXHgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+      </nodes>
+      <nodes xmi:id="_DzkXHAorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+      </nodes>
+      <nodes xmi:id="_DzkXHQorEeaLVYS0mq5KrA" name="NewSource" outgoing="_DzkXHgorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+      </nodes>
+      <edges xmi:id="_DzkXHgorEeaLVYS0mq5KrA" source="_DzkXHQorEeaLVYS0mq5KrA" target="_DzkXGworEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier/ownedBehavior"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_DzkXHworEeaLVYS0mq5KrA" origin="_DzkXFgorEeaLVYS0mq5KrA" image="_DzkXGworEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DzkXIAorEeaLVYS0mq5KrA" origin="_DzkXFworEeaLVYS0mq5KrA" image="_DzkXHAorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_DzkXIQorEeaLVYS0mq5KrA" origin="_DzkXGAorEeaLVYS0mq5KrA" image="_DzkXHQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_DzkXIgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_DzkXEQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_DzkXIworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueBehavior"/>
+    </parameters>
+    <parameters xmi:id="_DzkXJAorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+    </parameters>
+    <parameters xmi:id="_DzkXJQorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+    </parameters>
+    <parameterMappings xmi:id="_DzkXJgorEeaLVYS0mq5KrA" source="_DzkXIworEeaLVYS0mq5KrA" target="_DzkXEgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DzkXJworEeaLVYS0mq5KrA" source="_DzkXJAorEeaLVYS0mq5KrA" target="_DzkXEworEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_DzkXKAorEeaLVYS0mq5KrA" source="_DzkXJQorEeaLVYS0mq5KrA" target="_DzkXFAorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

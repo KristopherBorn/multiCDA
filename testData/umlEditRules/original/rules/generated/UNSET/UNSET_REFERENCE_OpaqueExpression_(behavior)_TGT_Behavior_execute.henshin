@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_coKdUPf8EeWvvZD_9IfuzA" name="UNSET_REFERENCE_OpaqueExpression_(behavior)_TGT_Behavior" description="Sets OpaqueExpression's reference behavior the target Behavior">
+  <annotations xmi:id="_coKdUff8EeWvvZD_9IfuzA" key="INVERSE" value="SET_REFERENCE_OpaqueExpression_(behavior)_TGT_Behavior"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_coKdUvf8EeWvvZD_9IfuzA" name="setOpaqueExpression_behavior_TO_Behavior" description="SetOpaqueExpressionRefbehaviorToBehavior">
+    <parameters xmi:id="_coKdU_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_coKdVPf8EeWvvZD_9IfuzA" name="NewTarget">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+    </parameters>
+    <lhs xmi:id="_coKdVff8EeWvvZD_9IfuzA" name="LHS">
+      <nodes xmi:id="_coKdVvf8EeWvvZD_9IfuzA" name="Selected" outgoing="_coKdWPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_coKdV_f8EeWvvZD_9IfuzA" name="NewTarget" incoming="_coKdWPf8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+      </nodes>
+      <edges xmi:id="_coKdWPf8EeWvvZD_9IfuzA" source="_coKdVvf8EeWvvZD_9IfuzA" target="_coKdV_f8EeWvvZD_9IfuzA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression/behavior"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_coKdWff8EeWvvZD_9IfuzA" name="RHS">
+      <nodes xmi:id="_coKdWvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+      </nodes>
+      <nodes xmi:id="_coKdW_f8EeWvvZD_9IfuzA" name="NewTarget">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_coKdXPf8EeWvvZD_9IfuzA" origin="_coKdVvf8EeWvvZD_9IfuzA" image="_coKdWvf8EeWvvZD_9IfuzA"/>
+    <mappings xmi:id="_coKdXff8EeWvvZD_9IfuzA" origin="_coKdV_f8EeWvvZD_9IfuzA" image="_coKdW_f8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_coKdXvf8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_coKdUvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_coKdX_f8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_coKdYPf8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OpaqueExpression"/>
+    </parameters>
+    <parameters xmi:id="_coKdYff8EeWvvZD_9IfuzA" name="NewTarget">
+      <annotations xmi:id="_coKdYvf8EeWvvZD_9IfuzA" key="INVERSE" value="NewTarget"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+    </parameters>
+    <parameterMappings xmi:id="_coKdY_f8EeWvvZD_9IfuzA" source="_coKdX_f8EeWvvZD_9IfuzA" target="_coKdU_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_coKdZPf8EeWvvZD_9IfuzA" source="_coKdYff8EeWvvZD_9IfuzA" target="_coKdVPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

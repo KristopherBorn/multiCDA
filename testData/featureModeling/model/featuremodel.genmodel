@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.imotep.featuremodel.variability.metamodel/src"
+    modelPluginID="de.imotep.featuremodel.variability.metamodel" modelName="Featuremodel"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>featuremodel.ecore</foreignModel>
+  <genPackages prefix="FeatureModel" basePackage="de.imotep.featuremodel.variability.metamodel"
+      disposableProviderFactory="true" ecorePackage="featuremodel.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="featuremodel.ecore#//GroupType">
+      <genEnumLiterals ecoreEnumLiteral="featuremodel.ecore#//GroupType/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="featuremodel.ecore#//GroupType/ALT"/>
+    </genEnums>
+    <genClasses ecoreClass="featuremodel.ecore#//FeatureModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference featuremodel.ecore#//FeatureModel/comments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference featuremodel.ecore#//FeatureModel/constraints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//FeatureModel/version"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference featuremodel.ecore#//FeatureModel/root"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference featuremodel.ecore#//FeatureModel/groups"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="featuremodel.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="featuremodel.ecore#//Comment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Comment/element"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//Comment/text"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="featuremodel.ecore#//Constraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//Constraint/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//Constraint/code"/>
+    </genClasses>
+    <genClasses ecoreClass="featuremodel.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//Feature/mandatory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//Feature/abstract"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Feature/children"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Feature/requiredConstraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Feature/requireConstraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Feature/group"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Feature/excludeConstraintsA"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Feature/excludeConstraintsB"/>
+      <genOperations ecoreOperation="featuremodel.ecore#//Feature/atMostInOneGroup">
+        <genParameters ecoreParameter="featuremodel.ecore#//Feature/atMostInOneGroup/chain"/>
+        <genParameters ecoreParameter="featuremodel.ecore#//Feature/atMostInOneGroup/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="featuremodel.ecore#//RequireConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//RequireConstraint/requiredFeature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//RequireConstraint/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="featuremodel.ecore#//ExcludeConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//ExcludeConstraint/excludedFeatureA"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//ExcludeConstraint/excludedFeatureB"/>
+    </genClasses>
+    <genClasses ecoreClass="featuremodel.ecore#//Group">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference featuremodel.ecore#//Group/features"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//Group/groupType"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

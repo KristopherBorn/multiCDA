@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_huSokO5VEeOqHu8pdyB_Ag" name="Refactoring_1-4" description="">
+  <imports href="http://de.imotep.variability/featuremodel#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_iipdsO5VEeOqHu8pdyB_Ag" name="Refactoring_1-4">
+    <parameters xmi:id="_6qWoEO5WEeOqHu8pdyB_Ag" name="f0">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_6qaScO5WEeOqHu8pdyB_Ag" name="f1">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_6qaSce5WEeOqHu8pdyB_Ag" name="f2">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_6qaSc-5WEeOqHu8pdyB_Ag" name="New_RC1">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//RequireConstraint"/>
+    </parameters>
+    <parameters xmi:id="_6qaSdO5WEeOqHu8pdyB_Ag" name="New_RC2">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//RequireConstraint"/>
+    </parameters>
+    <lhs xmi:id="_iishAO5VEeOqHu8pdyB_Ag" name="Lhs">
+      <nodes xmi:id="_wKdXMO5VEeOqHu8pdyB_Ag" name="f1" incoming="_7cu8sO5VEeOqHu8pdyB_Ag _wf6Q4EQXEeSkJc2J1bE5Yg" outgoing="_KsefwEM5EeSDNLoe64oyLw _3NXnMEPyEeSfRrmZpbdPPg">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_xI8YsO5VEeOqHu8pdyB_Ag" name="f2" incoming="_3NXnMEPyEeSfRrmZpbdPPg">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_2bXUkO5VEeOqHu8pdyB_Ag" value="true">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_5C2UMO5VEeOqHu8pdyB_Ag" name="f0" outgoing="_7cu8sO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_HDYPsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_FzIyQEM5EeSDNLoe64oyLw" incoming="_KsefwEM5EeSDNLoe64oyLw" outgoing="_wf6Q4EQXEeSkJc2J1bE5Yg">
+        <type href="http://de.imotep.variability/featuremodel#//Group"/>
+        <attributes xmi:id="_HNdbMEM5EeSDNLoe64oyLw" value="&quot;OR&quot;">
+          <type href="http://de.imotep.variability/featuremodel#//Group/groupType"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_7cu8sO5VEeOqHu8pdyB_Ag" source="_5C2UMO5VEeOqHu8pdyB_Ag" target="_wKdXMO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_KsefwEM5EeSDNLoe64oyLw" source="_wKdXMO5VEeOqHu8pdyB_Ag" target="_FzIyQEM5EeSDNLoe64oyLw">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/group"/>
+      </edges>
+      <edges xmi:id="_3NXnMEPyEeSfRrmZpbdPPg" source="_wKdXMO5VEeOqHu8pdyB_Ag" target="_xI8YsO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_wf6Q4EQXEeSkJc2J1bE5Yg" source="_FzIyQEM5EeSDNLoe64oyLw" target="_wKdXMO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_iishAe5VEeOqHu8pdyB_Ag" name="Rhs">
+      <nodes xmi:id="_wKelUO5VEeOqHu8pdyB_Ag" name="f1" incoming="_7cu8se5VEeOqHu8pdyB_Ag _QfAcoO5WEeOqHu8pdyB_Ag _SZJ1IO5WEeOqHu8pdyB_Ag _wf638EQXEeSkJc2J1bE5Yg" outgoing="_KsefwUM5EeSDNLoe64oyLw _reXSgFBgEeSbXvHb4wcA8w _rehqkFBgEeSbXvHb4wcA8w">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_xI8Yse5VEeOqHu8pdyB_Ag" name="f2" incoming="_IsqhsO5WEeOqHu8pdyB_Ag _QB30sO5WEeOqHu8pdyB_Ag _S1dWoO5WEeOqHu8pdyB_Ag _wmlV4EPxEeSfRrmZpbdPPg" outgoing="_reJQEFBgEeSbXvHb4wcA8w _retQwFBgEeSbXvHb4wcA8w _re3o0FBgEeSbXvHb4wcA8w">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+        <attributes xmi:id="_2bX7oO5VEeOqHu8pdyB_Ag" value="false">
+          <type href="http://de.imotep.variability/featuremodel#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_5C2UMe5VEeOqHu8pdyB_Ag" name="f0" outgoing="_7cu8se5VEeOqHu8pdyB_Ag _IsqhsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_HDYPse5WEeOqHu8pdyB_Ag" outgoing="_Nrvq0u5WEeOqHu8pdyB_Ag _REjZs-5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_NrucsO5WEeOqHu8pdyB_Ag" name="New_RC2" incoming="_Nrvq0u5WEeOqHu8pdyB_Ag _reJQEFBgEeSbXvHb4wcA8w _reXSgFBgEeSbXvHb4wcA8w" outgoing="_QB30sO5WEeOqHu8pdyB_Ag _QfAcoO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//RequireConstraint"/>
+      </nodes>
+      <nodes xmi:id="_REjZsO5WEeOqHu8pdyB_Ag" name="New_RC1" incoming="_REjZs-5WEeOqHu8pdyB_Ag _rehqkFBgEeSbXvHb4wcA8w _retQwFBgEeSbXvHb4wcA8w" outgoing="_SZJ1IO5WEeOqHu8pdyB_Ag _S1dWoO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//RequireConstraint"/>
+      </nodes>
+      <nodes xmi:id="_FzIyQUM5EeSDNLoe64oyLw" incoming="_KsefwUM5EeSDNLoe64oyLw _re3o0FBgEeSbXvHb4wcA8w" outgoing="_wmlV4EPxEeSfRrmZpbdPPg _wf638EQXEeSkJc2J1bE5Yg">
+        <type href="http://de.imotep.variability/featuremodel#//Group"/>
+        <attributes xmi:id="_HNdbMUM5EeSDNLoe64oyLw" value="&quot;OR&quot;">
+          <type href="http://de.imotep.variability/featuremodel#//Group/groupType"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_7cu8se5VEeOqHu8pdyB_Ag" source="_5C2UMe5VEeOqHu8pdyB_Ag" target="_wKelUO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_IsqhsO5WEeOqHu8pdyB_Ag" source="_5C2UMe5VEeOqHu8pdyB_Ag" target="_xI8Yse5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_Nrvq0u5WEeOqHu8pdyB_Ag" source="_HDYPse5WEeOqHu8pdyB_Ag" target="_NrucsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel/constraints"/>
+      </edges>
+      <edges xmi:id="_QB30sO5WEeOqHu8pdyB_Ag" source="_NrucsO5WEeOqHu8pdyB_Ag" target="_xI8Yse5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//RequireConstraint/feature"/>
+      </edges>
+      <edges xmi:id="_QfAcoO5WEeOqHu8pdyB_Ag" source="_NrucsO5WEeOqHu8pdyB_Ag" target="_wKelUO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//RequireConstraint/requiredFeature"/>
+      </edges>
+      <edges xmi:id="_REjZs-5WEeOqHu8pdyB_Ag" source="_HDYPse5WEeOqHu8pdyB_Ag" target="_REjZsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//FeatureModel/constraints"/>
+      </edges>
+      <edges xmi:id="_SZJ1IO5WEeOqHu8pdyB_Ag" source="_REjZsO5WEeOqHu8pdyB_Ag" target="_wKelUO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//RequireConstraint/feature"/>
+      </edges>
+      <edges xmi:id="_S1dWoO5WEeOqHu8pdyB_Ag" source="_REjZsO5WEeOqHu8pdyB_Ag" target="_xI8Yse5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//RequireConstraint/requiredFeature"/>
+      </edges>
+      <edges xmi:id="_KsefwUM5EeSDNLoe64oyLw" source="_wKelUO5VEeOqHu8pdyB_Ag" target="_FzIyQUM5EeSDNLoe64oyLw">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/group"/>
+      </edges>
+      <edges xmi:id="_wmlV4EPxEeSfRrmZpbdPPg" source="_FzIyQUM5EeSDNLoe64oyLw" target="_xI8Yse5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+      </edges>
+      <edges xmi:id="_wf638EQXEeSkJc2J1bE5Yg" source="_FzIyQUM5EeSDNLoe64oyLw" target="_wKelUO5VEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Group/features"/>
+      </edges>
+      <edges xmi:id="_reJQEFBgEeSbXvHb4wcA8w" source="_xI8Yse5VEeOqHu8pdyB_Ag" target="_NrucsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/requireConstraints"/>
+      </edges>
+      <edges xmi:id="_reXSgFBgEeSbXvHb4wcA8w" source="_wKelUO5VEeOqHu8pdyB_Ag" target="_NrucsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/requiredConstraints"/>
+      </edges>
+      <edges xmi:id="_rehqkFBgEeSbXvHb4wcA8w" source="_wKelUO5VEeOqHu8pdyB_Ag" target="_REjZsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/requireConstraints"/>
+      </edges>
+      <edges xmi:id="_retQwFBgEeSbXvHb4wcA8w" source="_xI8Yse5VEeOqHu8pdyB_Ag" target="_REjZsO5WEeOqHu8pdyB_Ag">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/requiredConstraints"/>
+      </edges>
+      <edges xmi:id="_re3o0FBgEeSbXvHb4wcA8w" source="_xI8Yse5VEeOqHu8pdyB_Ag" target="_FzIyQUM5EeSDNLoe64oyLw">
+        <type href="http://de.imotep.variability/featuremodel#//Feature/group"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_wKelUe5VEeOqHu8pdyB_Ag" origin="_wKdXMO5VEeOqHu8pdyB_Ag" image="_wKelUO5VEeOqHu8pdyB_Ag"/>
+    <mappings xmi:id="_xI8Ysu5VEeOqHu8pdyB_Ag" origin="_xI8YsO5VEeOqHu8pdyB_Ag" image="_xI8Yse5VEeOqHu8pdyB_Ag"/>
+    <mappings xmi:id="_5C2UMu5VEeOqHu8pdyB_Ag" origin="_5C2UMO5VEeOqHu8pdyB_Ag" image="_5C2UMe5VEeOqHu8pdyB_Ag"/>
+    <mappings xmi:id="_HDYPsu5WEeOqHu8pdyB_Ag" origin="_HDYPsO5WEeOqHu8pdyB_Ag" image="_HDYPse5WEeOqHu8pdyB_Ag"/>
+    <mappings xmi:id="_FzIyQkM5EeSDNLoe64oyLw" origin="_FzIyQEM5EeSDNLoe64oyLw" image="_FzIyQUM5EeSDNLoe64oyLw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_BjkioO5XEeOqHu8pdyB_Ag" name="mainUnit" subUnits="_iipdsO5VEeOqHu8pdyB_Ag">
+    <parameters xmi:id="_JBnokO5XEeOqHu8pdyB_Ag" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_JBnoke5XEeOqHu8pdyB_Ag" name="f0">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_JBnoku5XEeOqHu8pdyB_Ag" name="f1">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//Feature"/>
+    </parameters>
+    <parameters xmi:id="_KVZkoO5XEeOqHu8pdyB_Ag" name="New_RC1" description="">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//RequireConstraint"/>
+    </parameters>
+    <parameters xmi:id="_LfVBIO5XEeOqHu8pdyB_Ag" name="New_RC2" description="">
+      <type xsi:type="ecore:EClass" href="http://de.imotep.variability/featuremodel#//RequireConstraint"/>
+    </parameters>
+    <parameterMappings xmi:id="_XKPwIO5XEeOqHu8pdyB_Ag" source="_JBnokO5XEeOqHu8pdyB_Ag" target="_6qaSce5WEeOqHu8pdyB_Ag"/>
+    <parameterMappings xmi:id="_Xf6eIO5XEeOqHu8pdyB_Ag" source="_JBnoke5XEeOqHu8pdyB_Ag" target="_6qWoEO5WEeOqHu8pdyB_Ag"/>
+    <parameterMappings xmi:id="_XyATsO5XEeOqHu8pdyB_Ag" source="_JBnoku5XEeOqHu8pdyB_Ag" target="_6qaScO5WEeOqHu8pdyB_Ag"/>
+    <parameterMappings xmi:id="_YXniMO5XEeOqHu8pdyB_Ag" source="_6qaSc-5WEeOqHu8pdyB_Ag" target="_KVZkoO5XEeOqHu8pdyB_Ag"/>
+    <parameterMappings xmi:id="_Yq1ZIO5XEeOqHu8pdyB_Ag" source="_6qaSdO5WEeOqHu8pdyB_Ag" target="_LfVBIO5XEeOqHu8pdyB_Ag"/>
+  </units>
+</henshin:Module>

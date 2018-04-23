@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eemDcArUEeaHpbC5MOSUqw" name="DELETE_InteractionOperand_IN_CombinedFragment_(operand)" description="Deletes one InteractionOperand in CombinedFragment">
+  <annotations xmi:id="_eemDcQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_InteractionOperand_IN_CombinedFragment_(operand)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eemDcgrUEeaHpbC5MOSUqw" name="deleteInteractionOperand_IN_CombinedFragment" description="deletes one InteractionOperand in the context: CombinedFragment">
+    <parameters xmi:id="_eemDcwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_eemDdArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <lhs xmi:id="_eemDdQrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_eemDdgrUEeaHpbC5MOSUqw" name="Selected" outgoing="_eemDeArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+      </nodes>
+      <nodes xmi:id="_eemDdwrUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_eemDeArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <edges xmi:id="_eemDeArUEeaHpbC5MOSUqw" source="_eemDdgrUEeaHpbC5MOSUqw" target="_eemDdwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/operand"/>
+      </edges>
+      <formula xsi:type="henshin:NestedCondition" xmi:id="_eemDeQrUEeaHpbC5MOSUqw">
+        <conclusion xmi:id="_eemDegrUEeaHpbC5MOSUqw" name="lb0">
+          <nodes xmi:id="_eemDewrUEeaHpbC5MOSUqw" outgoing="_eemDfQrUEeaHpbC5MOSUqw">
+            <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+          </nodes>
+          <nodes xmi:id="_eemDfArUEeaHpbC5MOSUqw" incoming="_eemDfQrUEeaHpbC5MOSUqw">
+            <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+          </nodes>
+          <edges xmi:id="_eemDfQrUEeaHpbC5MOSUqw" source="_eemDewrUEeaHpbC5MOSUqw" target="_eemDfArUEeaHpbC5MOSUqw">
+            <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment/operand"/>
+          </edges>
+        </conclusion>
+        <mappings xmi:id="_eemDfgrUEeaHpbC5MOSUqw" origin="_eemDdgrUEeaHpbC5MOSUqw" image="_eemDewrUEeaHpbC5MOSUqw"/>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_eemDfwrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_eemDgArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eemDgQrUEeaHpbC5MOSUqw" origin="_eemDdgrUEeaHpbC5MOSUqw" image="_eemDgArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eemDggrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eemDcgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eemDgwrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_eemDhArUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CombinedFragment"/>
+    </parameters>
+    <parameters xmi:id="_eemDhQrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <annotations xmi:id="_eemDhgrUEeaHpbC5MOSUqw" key="INVERSE" value="New"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameterMappings xmi:id="_eemDhwrUEeaHpbC5MOSUqw" source="_eemDgwrUEeaHpbC5MOSUqw" target="_eemDcwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eemDiArUEeaHpbC5MOSUqw" source="_eemDhQrUEeaHpbC5MOSUqw" target="_eemDdArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

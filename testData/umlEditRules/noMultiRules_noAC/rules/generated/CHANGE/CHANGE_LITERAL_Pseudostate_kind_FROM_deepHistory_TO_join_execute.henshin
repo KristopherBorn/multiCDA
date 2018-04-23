@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_flidYArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_deepHistory_TO_join" description="Changes the attribute value of kind_FROM_deepHistory_TO_join">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_flidYQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_DeepHistory_TO_join" description="Changes the attribute value of kind_FROM_deepHistory_TO_join">
+    <parameters xmi:id="_flidYgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_flidYwrUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_flidZArUEeaHpbC5MOSUqw" name="&quot;join&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_flidZQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_flidZgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_flidZwrUEeaHpbC5MOSUqw" value="&quot;deepHistory&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_flidaArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_flidaQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_flidagrUEeaHpbC5MOSUqw" value="&quot;join&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_flidawrUEeaHpbC5MOSUqw" origin="_flidZgrUEeaHpbC5MOSUqw" image="_flidaQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_flidbArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_flidYQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_flidbQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_flidbgrUEeaHpbC5MOSUqw" name="&quot;deepHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_flidbwrUEeaHpbC5MOSUqw" name="&quot;join&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_flidcArUEeaHpbC5MOSUqw" source="_flidbQrUEeaHpbC5MOSUqw" target="_flidYgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flidcQrUEeaHpbC5MOSUqw" source="_flidbgrUEeaHpbC5MOSUqw" target="_flidYwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_flidcgrUEeaHpbC5MOSUqw" source="_flidbwrUEeaHpbC5MOSUqw" target="_flidZArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

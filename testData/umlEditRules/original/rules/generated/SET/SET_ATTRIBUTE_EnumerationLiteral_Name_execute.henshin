@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dyQ48Pf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_EnumerationLiteral_Name" description="Sets EnumerationLiteral Name">
+  <annotations xmi:id="_dyQ48ff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_EnumerationLiteral_Name"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dyQ48vf8EeWvvZD_9IfuzA" name="setEnumerationLiteralName" description="Sets the EAttribute name">
+    <parameters xmi:id="_dyQ48_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//EnumerationLiteral"/>
+    </parameters>
+    <parameters xmi:id="_dyQ49Pf8EeWvvZD_9IfuzA" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_dyQ49ff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dyQ49vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//EnumerationLiteral"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dyQ49_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dyQ4-Pf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//EnumerationLiteral"/>
+        <attributes xmi:id="_dyQ4-ff8EeWvvZD_9IfuzA" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dyQ4-vf8EeWvvZD_9IfuzA" origin="_dyQ49vf8EeWvvZD_9IfuzA" image="_dyQ4-Pf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dyQ4-_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dyQ48vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dyQ4_Pf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dyQ4_ff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//EnumerationLiteral"/>
+    </parameters>
+    <parameters xmi:id="_dyQ4_vf8EeWvvZD_9IfuzA" name="Name">
+      <annotations xmi:id="_dyQ4__f8EeWvvZD_9IfuzA" key="INVERSE" value="Name"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_dyQ5APf8EeWvvZD_9IfuzA" source="_dyQ4_Pf8EeWvvZD_9IfuzA" target="_dyQ48_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dyQ5Aff8EeWvvZD_9IfuzA" source="_dyQ4_vf8EeWvvZD_9IfuzA" target="_dyQ49Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

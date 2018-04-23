@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_dgl6IPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Interaction_IsFinalSpecialization" description="Sets Interaction IsFinalSpecialization">
+  <annotations xmi:id="_dgl6Iff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Interaction_IsFinalSpecialization"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_dgl6Ivf8EeWvvZD_9IfuzA" name="setInteractionIsFinalSpecialization" description="Sets the EAttribute isFinalSpecialization">
+    <parameters xmi:id="_dgl6I_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_dgl6JPf8EeWvvZD_9IfuzA" name="IsFinalSpecialization">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_dgl6Jff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_dgl6Jvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_dgl6J_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_dgl6KPf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+        <attributes xmi:id="_dgl6Kff8EeWvvZD_9IfuzA" value="IsFinalSpecialization">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier/isFinalSpecialization"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_dgl6Kvf8EeWvvZD_9IfuzA" origin="_dgl6Jvf8EeWvvZD_9IfuzA" image="_dgl6KPf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_dgl6K_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_dgl6Ivf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_dgl6LPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_dgl6Lff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Interaction"/>
+    </parameters>
+    <parameters xmi:id="_dgl6Lvf8EeWvvZD_9IfuzA" name="IsFinalSpecialization">
+      <annotations xmi:id="_dgl6L_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsFinalSpecialization"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_dgl6MPf8EeWvvZD_9IfuzA" source="_dgl6LPf8EeWvvZD_9IfuzA" target="_dgl6I_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_dgl6Mff8EeWvvZD_9IfuzA" source="_dgl6Lvf8EeWvvZD_9IfuzA" target="_dgl6JPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

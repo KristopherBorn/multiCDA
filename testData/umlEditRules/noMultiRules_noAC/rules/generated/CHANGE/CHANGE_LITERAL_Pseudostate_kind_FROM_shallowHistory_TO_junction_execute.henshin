@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fgrLgArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_shallowHistory_TO_junction" description="Changes the attribute value of kind_FROM_shallowHistory_TO_junction">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fgrLgQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_ShallowHistory_TO_junction" description="Changes the attribute value of kind_FROM_shallowHistory_TO_junction">
+    <parameters xmi:id="_fgrLggrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fgrLgwrUEeaHpbC5MOSUqw" name="&quot;shallowHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_fgrLhArUEeaHpbC5MOSUqw" name="&quot;junction&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_fgrLhQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_fgrLhgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_fgrLhwrUEeaHpbC5MOSUqw" value="&quot;shallowHistory&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_fgrLiArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_fgrLiQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_fgrLigrUEeaHpbC5MOSUqw" value="&quot;junction&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fgrLiwrUEeaHpbC5MOSUqw" origin="_fgrLhgrUEeaHpbC5MOSUqw" image="_fgrLiQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fgrLjArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fgrLgQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fgrLjQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_fgrLjgrUEeaHpbC5MOSUqw" name="&quot;shallowHistory&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_fgrLjwrUEeaHpbC5MOSUqw" name="&quot;junction&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_fgrLkArUEeaHpbC5MOSUqw" source="_fgrLjQrUEeaHpbC5MOSUqw" target="_fgrLggrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fgrLkQrUEeaHpbC5MOSUqw" source="_fgrLjgrUEeaHpbC5MOSUqw" target="_fgrLgwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fgrLkgrUEeaHpbC5MOSUqw" source="_fgrLjwrUEeaHpbC5MOSUqw" target="_fgrLhArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

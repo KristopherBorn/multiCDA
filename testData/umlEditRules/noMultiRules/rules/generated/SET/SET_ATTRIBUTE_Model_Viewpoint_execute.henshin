@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_ereB0ArUEeaHpbC5MOSUqw" name="SET_ATTRIBUTE_Model_Viewpoint" description="Sets Model Viewpoint">
+  <annotations xmi:id="_ereB0QrUEeaHpbC5MOSUqw" key="INVERSE" value="UNSET_ATTRIBUTE_Model_Viewpoint"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_ereB0grUEeaHpbC5MOSUqw" name="setModelViewpoint" description="Sets the EAttribute viewpoint">
+    <parameters xmi:id="_ereB0wrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Model"/>
+    </parameters>
+    <parameters xmi:id="_ereB1ArUEeaHpbC5MOSUqw" name="Viewpoint">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_ereB1QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_ereB1grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Model"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_ereB1wrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_ereB2ArUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Model"/>
+        <attributes xmi:id="_ereB2QrUEeaHpbC5MOSUqw" value="Viewpoint">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Model/viewpoint"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_ereB2grUEeaHpbC5MOSUqw" origin="_ereB1grUEeaHpbC5MOSUqw" image="_ereB2ArUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_ereB2wrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_ereB0grUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_ereB3ArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_ereB3QrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Model"/>
+    </parameters>
+    <parameters xmi:id="_ereB3grUEeaHpbC5MOSUqw" name="Viewpoint">
+      <annotations xmi:id="_ereB3wrUEeaHpbC5MOSUqw" key="INVERSE" value="Viewpoint"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameterMappings xmi:id="_ereB4ArUEeaHpbC5MOSUqw" source="_ereB3ArUEeaHpbC5MOSUqw" target="_ereB0wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_ereB4QrUEeaHpbC5MOSUqw" source="_ereB3grUEeaHpbC5MOSUqw" target="_ereB1ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

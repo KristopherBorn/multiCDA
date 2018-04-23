@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_ZSD2sQrgEeaSlpyHjoOd0A" name="DELETE_InteractionConstraint_IN_InteractionOperand_(guard)" description="">
+  <annotations xmi:id="_ZSD2sgrgEeaSlpyHjoOd0A" key="INVERSE" value="DELETE_InteractionConstraint_IN_InteractionOperand_(guard)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_ZSD2swrgEeaSlpyHjoOd0A" name="createInteractionConstraint_IN_InteractionOperand" description="creates one InteractionConstraint in the context: InteractionOperand">
+    <parameters xmi:id="_ZSD2tArgEeaSlpyHjoOd0A" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_ZSD2tQrgEeaSlpyHjoOd0A" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_ZSD2tgrgEeaSlpyHjoOd0A" name="NewLiteralString">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <lhs xmi:id="_ZSD2uArgEeaSlpyHjoOd0A" name="LHS">
+      <nodes xmi:id="_ZSD2uQrgEeaSlpyHjoOd0A" name="Selected" outgoing="_ZSD2vArgEeaSlpyHjoOd0A">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_ZSD2ugrgEeaSlpyHjoOd0A" name="New" incoming="_ZSD2vArgEeaSlpyHjoOd0A" outgoing="_ZSD2vQrgEeaSlpyHjoOd0A">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_ZSD2uwrgEeaSlpyHjoOd0A" name="NewLiteralString" incoming="_ZSD2vQrgEeaSlpyHjoOd0A">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+      </nodes>
+      <edges xmi:id="_ZSD2vArgEeaSlpyHjoOd0A" source="_ZSD2uQrgEeaSlpyHjoOd0A" target="_ZSD2ugrgEeaSlpyHjoOd0A">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/guard"/>
+      </edges>
+      <edges xmi:id="_ZSD2vQrgEeaSlpyHjoOd0A" source="_ZSD2ugrgEeaSlpyHjoOd0A" target="_ZSD2uwrgEeaSlpyHjoOd0A">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint/specification"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_ZSD2vgrgEeaSlpyHjoOd0A" name="RHS">
+      <nodes xmi:id="_ZSD2vwrgEeaSlpyHjoOd0A" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_ZSD2wArgEeaSlpyHjoOd0A" origin="_ZSD2uQrgEeaSlpyHjoOd0A" image="_ZSD2vwrgEeaSlpyHjoOd0A"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_ZSD2wQrgEeaSlpyHjoOd0A" name="mainUnit" subUnits="_ZSD2swrgEeaSlpyHjoOd0A">
+    <parameters xmi:id="_ZSEdwArgEeaSlpyHjoOd0A" name="selectedEObject">
+      <annotations xmi:id="_ZSEdwQrgEeaSlpyHjoOd0A" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_ZSEdwgrgEeaSlpyHjoOd0A" name="New">
+      <annotations xmi:id="_ZSEdwwrgEeaSlpyHjoOd0A" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_ZSEdxArgEeaSlpyHjoOd0A" name="NewLiteralString">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameterMappings xmi:id="_ZSEdxgrgEeaSlpyHjoOd0A" source="_ZSEdwArgEeaSlpyHjoOd0A" target="_ZSD2tArgEeaSlpyHjoOd0A"/>
+    <parameterMappings xmi:id="_ZSEdxwrgEeaSlpyHjoOd0A" source="_ZSEdwgrgEeaSlpyHjoOd0A" target="_ZSD2tQrgEeaSlpyHjoOd0A"/>
+    <parameterMappings xmi:id="_ZSEdyArgEeaSlpyHjoOd0A" source="_ZSEdxArgEeaSlpyHjoOd0A" target="_ZSD2tgrgEeaSlpyHjoOd0A"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_fsFKQArUEeaHpbC5MOSUqw" name="DELETE_Constraint_IN_Namespace_(ownedRule)" description="Deletes one Constraint in Namespace">
+  <annotations xmi:id="_fsFKQQrUEeaHpbC5MOSUqw" key="INVERSE" value="CREATE_Constraint_IN_Namespace_(ownedRule)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_fsFKQgrUEeaHpbC5MOSUqw" name="deleteConstraint_IN_Namespace" description="deletes one Constraint in the context: Namespace">
+    <parameters xmi:id="_fsFKQwrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace"/>
+    </parameters>
+    <parameters xmi:id="_fsFKRArUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_fsFKRQrUEeaHpbC5MOSUqw" name="Child">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+    </parameters>
+    <lhs xmi:id="_fsFKRgrUEeaHpbC5MOSUqw" name="LHS">
+      <nodes xmi:id="_fsFKRwrUEeaHpbC5MOSUqw" name="Selected" incoming="_fsFKSwrUEeaHpbC5MOSUqw" outgoing="_fsFKSgrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace"/>
+      </nodes>
+      <nodes xmi:id="_fsFKSArUEeaHpbC5MOSUqw" name="ToBeDeleted" incoming="_fsFKSgrUEeaHpbC5MOSUqw" outgoing="_fsFKSwrUEeaHpbC5MOSUqw _fsFKTArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <nodes xmi:id="_fsFKSQrUEeaHpbC5MOSUqw" name="Child" incoming="_fsFKTArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+      </nodes>
+      <edges xmi:id="_fsFKSgrUEeaHpbC5MOSUqw" source="_fsFKRwrUEeaHpbC5MOSUqw" target="_fsFKSArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace/ownedRule"/>
+      </edges>
+      <edges xmi:id="_fsFKSwrUEeaHpbC5MOSUqw" source="_fsFKSArUEeaHpbC5MOSUqw" target="_fsFKRwrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint/context"/>
+      </edges>
+      <edges xmi:id="_fsFKTArUEeaHpbC5MOSUqw" source="_fsFKSArUEeaHpbC5MOSUqw" target="_fsFKSQrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint/specification"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_fsFKTQrUEeaHpbC5MOSUqw" name="RHS">
+      <nodes xmi:id="_fsFKTgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_fsFKTwrUEeaHpbC5MOSUqw" origin="_fsFKRwrUEeaHpbC5MOSUqw" image="_fsFKTgrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_fsFKUArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_fsFKQgrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_fsFKUQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace"/>
+    </parameters>
+    <parameters xmi:id="_fsFKUgrUEeaHpbC5MOSUqw" name="ToBeDeleted">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_fsFKUwrUEeaHpbC5MOSUqw" name="Child">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ValueSpecification"/>
+    </parameters>
+    <parameterMappings xmi:id="_fsFKVArUEeaHpbC5MOSUqw" source="_fsFKUQrUEeaHpbC5MOSUqw" target="_fsFKQwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fsFKVQrUEeaHpbC5MOSUqw" source="_fsFKUgrUEeaHpbC5MOSUqw" target="_fsFKRArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_fsFKVgrUEeaHpbC5MOSUqw" source="_fsFKUwrUEeaHpbC5MOSUqw" target="_fsFKRQrUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cVBe4Pf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Property_IsReadOnly" description="Sets Property IsReadOnly">
+  <annotations xmi:id="_cVBe4ff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Property_IsReadOnly"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cVBe4vf8EeWvvZD_9IfuzA" name="setPropertyIsReadOnly" description="Sets the EAttribute isReadOnly">
+    <parameters xmi:id="_cVBe4_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_cVBe5Pf8EeWvvZD_9IfuzA" name="IsReadOnly">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_cVBe5ff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_cVBe5vf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_cVBe5_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_cVBe6Pf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_cVBe6ff8EeWvvZD_9IfuzA" value="IsReadOnly">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature/isReadOnly"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_cVBe6vf8EeWvvZD_9IfuzA" origin="_cVBe5vf8EeWvvZD_9IfuzA" image="_cVBe6Pf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cVBe6_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cVBe4vf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cVBe7Pf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cVBe7ff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_cVBe7vf8EeWvvZD_9IfuzA" name="IsReadOnly">
+      <annotations xmi:id="_cVBe7_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsReadOnly"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_cVBe8Pf8EeWvvZD_9IfuzA" source="_cVBe7Pf8EeWvvZD_9IfuzA" target="_cVBe4_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cVBe8ff8EeWvvZD_9IfuzA" source="_cVBe7vf8EeWvvZD_9IfuzA" target="_cVBe5Pf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

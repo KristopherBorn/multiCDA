@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_cZOpcPf8EeWvvZD_9IfuzA" name="SET_ATTRIBUTE_Property_IsLeaf" description="Sets Property IsLeaf">
+  <annotations xmi:id="_cZOpcff8EeWvvZD_9IfuzA" key="INVERSE" value="UNSET_ATTRIBUTE_Property_IsLeaf"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_cZOpcvf8EeWvvZD_9IfuzA" name="setPropertyIsLeaf" description="Sets the EAttribute isLeaf">
+    <parameters xmi:id="_cZOpc_f8EeWvvZD_9IfuzA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_cZOpdPf8EeWvvZD_9IfuzA" name="IsLeaf">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <lhs xmi:id="_cZOpdff8EeWvvZD_9IfuzA" name="Lhs">
+      <nodes xmi:id="_cZOpdvf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_cZOpd_f8EeWvvZD_9IfuzA" name="Rhs">
+      <nodes xmi:id="_cZOpePf8EeWvvZD_9IfuzA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        <attributes xmi:id="_cZOpeff8EeWvvZD_9IfuzA" value="IsLeaf">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//RedefinableElement/isLeaf"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_cZOpevf8EeWvvZD_9IfuzA" origin="_cZOpdvf8EeWvvZD_9IfuzA" image="_cZOpePf8EeWvvZD_9IfuzA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_cZOpe_f8EeWvvZD_9IfuzA" name="mainUnit" subUnits="_cZOpcvf8EeWvvZD_9IfuzA">
+    <parameters xmi:id="_cZOpfPf8EeWvvZD_9IfuzA" name="selectedEObject">
+      <annotations xmi:id="_cZOpfff8EeWvvZD_9IfuzA" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+    </parameters>
+    <parameters xmi:id="_cZOpfvf8EeWvvZD_9IfuzA" name="IsLeaf">
+      <annotations xmi:id="_cZOpf_f8EeWvvZD_9IfuzA" key="INVERSE" value="IsLeaf"/>
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//Boolean"/>
+    </parameters>
+    <parameterMappings xmi:id="_cZOpgPf8EeWvvZD_9IfuzA" source="_cZOpfPf8EeWvvZD_9IfuzA" target="_cZOpc_f8EeWvvZD_9IfuzA"/>
+    <parameterMappings xmi:id="_cZOpgff8EeWvvZD_9IfuzA" source="_cZOpfvf8EeWvvZD_9IfuzA" target="_cZOpdPf8EeWvvZD_9IfuzA"/>
+  </units>
+</henshin:Module>

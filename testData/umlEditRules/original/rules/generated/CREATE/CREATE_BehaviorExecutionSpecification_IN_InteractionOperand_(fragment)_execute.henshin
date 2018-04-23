@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_gGt30ArUEeaHpbC5MOSUqw" name="CREATE_BehaviorExecutionSpecification_IN_InteractionOperand_(fragment)" description="Creates one BehaviorExecutionSpecification in InteractionOperand">
+  <annotations xmi:id="_gGt30QrUEeaHpbC5MOSUqw" key="INVERSE" value="DELETE_BehaviorExecutionSpecification_IN_InteractionOperand_(fragment)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_gGt30grUEeaHpbC5MOSUqw" name="createBehaviorExecutionSpecification_IN_InteractionOperand" description="creates one BehaviorExecutionSpecification in the context: InteractionOperand">
+    <parameters xmi:id="_gGt30wrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_gGt31ArUEeaHpbC5MOSUqw" name="Existing">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_gGt31QrUEeaHpbC5MOSUqw" name="Existing1">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_gGt31grUEeaHpbC5MOSUqw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehaviorExecutionSpecification"/>
+    </parameters>
+    <parameters xmi:id="_gGt31wrUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_gGt32ArUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <lhs xmi:id="_gGt32QrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_gGt32grUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_gGt32wrUEeaHpbC5MOSUqw" name="Existing">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_gGt33ArUEeaHpbC5MOSUqw" name="Existing1">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_gGt33QrUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_gGt33grUEeaHpbC5MOSUqw" name="Selected" incoming="_gGt35QrUEeaHpbC5MOSUqw" outgoing="_gGt35ArUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_gGt33wrUEeaHpbC5MOSUqw" name="New" incoming="_gGt35ArUEeaHpbC5MOSUqw" outgoing="_gGt35QrUEeaHpbC5MOSUqw _gGt35grUEeaHpbC5MOSUqw _gGt35wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehaviorExecutionSpecification"/>
+        <attributes xmi:id="_gGt34ArUEeaHpbC5MOSUqw" value="Name">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+        </attributes>
+        <attributes xmi:id="_gGt34QrUEeaHpbC5MOSUqw" value="Visibility">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_gGt34grUEeaHpbC5MOSUqw" name="Existing" incoming="_gGt35grUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <nodes xmi:id="_gGt34wrUEeaHpbC5MOSUqw" name="Existing1" incoming="_gGt35wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+      </nodes>
+      <edges xmi:id="_gGt35ArUEeaHpbC5MOSUqw" source="_gGt33grUEeaHpbC5MOSUqw" target="_gGt33wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/fragment"/>
+      </edges>
+      <edges xmi:id="_gGt35QrUEeaHpbC5MOSUqw" source="_gGt33wrUEeaHpbC5MOSUqw" target="_gGt33grUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionFragment/enclosingOperand"/>
+      </edges>
+      <edges xmi:id="_gGt35grUEeaHpbC5MOSUqw" source="_gGt33wrUEeaHpbC5MOSUqw" target="_gGt34grUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionSpecification/finish"/>
+      </edges>
+      <edges xmi:id="_gGt35wrUEeaHpbC5MOSUqw" source="_gGt33wrUEeaHpbC5MOSUqw" target="_gGt34wrUEeaHpbC5MOSUqw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//ExecutionSpecification/start"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_gGt36ArUEeaHpbC5MOSUqw" origin="_gGt32grUEeaHpbC5MOSUqw" image="_gGt33grUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_gGt36QrUEeaHpbC5MOSUqw" origin="_gGt32wrUEeaHpbC5MOSUqw" image="_gGt34grUEeaHpbC5MOSUqw"/>
+    <mappings xmi:id="_gGt36grUEeaHpbC5MOSUqw" origin="_gGt33ArUEeaHpbC5MOSUqw" image="_gGt34wrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_gGt36wrUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_gGt30grUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_gGt37ArUEeaHpbC5MOSUqw" name="selectedEObject">
+      <annotations xmi:id="_gGt37QrUEeaHpbC5MOSUqw" key="INVERSE" value="selectedEObject"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_gGt37grUEeaHpbC5MOSUqw" name="Existing">
+      <annotations xmi:id="_gGt37wrUEeaHpbC5MOSUqw" key="INVERSE" value="Existing"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_gGt38ArUEeaHpbC5MOSUqw" name="Existing1">
+      <annotations xmi:id="_gGt38QrUEeaHpbC5MOSUqw" key="INVERSE" value="Existing1"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OccurrenceSpecification"/>
+    </parameters>
+    <parameters xmi:id="_gGt38grUEeaHpbC5MOSUqw" name="New">
+      <annotations xmi:id="_gGt38wrUEeaHpbC5MOSUqw" key="INVERSE" value="ToBeDeleted"/>
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehaviorExecutionSpecification"/>
+    </parameters>
+    <parameters xmi:id="_gGt39ArUEeaHpbC5MOSUqw" name="Name">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <parameters xmi:id="_gGt39QrUEeaHpbC5MOSUqw" name="Visibility">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//VisibilityKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_gGt39grUEeaHpbC5MOSUqw" source="_gGt37ArUEeaHpbC5MOSUqw" target="_gGt30wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_gGt39wrUEeaHpbC5MOSUqw" source="_gGt37grUEeaHpbC5MOSUqw" target="_gGt31ArUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_gGt3-ArUEeaHpbC5MOSUqw" source="_gGt38ArUEeaHpbC5MOSUqw" target="_gGt31QrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_gGt3-QrUEeaHpbC5MOSUqw" source="_gGt31grUEeaHpbC5MOSUqw" target="_gGt38grUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_gGt3-grUEeaHpbC5MOSUqw" source="_gGt39ArUEeaHpbC5MOSUqw" target="_gGt31wrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_gGt3-wrUEeaHpbC5MOSUqw" source="_gGt39QrUEeaHpbC5MOSUqw" target="_gGt32ArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_CSp98AorEeaLVYS0mq5KrA" name="MOVE_Constraint_FROM_Extend_(condition)_TO_Extend_(condition)" description="MOVEs Constraint from Extend(Reference:condition) to Extend(Reference:condition">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_CSp98QorEeaLVYS0mq5KrA" name="moveConstraint_FROM_Extend_condition_TO_Extend_Extend" description="Moves Constraint from Extend(Reference:condition) toExtend(Reference:Extend)">
+    <parameters xmi:id="_CSp98gorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_CSp98worEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+    </parameters>
+    <parameters xmi:id="_CSp99AorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+    </parameters>
+    <lhs xmi:id="_CSp99QorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_CSp99gorEeaLVYS0mq5KrA" name="Selected" incoming="_CSp9-QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <nodes xmi:id="_CSp99worEeaLVYS0mq5KrA" name="OldSource" outgoing="_CSp9-QorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+      </nodes>
+      <nodes xmi:id="_CSp9-AorEeaLVYS0mq5KrA" name="NewSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+      </nodes>
+      <edges xmi:id="_CSp9-QorEeaLVYS0mq5KrA" source="_CSp99worEeaLVYS0mq5KrA" target="_CSp99gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend/condition"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_CSp9-gorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_CSp9-worEeaLVYS0mq5KrA" name="Selected" incoming="_CSp9_gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+      </nodes>
+      <nodes xmi:id="_CSp9_AorEeaLVYS0mq5KrA" name="OldSource">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+      </nodes>
+      <nodes xmi:id="_CSp9_QorEeaLVYS0mq5KrA" name="NewSource" outgoing="_CSp9_gorEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+      </nodes>
+      <edges xmi:id="_CSp9_gorEeaLVYS0mq5KrA" source="_CSp9_QorEeaLVYS0mq5KrA" target="_CSp9-worEeaLVYS0mq5KrA">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend/condition"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_CSp9_worEeaLVYS0mq5KrA" origin="_CSp99gorEeaLVYS0mq5KrA" image="_CSp9-worEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_CSp-AAorEeaLVYS0mq5KrA" origin="_CSp99worEeaLVYS0mq5KrA" image="_CSp9_AorEeaLVYS0mq5KrA"/>
+    <mappings xmi:id="_CSp-AQorEeaLVYS0mq5KrA" origin="_CSp9-AorEeaLVYS0mq5KrA" image="_CSp9_QorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_CSp-AgorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_CSp98QorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_CSp-AworEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
+    </parameters>
+    <parameters xmi:id="_CSp-BAorEeaLVYS0mq5KrA" name="OldSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+    </parameters>
+    <parameters xmi:id="_CSp-BQorEeaLVYS0mq5KrA" name="NewSource">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Extend"/>
+    </parameters>
+    <parameterMappings xmi:id="_CSp-BgorEeaLVYS0mq5KrA" source="_CSp-AworEeaLVYS0mq5KrA" target="_CSp98gorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_CSp-BworEeaLVYS0mq5KrA" source="_CSp-BAorEeaLVYS0mq5KrA" target="_CSp98worEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_CSp-CAorEeaLVYS0mq5KrA" source="_CSp-BQorEeaLVYS0mq5KrA" target="_CSp99AorEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

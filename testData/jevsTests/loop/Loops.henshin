@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_61_LsFZsEeeJAZtaRi7D4Q">
+  <imports href="NonLoop.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_936roFZsEeeJAZtaRi7D4Q" name="executeNonLoop" description="">
+    <parameters xmi:id="_sSCmYGC6Eee4wraFDZ1AaQ" name="nQueue" kind="IN">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <lhs xmi:id="_936rpVZsEeeJAZtaRi7D4Q" name="Lhs">
+      <nodes xmi:id="__hvJIFZsEeeJAZtaRi7D4Q" name="1" outgoing="_WyxmsFZtEeeJAZtaRi7D4Q _bNpPgFZtEeeJAZtaRi7D4Q _f-wOEFZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_EdnNQFZtEeeJAZtaRi7D4Q" name="4" outgoing="_fZxRsFZtEeeJAZtaRi7D4Q _Ei8wgFZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_Huw08FZtEeeJAZtaRi7D4Q" name="2" incoming="_WyxmsFZtEeeJAZtaRi7D4Q _bYUwUFZ_EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//State"/>
+      </nodes>
+      <nodes xmi:id="_I141EFZtEeeJAZtaRi7D4Q" name="3" incoming="_fZxRsFZtEeeJAZtaRi7D4Q _f-wOEFZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//State"/>
+      </nodes>
+      <nodes xmi:id="_NMm9sFZtEeeJAZtaRi7D4Q" name="5" outgoing="_bYUwUFZ_EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Cursor"/>
+      </nodes>
+      <nodes xmi:id="_ONxfwFZtEeeJAZtaRi7D4Q" name="8" outgoing="_7gpMQFauEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Queue"/>
+      </nodes>
+      <nodes xmi:id="_PS6i4FZtEeeJAZtaRi7D4Q" name="9" incoming="_7gpMQFauEeeJAZtaRi7D4Q" outgoing="_bnlZgFZtEeeJAZtaRi7D4Q _7zZJIFauEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element"/>
+      </nodes>
+      <nodes xmi:id="_Qq_JEFZtEeeJAZtaRi7D4Q" name="10" incoming="_7zZJIFauEeeJAZtaRi7D4Q" outgoing="_E0E8wFZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element"/>
+        <attributes xmi:id="_e-mEQGDDEee4wraFDZ1AaQ" value="nQueue">
+          <type href="NonLoop.ecore#//Data/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_aUKp0FZtEeeJAZtaRi7D4Q" name="6" incoming="_bNpPgFZtEeeJAZtaRi7D4Q _bnlZgFZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Label"/>
+      </nodes>
+      <nodes xmi:id="_DlEzAFZ-EeeJAZtaRi7D4Q" name="7" incoming="_Ei8wgFZ-EeeJAZtaRi7D4Q _E0E8wFZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Label"/>
+      </nodes>
+      <edges xmi:id="_WyxmsFZtEeeJAZtaRi7D4Q" source="__hvJIFZsEeeJAZtaRi7D4Q" target="_Huw08FZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/s"/>
+      </edges>
+      <edges xmi:id="_bNpPgFZtEeeJAZtaRi7D4Q" source="__hvJIFZsEeeJAZtaRi7D4Q" target="_aUKp0FZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/l"/>
+      </edges>
+      <edges xmi:id="_bnlZgFZtEeeJAZtaRi7D4Q" source="_PS6i4FZtEeeJAZtaRi7D4Q" target="_aUKp0FZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element/l"/>
+      </edges>
+      <edges xmi:id="_fZxRsFZtEeeJAZtaRi7D4Q" source="_EdnNQFZtEeeJAZtaRi7D4Q" target="_I141EFZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/s"/>
+      </edges>
+      <edges xmi:id="_f-wOEFZtEeeJAZtaRi7D4Q" source="__hvJIFZsEeeJAZtaRi7D4Q" target="_I141EFZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/t"/>
+      </edges>
+      <edges xmi:id="_Ei8wgFZ-EeeJAZtaRi7D4Q" source="_EdnNQFZtEeeJAZtaRi7D4Q" target="_DlEzAFZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/l"/>
+      </edges>
+      <edges xmi:id="_E0E8wFZ-EeeJAZtaRi7D4Q" source="_Qq_JEFZtEeeJAZtaRi7D4Q" target="_DlEzAFZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element/l"/>
+      </edges>
+      <edges xmi:id="_bYUwUFZ_EeeJAZtaRi7D4Q" source="_NMm9sFZtEeeJAZtaRi7D4Q" target="_Huw08FZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Cursor/c"/>
+      </edges>
+      <edges xmi:id="_7gpMQFauEeeJAZtaRi7D4Q" source="_ONxfwFZtEeeJAZtaRi7D4Q" target="_PS6i4FZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Queue/c"/>
+      </edges>
+      <edges xmi:id="_7zZJIFauEeeJAZtaRi7D4Q" source="_PS6i4FZtEeeJAZtaRi7D4Q" target="_Qq_JEFZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element/n"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_936rplZsEeeJAZtaRi7D4Q" name="Rhs">
+      <nodes xmi:id="__hvJIVZsEeeJAZtaRi7D4Q" name="1" outgoing="_WyxmsVZtEeeJAZtaRi7D4Q _bNpPgVZtEeeJAZtaRi7D4Q _f-wOEVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_EdnNQVZtEeeJAZtaRi7D4Q" name="4" outgoing="_fZxRsVZtEeeJAZtaRi7D4Q _Ei8wgVZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition"/>
+      </nodes>
+      <nodes xmi:id="_Huw08VZtEeeJAZtaRi7D4Q" name="2" incoming="_WyxmsVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//State"/>
+      </nodes>
+      <nodes xmi:id="_I141EVZtEeeJAZtaRi7D4Q" name="3" incoming="_fZxRsVZtEeeJAZtaRi7D4Q _f-wOEVZtEeeJAZtaRi7D4Q _WJYw0FaAEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//State"/>
+      </nodes>
+      <nodes xmi:id="_NMm9sVZtEeeJAZtaRi7D4Q" name="5" outgoing="_WJYw0FaAEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Cursor"/>
+      </nodes>
+      <nodes xmi:id="_ONxfwVZtEeeJAZtaRi7D4Q" name="8" outgoing="_8CuloFauEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Queue"/>
+      </nodes>
+      <nodes xmi:id="_PS6i4VZtEeeJAZtaRi7D4Q" name="9" outgoing="_bnlZgVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element"/>
+      </nodes>
+      <nodes xmi:id="_Qq_JEVZtEeeJAZtaRi7D4Q" name="10" incoming="_8CuloFauEeeJAZtaRi7D4Q" outgoing="_E0E8wVZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element"/>
+        <attributes xmi:id="_e-mEQWDDEee4wraFDZ1AaQ" value="nQueue">
+          <type href="NonLoop.ecore#//Data/name"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_aUKp0VZtEeeJAZtaRi7D4Q" name="6" incoming="_bNpPgVZtEeeJAZtaRi7D4Q _bnlZgVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Label"/>
+      </nodes>
+      <nodes xmi:id="_DlEzAVZ-EeeJAZtaRi7D4Q" name="7" incoming="_Ei8wgVZ-EeeJAZtaRi7D4Q _E0E8wVZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Label"/>
+      </nodes>
+      <edges xmi:id="_WyxmsVZtEeeJAZtaRi7D4Q" source="__hvJIVZsEeeJAZtaRi7D4Q" target="_Huw08VZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/s"/>
+      </edges>
+      <edges xmi:id="_bNpPgVZtEeeJAZtaRi7D4Q" source="__hvJIVZsEeeJAZtaRi7D4Q" target="_aUKp0VZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/l"/>
+      </edges>
+      <edges xmi:id="_bnlZgVZtEeeJAZtaRi7D4Q" source="_PS6i4VZtEeeJAZtaRi7D4Q" target="_aUKp0VZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element/l"/>
+      </edges>
+      <edges xmi:id="_fZxRsVZtEeeJAZtaRi7D4Q" source="_EdnNQVZtEeeJAZtaRi7D4Q" target="_I141EVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/s"/>
+      </edges>
+      <edges xmi:id="_f-wOEVZtEeeJAZtaRi7D4Q" source="__hvJIVZsEeeJAZtaRi7D4Q" target="_I141EVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/t"/>
+      </edges>
+      <edges xmi:id="_Ei8wgVZ-EeeJAZtaRi7D4Q" source="_EdnNQVZtEeeJAZtaRi7D4Q" target="_DlEzAVZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Transition/l"/>
+      </edges>
+      <edges xmi:id="_E0E8wVZ-EeeJAZtaRi7D4Q" source="_Qq_JEVZtEeeJAZtaRi7D4Q" target="_DlEzAVZ-EeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Element/l"/>
+      </edges>
+      <edges xmi:id="_WJYw0FaAEeeJAZtaRi7D4Q" source="_NMm9sVZtEeeJAZtaRi7D4Q" target="_I141EVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Cursor/c"/>
+      </edges>
+      <edges xmi:id="_8CuloFauEeeJAZtaRi7D4Q" source="_ONxfwVZtEeeJAZtaRi7D4Q" target="_Qq_JEVZtEeeJAZtaRi7D4Q">
+        <type href="NonLoop.ecore#//Queue/c"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="__hvJIlZsEeeJAZtaRi7D4Q" origin="__hvJIFZsEeeJAZtaRi7D4Q" image="__hvJIVZsEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_EdnNQlZtEeeJAZtaRi7D4Q" origin="_EdnNQFZtEeeJAZtaRi7D4Q" image="_EdnNQVZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_Huw08lZtEeeJAZtaRi7D4Q" origin="_Huw08FZtEeeJAZtaRi7D4Q" image="_Huw08VZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_I141ElZtEeeJAZtaRi7D4Q" origin="_I141EFZtEeeJAZtaRi7D4Q" image="_I141EVZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_NMm9slZtEeeJAZtaRi7D4Q" origin="_NMm9sFZtEeeJAZtaRi7D4Q" image="_NMm9sVZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_ONxfwlZtEeeJAZtaRi7D4Q" origin="_ONxfwFZtEeeJAZtaRi7D4Q" image="_ONxfwVZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_PS6i4lZtEeeJAZtaRi7D4Q" origin="_PS6i4FZtEeeJAZtaRi7D4Q" image="_PS6i4VZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_Qq_JElZtEeeJAZtaRi7D4Q" origin="_Qq_JEFZtEeeJAZtaRi7D4Q" image="_Qq_JEVZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_aUKp0lZtEeeJAZtaRi7D4Q" origin="_aUKp0FZtEeeJAZtaRi7D4Q" image="_aUKp0VZtEeeJAZtaRi7D4Q"/>
+    <mappings xmi:id="_DlEzAlZ-EeeJAZtaRi7D4Q" origin="_DlEzAFZ-EeeJAZtaRi7D4Q" image="_DlEzAVZ-EeeJAZtaRi7D4Q"/>
+  </units>
+</henshin:Module>

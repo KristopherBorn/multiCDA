@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_eqo7YArUEeaHpbC5MOSUqw" name="CHANGE_LITERAL_Pseudostate_kind_FROM_choice_TO_initial" description="Changes the attribute value of kind_FROM_choice_TO_initial">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_eqo7YQrUEeaHpbC5MOSUqw" name="changePseudostateKind_FROM_Choice_TO_initial" description="Changes the attribute value of kind_FROM_choice_TO_initial">
+    <parameters xmi:id="_eqo7YgrUEeaHpbC5MOSUqw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_eqo7YwrUEeaHpbC5MOSUqw" name="&quot;choice&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_eqo7ZArUEeaHpbC5MOSUqw" name="&quot;initial&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <lhs xmi:id="_eqo7ZQrUEeaHpbC5MOSUqw" name="Lhs">
+      <nodes xmi:id="_eqo7ZgrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_eqo7ZwrUEeaHpbC5MOSUqw" value="&quot;choice&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_eqo7aArUEeaHpbC5MOSUqw" name="Rhs">
+      <nodes xmi:id="_eqo7aQrUEeaHpbC5MOSUqw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+        <attributes xmi:id="_eqo7agrUEeaHpbC5MOSUqw" value="&quot;initial&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate/kind"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_eqo7awrUEeaHpbC5MOSUqw" origin="_eqo7ZgrUEeaHpbC5MOSUqw" image="_eqo7aQrUEeaHpbC5MOSUqw"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_eqo7bArUEeaHpbC5MOSUqw" name="mainUnit" subUnits="_eqo7YQrUEeaHpbC5MOSUqw">
+    <parameters xmi:id="_eqo7bQrUEeaHpbC5MOSUqw" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Pseudostate"/>
+    </parameters>
+    <parameters xmi:id="_eqo7bgrUEeaHpbC5MOSUqw" name="&quot;choice&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameters xmi:id="_eqo7bwrUEeaHpbC5MOSUqw" name="&quot;initial&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//PseudostateKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_eqo7cArUEeaHpbC5MOSUqw" source="_eqo7bQrUEeaHpbC5MOSUqw" target="_eqo7YgrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eqo7cQrUEeaHpbC5MOSUqw" source="_eqo7bgrUEeaHpbC5MOSUqw" target="_eqo7YwrUEeaHpbC5MOSUqw"/>
+    <parameterMappings xmi:id="_eqo7cgrUEeaHpbC5MOSUqw" source="_eqo7bwrUEeaHpbC5MOSUqw" target="_eqo7ZArUEeaHpbC5MOSUqw"/>
+  </units>
+</henshin:Module>

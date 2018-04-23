@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_Dkn8IAorEeaLVYS0mq5KrA" name="CHANGE_LITERAL_Operation_concurrency_FROM_sequential_TO_concurrent" description="Changes the attribute value of concurrency_FROM_sequential_TO_concurrent">
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_Dkn8IQorEeaLVYS0mq5KrA" name="changeOperationConcurrency_FROM_Sequential_TO_concurrent" description="Changes the attribute value of concurrency_FROM_sequential_TO_concurrent">
+    <parameters xmi:id="_Dkn8IgorEeaLVYS0mq5KrA" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+    </parameters>
+    <parameters xmi:id="_Dkn8IworEeaLVYS0mq5KrA" name="&quot;sequential&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//CallConcurrencyKind"/>
+    </parameters>
+    <parameters xmi:id="_Dkn8JAorEeaLVYS0mq5KrA" name="&quot;concurrent&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//CallConcurrencyKind"/>
+    </parameters>
+    <lhs xmi:id="_Dkn8JQorEeaLVYS0mq5KrA" name="Lhs">
+      <nodes xmi:id="_Dkn8JgorEeaLVYS0mq5KrA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+        <attributes xmi:id="_Dkn8JworEeaLVYS0mq5KrA" value="&quot;sequential&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/concurrency"/>
+        </attributes>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_Dkn8KAorEeaLVYS0mq5KrA" name="Rhs">
+      <nodes xmi:id="_Dkn8KQorEeaLVYS0mq5KrA" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+        <attributes xmi:id="_Dkn8KgorEeaLVYS0mq5KrA" value="&quot;concurrent&quot;">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/concurrency"/>
+        </attributes>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_Dkn8KworEeaLVYS0mq5KrA" origin="_Dkn8JgorEeaLVYS0mq5KrA" image="_Dkn8KQorEeaLVYS0mq5KrA"/>
+  </units>
+  <units xsi:type="henshin:PriorityUnit" xmi:id="_Dkn8LAorEeaLVYS0mq5KrA" name="mainUnit" subUnits="_Dkn8IQorEeaLVYS0mq5KrA">
+    <parameters xmi:id="_Dkn8LQorEeaLVYS0mq5KrA" name="selectedEObject">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature"/>
+    </parameters>
+    <parameters xmi:id="_Dkn8LgorEeaLVYS0mq5KrA" name="&quot;sequential&quot;">
+      <type xsi:type="ecore:EEnum" href="http://www.eclipse.org/uml2/5.0.0/UML#//CallConcurrencyKind"/>
+    </parameters>
+    <parameterMappings xmi:id="_Dkn8LworEeaLVYS0mq5KrA" source="_Dkn8LQorEeaLVYS0mq5KrA" target="_Dkn8IgorEeaLVYS0mq5KrA"/>
+    <parameterMappings xmi:id="_Dkn8MAorEeaLVYS0mq5KrA" source="_Dkn8LgorEeaLVYS0mq5KrA" target="_Dkn8IworEeaLVYS0mq5KrA"/>
+  </units>
+</henshin:Module>

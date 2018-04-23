@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_DrNYoOxYEeWmkd1W4oyhKw" name="CREATE_InteractionConstraint_IN_InteractionOperand_(guard)" description="Creates one InteractionConstraint in InteractionOperand">
+  <annotations xmi:id="_DrN_sOxYEeWmkd1W4oyhKw" key="INVERSE" value="DELETE_InteractionConstraint_IN_InteractionOperand_(guard)"/>
+  <imports href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_DrN_sexYEeWmkd1W4oyhKw" name="createInteractionConstraint_IN_InteractionOperand" description="creates one InteractionConstraint in the context: InteractionOperand">
+    <parameters xmi:id="_DrN_suxYEeWmkd1W4oyhKw" name="Selected">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+    </parameters>
+    <parameters xmi:id="_DrN_s-xYEeWmkd1W4oyhKw" name="New">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+    </parameters>
+    <parameters xmi:id="_O2ZrwArCEeabOpQ5l7hc3Q" name="NewLiteralString">
+      <type xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+    </parameters>
+    <parameters xmi:id="_iTudwArbEeaHpbC5MOSUqw" name="Value">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+    </parameters>
+    <lhs xmi:id="_DrN_tOxYEeWmkd1W4oyhKw" name="Lhs">
+      <nodes xmi:id="_DrN_texYEeWmkd1W4oyhKw" name="Selected">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_DrN_tuxYEeWmkd1W4oyhKw" name="Rhs">
+      <nodes xmi:id="_DrN_t-xYEeWmkd1W4oyhKw" name="Selected" outgoing="_ed3awArAEeabOpQ5l7hc3Q">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand"/>
+      </nodes>
+      <nodes xmi:id="_DrN_uOxYEeWmkd1W4oyhKw" name="New" incoming="_ed3awArAEeabOpQ5l7hc3Q" outgoing="_wnyYEArBEeabOpQ5l7hc3Q">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionConstraint"/>
+      </nodes>
+      <nodes xmi:id="_u3mz4ArBEeabOpQ5l7hc3Q" name="NewLiteralString" incoming="_wnyYEArBEeabOpQ5l7hc3Q">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString"/>
+        <attributes xmi:id="_f2LdQArbEeaHpbC5MOSUqw" value="Value">
+          <type href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralString/value"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_ed3awArAEeabOpQ5l7hc3Q" source="_DrN_t-xYEeWmkd1W4oyhKw" target="_DrN_uOxYEeWmkd1W4oyhKw">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//InteractionOperand/guard"/>
+      </edges>
+      <edges xmi:id="_wnyYEArBEeabOpQ5l7hc3Q" source="_DrN_uOxYEeWmkd1W4oyhKw" target="_u3mz4ArBEeabOpQ5l7hc3Q">
+        <type href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint/specification"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_DrN_u-xYEeWmkd1W4oyhKw" origin="_DrN_texYEeWmkd1W4oyhKw" image="_DrN_t-xYEeWmkd1W4oyhKw"/>
+  </units>
+</henshin:Module>
