@@ -71,7 +71,7 @@ public class FeatureModellTest {
 		Set<Span> inits = new HashSet<>();
 		Set<CriticalPair> initsp = new HashSet<>();
 		for (Rule r : rules) {
-			for (Rule r2 : NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rules)) {
+			for (Rule r2 : rules) {
 				aTester = new CDATester(r, r2, new Options(true));
 				inits.addAll(aTester.getConflictReasons());
 				List<Rule> a = new ArrayList<Rule>();

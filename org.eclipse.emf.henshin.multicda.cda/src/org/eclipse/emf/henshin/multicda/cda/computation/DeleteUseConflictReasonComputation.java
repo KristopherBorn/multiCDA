@@ -481,8 +481,8 @@ public class DeleteUseConflictReasonComputation {
 		s2Edges.forEach(e -> allObjectsS2.add(e));
 		if (allObjectsS1.contains(x)) {
 			for (GraphElement y : allObjectsS2) {
-				if (checkEquality(x, y, sp1)) {
-					if (checkEquality(x, y, sp2)) {
+				if (checkEqualityR1(x, y, sp1, sp2)) {
+					if (checkEqualityR2(x, y, sp1, sp2)) {
 						return y;
 					} else {
 						throw compatibleException;
@@ -496,17 +496,18 @@ public class DeleteUseConflictReasonComputation {
 	}
 
 	/**
-	 * @param x
-	 * @param y
-	 * @param sp
+	 * @param x1
+	 * @param y1
+	 * @param sp1
+	 * @param sp2 
 	 * @return
 	 */
-	private boolean checkEquality(GraphElement x, GraphElement y, Span sp) {
-		if (x instanceof Node && y instanceof Node) {
-			Node n1 = (Node) x;
-			Mapping s1 = getMappingInRule(n1, sp.mappingsInRule1);
-			Node n2 = (Node) y;
-			Mapping s2 = getMappingInRule(n2, sp.mappingsInRule2);
+	private boolean checkEqualityR1(GraphElement x1, GraphElement y1, Span sp1, Span sp2) {
+		if (x1 instanceof Node && y1 instanceof Node) {
+			Node n1 = (Node) x1;
+			Mapping s1 = getMappingInRule(n1, sp1.mappingsInRule1);
+			Node n2 = (Node) y1;
+			Mapping s2 = getMappingInRule(n2, sp2.mappingsInRule1);
 			if (s1 != null && s2 != null) {
 				if (checkOriginNodes(s1.getOrigin(), s2.getOrigin(), NODESEPARATOR)) {
 					return true;
@@ -517,9 +518,45 @@ public class DeleteUseConflictReasonComputation {
 				return false;
 			}
 		}
-		if (x instanceof Edge && y instanceof Edge) {
-			Edge e1 = (Edge) x;
-			Edge e2 = (Edge) y;
+		if (x1 instanceof Edge && y1 instanceof Edge) {
+			Edge e1 = (Edge) x1;
+			Edge e2 = (Edge) y1;
+			try {
+				return checkEdges(e1, e2, NODESEPARATOR);
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * @param x1
+	 * @param y1
+	 * @param sp1
+	 * @param sp2 
+	 * @return
+	 */
+	private boolean checkEqualityR2(GraphElement x1, GraphElement y1, Span sp1, Span sp2) {
+		if (x1 instanceof Node && y1 instanceof Node) {
+			Node n1 = (Node) x1;
+			Mapping s1 = getMappingInRule(n1, sp1.mappingsInRule2);
+			Node n2 = (Node) y1;
+			Mapping s2 = getMappingInRule(n2, sp2.mappingsInRule2);
+			if (s1 != null && s2 != null) {
+				if (checkOriginNodes(s1.getOrigin(), s2.getOrigin(), NODESEPARATOR)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		if (x1 instanceof Edge && y1 instanceof Edge) {
+			Edge e1 = (Edge) x1;
+			Edge e2 = (Edge) y1;
 			try {
 				return checkEdges(e1, e2, NODESEPARATOR);
 			} catch (NullPointerException e) {

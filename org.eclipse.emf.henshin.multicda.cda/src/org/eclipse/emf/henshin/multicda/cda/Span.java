@@ -48,18 +48,18 @@ public class Span {
 
 	private Copier copierForSpanAndMappings;
 
-	// Scheint derzeit ncoh �berfl�ssig zu sein!
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		return result;
-	}
+//	// Scheint derzeit ncoh �berfl�ssig zu sein!
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see java.lang.Object#hashCode()
+//	 */
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		return result;
+//	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
