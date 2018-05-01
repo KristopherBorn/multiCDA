@@ -41,9 +41,7 @@ public class OptionSettingsWizardPage extends WizardPage {
 	Button essentialConflicts;
 	Button conflicts;
 
-	private final static String COMPLETE = "complete critical pairs (if not selected, search up to first critical match)";
 	private final static String IGNOREIDENTICALRULES = "ignore analysis of same rules";
-	private final static String REDUCESAMEMATCH = "ignore critical pairs of same rules and same matches";
 
 	/**
 	 * Default Constructor for the second page of the wizard. This page provides the functionality to adapt the options
@@ -139,7 +137,7 @@ public class OptionSettingsWizardPage extends WizardPage {
 		essentialConflicts.setEnabled(veryFine);
 
 		conflicts = new Button(cpaOptions, SWT.CHECK);
-		conflicts.setText("Compute  all further critical pairs");
+		conflicts.setText("Compute all further critical pairs");
 		conflicts.addListener(SWT.Selection, checkListener);
 		conflicts.setSelection(cdaOptions.otherCP);
 		conflicts.setEnabled(veryFine);
@@ -166,20 +164,17 @@ public class OptionSettingsWizardPage extends WizardPage {
 			else if(button == enableIgnoreIdenticalRulesButton)
 				cdaOptions.setIgnoreSameRules(button.getSelection());
 
-			boolean enableCpaOptions = GranularityType.getGranularities(cdaOptions.granularityType)
+			boolean enableCpaOptions = cdaOptions.getGranularities()
 					.contains(GranularityType.VERY_FINE);
 			initialConflicts.setEnabled(enableCpaOptions);
 			essentialConflicts.setEnabled(enableCpaOptions);
 			conflicts.setEnabled(enableCpaOptions);
-
+			
 			if (!initialConflicts.getSelection() && !essentialConflicts.getSelection() && !conflicts.getSelection())
 				button.setSelection(true);
-			if (button == initialConflicts)
-				cdaOptions.initialCP = button.getSelection();
-			else if (button == essentialConflicts)
-				cdaOptions.essentialCP = button.getSelection();
-			else if (button == conflicts)
-				cdaOptions.otherCP = button.getSelection();
+			cdaOptions.initialCP = initialConflicts.getSelection() && initialConflicts.isEnabled();
+			cdaOptions.essentialCP = essentialConflicts.getSelection() && essentialConflicts.isEnabled();
+			cdaOptions.otherCP = conflicts.getSelection() && conflicts.isEnabled();
 		}
 
 	};
@@ -202,7 +197,7 @@ public class OptionSettingsWizardPage extends WizardPage {
 	}
 
 	public Set<GranularityType> getGranularity() {
-		return GranularityType.getGranularities(cdaOptions.granularityType);
+		return cdaOptions.getGranularities();
 	}
 
 	public Boolean getStrongAttrCheck() {

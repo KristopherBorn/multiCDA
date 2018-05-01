@@ -16,9 +16,7 @@ import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictAtom;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyAtom;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.MinimalDependencyReason;
@@ -111,7 +109,7 @@ public class DependencyAnalysis implements MultiGranularAnalysis {
 		ConflictAnalysis ca = new ConflictAnalysis(invertedRule1, rule2);
 		Set<Span> conflictReasons = ca.computeResultsFine();
 		for (Span cr : conflictReasons) {
-			result.add(new CreateUseDependencyReason(cr));
+			result.add(new DependencyReason(cr));
 		}
 		return result;
 
