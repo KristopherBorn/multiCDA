@@ -3,7 +3,7 @@ package org.eclipse.emf.henshin.multicda.cda.conflict;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.model.ModelElement;
+import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 
 public class MinimalConflictReason extends ConflictReason{
@@ -26,7 +26,7 @@ public class MinimalConflictReason extends ConflictReason{
 		return containedConflictAtom;			
 	}
 
-	public Set<ModelElement> getDeletionElementsInRule1() {
+	public Set<GraphElement> getDeletionElementsInRule1() {
 		return this.deletionElementsInRule1;
 	}
 	

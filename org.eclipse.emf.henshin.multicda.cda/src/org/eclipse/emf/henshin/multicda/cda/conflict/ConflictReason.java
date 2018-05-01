@@ -9,17 +9,17 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
+import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
-import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 
 public class ConflictReason extends Span {
 
 	Set<MinimalConflictReason> originMCRs;
 
-	protected Set<ModelElement> deletionElementsInRule1;
+	protected Set<GraphElement> deletionElementsInRule1;
 
 	/*
 	 * (non-Javadoc)
@@ -72,7 +72,7 @@ public class ConflictReason extends Span {
 	/**
 	 * @return the deletionElementsInRule1
 	 */
-	public Set<ModelElement> getDeletionElementsInRule1() {
+	public Set<GraphElement> getDeletionElementsInRule1() {
 		return deletionElementsInRule1;
 	}
 
@@ -97,9 +97,9 @@ public class ConflictReason extends Span {
 		this.originMCRs = originMCRs;
 	}
 
-	private Set<ModelElement> getDeletionElementsOfSpan(Set<Mapping> mappingsOfSpanInRule1, Graph graph,
+	private Set<GraphElement> getDeletionElementsOfSpan(Set<Mapping> mappingsOfSpanInRule1, Graph graph,
 			Set<Mapping> mappingsOfSpanInRule2) {
-		Set<ModelElement> deletionElements = new HashSet<ModelElement>();
+		Set<GraphElement> deletionElements = new HashSet<>();
 		for (Mapping mapping : mappingsOfSpanInRule1) {
 			if (mapping.getImage().getAction().getType().equals(Action.Type.DELETE))
 				deletionElements.add(mapping.getImage());
@@ -138,7 +138,7 @@ public class ConflictReason extends Span {
 		return null;
 	}
 
-	private Set<ModelElement> getDeletionElementsOfSpan(Span minimalConflictReason) {
+	private Set<GraphElement> getDeletionElementsOfSpan(Span minimalConflictReason) {
 		return getDeletionElementsOfSpan(minimalConflictReason.getMappingsInRule1(), minimalConflictReason.getGraph(),
 				minimalConflictReason.getMappingsInRule2());
 	}

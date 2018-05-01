@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 
@@ -131,12 +132,12 @@ public class Tester {
 		print("Ready");
 	}
 
-	protected boolean checkReasons(Set<ModelElement> elements, Object... conditions) {
+	protected boolean checkReasons(Set<GraphElement> elements, Object... conditions) {
 		String checked = "";
 		int index = 0;
 		if (elements.size() != conditions.length)
 			return false;
-		for (ModelElement element : elements) {
+		for (GraphElement element : elements) {
 			boolean found = false;
 			for (Object condition : conditions) {
 				if (!(condition instanceof Condition))
