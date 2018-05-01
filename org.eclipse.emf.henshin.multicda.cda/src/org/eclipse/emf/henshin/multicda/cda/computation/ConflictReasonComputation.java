@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
+import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.ModelElement;
@@ -72,8 +73,8 @@ public class ConflictReasonComputation {
 
 	// wenn
 	private boolean haveCommonDeletionElement(ConflictReason current, MinimalConflictReason extensionCandidate) {
-		Set<ModelElement> deletionElementsCur = current.getDeletionElementsInRule1();
-		Set<ModelElement> deletionElementsCand = extensionCandidate.getDeletionElementsInRule1();
+		Set<GraphElement> deletionElementsCur = current.getDeletionElementsInRule1();
+		Set<GraphElement> deletionElementsCand = extensionCandidate.getDeletionElementsInRule1();
 		return !Collections.disjoint(deletionElementsCur, deletionElementsCand);
 	}
 

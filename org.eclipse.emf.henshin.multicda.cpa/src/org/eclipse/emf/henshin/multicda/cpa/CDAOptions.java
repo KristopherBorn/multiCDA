@@ -26,6 +26,8 @@ import java.util.Set;
 
 import javax.print.attribute.HashAttributeSet;
 
+import org.eclipse.emf.henshin.multicda.cpa.CDAOptions.GranularityType;
+
 /**
  * A class for saving the options used by the critical pair analysis within AGG.
  * 
@@ -52,10 +54,10 @@ public class CDAOptions {
 	private boolean cpaComputation = false;
 
 	public static enum GranularityType {
-		BINARY("Binary granularity", "Checks if rule pair is in conflict (dependent)", 1), COARSE("Coarse granularity",
-				"Shows core conflicting (dependent) graph elements", 2), FINE("Fine granularity",
-						"Shows complete conflict (dependency) reasons",
-						4), VERY_FINE("Very fine granularity", "Computes critical pairs", 8);
+		BINARY("Binary", "Checks if rule pair is in conflict (dependent)", 1), COARSE("Coarse",
+				"shows minimal conflict (dependency) reason", 2), FINE("Fine",
+						"Shows conflict (dependency) reasons",
+						4), VERY_FINE("Very fine", "Shows critical pairs", 8);
 		public final String name;
 		public final String description;
 		public final int id;
@@ -199,7 +201,7 @@ public class CDAOptions {
 			OutputStream file = new FileOutputStream(filePath);
 			OutputStream buffer = new BufferedOutputStream(file);
 			ObjectOutput output = new ObjectOutputStream(buffer);
-			Set<GranularityType> types = GranularityType.getGranularities(granularityType);
+			Set<GranularityType> types = getGranularities();
 
 			output.writeBoolean(types.contains(GranularityType.BINARY));
 			output.writeBoolean(types.contains(GranularityType.COARSE));
@@ -277,5 +279,9 @@ public class CDAOptions {
 
 	public boolean getCpaComputation() {
 		return this.cpaComputation;
+	}
+
+	public Set<GranularityType> getGranularities() {
+		return GranularityType.getGranularities(granularityType);
 	}
 }

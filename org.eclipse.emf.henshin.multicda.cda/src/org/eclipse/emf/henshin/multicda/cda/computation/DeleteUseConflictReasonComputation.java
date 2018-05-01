@@ -89,7 +89,7 @@ public class DeleteUseConflictReasonComputation {
 				result.add(res);
 			}
 		} else {
-			Set<DeleteUseConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
+			Set<DeleteDeleteConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
 			if (!ddset.isEmpty()) {
 				ddset.forEach(s -> result.add(s));
 			}
@@ -120,8 +120,8 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Set<DeleteUseConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
-		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
+	private Set<DeleteDeleteConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
+		Set<DeleteDeleteConflictReason> result = new HashSet<>();
 		for (Span sp2 : conflictReasonsFromR2) {
 			Span s = compatibleSpans(sp1, sp2);
 			if (s != null) {
@@ -131,7 +131,8 @@ public class DeleteUseConflictReasonComputation {
 					Pushout po = new Pushout(r1, l1Sl2, r2);
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings()).isEmpty()) {
-						DeleteUseConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
+						DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
+						res.setSpan2(sp2);
 						result.add(res);
 					}
 				}
@@ -409,15 +410,15 @@ public class DeleteUseConflictReasonComputation {
 			try {
 				GraphElement y = existCompatibleElement(x, sp1, sp2);
 				if (y != null) {
-						EClass xType = ((Node) x).getType();
-						Node xNode = (Node) x;
-						Node yNode = (Node) y;
-						String newName = xNode.getName() + INTERSECTIONSEPERATOR + yNode.getName();
-						Node newNode = helper.createNode(compatibleGraph, xType, newName);
-						Mapping createMapping = helper.createMapping(newNode, xNode);
-						Mapping createMapping2 = helper.createMapping(newNode, yNode);
-						mappingsIntoSpan1.add(createMapping);
-						mappingsIntoSpan2.add(createMapping2);
+					EClass xType = ((Node) x).getType();
+					Node xNode = (Node) x;
+					Node yNode = (Node) y;
+					String newName = xNode.getName() + INTERSECTIONSEPERATOR + yNode.getName();
+					Node newNode = helper.createNode(compatibleGraph, xType, newName);
+					Mapping createMapping = helper.createMapping(newNode, xNode);
+					Mapping createMapping2 = helper.createMapping(newNode, yNode);
+					mappingsIntoSpan1.add(createMapping);
+					mappingsIntoSpan2.add(createMapping2);
 				}
 			} catch (NotCompatibleException e) {
 				break;
@@ -440,7 +441,7 @@ public class DeleteUseConflictReasonComputation {
 		EList<Node> s2Nodes = sp2.getGraph().getNodes();
 		if (s1Nodes.contains(x)) {
 			for (Node y : s2Nodes) {
-				int result = checkEquality(x, y, sp1, sp2);
+				int result = checkEqualityR1(x, y, sp1, sp2);
 				if (result == 2) {
 					return y;
 				} else if (result == 1)
@@ -459,7 +460,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp2
 	 * @return
 	 */
-	private int checkEquality(Node x, Node y, Span sp1, Span sp2) {
+	private int checkEqualityR1(Node x, Node y, Span sp1, Span sp2) {
 		Mapping s11 = getMappingInRule(x, sp1.mappingsInRule1);
 		Mapping s21 = getMappingInRule(y, sp2.mappingsInRule2);
 

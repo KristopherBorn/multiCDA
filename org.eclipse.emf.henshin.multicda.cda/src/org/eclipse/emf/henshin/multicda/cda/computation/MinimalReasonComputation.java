@@ -11,25 +11,22 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.sound.sampled.TargetDataLine;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Action.Type;
+import org.eclipse.emf.henshin.model.Edge;
+import org.eclipse.emf.henshin.model.HenshinFactory;
+import org.eclipse.emf.henshin.model.Mapping;
+import org.eclipse.emf.henshin.model.Node;
+import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.CospanMappingToMaps;
 import org.eclipse.emf.henshin.multicda.cda.MapOfLSetEnumerator;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 import org.eclipse.emf.henshin.multicda.cda.SpanMappings;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
-import org.eclipse.emf.henshin.model.Edge;
-import org.eclipse.emf.henshin.model.Graph;
-import org.eclipse.emf.henshin.model.HenshinFactory;
-import org.eclipse.emf.henshin.model.Mapping;
-import org.eclipse.emf.henshin.model.Node;
-import org.eclipse.emf.henshin.model.Rule;
 
 public class MinimalReasonComputation {
 	static Action deleteAction = new Action(Action.Type.DELETE);
@@ -42,7 +39,7 @@ public class MinimalReasonComputation {
 
 	// Performance optimization: Remember spans which have been used to compute MCRs
 	protected Set<Span> checked;
-	
+
 	public MinimalReasonComputation(Rule rule1, Rule rule2) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
@@ -74,7 +71,8 @@ public class MinimalReasonComputation {
 
 	private boolean isMinReason(Span s1) {
 		Pushout pushoutResult = getPushout(s1);
-		boolean rule1EmbeddingIsDanglingFree = findDanglingEdgesOfRule1(rule1, pushoutResult.getRule1Mappings()).isEmpty();
+		boolean rule1EmbeddingIsDanglingFree = findDanglingEdgesOfRule1(rule1, pushoutResult.getRule1Mappings())
+				.isEmpty();
 		return rule1EmbeddingIsDanglingFree;
 	}
 
@@ -159,7 +157,7 @@ public class MinimalReasonComputation {
 		Node poDanglingTarget = poDangling.getEdge().getTarget();
 		Node r1DanglingSource = comaps.gToRule1.get(poDanglingSource);
 		Node r1DanglingTarget = comaps.gToRule1.get(poDanglingTarget);
-	
+
 		if (poDangling.danglingCase == DanglingCase.sourceDangling) {
 			Set<Edge> r1Candidates = new HashSet<Edge>(r1DanglingTarget.getIncoming(poDangling.getEdge().getType()));
 			return r1Candidates.stream().filter(e -> maps.rule1ToS1.get(e.getSource()) == null)
@@ -211,10 +209,9 @@ public class MinimalReasonComputation {
 		return extensions;
 	}
 
-
 	private void enumerateEdgeExtensions(Span originalSpan, DanglingEdge danglingEdge, Set<Edge> set,
 			Set<Span> extensions) {
-		for (Edge fixingEdgeR1  : set) {
+		for (Edge fixingEdgeR1 : set) {
 			Span span1 = new Span(originalSpan);
 			SpanMappings maps = new SpanMappings(span1);
 			Node srcR1 = fixingEdgeR1.getSource();
@@ -223,14 +220,14 @@ public class MinimalReasonComputation {
 			Node trgS1 = maps.rule1ToS1.get(trgR1);
 			Node srcR2 = maps.s1ToRule2.get(srcS1);
 			Node trgR2 = maps.s1ToRule2.get(trgS1);
-			
+
 			Edge fixingR2 = srcR2.getOutgoing(fixingEdgeR1.getType(), trgR2);
 			if (fixingR2 != null) {
 				HenshinFactory.eINSTANCE.createEdge(srcS1, trgS1, fixingEdgeR1.getType());
 				extensions.add(span1);
 			}
 		}
-		
+
 	}
 
 	private void enumerateNodeExtensions(Span originalSpan, DanglingEdge danglingEdge,
@@ -292,7 +289,7 @@ public class MinimalReasonComputation {
 	}
 
 	private void createExtension(Set<Span> extensions, Map<Edge, Edge> combination, Span span1) {
-		Span span = new Span(span1);
+		Span span = new Span(span1); //TODO double initialization
 		SpanMappings maps = new SpanMappings(span);
 		for (Edge fixingEdge : combination.values()) {
 			Node src = maps.rule1ToS1.get(fixingEdge.getSource());
@@ -304,7 +301,7 @@ public class MinimalReasonComputation {
 
 	private List<Map<Edge, Edge>> getFixingFamily(Edge danglingEdgePO, boolean sourceDangling,
 			Map<DanglingEdge, Set<Edge>> fixingEdges, Span span1, CospanMappingToMaps comaps) {
-		Map<Edge,Set<Edge>> theFixingEdges = flattenFixingSet(fixingEdges); 
+		Map<Edge, Set<Edge>> theFixingEdges = flattenFixingSet(fixingEdges);
 		SpanMappings maps = new SpanMappings(span1);
 		List<Edge> brotherEdges = new ArrayList<Edge>();
 		List<Edge> sisterEdges = new ArrayList<Edge>();

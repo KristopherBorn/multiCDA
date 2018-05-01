@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
@@ -94,7 +95,6 @@ public class CpaWizard extends Wizard {
 					resultPath = pathWithoutFile;
 				resultPath = greatestCommonPrefix(resultPath, pathWithoutFile);
 				IPath pathOfHenshinTransformationRules = pathOfSelection;
-				//adapt file selection in case of a henshin_diagram files
 				if (pathOfSelection.getFileExtension().equals("henshin_diagram")) {
 					pathOfHenshinTransformationRules = pathOfSelection.removeFileExtension();
 					pathOfHenshinTransformationRules = pathOfHenshinTransformationRules.addFileExtension("henshin");
@@ -110,7 +110,7 @@ public class CpaWizard extends Wizard {
 				}
 			}
 			// filename for the options. Defined here static for the usage of the options with this wizard.
-			optionsFile = resultPath + ".cpa.options";
+			optionsFile = resultPath + ".cda.options";
 		}
 	}
 
@@ -133,6 +133,13 @@ public class CpaWizard extends Wizard {
 		return true;
 	}
 
+	Map<String, List<SpanNode>> persistedB;
+	Map<String, List<SpanNode>> persistedC;
+	Map<String, List<SpanNode>> persistedF;
+	Map<String, List<SpanNode>> initialCpaResult = new HashMap<>();
+	Map<String, List<SpanNode>> essentialCpaResult = new HashMap<>();
+	Map<String, List<SpanNode>> otherCpaResult = new HashMap<>();
+
 	/**
 	 * By finishing the Wizard the calculation of the critical pairs starts and afterwards the results are loaded within
 	 * the <code>CPAView</code>.
@@ -140,13 +147,16 @@ public class CpaWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 
+		cdaResultB = new HashSet<>();
+		cdaResultC = new HashSet<>();
+		cdaResultF = new HashSet<>();
 		CDAOptions options = optionSettingsWizardPage.getOptions();
 		options.persist(optionsFile);
 		options.cpTypes = ruleAndCpKindSelectionWizardPage.cpType;
 		Pair<Set<Rule>, Set<Rule>> selectedRules = ruleAndCpKindSelectionWizardPage.getEnabledRules();
 		Map<Rule, Rule> ignoredRulePairs = new HashMap<>();
 		String rulePairs = "";
-		Set<GranularityType> gs = GranularityType.getGranularities(options.granularityType);
+		Set<GranularityType> gs = options.getGranularities();
 		if (gs.contains(GranularityType.BINARY) || gs.contains(GranularityType.COARSE)
 				|| gs.contains(GranularityType.FINE))
 			for (Rule r1 : selectedRules.first)
@@ -161,191 +171,273 @@ public class CpaWizard extends Wizard {
 							+ rulePairs,
 					"Ignored Rule Pairs", JOptionPane.INFORMATION_MESSAGE);
 		}
-		boolean analysableRules = true;
+		try {
+			getContainer().run(true, true, new IRunnableWithProgress() {
 
-		if (analysableRules) {
+				@Override
+				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-			try {
-				getContainer().run(false, false, new IRunnableWithProgress() {
+					int task1Klicks = 100;
+					int task2Klicks = 1000;
+					int work = selectedRules.first.size() * selectedRules.second.size();
+					int totalWork = 0;
+					int worked = 1;
+					if (options.essentialCP || options.initialCP)
+						totalWork += work * task2Klicks;
+					if (options.otherCP)
+						totalWork += work * task2Klicks;
+					Set<GranularityType> gt = options.getGranularities();
+					if (gt.contains(GranularityType.BINARY) || gt.contains(GranularityType.COARSE)
+							|| gt.contains(GranularityType.FINE))
+						totalWork += task1Klicks * selectedRules.first.size() * selectedRules.second.size();
+					else
+						task1Klicks = 0;
+					if (options.cpTypes == ConflictType.BOTH)
+						totalWork *= 2;
+					String title = "Calculating ... ";
+					monitor.beginTask(title, totalWork);
 
-					@Override
-					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+					long milis = System.currentTimeMillis();
 
-						int totalWork = 10100;
+					CPAResult conflictResult = null;
+					CPAResult dependencyResult = null;
 
-						// adjustment in the case of calculation of dependencies and conflicts
-						if (options.cpTypes == ConflictType.BOTH)
-							totalWork = 20100;
-
-						monitor.beginTask("Calculating Critical Pairs... ", totalWork);
-
-						monitor.worked(30);
-						//Check multi regel MultiCDA
-						CPAResult conflictResult = null;
-						CPAResult dependencyResult = null;
-
-						CPAResult essConflictResult = null;
-						CPAResult essDependencyResult = null;
-						Set<GranularityType> granularities = GranularityType.getGranularities(options.granularityType);
-						if (options.cpTypes == ConflictType.BOTH || options.cpTypes == ConflictType.CONFLICT) {
-							for (Rule r1 : selectedRules.first)
-								for (Rule r2 : selectedRules.second)
-									if (!ignoredRulePairs.containsKey(r1) && !ignoredRulePairs.containsKey(r2))
-										if (!(options.isIgnoreSameRules() && r1 == r2)) {
-											CDAcon = new ConflictAnalysis(r1, r2);
-											if (granularities.contains(GranularityType.BINARY))
-												cdaResultB.add(CDAcon.computeResultsBinary());
-											if (granularities.contains(GranularityType.COARSE))
-												cdaResultC.addAll(CDAcon.computeResultsCoarse());
-											if (granularities.contains(GranularityType.FINE))
-												cdaResultF.addAll(CDAcon.computeResultsFine());
+					Set<GranularityType> granularities = GranularityType.getGranularities(options.granularityType);
+					if (options.cpTypes == ConflictType.BOTH || options.cpTypes == ConflictType.CONFLICT) {
+						for (Rule r1 : selectedRules.first) {
+							for (Rule r2 : selectedRules.second) {
+								long timeLeft = (totalWork - worked) * (System.currentTimeMillis() - milis) / worked;
+								String desc = title + "\t" + (worked * 100 / totalWork) + "%" + "\t" + r1.getName()
+										+ "  --conflict-->  " + r2.getName();
+								if (System.currentTimeMillis() - milis > 3000) {
+									desc = title + "\t" + (worked * 100 / totalWork) + "%" + " " + time(timeLeft) + "\t"
+											+ r1.getName() + "  --conflict-->  " + r2.getName();
+								}
+								Copier r1C = new Copier();
+								Copier r2C = new Copier();
+								Rule r1s = (Rule) r1C.copy(r1);
+								Rule r2s = (Rule) r2C.copy(r2);
+								r1C.copyReferences();
+								r2C.copyReferences();
+								monitor.setTaskName(desc);
+								if (!ignoredRulePairs.containsKey(r1) && !ignoredRulePairs.containsKey(r2))
+									if (!(options.isIgnoreSameRules() && r1 == r2)) {
+										CDAcon = new ConflictAnalysis(r1s, r2s);
+										if (granularities.contains(GranularityType.BINARY))
+											cdaResultB.add(CDAcon.computeResultsBinary());
+										if (granularities.contains(GranularityType.COARSE))
+											cdaResultC.addAll(CDAcon.computeResultsCoarse());
+										if (granularities.contains(GranularityType.FINE))
+											cdaResultF.addAll(CDAcon.computeResultsFine());
+										if (granularities.contains(GranularityType.VERY_FINE)) {
+											if (options.essentialCP || options.initialCP) {
+												conflictResult = CpaByAGG.joinCPAResults(conflictResult,
+														runCPA(r1, r2, options, true, true));
+												monitor.worked(task2Klicks);
+												worked += task2Klicks;
+											}
+											if (options.otherCP) {
+												conflictResult = CpaByAGG.joinCPAResults(conflictResult,
+														runCPA(r1, r2, options, true, false));
+												monitor.worked(task2Klicks);
+												worked += task2Klicks;
+											}
 										}
-							if (granularities.contains(GranularityType.VERY_FINE)) {
-								if (options.essentialCP || options.initialCP) {
-									essConflictResult = runCPA(selectedRules.first, selectedRules.second, options, true,
-											true, monitor);
-									monitor.worked(1000);
+										monitor.worked(task1Klicks);
+										worked += task1Klicks;
+									}
+								if (monitor.isCanceled()) {
+									cdaResultB = null;
+									cdaResultC = null;
+									cdaResultF = null;
+									cpaResult = null;
+									return;
 								}
-								if (options.otherCP) {
-									conflictResult = runCPA(selectedRules.first, selectedRules.second, options, true,
-											false, monitor);
-									monitor.worked(1000);
-								}
-								conflictResult = CpaByAGG.joinCPAResults(essConflictResult, conflictResult);
+
 							}
 						}
-						if (options.cpTypes == ConflictType.BOTH || options.cpTypes == ConflictType.DEPENDENCY) {
-							for (Rule r1 : selectedRules.first)
-								for (Rule r2 : selectedRules.second)
-									if (!ignoredRulePairs.containsKey(r1) && !ignoredRulePairs.containsKey(r2))
-										if (!(options.isIgnoreSameRules() && r1 == r2)) {
-											CDAdep = new DependencyAnalysis(r1, r2);
-											if (granularities.contains(GranularityType.BINARY))
-												cdaResultB.add(CDAdep.computeResultsBinary());
-											if (granularities.contains(GranularityType.COARSE))
-												cdaResultC.addAll(CDAdep.computeResultsCoarse());
-											if (granularities.contains(GranularityType.FINE))
-												cdaResultF.addAll(CDAdep.computeResultsFine());
+					}
+					if (options.cpTypes == ConflictType.BOTH || options.cpTypes == ConflictType.DEPENDENCY) {
+						for (Rule r1 : selectedRules.first) {
+							for (Rule r2 : selectedRules.second) {
+								long timeLeft = (totalWork - worked) * (System.currentTimeMillis() - milis) / worked;
+								String desc = title + "\t" + (worked * 100 / totalWork) + "%" + "\t" + r1.getName()
+										+ "  --dependency-->  " + r2.getName();
+								if (System.currentTimeMillis() - milis > 3000)
+									desc = title + "\t" + (worked * 100 / totalWork) + "%" + " " + time(timeLeft) + "\t"
+											+ r1.getName() + "  --dependency-->  " + r2.getName();
+								Copier r1C = new Copier();
+								Copier r2C = new Copier();
+								Rule r1s = (Rule) r1C.copy(r1);
+								Rule r2s = (Rule) r2C.copy(r2);
+								r1C.copyReferences();
+								r2C.copyReferences();
 
+								monitor.setTaskName(desc);
+								if (!ignoredRulePairs.containsKey(r1) && !ignoredRulePairs.containsKey(r2))
+									if (!(options.isIgnoreSameRules() && r1 == r2)) {
+										CDAdep = new DependencyAnalysis(r1s, r2s);
+										if (granularities.contains(GranularityType.BINARY))
+											cdaResultB.add(CDAdep.computeResultsBinary());
+										if (granularities.contains(GranularityType.COARSE))
+											cdaResultC.addAll(CDAdep.computeResultsCoarse());
+										if (granularities.contains(GranularityType.FINE))
+											cdaResultF.addAll(CDAdep.computeResultsFine());
+										if (granularities.contains(GranularityType.VERY_FINE)) {
+											if (options.essentialCP || options.initialCP) {
+												dependencyResult = CpaByAGG.joinCPAResults(dependencyResult,
+														runCPA(r1, r2, options, false, true));
+												monitor.worked(task2Klicks);
+												worked += task2Klicks;
+											}
+											if (options.otherCP) {
+												dependencyResult = CpaByAGG.joinCPAResults(dependencyResult,
+														runCPA(r1, r2, options, false, false));
+												monitor.worked(task2Klicks);
+												worked += task2Klicks;
+											}
+											monitor.worked(task1Klicks);
+											worked += task1Klicks;
 										}
-							if (options.essentialCP || options.initialCP) {
-								essDependencyResult = runCPA(selectedRules.first, selectedRules.second, options, false,
-										true, monitor);
-								monitor.worked(1000);
+									}
+								if (monitor.isCanceled()) {
+									cdaResultB = null;
+									cdaResultC = null;
+									cdaResultF = null;
+									cpaResult = null;
+									return;
+								}
+							}
+						}
+					}
+					cpaResult = CpaByAGG.joinCPAResults(conflictResult, dependencyResult);
+					if (cpaResult == null)
+						monitor.beginTask("Creating result tree ...",
+								cdaResultB.size() + cdaResultC.size() + cdaResultF.size());
+					else
+						monitor.beginTask("Creating result tree ...",
+								cdaResultB.size() + cdaResultC.size() + cdaResultF.size()
+										+ cpaResult.getInitialCriticalPairs().size()
+										+ cpaResult.getEssentialCriticalPairs().size()
+										+ cpaResult.getOtherCriticalPairs().size());
+
+					ResourceSet resSet = new ResourceSetImpl();
+					resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
+							new XMLResourceFactoryImpl());
+
+					String path = getUniquePath();
+
+					persistedB = CpEditorUtil.persistCdaResult(cdaResultB, path);
+					monitor.worked(cdaResultB.size());
+					persistedC = CpEditorUtil.persistCdaResult(cdaResultC, path);
+					monitor.worked(cdaResultC.size());
+					persistedF = CpEditorUtil.persistCdaResult(cdaResultF, path);
+					monitor.worked(cdaResultF.size());
+					if (cpaResult != null) {
+						List<CriticalPair> essential = null;
+						List<CriticalPair> initial = null;
+						List<CriticalPair> other = null;
+						if (cpaResult != null) {
+							if (options.initialCP)
+								initial = cpaResult.getInitialCriticalPairs();
+							if (options.essentialCP) {
+								essential = cpaResult.getEssentialCriticalPairs();
+								if (initial != null)
+									essential.removeAll(initial);
 							}
 							if (options.otherCP) {
-								dependencyResult = runCPA(selectedRules.first, selectedRules.second, options, false,
-										false, monitor);
-								monitor.worked(1000);
+								other = cpaResult.getOtherCriticalPairs();
+//								if (initial != null) //TODO: Das löschen geht noch nicht, da es keine vernünftige equals methode gibt
+//									other.removeAll(initial);
+//								if (essential != null)
+//									other.removeAll(essential);
 							}
-							dependencyResult = CpaByAGG.joinCPAResults(essDependencyResult, dependencyResult);
 						}
-
-						cpaResult = CpaByAGG.joinCPAResults(conflictResult, dependencyResult);
-
-						ResourceSet resSet = new ResourceSetImpl();
-						resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore",
-								new XMLResourceFactoryImpl());
-
-						monitor.worked(20);
-						monitor.done();
+						initialCpaResult = CPAUtility.persistCpaResult(initial, path + "_CPA");
+						monitor.worked(initial.size());
+						essentialCpaResult = CPAUtility.persistCpaResult(essential, path + "_CPA");
+						monitor.worked(essential.size());
+						otherCpaResult = CPAUtility.persistCpaResult(other, path + "_CPA");
 					}
-
-				});
-
-				resultPath = getUniquePath();
-//				System.out.println(CDAresult);
-				Map<String, List<SpanNode>> persistedB = CpEditorUtil.persistCdaResult(cdaResultB, resultPath);
-				Map<String, List<SpanNode>> persistedC = CpEditorUtil.persistCdaResult(cdaResultC, resultPath);
-				Map<String, List<SpanNode>> persistedF = CpEditorUtil.persistCdaResult(cdaResultF, resultPath);
-				List<CriticalPair> essential = null;
-				List<CriticalPair> initial = null;
-				List<CriticalPair> other = null;
-				if (cpaResult != null) {
-					if (options.initialCP)
-						initial = cpaResult.getInitialCriticalPairs();
-					if (options.essentialCP) {
-						essential = cpaResult.getEssentialCriticalPairs();
-						if (initial != null)
-							essential.removeAll(initial);
-					}
-					if (options.otherCP) {
-						other = cpaResult.getOtherCriticalPairs();
-//						if (initial != null) //TODO: Das löschen geht noch nicht, da es keine vernünftige equals methode gibt
-//							other.removeAll(initial);
-//						if (essential != null)
-//							other.removeAll(essential);
-					}
-				}
-				HashMap<String, List<SpanNode>> initialCpaResult = CPAUtility.persistCpaResult(initial, resultPath);
-				HashMap<String, List<SpanNode>> essentialCpaResult = CPAUtility.persistCpaResult(essential, resultPath);
-				HashMap<String, List<SpanNode>> otherCpaResult = CPAUtility.persistCpaResult(other, resultPath);
-
-				ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
-
-				IViewPart cPAView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-						.showView("org.eclipse.emf.henshin.multicda.cpa.ui.views.CPAView");
-				if (cPAView instanceof CpaResultsView) {
-					CpaResultsView view = (CpaResultsView) cPAView;
-					view.setContent(persistedB, persistedC, persistedF, initialCpaResult, essentialCpaResult,
-							otherCpaResult);
-					view.update();
+					monitor.done();
 				}
 
-				return true; // close Wizard
+				private String getUniquePath() {
+					Date timestamp = new Date();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+					String timestampFolder = simpleDateFormat.format(timestamp);
 
-			} catch (InvocationTargetException e1) {
-				// errors caused by the IRunnable
-				e1.printStackTrace();
-			} catch (InterruptedException e1) {
-				// Should never occur because cancelable is set to false
-				e1.printStackTrace();
-			} catch (CoreException e) {
-				// from ResourcesPlugin...refreshLocal(..)
-				e.printStackTrace();
+					String pathWithDateStamp = resultPath + File.separator + timestampFolder;
+					int i = 0;
+					if (new File(pathWithDateStamp).exists())
+						while (new File(pathWithDateStamp + "_" + i).exists())
+							i++;
+					else
+						return pathWithDateStamp;
+					return pathWithDateStamp + "_" + i;
+				}
+
+				private String time(long time) {
+					long seconds = (time / 1000) % 60;
+					long minutes = (time / 60000) % 60;
+					long hours = (time / 3600000) % 24;
+					long days = (time / 86400000) % 365;
+					long years = (time / 31536000000L);
+
+					return "  " + (years == 0 ? "" : years + "y, ") + (days == 0 ? "" : days + "d, ")
+							+ (hours == 0 ? "" : hours + "h, ") + (minutes == 0 ? "" : minutes + "m, ")
+							+ (seconds + "s");
+				}
+
+			});
+
+			if (cpaResult == null && cdaResultB == null && cdaResultC == null && cdaResultF == null)
+				return false;
+			ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
+			IViewPart cPAView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+					.showView("org.eclipse.emf.henshin.multicda.cpa.ui.views.CPAView");
+			if (cPAView instanceof CpaResultsView) {
+				CpaResultsView view = (CpaResultsView) cPAView;
+				view.setContent(persistedB, persistedC, persistedF, initialCpaResult, essentialCpaResult,
+						otherCpaResult);
+				view.update();
 			}
+			return true;
+		} catch (InvocationTargetException e1) {
+			// errors caused by the IRunnable
+			e1.printStackTrace();
+			return false;
+		} catch (InterruptedException e1) {
+			System.err.println("Interrupted");
+			return false;
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		return false; // keep Wizard open after ErrorMessage for reselection of the rules
+		return true;
 	}
 
-	/**
-	 * @author Jevgenij Huebert
-	 * @return
-	 */
-	private String getUniquePath() {
-		Date timestamp = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
-		String timestampFolder = simpleDateFormat.format(timestamp);
-
-		String pathWithDateStamp = resultPath + File.separator + timestampFolder;
-		int i = 0;
-		if (new File(pathWithDateStamp).exists())
-			while (new File(pathWithDateStamp + "_" + i).exists())
-				i++;
-		else
-			return pathWithDateStamp;
-		return pathWithDateStamp + "_" + i;
-	}
-
-	private CPAResult runCPA(Set<Rule> r1, Set<Rule> r2, CDAOptions options, boolean conf, boolean essential,
-			IProgressMonitor monitor) {
+	private CPAResult runCPA(Rule r1, Rule r2, CDAOptions options, boolean conf, boolean essential) {
 
 		boolean essentialTemp = options.essentialCP;
 		options.essentialCP = essential;
 		CPAResult result;
 		ICriticalPairAnalysis cpa = new CpaByAGG();
+		Set<Rule> r1s = new HashSet<>();
+		r1s.add(r1);
+		Set<Rule> r2s = new HashSet<>();
+		r2s.add(r2);
 		try {
-			cpa.init(r1, r2, options);
+			cpa.init(r1s, r2s, options);
 
 		} catch (UnsupportedRuleException e) {
 			MessageDialog.openError(getShell(), "Error occured while initialising the critical pair analysis!",
 					e.getDetailedMessage() + "\n Thus critical pairs cannot be calculated.");
 		}
 		if (conf)
-			result = cpa.runConflictAnalysis(monitor);
+			result = cpa.runConflictAnalysis();
 		else
-			result = cpa.runDependencyAnalysis(monitor);
+			result = cpa.runDependencyAnalysis();
 		options.essentialCP = essentialTemp;
 		return result;
 	}

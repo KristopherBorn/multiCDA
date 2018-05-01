@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.henshin.model.ModelElement;
+import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
@@ -25,7 +25,6 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.EssentialConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.dependency.CreateUseDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.DependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.dependency.MinimalDependencyReason;
 import org.eclipse.emf.henshin.multicda.cda.runner.RulePreparator;
@@ -269,7 +268,7 @@ public class CDATester extends Tester {
 	 */
 	private boolean iChecker(ConflictReason conflictReason, List<Condition> edgeNode, Class<?> type, String shortName,
 			Condition... conditions) {
-		Set<ModelElement> elements = conflictReason.getDeletionElementsInRule1();
+		Set<GraphElement> elements = conflictReason.getDeletionElementsInRule1();
 		if (!checked.contains(conflictReason.getClass().getSimpleName() + "" + elements)
 				&& checkReasons(elements, edgeNode.toArray())) {
 			print("Found " + shortName + ": " + elements + "\twith " + type.getSimpleName() + " "
@@ -302,8 +301,6 @@ public class CDATester extends Tester {
 				else if (conflictReason instanceof DependencyReason)
 					type = "DCR";
 				else if (conflictReason instanceof MinimalDependencyReason)
-					type = "MDCR";
-				else if (conflictReason instanceof CreateUseDependencyReason)
 					type = "MDCR";
 				else if (conflictReason instanceof EssentialConflictReason)
 					type = "ECR";

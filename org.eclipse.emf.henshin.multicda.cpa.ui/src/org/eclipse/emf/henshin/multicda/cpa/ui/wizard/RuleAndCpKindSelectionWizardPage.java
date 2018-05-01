@@ -118,14 +118,19 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		Composite buttonsComposite = new Composite(containerForBothGroups, SWT.NONE);
 		buttonsComposite.setLayout(new GridLayout(1, true));
 
+		// sort the rules alphabetic
+		List<Rule> rulesForSelectionList = new ArrayList<Rule>(rulesAndAssociatedFileNames.keySet());
+		Collections.sort(rulesForSelectionList, new RuleNameComparator());
+		
 		selectAllButton1 = new Button(buttonsComposite, SWT.CHECK);
 		selectAllButton1.setText("Select all");
 		selectAllButton1.addListener(SWT.Selection, selectAllListener1);
 		selectAllButton1.addListener(SWT.Selection, checkListener);
-		Button b = new Button(buttonsComposite, SWT.NONE);
+		selectAllButton1.setSelection(rulesForSelectionList.size()==1);
+		Button b = new Button(buttonsComposite, SWT.NONE); //just a placeholder...
 		b.setVisible(false);
 
-		new Label(containerForBothGroups, SWT.NONE);
+		new Label(containerForBothGroups, SWT.NONE); //just a placeholder...
 
 		buttonsComposite = new Composite(containerForBothGroups, SWT.NONE);
 		buttonsComposite.setLayout(new GridLayout(1, true));
@@ -134,15 +139,13 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 		selectAllButton2.setText("Select all");
 		selectAllButton2.addListener(SWT.Selection, selectAllListener2);
 		selectAllButton2.addListener(SWT.Selection, checkListener);
+		selectAllButton2.setSelection(rulesForSelectionList.size()==1);
 
 		Button selectasFirstButton = new Button(buttonsComposite, SWT.NONE);
-		selectasFirstButton.setText("Select same rules as First");
+		selectasFirstButton.setText("Select same rules as first rules");
 		selectasFirstButton.addListener(SWT.Selection, selectAsFirst);
 		selectasFirstButton.addListener(SWT.Selection, checkListener);
 
-		// sort the rules alphabetic
-		List<Rule> rulesForSelectionList = new ArrayList<Rule>(rulesAndAssociatedFileNames.keySet());
-		Collections.sort(rulesForSelectionList, new RuleNameComparator());
 
 		for (Rule rule : rulesForSelectionList) {
 			Button ruleSelectionButton1 = new Button(rulesGroup1, SWT.CHECK);
@@ -161,7 +164,8 @@ public class RuleAndCpKindSelectionWizardPage extends WizardPage {
 			ruleSelectionButton2.setToolTipText(rulesAndAssociatedFileNames.get(rule));
 			ruleSelectionButton2.addListener(SWT.Selection, checkListener);
 		}
-
+		checkAtLeastOneRuleIsSelected();
+		
 		Button conflictAnalysisButton = new Button(criticalPairKindGroup, SWT.CHECK);
 		conflictAnalysisButton.setText(ConflictType.CONFLICT.name);
 		conflictAnalysisButton.setData(ConflictType.CONFLICT);
