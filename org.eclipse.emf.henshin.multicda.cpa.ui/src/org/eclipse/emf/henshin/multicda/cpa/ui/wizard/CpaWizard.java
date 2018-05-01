@@ -354,11 +354,11 @@ public class CpaWizard extends Wizard {
 //									other.removeAll(essential);
 							}
 						}
-						initialCpaResult = CPAUtility.persistCpaResult(initial, path + "_CPA");
+						initialCpaResult = CPAUtility.persistCpaResult(initial, path);
 						monitor.worked(initial.size());
-						essentialCpaResult = CPAUtility.persistCpaResult(essential, path + "_CPA");
+						essentialCpaResult = CPAUtility.persistCpaResult(essential, path);
 						monitor.worked(essential.size());
-						otherCpaResult = CPAUtility.persistCpaResult(other, path + "_CPA");
+						otherCpaResult = CPAUtility.persistCpaResult(other, path);
 					}
 					monitor.done();
 				}

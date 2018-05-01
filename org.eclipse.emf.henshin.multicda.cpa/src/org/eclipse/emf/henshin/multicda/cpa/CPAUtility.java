@@ -70,7 +70,6 @@ public class CPAUtility {
 	 */
 	public static HashMap<String, List<SpanNode>> persistCpaResult(List<CriticalPair> cpaResult, String path) {
 
-
 		HashMap<String, List<SpanNode>> persistedCPs = new HashMap<>();
 
 		if (cpaResult != null)
@@ -99,8 +98,7 @@ public class CPAUtility {
 					String numberedNameOfCPKind = "(" + formatedNumberForRulePair + ") " + criticalPairKind;
 
 					// persist a single critical pair.
-					SpanNode newCriticalPairNode = persistSingleCriticalPair(cp, numberedNameOfCPKind,
-							path);
+					SpanNode newCriticalPairNode = persistSingleCriticalPair(cp, numberedNameOfCPKind, path);
 
 					persistedCPs.get(folderName).add(newCriticalPairNode);
 				}
@@ -143,14 +141,15 @@ public class CPAUtility {
 		Map<Node, Node> criticalNodes = new HashMap<>();
 
 		for (CriticalElement ce : cp.getCriticalElements()) {
-			if (ce.elementInFirstRule instanceof Node) {
-				criticalNodes.put((Node) ce.elementInFirstRule, (Node) ce.elementInSecondRule);
-			} else if (ce.elementInFirstRule instanceof Edge) {
-				Edge e1 = (Edge) ce.elementInFirstRule;
-				Edge e2 = (Edge) ce.elementInSecondRule;
-				criticalNodes.put(e1.getSource(), e2.getSource());
-				criticalNodes.put(e1.getTarget(), e2.getTarget());
-			}
+			if (ce.elementInFirstRule != null && ce.elementInSecondRule != null)
+				if (ce.elementInFirstRule instanceof Node) {
+					criticalNodes.put((Node) ce.elementInFirstRule, (Node) ce.elementInSecondRule);
+				} else if (ce.elementInFirstRule instanceof Edge) {
+					Edge e1 = (Edge) ce.elementInFirstRule;
+					Edge e2 = (Edge) ce.elementInSecondRule;
+					criticalNodes.put(e1.getSource(), e2.getSource());
+					criticalNodes.put(e1.getTarget(), e2.getTarget());
+				}
 		}
 
 		Set<Node> rest1 = new HashSet<Node>(firstRuleLHS.getNodes());
@@ -222,7 +221,7 @@ public class CPAUtility {
 		String name2 = n2 != null ? n2.getName() : "";
 		EClassifier eo = (EClassifier) firstMatch.getNodeTarget(n);
 		EClassifier eo2 = (EClassifier) secondMatch.getNodeTarget(n2);
-		if(eo==null || eo2 == null)
+		if (eo == null || eo2 == null)
 			return;
 
 		name = name + "_" + name2;
