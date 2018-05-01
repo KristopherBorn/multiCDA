@@ -24,8 +24,6 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.model.impl.RuleImpl;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
-import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 
 /**
@@ -86,11 +84,11 @@ public class DeleteUseConflictReasonComputation {
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(conflictRule2, pushout.getRule2Mappings())
 							.isEmpty()) {
-				DeleteReadConflictReason res = new DeleteReadConflictReason(conflictReason);
+				DeleteUseConflictReason res = new DeleteUseConflictReason(conflictReason);
 				result.add(res);
 			}
 		} else {
-			Set<DeleteDeleteConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
+			Set<DeleteUseConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
 			if (!ddset.isEmpty()) {
 				ddset.forEach(s -> result.add(s));
 			}
@@ -121,8 +119,8 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Set<DeleteDeleteConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
-		Set<DeleteDeleteConflictReason> result = new HashSet<DeleteDeleteConflictReason>();
+	private Set<DeleteUseConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
+		Set<DeleteUseConflictReason> result = new HashSet<DeleteUseConflictReason>();
 		for (Span sp2 : conflictReasonsFromR2) {
 			Span s = compatibleSpans(sp1, sp2);
 			if (s != null) {
@@ -132,7 +130,8 @@ public class DeleteUseConflictReasonComputation {
 					Pushout po = new Pushout(r1, l1Sl2, r2);
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings()).isEmpty()) {
-						DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
+						DeleteUseConflictReason res = new DeleteUseConflictReason(sp1);
+						res.setSpan2(sp2);
 						result.add(res);
 					}
 				}
@@ -404,17 +403,12 @@ public class DeleteUseConflictReasonComputation {
 	private Span compatibleElements(Span sp1, Span sp2) {
 		Graph compatibleGraph = helper.createGraph();
 		EList<Node> s1Nodes = sp1.getGraph().getNodes();
-		EList<Edge> s1Edges = sp1.getGraph().getEdges();
-		EList<GraphElement> allObjectsS1 = new BasicEList<GraphElement>();
-		s1Nodes.forEach(n -> allObjectsS1.add(n));
-		s1Edges.forEach(e -> allObjectsS1.add(e));
 		Set<Mapping> mappingsIntoSpan1 = new HashSet<Mapping>();
 		Set<Mapping> mappingsIntoSpan2 = new HashSet<Mapping>();
-		for (GraphElement x : allObjectsS1) {
+		for (Node x : s1Nodes) {
 			try {
 				GraphElement y = existCompatibleElement(x, sp1, sp2);
 				if (y != null) {
-					if (x instanceof Node) {
 						EClass xType = ((Node) x).getType();
 						Node xNode = (Node) x;
 						Node yNode = (Node) y;
@@ -424,36 +418,9 @@ public class DeleteUseConflictReasonComputation {
 						Mapping createMapping2 = helper.createMapping(newNode, yNode);
 						mappingsIntoSpan1.add(createMapping);
 						mappingsIntoSpan2.add(createMapping2);
-					}
-					if (x instanceof Edge) {
-						Edge xEdge = (Edge) x;
-						Edge yEdge = (Edge) y;
-						Node xSource = xEdge.getSource();
-						Node xTarget = xEdge.getTarget();
-						Node ySource = yEdge.getSource();
-						Node yTarget = yEdge.getTarget();
-						String newSource = xSource.getName() + INTERSECTIONSEPERATOR + ySource.getName();
-						String newTarget = xTarget.getName() + INTERSECTIONSEPERATOR + yTarget.getName();
-						Node source = null;
-						Node target = null;
-						EReference type = xEdge.getType();
-						for (Node node : compatibleGraph.getNodes()) {
-							String name = node.getName();
-							if (name.equals(newSource)) {
-								source = node;
-							}
-							if (name.equals(newTarget)) {
-								target = node;
-							}
-						}
-						if (source != null && target != null) {
-							helper.createEdge(source, target, type);
-						}
-					}
 				}
 			} catch (NotCompatibleException e) {
-				System.out.println(e.getMessage() + e.getCause());
-				compatibleGraph = null;
+				break;
 			}
 		}
 		Span comSpan = new Span(mappingsIntoSpan1, compatibleGraph, mappingsIntoSpan2);
@@ -468,30 +435,20 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 * @throws Exception
 	 */
-	private GraphElement existCompatibleElement(GraphElement x, Span sp1, Span sp2) throws NotCompatibleException {
-		EList<GraphElement> allObjectsS1 = new BasicEList<GraphElement>();
-		EList<GraphElement> allObjectsS2 = new BasicEList<GraphElement>();
+	private GraphElement existCompatibleElement(Node x, Span sp1, Span sp2) throws NotCompatibleException {
 		EList<Node> s1Nodes = sp1.getGraph().getNodes();
-		EList<Edge> s1Edges = sp1.getGraph().getEdges();
 		EList<Node> s2Nodes = sp2.getGraph().getNodes();
-		EList<Edge> s2Edges = sp2.getGraph().getEdges();
-		s1Nodes.forEach(n -> allObjectsS1.add(n));
-		s1Edges.forEach(e -> allObjectsS1.add(e));
-		s2Nodes.forEach(n -> allObjectsS2.add(n));
-		s2Edges.forEach(e -> allObjectsS2.add(e));
-		if (allObjectsS1.contains(x)) {
-			for (GraphElement y : allObjectsS2) {
-				if (checkEqualityR1(x, y, sp1, sp2)) {
-					if (checkEqualityR2(x, y, sp1, sp2)) {
-						return y;
-					} else {
-						throw compatibleException;
-					}
-				}
+		if (s1Nodes.contains(x)) {
+			for (Node y : s2Nodes) {
+				int result = checkEquality(x, y, sp1, sp2);
+				if (result == 2) {
+					return y;
+				} else if (result == 1)
+					throw new NotCompatibleException();
 			}
 			return null;
 		} else {
-			throw compatibleException;
+			throw new NotCompatibleException();
 		}
 	}
 
@@ -499,72 +456,24 @@ public class DeleteUseConflictReasonComputation {
 	 * @param x1
 	 * @param y1
 	 * @param sp1
-	 * @param sp2 
+	 * @param sp2
 	 * @return
 	 */
-	private boolean checkEqualityR1(GraphElement x1, GraphElement y1, Span sp1, Span sp2) {
-		if (x1 instanceof Node && y1 instanceof Node) {
-			Node n1 = (Node) x1;
-			Mapping s1 = getMappingInRule(n1, sp1.mappingsInRule1);
-			Node n2 = (Node) y1;
-			Mapping s2 = getMappingInRule(n2, sp2.mappingsInRule1);
-			if (s1 != null && s2 != null) {
-				if (checkOriginNodes(s1.getOrigin(), s2.getOrigin(), NODESEPARATOR)) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
+	private int checkEquality(Node x, Node y, Span sp1, Span sp2) {
+		Mapping s11 = getMappingInRule(x, sp1.mappingsInRule1);
+		Mapping s21 = getMappingInRule(y, sp2.mappingsInRule2);
+
+		Mapping s12 = getMappingInRule(x, sp1.mappingsInRule2);
+		Mapping s22 = getMappingInRule(y, sp2.mappingsInRule1);
+
+		if (s11 != null && s21 != null && s12 != null && s22 != null) {
+			boolean b1 = s11.getImage().getName().equals(s21.getImage().getName())
+					&& s11.getImage().getType() == s21.getImage().getType();
+			boolean b2 = s12.getImage().getName().equals(s22.getImage().getName())
+					&& s12.getImage().getType() == s22.getImage().getType();
+			return (b1 ? 1 : 0) + (b2 ? 1 : 0);
 		}
-		if (x1 instanceof Edge && y1 instanceof Edge) {
-			Edge e1 = (Edge) x1;
-			Edge e2 = (Edge) y1;
-			try {
-				return checkEdges(e1, e2, NODESEPARATOR);
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-				return false;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * @param x1
-	 * @param y1
-	 * @param sp1
-	 * @param sp2 
-	 * @return
-	 */
-	private boolean checkEqualityR2(GraphElement x1, GraphElement y1, Span sp1, Span sp2) {
-		if (x1 instanceof Node && y1 instanceof Node) {
-			Node n1 = (Node) x1;
-			Mapping s1 = getMappingInRule(n1, sp1.mappingsInRule2);
-			Node n2 = (Node) y1;
-			Mapping s2 = getMappingInRule(n2, sp2.mappingsInRule2);
-			if (s1 != null && s2 != null) {
-				if (checkOriginNodes(s1.getOrigin(), s2.getOrigin(), NODESEPARATOR)) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		}
-		if (x1 instanceof Edge && y1 instanceof Edge) {
-			Edge e1 = (Edge) x1;
-			Edge e2 = (Edge) y1;
-			try {
-				return checkEdges(e1, e2, NODESEPARATOR);
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-				return false;
-			}
-		}
-		return false;
+		return 0;
 	}
 
 	/**

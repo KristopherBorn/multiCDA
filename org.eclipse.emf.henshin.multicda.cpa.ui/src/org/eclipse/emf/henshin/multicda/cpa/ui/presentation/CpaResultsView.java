@@ -11,7 +11,7 @@ package org.eclipse.emf.henshin.multicda.cpa.ui.presentation;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -56,12 +56,12 @@ public class CpaResultsView extends ViewPart {
 
 	private TreeViewer viewer;
 	private Action doubleClickAction;
-	private HashMap<String, List<SpanNode>> contentCDAB;
-	private HashMap<String, List<SpanNode>> contentCDAC;
-	private HashMap<String, List<SpanNode>> contentCDAF;
-	private HashMap<String, List<SpanNode>> initialCpaResult;
-	private HashMap<String, List<SpanNode>> essentialCpaResult;
-	private HashMap<String, List<SpanNode>> otherCpaResult;
+	private Map<String, List<SpanNode>> contentCDAB;
+	private Map<String, List<SpanNode>> contentCDAC;
+	private Map<String, List<SpanNode>> contentCDAF;
+	private Map<String, List<SpanNode>> initialCpaResult;
+	private Map<String, List<SpanNode>> essentialCpaResult;
+	private Map<String, List<SpanNode>> otherCpaResult;
 
 	class CPAViewContentProvider implements ITreeContentProvider {
 
@@ -320,9 +320,9 @@ public class CpaResultsView extends ViewPart {
 		}
 	}
 
-	public void setContent(HashMap<String, List<SpanNode>> persistedB, HashMap<String, List<SpanNode>> persistedC,
-			HashMap<String, List<SpanNode>> persistedF, HashMap<String, List<SpanNode>> initialCpaResult,
-			HashMap<String, List<SpanNode>> essentialCpaResult, HashMap<String, List<SpanNode>> otherCpaResult) {
+	public void setContent(Map<String, List<SpanNode>> persistedB, Map<String, List<SpanNode>> persistedC,
+			Map<String, List<SpanNode>> persistedF, Map<String, List<SpanNode>> initialCpaResult,
+			Map<String, List<SpanNode>> essentialCpaResult, Map<String, List<SpanNode>> otherCpaResult) {
 		this.contentCDAB = persistedB;
 		this.contentCDAC = persistedC;
 		this.contentCDAF = persistedF;

@@ -13,12 +13,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
@@ -33,6 +33,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.multicda.cda.Span;
+import org.eclipse.emf.henshin.multicda.cda.Utils;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cpa.persist.SpanNode;
 import org.eclipse.emf.henshin.multicda.cpa.result.CriticalPair;
 import org.eclipse.emf.henshin.multicda.cpa.ui.presentation.HenshinCPEditor;
@@ -50,6 +53,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiEditorInput;
 
+import agg.util.Pair;
+
 public class CpEditorUtil {
 
 	public static String[] getInnerEditorIDs() {
@@ -60,37 +65,30 @@ public class CpEditorUtil {
 
 	}
 
-	/**
-	 * Persists the results of a critical pair analysis in the file system.
-	 * 
-	 * @param cpaResult A <code>CPAResult</code> of a critical pair analysis.
-	 * @param path The path for saving the full result set.
-	 * @return a <code>HashMap</code> of the saved results.
-	 */
-	public static HashMap<String, List<SpanNode>> persistCdaResult(Set<Span> cpaResult, String path) {
+	public static Map<String, List<SpanNode>> persistCdaResult(Set<Span> cdaResult, String path) {
 
-		Date timestamp = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd-HHmmss");
-		String timestampFolder = simpleDateFormat.format(timestamp);
-
-		String pathWithDateStamp = path + File.separator + timestampFolder;
-
-		HashMap<String, List<SpanNode>> persistedNodes = new HashMap<>();
-		if (cpaResult != null)
-			for (Span span : cpaResult)
-				if (span != null) {
+		Map<String, List<SpanNode>> persistedNodes = new TreeMap<>();
+		if (cdaResult != null) {
+			List<Span> reasons = new ArrayList<>(cdaResult);
+			Collections.sort(reasons);
+			for (Span reason : reasons)
+				if (reason != null) {
 					// naming of each single conflict
-					String folderName = span.getRule1().getName() + ", " + span.getRule2().getName();
+					String folderName = reason.getRule1().getName() + ", " + reason.getRule2().getName();
 
 					int numberForRulePair = 1;
 
 					if (persistedNodes.containsKey(folderName)) {
 						numberForRulePair = persistedNodes.get(folderName).size() + 1;
 					} else {
-						persistedNodes.put(folderName, new ArrayList<SpanNode>());
+						persistedNodes.put(folderName, new ArrayList<>());
 					}
 
-					String spanKind = span.getClass().getSimpleName();
+					String spanKind = reason.getClass().getSimpleName();
+					if (reason instanceof DeleteReadConflictReason)
+						spanKind = "DRCR";
+					if (reason instanceof DeleteDeleteConflictReason)
+						spanKind = "DDCR";
 //			Replace(str, @"([a-z])([A-Z])", "$1 $2")
 					spanKind = spanKind.replaceAll("([a-z])([A-Z])", "$1 $2");
 
@@ -102,15 +100,14 @@ public class CpEditorUtil {
 //			SpanNode newCriticalPairNode = persistSingleCriticalPair(span, numberedNameOfCPKind,
 //					pathWithDateStamp);
 
-					String pathForCurrentCriticalPair = pathWithDateStamp + File.separator + span.getRule1().getName()
-							+ "_AND_" + span.getRule2().getName() + File.separator + numberedNameOfCPKind
-							+ File.separator;
+					String pathForCurrentCriticalPair = path + File.separator + reason.getRule1().getName() + "_AND_"
+							+ reason.getRule2().getName() + File.separator + numberedNameOfCPKind + File.separator;
 
 					ResourceSet commonResourceSet = new ResourceSetImpl();
 					// save the first rule in the file system
-					String fileNameRule1 = "(1)" + span.getRule1().getName() + ".henshin";
+					String fileNameRule1 = "(1)" + reason.getRule1().getName() + ".henshin";
 					String fullPathRule1 = pathForCurrentCriticalPair + fileNameRule1;
-					URI firstRuleURI = saveRuleInFileSystem(commonResourceSet, span.getRule1(), fullPathRule1);
+					URI firstRuleURI = saveRuleInFileSystem(commonResourceSet, reason.getRule1(), fullPathRule1);
 
 //			// save the minimal model in the file system
 //			String fileNameMinimalModel = "minimal-model" + ".ecore";
@@ -119,26 +116,29 @@ public class CpEditorUtil {
 //			URI overlapURI = saveMinimalModelInFileSystem(commonResourceSet, minimalModel, fullPathMinimalModel);
 
 					// save the second rule in the file system
-					String fileNameRule2 = "(2)" + span.getRule2().getName() + ".henshin";
+					String fileNameRule2 = "(2)" + reason.getRule2().getName() + ".henshin";
 					String fullPathRule2 = pathForCurrentCriticalPair + fileNameRule2;
-					URI secondRuleURI = saveRuleInFileSystem(commonResourceSet, span.getRule2(), fullPathRule2);
+					URI secondRuleURI = saveRuleInFileSystem(commonResourceSet, reason.getRule2(), fullPathRule2);
 
 					// save a dummy for the HenshinCPEditor
 					String fileName = "dummy.henshinCp";
 					String fullPath = pathForCurrentCriticalPair + fileName;
-					URI criticalPairURI = saveRuleInFileSystem(commonResourceSet, span.graph, fullPath);
+					URI criticalPairURI = saveRuleInFileSystem(commonResourceSet, reason.graph, fullPath);
 
 					// save the minimal model in the file system
 					String fileNameMinimalModel = "minimal-model" + ".ecore";
 					String fullPathMinimalModel = pathForCurrentCriticalPair + fileNameMinimalModel;
-					EPackage spanModel = span.graphToEPackage();
+					EPackage reasonModel = Utils.graphToEPackage(reason);
+					EPackage s2Model = null;
+					if (reason instanceof DeleteDeleteConflictReason)
+						s2Model = Utils.graphToEPackage(((DeleteDeleteConflictReason) reason).getSpan2());
 
-					URI overlapURI = saveMinimalModelInFileSystem(commonResourceSet, spanModel, fullPathMinimalModel);
-
+					Pair<URI, URI> overlapURI = saveMinimalModelInFileSystem(commonResourceSet, reasonModel, s2Model,
+							fullPathMinimalModel);
 					persistedNodes.get(folderName).add(new SpanNode(numberedNameOfCPKind, firstRuleURI, secondRuleURI,
 							overlapURI, criticalPairURI));
 				}
-
+		}
 		return persistedNodes;
 	}
 
@@ -150,26 +150,38 @@ public class CpEditorUtil {
 	 * @param fullPathMinimalModel The full path of the file.
 	 * @return the <code>URI</code> of the saved file.
 	 */
-	private static URI saveMinimalModelInFileSystem(ResourceSet resourceSet, EPackage minimalModel,
-			String fullPathMinimalModel) {
+	private static Pair<URI, URI> saveMinimalModelInFileSystem(ResourceSet resourceSet, EPackage minimalModel,
+			EPackage s2Model, String fullPathMinimalModel) {
 		URI overlapURI = URI.createFileURI(fullPathMinimalModel);
 		Resource overlapResource = resourceSet.createResource(overlapURI, "ecore");
 
 		overlapResource.getContents().add(minimalModel);
-
 		Diagram d = createDiagram(minimalModel);
 
 		URI diagUri = URI.createFileURI(fullPathMinimalModel + "_diagram");
+		URI s2DiagUri = URI.createFileURI(fullPathMinimalModel.split(".ecore")[0] + "_s2.ecore_diagram");
 		Resource diagramResource = resourceSet.createResource(diagUri, "ecore");
 		d.setName(diagUri.lastSegment());
 		diagramResource.getContents().add(d);
+
+		if (s2Model != null) {
+			overlapResource.getContents().add(s2Model);
+			Diagram s2D = createDiagram(s2Model);
+			Resource s2DiagramResource = resourceSet.createResource(s2DiagUri, "ecore");
+			s2D.setName(diagUri.lastSegment());
+			s2DiagramResource.getContents().add(s2D);
+			try {
+				s2DiagramResource.save(null);
+			} catch (IOException e) {
+			}
+		}
 		try {
 			diagramResource.save(null);
 			overlapResource.save(null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return diagUri;
+		return new Pair<>(diagUri, s2DiagUri);
 	}
 
 	public static Diagram createDiagram(EObject object) {

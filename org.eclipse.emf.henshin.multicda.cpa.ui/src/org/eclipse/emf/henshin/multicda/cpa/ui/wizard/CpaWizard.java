@@ -9,7 +9,10 @@
  */
 package org.eclipse.emf.henshin.multicda.cpa.ui.wizard;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -250,10 +253,11 @@ public class CpaWizard extends Wizard {
 
 				});
 
+				resultPath = getUniquePath();
 //				System.out.println(CDAresult);
-				HashMap<String, List<SpanNode>> persistedB = CpEditorUtil.persistCdaResult(cdaResultB, resultPath);
-				HashMap<String, List<SpanNode>> persistedC = CpEditorUtil.persistCdaResult(cdaResultC, resultPath);
-				HashMap<String, List<SpanNode>> persistedF = CpEditorUtil.persistCdaResult(cdaResultF, resultPath);
+				Map<String, List<SpanNode>> persistedB = CpEditorUtil.persistCdaResult(cdaResultB, resultPath);
+				Map<String, List<SpanNode>> persistedC = CpEditorUtil.persistCdaResult(cdaResultC, resultPath);
+				Map<String, List<SpanNode>> persistedF = CpEditorUtil.persistCdaResult(cdaResultF, resultPath);
 				List<CriticalPair> essential = null;
 				List<CriticalPair> initial = null;
 				List<CriticalPair> other = null;
@@ -303,6 +307,25 @@ public class CpaWizard extends Wizard {
 		}
 
 		return false; // keep Wizard open after ErrorMessage for reselection of the rules
+	}
+
+	/**
+	 * @author Jevgenij Huebert
+	 * @return
+	 */
+	private String getUniquePath() {
+		Date timestamp = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+		String timestampFolder = simpleDateFormat.format(timestamp);
+
+		String pathWithDateStamp = resultPath + File.separator + timestampFolder;
+		int i = 0;
+		if (new File(pathWithDateStamp).exists())
+			while (new File(pathWithDateStamp + "_" + i).exists())
+				i++;
+		else
+			return pathWithDateStamp;
+		return pathWithDateStamp + "_" + i;
 	}
 
 	private CPAResult runCPA(Set<Rule> r1, Set<Rule> r2, CDAOptions options, boolean conf, boolean essential,

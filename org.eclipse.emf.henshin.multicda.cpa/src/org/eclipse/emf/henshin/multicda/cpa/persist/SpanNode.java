@@ -11,15 +11,18 @@ package org.eclipse.emf.henshin.multicda.cpa.persist;
 
 import org.eclipse.emf.common.util.URI;
 
+import agg.util.Pair;
+
 /**
  * This class links the different files composing a critical pair within the file system.
  * 
  * @author Kristopher Born
  *
  */
-public class SpanNode extends TreeFolder{
+public class SpanNode extends TreeFolder {
 
 	URI minimalModelURI;
+	URI minimalModelS2URI;
 	/**
 	 * The <code>TreeFolder</code> in which the <code>CriticalPairNode</code> is contained.
 	 */
@@ -47,7 +50,13 @@ public class SpanNode extends TreeFolder{
 		this(numberedNameOfCPKind, firstRuleURI, secondRuleURI, minimalModelURI, null);
 	}
 
-	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI minimalModelURI, URI nodeURI) {
+	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, Pair<URI, URI> minimalModelURI, URI nodeURI) {
+		this(numberedNameOfCPKind,  firstRuleURI, secondRuleURI, minimalModelURI.first, nodeURI);
+		this.minimalModelS2URI = minimalModelURI.second;
+	}
+
+	public SpanNode(String numberedNameOfCPKind, URI firstRuleURI, URI secondRuleURI, URI minimalModelURI,
+			URI nodeURI) {
 		super(numberedNameOfCPKind);
 		this.firstRuleURI = firstRuleURI;
 		this.numberedNameOfCPKind = numberedNameOfCPKind;
@@ -117,5 +126,13 @@ public class SpanNode extends TreeFolder{
 	 */
 	public URI getMinimalModelURI() {
 		return minimalModelURI;
+	}
+	/**
+	 * Returns the <code>URI</code> of the s2 minimal model.
+	 * 
+	 * @return The <code>URI</code> of the s2 minimal model.
+	 */
+	public URI getMinimalModelS2URI() {
+		return minimalModelS2URI;
 	}
 }

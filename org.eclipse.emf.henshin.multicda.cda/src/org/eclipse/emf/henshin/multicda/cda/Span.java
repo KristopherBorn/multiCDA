@@ -20,7 +20,7 @@ import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
-public class Span {
+public class Span implements Comparable<Span> {
 
 	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
@@ -48,18 +48,6 @@ public class Span {
 
 	private Copier copierForSpanAndMappings;
 
-//	// Scheint derzeit ncoh �berfl�ssig zu sein!
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see java.lang.Object#hashCode()
-//	 */
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		return result;
-//	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -385,6 +373,16 @@ public class Span {
 
 	public void setRule2(Rule rule2) {
 		this.rule2 = rule2;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Span o) {
+		if(o==null)
+			return 1;
+		return o.toShortString().compareTo(toShortString());
 	}
 
 }
