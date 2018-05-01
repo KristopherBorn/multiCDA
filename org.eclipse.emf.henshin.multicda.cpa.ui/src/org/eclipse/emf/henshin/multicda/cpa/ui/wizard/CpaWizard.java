@@ -272,7 +272,7 @@ public class CpaWizard extends Wizard {
 								Rule r2s = (Rule) r2C.copy(r2);
 								r1C.copyReferences();
 								r2C.copyReferences();
-								
+
 								monitor.setTaskName(desc);
 								if (!ignoredRulePairs.containsKey(r1) && !ignoredRulePairs.containsKey(r2))
 									if (!(options.isIgnoreSameRules() && r1 == r2)) {
@@ -353,11 +353,11 @@ public class CpaWizard extends Wizard {
 //									other.removeAll(essential);
 							}
 						}
-						initialCpaResult = CPAUtility.persistCpaResult(initial, path);
+						initialCpaResult = CPAUtility.persistCpaResult(initial, path + "_CPA");
 						monitor.worked(initial.size());
-						essentialCpaResult = CPAUtility.persistCpaResult(essential, path);
+						essentialCpaResult = CPAUtility.persistCpaResult(essential, path + "_CPA");
 						monitor.worked(essential.size());
-						otherCpaResult = CPAUtility.persistCpaResult(other, path);
+						otherCpaResult = CPAUtility.persistCpaResult(other, path + "_CPA");
 					}
 					monitor.done();
 				}

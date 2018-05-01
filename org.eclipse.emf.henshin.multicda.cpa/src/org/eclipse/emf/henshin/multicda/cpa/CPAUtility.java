@@ -70,11 +70,6 @@ public class CPAUtility {
 	 */
 	public static HashMap<String, List<SpanNode>> persistCpaResult(List<CriticalPair> cpaResult, String path) {
 
-		Date timestamp = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd-HHmmss");
-		String timestampFolder = simpleDateFormat.format(timestamp);
-
-		String pathWithDateStamp = path + File.separator + timestampFolder;
 
 		HashMap<String, List<SpanNode>> persistedCPs = new HashMap<>();
 
@@ -105,7 +100,7 @@ public class CPAUtility {
 
 					// persist a single critical pair.
 					SpanNode newCriticalPairNode = persistSingleCriticalPair(cp, numberedNameOfCPKind,
-							pathWithDateStamp);
+							path);
 
 					persistedCPs.get(folderName).add(newCriticalPairNode);
 				}
