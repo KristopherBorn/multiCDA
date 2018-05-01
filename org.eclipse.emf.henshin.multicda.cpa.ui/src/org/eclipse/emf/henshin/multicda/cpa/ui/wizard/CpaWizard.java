@@ -12,6 +12,7 @@ package org.eclipse.emf.henshin.multicda.cpa.ui.wizard;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -334,9 +335,9 @@ public class CpaWizard extends Wizard {
 					persistedF = CpEditorUtil.persistCdaResult(cdaResultF, path);
 					monitor.worked(cdaResultF.size());
 					if (cpaResult != null) {
-						List<CriticalPair> essential = null;
-						List<CriticalPair> initial = null;
-						List<CriticalPair> other = null;
+						List<CriticalPair> essential = new ArrayList<>();
+						List<CriticalPair> initial = new ArrayList<>();
+						List<CriticalPair> other = new ArrayList<>();
 						if (cpaResult != null) {
 							if (options.initialCP)
 								initial = cpaResult.getInitialCriticalPairs();

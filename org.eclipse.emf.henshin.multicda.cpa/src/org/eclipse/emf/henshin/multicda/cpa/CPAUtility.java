@@ -222,6 +222,8 @@ public class CPAUtility {
 		String name2 = n2 != null ? n2.getName() : "";
 		EClassifier eo = (EClassifier) firstMatch.getNodeTarget(n);
 		EClassifier eo2 = (EClassifier) secondMatch.getNodeTarget(n2);
+		if(eo==null || eo2 == null)
+			return;
 
 		name = name + "_" + name2;
 

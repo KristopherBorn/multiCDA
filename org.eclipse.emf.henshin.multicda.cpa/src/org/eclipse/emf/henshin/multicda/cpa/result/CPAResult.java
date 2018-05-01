@@ -153,20 +153,23 @@ public class CPAResult implements Iterable<CriticalPair> {
 
 			EPackage overlap = (EPackage) pair.getMinimalModel();
 			int overlapSize = overlap.getEClassifiers().size();
-			int graph1Size = pair.getCriticalElements().get(0).elementInFirstRule.getGraph().getNodes().size();
-			int graph2Size = pair.getCriticalElements().get(0).elementInSecondRule.getGraph().getNodes().size();
-			Set<CriticalElement> criticalNodes = pair.getCriticalElements().stream()
-					.filter(c -> c.elementInFirstRule instanceof Node).collect(Collectors.toSet());
-			int criticalNodeCount = criticalNodes.size();
+			if(pair.getCriticalElements().get(0).elementInFirstRule != null && pair.getCriticalElements().get(0).elementInSecondRule != null) {
 
-			int isolatedBoundaryNodeCount = graph1Size + graph2Size - overlapSize - criticalNodeCount
-					- boundaryNodeCount;
-			if (isolatedBoundaryNodeCount == 0) {
-				result.add(pair);
-				toRemove.add(pair);
+				int graph1Size = pair.getCriticalElements().get(0).elementInFirstRule.getGraph().getNodes().size();
+				int graph2Size = pair.getCriticalElements().get(0).elementInSecondRule.getGraph().getNodes().size();
+				Set<CriticalElement> criticalNodes = pair.getCriticalElements().stream()
+						.filter(c -> c.elementInFirstRule instanceof Node).collect(Collectors.toSet());
+				int criticalNodeCount = criticalNodes.size();
+
+				int isolatedBoundaryNodeCount = graph1Size + graph2Size - overlapSize - criticalNodeCount
+						- boundaryNodeCount;
+				if (isolatedBoundaryNodeCount == 0) {
+					result.add(pair);
+					toRemove.add(pair);
+				}
+				if(removeFromEssential)
+					essentialCriticalPairs.removeAll(toRemove);
 			}
-			if(removeFromEssential)
-				essentialCriticalPairs.removeAll(toRemove);
 		}
 		return result;
 	}
