@@ -24,6 +24,8 @@ import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 import org.eclipse.emf.henshin.model.impl.RuleImpl;
 import org.eclipse.emf.henshin.multicda.cda.Pushout;
 import org.eclipse.emf.henshin.multicda.cda.Span;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteDeleteConflictReason;
+import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteReadConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 
 /**
@@ -84,7 +86,7 @@ public class DeleteUseConflictReasonComputation {
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(conflictRule2, pushout.getRule2Mappings())
 							.isEmpty()) {
-				DeleteUseConflictReason res = new DeleteUseConflictReason(conflictReason);
+				DeleteUseConflictReason res = new DeleteReadConflictReason(conflictReason);
 				result.add(res);
 			}
 		} else {
@@ -130,8 +132,7 @@ public class DeleteUseConflictReasonComputation {
 					Pushout po = new Pushout(r1, l1Sl2, r2);
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings()).isEmpty()) {
-						DeleteUseConflictReason res = new DeleteUseConflictReason(sp1);
-						res.setSpan2(sp2);
+						DeleteUseConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
 						result.add(res);
 					}
 				}
