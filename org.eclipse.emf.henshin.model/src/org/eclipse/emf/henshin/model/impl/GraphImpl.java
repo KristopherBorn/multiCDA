@@ -639,5 +639,15 @@ public class GraphImpl extends NamedElementImpl implements Graph {
 	public String toString() {
 		return "Graph " + name;
 	}
+	
+	 @Override
+	  public int hashCode() {
+	    int result = 0;
+	    for (Node n : getNodes())
+	      result += n.hashCode();
+	    for(Edge e : getEdges())
+	      result+= e.hashCode();
+	    return result;
+	  }
 
 } // GraphImpl

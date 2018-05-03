@@ -29,10 +29,9 @@ public class ConflictReason extends Span {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
-		// result = prime * result + getOuterType().hashCode(); //superfluous
-		result = prime * result + ((originMCRs == null) ? 0 : originMCRs.hashCode());
-		return result;
+	    int result = 53;
+	    result = prime * graph.hashCode() + result*(originMCRs==null?0:originMCRs.hashCode());
+	    return result;
 	}
 
 	/*

@@ -626,5 +626,12 @@ public class NodeImpl extends NamedElementImpl implements Node {
 		String typeName = (type != null) ? ":" + type.getName() : "";
 		return ("Node " + nodeName + typeName).trim();
 	}
+	
+	@Override
+	  public int hashCode() {
+	    if(getName()==null || getType() == null)
+	      return super.hashCode();
+	    return (getName() + ":" + getType().getName()).hashCode();
+	  }
 
 } // NodeImpl

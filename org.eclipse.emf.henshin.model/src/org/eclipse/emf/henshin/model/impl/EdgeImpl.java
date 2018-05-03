@@ -684,4 +684,11 @@ public class EdgeImpl extends ModelElementImpl implements Edge {
 		return "Edge " + edgeType + " " + srcName + " -> " + trgName;
 	}
 	
+	 @Override
+	  public int hashCode() {
+	    if (source == null || target == null)
+	      return super.hashCode();
+	    return source.hashCode() * 101 + target.hashCode() * 53;
+	  }
+	
 } //EdgeImpl
