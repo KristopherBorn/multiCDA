@@ -416,7 +416,7 @@ public class Span implements Comparable<Span> {
 			if (edge.getSource() == null || edge.getTarget() == null) {
 				result += super.hashCode();
 			} else {
-				result += edge.getSource().getName().hashCode() * 101 + edge.getTarget().getName().hashCode() * 53;
+				result += edge.getSource().getName().hashCode() * 101 + edge.getTarget().getName().hashCode() * 53 + edge.getType().getName().hashCode() * 37;
 			}
 		}
 		return result;

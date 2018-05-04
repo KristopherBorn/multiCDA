@@ -3,12 +3,22 @@
  */
 package org.eclipse.emf.henshin.multicda.cda.conflict;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.henshin.model.Edge;
+import org.eclipse.emf.henshin.model.Graph;
+import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 
 /**
  * @author vincentcuccu 23.02.2018
  */
 public abstract class DeleteUseConflictReason extends ConflictReason {
+
+	/**
+	 * 
+	 */
+	private static final String NODESEPARATOR = "_";
 
 	/**
 	 * @param s1

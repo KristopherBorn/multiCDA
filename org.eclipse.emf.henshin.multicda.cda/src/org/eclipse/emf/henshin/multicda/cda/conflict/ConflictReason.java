@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
@@ -16,24 +17,46 @@ import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 
 public class ConflictReason extends Span {
+	
+	/**
+	 * 
+	 */
+	private static final String NODESEPARATOR = "_";
 
 	Set<MinimalConflictReason> originMCRs;
 
 	protected Set<GraphElement> deletionElementsInRule1;
 
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see java.lang.Object#hashCode()
-	// */
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 53;
-	// result = prime * graph.hashCode() +
-	// result*(originMCRs==null?0:originMCRs.hashCode());
-	// return result;
-	// }
+	@Override
+	public int hashCode() {
+		int result = 0;
+		Graph graph = this.getGraph();
+		EList<Node> nodes = graph.getNodes();
+		EList<Edge> edges = graph.getEdges();
+
+		for (Node node : nodes) {
+			String name = node.getName();
+			EClass type = node.getType();
+			if (name == null || type == null) {
+				result += super.hashCode();
+			} else {
+				String[] split = name.split(NODESEPARATOR);
+				name = split[0] + "&&" + NODESEPARATOR + split[1];
+				String name2 = type.getName();
+				result += (name + ":" + name2).hashCode() * 13;
+			}
+		}
+
+		for (Edge edge : edges) {
+			if (edge.getSource() == null || edge.getTarget() == null) {
+				result += super.hashCode();
+			} else {
+				result += edge.getSource().getName().hashCode() * 101 + edge.getTarget().getName().hashCode() * 53
+						+ edge.getType().getName().hashCode() * 37;
+			}
+		}
+		return result;
+	}
 
 	/*
 	 * (non-Javadoc)

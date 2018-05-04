@@ -12,12 +12,15 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 public class DeleteDeleteConflictReason extends DeleteUseConflictReason{
 
 	private Span span2;
+	private Span span1;
 
 	/**
 	 * @param s1
+	 * @param s2 
 	 */
 	public DeleteDeleteConflictReason(Span s1, Span s2) {
 		super(s1);
+		span1 = s1;
 		this.span2 = s2;
 	}
 	
@@ -33,10 +36,7 @@ public class DeleteDeleteConflictReason extends DeleteUseConflictReason{
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-	    int result = 53;
-	    result = prime * graph.hashCode() + result*(originMCRs==null?0:originMCRs.hashCode()) + span2.getGraph().hashCode();
-	    return result;
+		return span1.hashCode() * 11 + span2.hashCode() * 37;
 	}
 
 }
