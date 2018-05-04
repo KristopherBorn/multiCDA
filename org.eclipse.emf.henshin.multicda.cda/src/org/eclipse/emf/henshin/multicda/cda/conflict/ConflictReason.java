@@ -21,18 +21,19 @@ public class ConflictReason extends Span {
 
 	protected Set<GraphElement> deletionElementsInRule1;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-	    int result = 53;
-	    result = prime * graph.hashCode() + result*(originMCRs==null?0:originMCRs.hashCode());
-	    return result;
-	}
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see java.lang.Object#hashCode()
+	// */
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 53;
+	// result = prime * graph.hashCode() +
+	// result*(originMCRs==null?0:originMCRs.hashCode());
+	// return result;
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -111,18 +112,18 @@ public class ConflictReason extends Span {
 			Node sourceNodeInR1 = mappingOfSourceInR1.getImage();
 			Mapping mappingOfTargetInR1 = getMappingIntoRule(mappingsOfSpanInRule1, targetNodeInS);
 			Node targetNodeInR1 = mappingOfTargetInR1.getImage();
-			Edge associatedEdgeInR1 = sourceNodeInR1.getOutgoing(egdeInS.getType(), targetNodeInR1); 
-																										// Vorsicht!
-																										// hier
-																										// kann
-																										// auch
-																										// null
-																										// rauskommen,
-																										// wenn
-																										// es
-																										// ein
-																										// bug
-																										// ist!
+			Edge associatedEdgeInR1 = sourceNodeInR1.getOutgoing(egdeInS.getType(), targetNodeInR1);
+			// Vorsicht!
+			// hier
+			// kann
+			// auch
+			// null
+			// rauskommen,
+			// wenn
+			// es
+			// ein
+			// bug
+			// ist!
 			if (associatedEdgeInR1 != null && associatedEdgeInR1.getAction().getType().equals(Action.Type.DELETE))
 				deletionElements.add(associatedEdgeInR1);
 		}
@@ -141,7 +142,6 @@ public class ConflictReason extends Span {
 		return getDeletionElementsOfSpan(minimalConflictReason.getMappingsInRule1(), minimalConflictReason.getGraph(),
 				minimalConflictReason.getMappingsInRule2());
 	}
-
 
 	public Set<ConflictAtom> getCoveredEdgeConflictAtoms() {
 		Set<ConflictAtom> edgeConflictAtoms = new HashSet<ConflictAtom>();
@@ -167,7 +167,7 @@ public class ConflictReason extends Span {
 			Set<Node> usedR2 = getUsedNodesOfR2();
 
 			EList<Node> nodesOfUncoveredCA = uncoveredCA.getGraph().getNodes();
-			if(nodesOfUncoveredCA.size()<=1)
+			if (nodesOfUncoveredCA.size() <= 1)
 				return result;
 			Node node1 = nodesOfUncoveredCA.get(0);
 			Node node2 = nodesOfUncoveredCA.get(1);
@@ -203,11 +203,13 @@ public class ConflictReason extends Span {
 			Node potentialUseN2R2, Set<EssentialConflictReason> result) {
 		boolean stop = checkStoppingCriterion(uncoveredCA, potentialUseN2R2);
 		if (!stop) {
-			EssentialConflictReason extendedCR = new EssentialConflictReason(original, node2, potentialUseN2R2, uncoveredCA);
+			EssentialConflictReason extendedCR = new EssentialConflictReason(original, node2, potentialUseN2R2,
+					uncoveredCA);
 			result.add(extendedCR);
 			Set<ConflictAtom> remainingUncoveredCAs = new HashSet<ConflictAtom>(byInitialReasonUncoveredConflictAtoms);
 			remainingUncoveredCAs.remove(uncoveredCA);
-			Set<EssentialConflictReason> recursivelyDerivedCRs = extendedCR.getAllDerivedConflictReasons(remainingUncoveredCAs);
+			Set<EssentialConflictReason> recursivelyDerivedCRs = extendedCR
+					.getAllDerivedConflictReasons(remainingUncoveredCAs);
 			result.addAll(recursivelyDerivedCRs);
 			return extendedCR;
 		} else
@@ -228,8 +230,7 @@ public class ConflictReason extends Span {
 			Set<Node> usedR1ExtendedCR = extendedCR.getUsedNodesOfR1();
 			Set<Node> usedR2ExtendedCR = extendedCR.getUsedNodesOfR2();
 			for (Node potentialUseN2N2 : potentialUsesN2R2) {
-				boolean usedInR1 = usedR1ExtendedCR
-						.contains(uncoveredCA.getMappingIntoRule1(node2).getImage());
+				boolean usedInR1 = usedR1ExtendedCR.contains(uncoveredCA.getMappingIntoRule1(node2).getImage());
 				boolean usedInR2 = usedR2ExtendedCR.contains(potentialUseN2N2);
 				if (!usedInR1 && !usedInR2) {
 					boolean node1MatchedOnCAOrigin = uncoveredCA.getMappingIntoRule2(node1)
@@ -277,7 +278,8 @@ public class ConflictReason extends Span {
 		boolean secondUncoveredCANodeIsAlreadyPresent = false;
 
 		if (this instanceof EssentialConflictReason) {
-			Set<Node> lhsNodesOfR2UsedByAdditionalCAs = ((EssentialConflictReason) this).getLhsNodesOfR2UsedByAdditionalCAs();
+			Set<Node> lhsNodesOfR2UsedByAdditionalCAs = ((EssentialConflictReason) this)
+					.getLhsNodesOfR2UsedByAdditionalCAs();
 			if (lhsNodesOfR2UsedByAdditionalCAs.contains(potentialUseInR2))
 				potentialUseNodeCompletesContainedBA = true;
 

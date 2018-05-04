@@ -19,12 +19,15 @@ import org.eclipse.emf.henshin.multicda.cda.conflict.DeleteUseConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 import org.eclipse.emf.henshin.preprocessing.NonDeletingPreparator;
 
+/**
+ * @author vincentcuccu
+ * 03.05.2018
+ */
 public class ConflictAnalysis implements MultiGranularAnalysis {
 
 	private Rule rule1;
 	private Rule rule2NonDelete;
-	private Rule rule1NonDelete;
-	private ConflictReasonComputation conflictHelper;
+	private ConflictAnalysis conflictHelper;
 	private Set<Span> conflictReasonsFromR2 = new HashSet<Span>();
 	private Rule rule2;
 	
@@ -39,7 +42,6 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		checkUnnamedNodes(rule1);
 		checkUnnamedNodes(rule2);
 		this.rule1 = rule1;
-		this.rule1NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule1);
 		this.rule2 = rule2;
 		this.rule2NonDelete = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(rule2);
 
@@ -59,7 +61,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 			newName = preset + counter;
 			if (name == null) {
 				for (Node rhsNode : rhs.getNodes()) {
-						lhsNode.setName(newName);
+						rhsNode.setName(newName);
 					}
 			}
 			counter += 1;
@@ -101,13 +103,17 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	public Set<Span> computeResultsFine() {
 		Set<Span> results = new HashSet<Span>();
 		Set<Span> conflictReasons = new HashSet<Span>();
-		conflictHelper = new ConflictReasonComputation(rule2, rule1NonDelete);
+		conflictHelper = new ConflictAnalysis(rule2, rule1);
 		conflictHelper.computeConflictReasons().forEach(r -> conflictReasonsFromR2.add(r));
 		computeConflictReasons().forEach(r -> conflictReasons.add(r));
 		computeDeleteUseConflictReasons(conflictReasons).forEach(r -> results.add(r));
 		return results;
 	}
 
+	/**
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public ConflictAtom hasConflicts() {
 		List<ConflictAtom> cas = computeConflictAtoms(true);
 		if (cas.isEmpty())
@@ -116,6 +122,11 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 			return cas.get(0);
 	}
 
+	/**
+	 * @param earlyExit
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public List<ConflictAtom> computeConflictAtoms(boolean... earlyExit) {
 		List<ConflictAtom> result = new LinkedList<ConflictAtom>();
 		List<Span> candidates = new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
@@ -135,22 +146,44 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return result;
 	}
 
+	/**
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public List<Span> computeConflictAtomCandidates() {
 		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 	}
 
+	/**
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public Set<MinimalConflictReason> computeMinimalConflictReasons() {
 		return new MinimalReasonComputation(rule1, rule2NonDelete).computeMinimalConflictReasons();
 	}
 
+	/**
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public Set<ConflictReason> computeConflictReasons() {
 		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons();
 	}
 
+	/**
+	 * @param minimalConflictReasons
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
 		return new ConflictReasonComputation(rule1, rule2NonDelete).computeConflictReasons(minimalConflictReasons);
 	}
 
+	/**
+	 * @param rule
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public boolean isRuleSupported(Rule rule) {
 		if (rule.getMultiRules().size() > 0) {
 			if (rule.getLhs().getNACs().size() > 0)
@@ -161,27 +194,58 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 		return true;
 	}
 
+	/**
+	 * @param o
+	 * @throws IllegalArgumentException
+	 */
 	public static void checkNull(Object o) throws IllegalArgumentException {
 		checkNull(o, "object");
 	}
 
+	/**
+	 * @param o
+	 * @param name
+	 * @throws IllegalArgumentException
+	 */
 	public static void checkNull(Object o, String name) throws IllegalArgumentException {
 		if (null == o)
 			throw new IllegalArgumentException(name + " must not be null");
 	}
 
+	/**
+	 * @param nodeInRule1Mapping
+	 * @param s1
+	 * @param nodeInRule2Mapping
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public Span newSpan(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
 		return new Span(nodeInRule1Mapping, s1, nodeInRule2Mapping);
 	}
 
+	/**
+	 * @param rule1Mappings
+	 * @param s1
+	 * @param rule2Mappings
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public Span newSpan(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
 		return new Span(rule1Mappings, s1, rule2Mappings);
 	}
 
+	/**
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public List<Span> getCandidates() {
 		return new AtomCandidateComputation(rule1, rule2NonDelete).computeAtomCandidates();
 	}
 
+	/**
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public Set<MinimalConflictReason> getMinimalConflictReasons() {
 		return null;
 	}

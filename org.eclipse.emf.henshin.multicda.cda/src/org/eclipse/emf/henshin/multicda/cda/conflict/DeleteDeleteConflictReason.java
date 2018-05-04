@@ -30,5 +30,13 @@ public class DeleteDeleteConflictReason extends DeleteUseConflictReason{
 					+ "( " + span2.getGraph().getEdges() + " |\t" + span2.getGraph().getNodes() + " )>");
 		}
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+	    int result = 53;
+	    result = prime * graph.hashCode() + result*(originMCRs==null?0:originMCRs.hashCode()) + span2.getGraph().hashCode();
+	    return result;
+	}
 
 }

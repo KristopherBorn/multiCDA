@@ -38,9 +38,6 @@ public class DeleteUseConflictReasonComputation {
 	private Rule rule1;
 	private Rule rule2;
 	private Set<Span> conflictReasonsFromR2;
-	private String notCompatibleException;
-	private Throwable notCompatible = new Throwable(notCompatibleException);
-	private NotCompatibleException compatibleException = new NotCompatibleException("Not compatible!", notCompatible);
 	private MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
 	private HenshinFactoryImpl helper = new HenshinFactoryImpl();
 
@@ -80,7 +77,7 @@ public class DeleteUseConflictReasonComputation {
 	private void computeDeleteUseConflictReasons(Span conflictReason, Set<DeleteUseConflictReason> result) {
 		Rule conflictRule2 = conflictReason.getRule2();
 
-		if (findEmbedding(conflictReason, rule2)) {
+		if (computeL1SL2Span(conflictReason, rule2)) {
 			Pushout pushout = new Pushout(rule1, conflictReason, conflictRule2);
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
 					&& helperForCheckDangling.findDanglingEdgesOfRule1(conflictRule2, pushout.getRule2Mappings())
@@ -104,7 +101,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param rule2
 	 * @return boolean
 	 */
-	public static boolean findEmbedding(Span conflictReason, Rule rule2) {
+	public static boolean computeL1SL2Span(Span conflictReason, Rule rule2) {
 		Graph s1 = conflictReason.getGraph();
 		Action preserve = new Action(Action.Type.PRESERVE);
 		EList<Node> l2N = rule2.getActionNodes(preserve);

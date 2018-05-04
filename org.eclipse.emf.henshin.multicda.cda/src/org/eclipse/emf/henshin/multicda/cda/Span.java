@@ -48,8 +48,9 @@ public class Span implements Comparable<Span> {
 
 	private Copier copierForSpanAndMappings;
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -68,13 +69,13 @@ public class Span implements Comparable<Span> {
 			sB.append(shortStringInfoOfGraphNode(node));
 			sB.append(", ");
 		}
-		//remove last superfluous appendency
+		// remove last superfluous appendency
 		if (sB.length() > 0)
 			sB.delete(sB.length() - 2, sB.length());
 		return "Span [" + sB.toString() + "]";
 	}
 
-	// e.g.  1,11->2,13:methods
+	// e.g. 1,11->2,13:methods
 	private Object shortStringInfoOfGraphEdge(Edge edge) {
 		StringBuilder sB = new StringBuilder();
 		Node src = edge.getSource();
@@ -104,7 +105,9 @@ public class Span implements Comparable<Span> {
 		return sB.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -150,7 +153,8 @@ public class Span implements Comparable<Span> {
 		if (!(edgesRule1.equals(edgesRule1Other) && edgesRule2.equals(edgesRule2Other)))
 			return false;
 
-		// Do both CRs map the span graph nodes to the same nodes in rules 1 and 2?
+		// Do both CRs map the span graph nodes to the same nodes in rules 1 and
+		// 2?
 		Map<Node, Node> paired = getPairedNodes(this, spanMap);
 		Map<Node, Node> pairedOther = getPairedNodes(other, spanMapOther);
 		for (Node e1 : paired.keySet()) {
@@ -200,7 +204,8 @@ public class Span implements Comparable<Span> {
 	}
 
 	/**
-	 * returns the kernel rule of the first mapping or <code>null</code> if the set <code>mappings</code> is empty.
+	 * returns the kernel rule of the first mapping or <code>null</code> if the
+	 * set <code>mappings</code> is empty.
 	 * 
 	 * @param mappings
 	 * @return a <code>Rule</code> or null.
@@ -215,10 +220,16 @@ public class Span implements Comparable<Span> {
 	}
 
 	public Span(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
-		this.mappingsInRule1 = rule1Mappings; //wie verh�lt es sich mit einem leeren Graph, bzw. leeren mappngs?
+		this.mappingsInRule1 = rule1Mappings; // wie verh�lt es sich mit einem
+												// leeren Graph, bzw. leeren
+												// mappngs?
 		this.mappingsInRule2 = rule2Mappings;
 		this.graph = s1;
-		this.setRule1(getRuleOfMappings(rule1Mappings)); // might return null. Needs to be improved. if rules are not set NPE might occure. 
+		this.setRule1(getRuleOfMappings(rule1Mappings)); // might return null.
+															// Needs to be
+															// improved. if
+															// rules are not set
+															// NPE might occure.
 		this.setRule2(getRuleOfMappings(rule2Mappings));
 	}
 
@@ -317,8 +328,8 @@ public class Span implements Comparable<Span> {
 		Set<String> added = new HashSet<String>();
 		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
 		result.setName(getRule1().getName() + "_" + getRule2().getName());
-		result.setNsURI(
-				"http://cdapackage/" + getRule1().getName() + "/" + getRule2().getName() + "/" + getClass().getSimpleName());
+		result.setNsURI("http://cdapackage/" + getRule1().getName() + "/" + getRule2().getName() + "/"
+				+ getClass().getSimpleName());
 		result.setNsPrefix("CDAPackage");
 		EList<EClassifier> classifiers = result.getEClassifiers();
 
@@ -375,14 +386,40 @@ public class Span implements Comparable<Span> {
 		this.rule2 = rule2;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
 	public int compareTo(Span o) {
-		if(o==null)
+		if (o == null)
 			return 1;
 		return o.toShortString().compareTo(toShortString());
+	}
+
+	public int hashCode() {
+		int result = 0;
+		Graph graph = this.getGraph();
+		EList<Node> nodes = graph.getNodes();
+		EList<Edge> edges = graph.getEdges();
+
+		for (Node node : nodes) {
+			if (node.getName() == null || node.getType() == null) {
+				result += super.hashCode();
+			} else {
+				result += (node.getName() + ":" + node.getType().getName()).hashCode() * 13;
+			}
+		}
+
+		for (Edge edge : edges) {
+			if (edge.getSource() == null || edge.getTarget() == null) {
+				result += super.hashCode();
+			} else {
+				result += edge.getSource().getName().hashCode() * 101 + edge.getTarget().getName().hashCode() * 53;
+			}
+		}
+		return result;
 	}
 
 }

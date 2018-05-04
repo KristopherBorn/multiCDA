@@ -627,11 +627,11 @@ public class NodeImpl extends NamedElementImpl implements Node {
 		return ("Node " + nodeName + typeName).trim();
 	}
 	
-	@Override
-	  public int hashCode() {
-	    if(getName()==null || getType() == null)
-	      return super.hashCode();
-	    return (getName() + ":" + getType().getName()).hashCode();
-	  }
+//	@Override
+//	  public int hashCode() {
+//	    if(getName()==null || getType() == null)
+//	      return super.hashCode();
+//	    return (getName() + ":" + getType().getName()).hashCode();
+//	  }
 
 } // NodeImpl
