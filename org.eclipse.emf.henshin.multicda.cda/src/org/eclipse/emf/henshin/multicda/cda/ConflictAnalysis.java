@@ -50,7 +50,7 @@ public class ConflictAnalysis implements MultiGranularAnalysis {
 	/**
 	 * @param rule
 	 */
-	private void checkUnnamedNodes(Rule rule) {
+	public static void checkUnnamedNodes(Rule rule) {
 		int counter = 0;
 		Graph lhs = rule.getLhs();
 		Graph rhs = rule.getRhs();

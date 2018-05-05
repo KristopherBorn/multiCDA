@@ -438,7 +438,7 @@ public class DeleteUseConflictReasonComputation {
 		EList<Node> s2Nodes = sp2.getGraph().getNodes();
 		if (s1Nodes.contains(x)) {
 			for (Node y : s2Nodes) {
-				int result = checkEqualityR1(x, y, sp1, sp2);
+				int result = checkEquality(x, y, sp1, sp2);
 				if (result == 2) {
 					return y;
 				} else if (result == 1)
@@ -457,7 +457,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp2
 	 * @return
 	 */
-	private int checkEqualityR1(Node x, Node y, Span sp1, Span sp2) {
+	private int checkEquality(Node x, Node y, Span sp1, Span sp2) {
 		Mapping s11 = getMappingInRule(x, sp1.mappingsInRule1);
 		Mapping s21 = getMappingInRule(y, sp2.mappingsInRule2);
 

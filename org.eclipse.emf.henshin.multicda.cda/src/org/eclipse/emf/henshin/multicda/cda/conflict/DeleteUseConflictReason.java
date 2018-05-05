@@ -16,11 +16,6 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 public abstract class DeleteUseConflictReason extends ConflictReason {
 
 	/**
-	 * 
-	 */
-	private static final String NODESEPARATOR = "_";
-
-	/**
 	 * @param s1
 	 */
 	public DeleteUseConflictReason(Span s1) {

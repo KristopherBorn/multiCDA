@@ -16,12 +16,15 @@ import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
-import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.multicda.cda.conflict.ConflictReason;
 import org.eclipse.emf.henshin.multicda.cda.conflict.MinimalConflictReason;
 
+/**
+ * @author 
+ * 05.05.2018
+ */
 public class ConflictReasonComputation {
 
 	static Action deleteAction = new Action(Action.Type.DELETE);
@@ -31,17 +34,31 @@ public class ConflictReasonComputation {
 	protected Rule rule1;
 	protected Rule rule2;
 
+	/**
+	 * @param rule1
+	 * @param rule2
+	 */
 	public ConflictReasonComputation(Rule rule1, Rule rule2) {
 		this.rule1 = rule1;
 		this.rule2 = rule2;
 	}
 	
 
+	/**
+	 * @return
+	 */
+	@SuppressWarnings("javadoc")
 	public Set<ConflictReason> computeConflictReasons() {
-		Set<MinimalConflictReason> minimalReaasons = new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
-		return computeConflictReasons(minimalReaasons); 
+		Set<MinimalConflictReason> minimalReasons = new MinimalReasonComputation(rule1, rule2).computeMinimalConflictReasons();
+		return computeConflictReasons(minimalReasons); 
 	}
 
+	/**
+	 * @param minimalConflictReasons
+	 * @return
+	 * 
+	 */
+	@SuppressWarnings("javadoc")
 	public Set<ConflictReason> computeConflictReasons(Set<MinimalConflictReason> minimalConflictReasons) {
 		Set<ConflictReason> result = new HashSet<ConflictReason>();
 		for (MinimalConflictReason mcr : minimalConflictReasons) {

@@ -21,6 +21,11 @@ import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
 public class Span implements Comparable<Span> {
+	
+	/**
+	 * 
+	 */
+	protected static final String NODESEPARATOR = "_";
 
 	HenshinFactory henshinFactory = HenshinFactory.eINSTANCE;
 
@@ -397,7 +402,7 @@ public class Span implements Comparable<Span> {
 			return 1;
 		return o.toShortString().compareTo(toShortString());
 	}
-
+	
 	public int hashCode() {
 		int result = 0;
 		Graph graph = this.getGraph();
@@ -405,19 +410,40 @@ public class Span implements Comparable<Span> {
 		EList<Edge> edges = graph.getEdges();
 
 		for (Node node : nodes) {
-			if (node.getName() == null || node.getType() == null) {
-				result += super.hashCode();
-			} else {
-				result += (node.getName() + ":" + node.getType().getName()).hashCode() * 13;
-			}
+			result += hashNode(node);
 		}
 
 		for (Edge edge : edges) {
-			if (edge.getSource() == null || edge.getTarget() == null) {
-				result += super.hashCode();
+			Node source = edge.getSource();
+			Node target = edge.getTarget();
+			String sName = source.getName();
+			String tName = target.getName();
+			if (source == null || target == null) {
+				result += 0;
 			} else {
-				result += edge.getSource().getName().hashCode() * 101 + edge.getTarget().getName().hashCode() * 53 + edge.getType().getName().hashCode() * 37;
+				result += hashNode(source) * 101 + hashNode(target) * 53
+						+ edge.getType().getName().hashCode() * 37;
 			}
+		}
+		return result;
+	}
+
+	/**
+	 * @param result
+	 * @param node
+	 * @return
+	 */
+	private int hashNode(Node node) {
+		String name = node.getName();
+		EClass type = node.getType();
+		int result = 0;
+		if (name == null || type == null) {
+			result  = 0;
+		} else {
+			String[] split = name.split(NODESEPARATOR);
+			name = split[0] + "&&" + NODESEPARATOR + split[1];
+			String name2 = type.getName();
+			result = (name + ":" + name2).hashCode() * 13;
 		}
 		return result;
 	}

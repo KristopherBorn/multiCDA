@@ -18,10 +18,6 @@ import org.eclipse.emf.henshin.multicda.cda.Span;
 
 public class ConflictReason extends Span {
 	
-	/**
-	 * 
-	 */
-	private static final String NODESEPARATOR = "_";
 
 	Set<MinimalConflictReason> originMCRs;
 
@@ -35,25 +31,36 @@ public class ConflictReason extends Span {
 		EList<Edge> edges = graph.getEdges();
 
 		for (Node node : nodes) {
-			String name = node.getName();
-			EClass type = node.getType();
-			if (name == null || type == null) {
-				result += super.hashCode();
-			} else {
-				String[] split = name.split(NODESEPARATOR);
-				name = split[0] + "&&" + NODESEPARATOR + split[1];
-				String name2 = type.getName();
-				result += (name + ":" + name2).hashCode() * 13;
-			}
+			result += hashNode(node);
 		}
 
 		for (Edge edge : edges) {
 			if (edge.getSource() == null || edge.getTarget() == null) {
-				result += super.hashCode();
+				result += 0;
 			} else {
-				result += edge.getSource().getName().hashCode() * 101 + edge.getTarget().getName().hashCode() * 53
+				result += hashNode(edge.getSource()) * 101 + hashNode(edge.getTarget()) * 53
 						+ edge.getType().getName().hashCode() * 37;
 			}
+		}
+		return result;
+	}
+
+	/**
+	 * @param result
+	 * @param node
+	 * @return
+	 */
+	private int hashNode(Node node) {
+		String name = node.getName();
+		EClass type = node.getType();
+		int result = 0;
+		if (name == null || type == null) {
+			result  = 0;
+		} else {
+			String[] split = name.split(NODESEPARATOR);
+			name = split[0] + "&&" + NODESEPARATOR + split[1];
+			String name2 = type.getName();
+			result = (name + ":" + name2).hashCode() * 13;
 		}
 		return result;
 	}
