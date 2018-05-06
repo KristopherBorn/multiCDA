@@ -129,7 +129,6 @@ public class DeleteUseConflictReasonComputation {
 					if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
 							&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings()).isEmpty()) {
 						DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
-						res.setSpan2(sp2);
 						result.add(res);
 					}
 				}

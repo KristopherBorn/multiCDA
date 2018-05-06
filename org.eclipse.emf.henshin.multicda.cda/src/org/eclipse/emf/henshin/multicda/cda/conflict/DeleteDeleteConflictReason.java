@@ -5,6 +5,7 @@ package org.eclipse.emf.henshin.multicda.cda.conflict;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.Node;
@@ -56,11 +57,23 @@ public class DeleteDeleteConflictReason extends DeleteUseConflictReason{
 		}
 
 		for (Edge edge : edges) {
-			if (edge.getSource() == null || edge.getTarget() == null) {
+			Node source = edge.getSource();
+			Node target = edge.getTarget();
+			String sName = source.getName();
+			String tName = target.getName();
+			EReference type = edge.getType();
+			if (type == null)
 				result += 0;
-			} else {
-				result += hashNode2(edge.getSource()) * 101 + hashNode2(edge.getTarget()) * 53
-						+ edge.getType().getName().hashCode() * 37;
+			else {
+				String typeName = type.getName();
+				if (source == null || target == null)
+					result += 0;
+				else if (sName == null || tName == null)
+					result += 0;
+				else if (typeName == null)
+					result += hashNode2(source) * 101 + hashNode2(target) * 53 + "Unnamed".hashCode() * 37;
+				else result += hashNode2(source) * 101 + hashNode2(target) * 53 + typeName.hashCode() * 37;
+				
 			}
 		}
 		return result;
