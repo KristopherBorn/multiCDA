@@ -19,9 +19,10 @@ import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 
 public class Span implements Comparable<Span> {
-	
+
 	/**
 	 * 
 	 */
@@ -402,7 +403,7 @@ public class Span implements Comparable<Span> {
 			return 1;
 		return o.toShortString().compareTo(toShortString());
 	}
-	
+
 	public int hashCode() {
 		int result = 0;
 		Graph graph = this.getGraph();
@@ -418,13 +419,22 @@ public class Span implements Comparable<Span> {
 			Node target = edge.getTarget();
 			String sName = source.getName();
 			String tName = target.getName();
-			if (source == null || target == null) {
+			EReference type = edge.getType();
+			if (type == null)
 				result += 0;
-			} else {
-				result += hashNode(source) * 101 + hashNode(target) * 53
-						+ edge.getType().getName().hashCode() * 37;
+			else {
+				String typeName = type.getName();
+				if (source == null || target == null)
+					result += 0;
+				else if (sName == null || tName == null)
+					result += 0;
+				else if (typeName == null)
+					result += hashNode(source) * 101 + hashNode(target) * 53 + "Unnamed".hashCode() * 37;
+				else result += hashNode(source) * 101 + hashNode(target) * 53 + typeName.hashCode() * 37;
+				
 			}
 		}
+
 		return result;
 	}
 
@@ -438,7 +448,7 @@ public class Span implements Comparable<Span> {
 		EClass type = node.getType();
 		int result = 0;
 		if (name == null || type == null) {
-			result  = 0;
+			result = 0;
 		} else {
 			String[] split = name.split(NODESEPARATOR);
 			name = split[0] + "&&" + NODESEPARATOR + split[1];

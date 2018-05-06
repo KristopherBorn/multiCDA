@@ -6,64 +6,20 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.Graph;
 import org.eclipse.emf.henshin.model.GraphElement;
 import org.eclipse.emf.henshin.model.Mapping;
-import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.multicda.cda.Span;
 
+@SuppressWarnings("javadoc")
 public class ConflictReason extends Span {
-	
 
 	Set<MinimalConflictReason> originMCRs;
 
 	protected Set<GraphElement> deletionElementsInRule1;
-
-	@Override
-	public int hashCode() {
-		int result = 0;
-		Graph graph = this.getGraph();
-		EList<Node> nodes = graph.getNodes();
-		EList<Edge> edges = graph.getEdges();
-
-		for (Node node : nodes) {
-			result += hashNode(node);
-		}
-
-		for (Edge edge : edges) {
-			if (edge.getSource() == null || edge.getTarget() == null) {
-				result += 0;
-			} else {
-				result += hashNode(edge.getSource()) * 101 + hashNode(edge.getTarget()) * 53
-						+ edge.getType().getName().hashCode() * 37;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * @param result
-	 * @param node
-	 * @return
-	 */
-	private int hashNode(Node node) {
-		String name = node.getName();
-		EClass type = node.getType();
-		int result = 0;
-		if (name == null || type == null) {
-			result  = 0;
-		} else {
-			String[] split = name.split(NODESEPARATOR);
-			name = split[0] + "&&" + NODESEPARATOR + split[1];
-			String name2 = type.getName();
-			result = (name + ":" + name2).hashCode() * 13;
-		}
-		return result;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -106,6 +62,9 @@ public class ConflictReason extends Span {
 		return deletionElementsInRule1;
 	}
 
+	/**
+	 * @param minimalConflictReason
+	 */
 	public ConflictReason(Span minimalConflictReason) {
 		super(minimalConflictReason);
 		if (minimalConflictReason instanceof MinimalConflictReason) {
@@ -120,6 +79,12 @@ public class ConflictReason extends Span {
 
 	}
 
+	/**
+	 * @param mappingsOfNewSpanInRule1
+	 * @param graph1Copy
+	 * @param mappingsOfNewSpanInRule2
+	 * @param originMCRs
+	 */
 	public ConflictReason(Set<Mapping> mappingsOfNewSpanInRule1, Graph graph1Copy,
 			Set<Mapping> mappingsOfNewSpanInRule2, Set<MinimalConflictReason> originMCRs) {
 		super(mappingsOfNewSpanInRule1, graph1Copy, mappingsOfNewSpanInRule2);
@@ -173,6 +138,9 @@ public class ConflictReason extends Span {
 				minimalConflictReason.getMappingsInRule2());
 	}
 
+	/**
+	 * @return
+	 */
 	public Set<ConflictAtom> getCoveredEdgeConflictAtoms() {
 		Set<ConflictAtom> edgeConflictAtoms = new HashSet<ConflictAtom>();
 		for (MinimalConflictReason mcr : originMCRs) {
@@ -185,6 +153,10 @@ public class ConflictReason extends Span {
 		return edgeConflictAtoms;
 	}
 
+	/**
+	 * @param uncoveredConflictAtoms
+	 * @return
+	 */
 	public Set<EssentialConflictReason> getAllDerivedConflictReasons(Set<ConflictAtom> uncoveredConflictAtoms) {
 		Set<EssentialConflictReason> result = new HashSet<EssentialConflictReason>();
 		if (!(this instanceof EssentialConflictReason)) {// this.toShortString()
