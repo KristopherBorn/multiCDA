@@ -3,6 +3,7 @@
  */
 package org.eclipse.emf.henshin.multicda.cda.computation;
 
+import java.security.cert.CertPathValidatorException.Reason;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -86,7 +87,7 @@ public class DeleteUseConflictReasonComputation {
 				result.add(res);
 			}
 		} else {
-			Set<DeleteDeleteConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
+			Set<DeleteUseConflictReason> ddset = ConstructDeleteDeleteSet(rule1, rule2, conflictReason);
 			if (!ddset.isEmpty()) {
 				ddset.forEach(s -> result.add(s));
 			}
@@ -117,19 +118,27 @@ public class DeleteUseConflictReasonComputation {
 	 * @param sp1
 	 * @return
 	 */
-	private Set<DeleteDeleteConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
-		Set<DeleteDeleteConflictReason> result = new HashSet<>();
+	private Set<DeleteUseConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
+		Set<DeleteUseConflictReason> result = new HashSet<>();
 		for (Span sp2 : conflictReasonsFromR2) {
-			Span s = compatibleSpans(sp1, sp2);
-			if (s != null) {
-				if (!isEmpty(s.getGraph())) {
-					Pushout pushout = new Pushout(s.getRule1(), s, s.getRule2());
-					Span l1Sl2 = computeL1SL2Span(r1, pushout, r2, s, sp1, sp2);
-					Pushout po = new Pushout(r1, l1Sl2, r2);
-					if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
-							&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings()).isEmpty()) {
-						DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
-						result.add(res);
+			boolean sp2DRCR = computeL1SL2Span(sp2, r1);
+			if (sp2DRCR) {
+//				 DeleteReadConflictReason deleteReadConflictReason = new
+//				 DeleteReadConflictReason(sp2); //TODO Das hier unkommentieren und man hat sogar die Rückrichtung
+//				 result.add(deleteReadConflictReason);
+			} else {
+				Span s = compatibleSpans(sp1, sp2);
+				if (s != null) {
+					if (!isEmpty(s.getGraph())) {
+						Pushout pushout = new Pushout(s.getRule1(), s, s.getRule2());
+						Span l1Sl2 = computeL1SL2Span(r1, pushout, r2, s, sp1, sp2);
+						Pushout po = new Pushout(r1, l1Sl2, r2);
+						if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
+								&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings())
+										.isEmpty()) {
+							DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
+							result.add(res);
+						}
 					}
 				}
 			}
@@ -398,7 +407,8 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private Span compatibleElements(Span sp1, Span sp2) {
-		Graph compatibleGraph = helper.createGraph();
+		HenshinFactoryImpl factory = new HenshinFactoryImpl();
+		Graph compatibleGraph = factory.createGraph();
 		EList<Node> s1Nodes = sp1.getGraph().getNodes();
 		Set<Mapping> mappingsIntoSpan1 = new HashSet<Mapping>();
 		Set<Mapping> mappingsIntoSpan2 = new HashSet<Mapping>();
@@ -410,9 +420,9 @@ public class DeleteUseConflictReasonComputation {
 					Node xNode = (Node) x;
 					Node yNode = (Node) y;
 					String newName = xNode.getName() + INTERSECTIONSEPERATOR + yNode.getName();
-					Node newNode = helper.createNode(compatibleGraph, xType, newName);
-					Mapping createMapping = helper.createMapping(newNode, xNode);
-					Mapping createMapping2 = helper.createMapping(newNode, yNode);
+					Node newNode = factory.createNode(compatibleGraph, xType, newName);
+					Mapping createMapping = factory.createMapping(newNode, xNode);
+					Mapping createMapping2 = factory.createMapping(newNode, yNode);
 					mappingsIntoSpan1.add(createMapping);
 					mappingsIntoSpan2.add(createMapping2);
 				}
@@ -426,10 +436,15 @@ public class DeleteUseConflictReasonComputation {
 
 	/**
 	 * @param x
+	 * 
 	 * @param sp1
+	 * 
 	 * @param sp2
+	 * 
 	 * @param conflictReason2
+	 * 
 	 * @return
+	 * 
 	 * @throws Exception
 	 */
 	private GraphElement existCompatibleElement(Node x, Span sp1, Span sp2) throws NotCompatibleException {
