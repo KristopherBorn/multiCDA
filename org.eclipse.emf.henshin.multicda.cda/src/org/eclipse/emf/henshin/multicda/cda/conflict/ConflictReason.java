@@ -254,10 +254,10 @@ public class ConflictReason extends Span {
 
 	protected Set<Node> getUsedNodesOfR1() {
 		Set<Node> usedNodesOfR1 = new HashSet<Node>();
-		if (graph.getNodes().size() != mappingsInRule1.size()) {
+		if (getGraph().getNodes().size() != getMappingsInRule1().size()) {
 			System.err.println("Error!");
 		}
-		for (Mapping mappingInRule1 : mappingsInRule1) {
+		for (Mapping mappingInRule1 : getMappingsInRule1()) {
 			usedNodesOfR1.add(mappingInRule1.getImage());
 		}
 		return usedNodesOfR1;
@@ -265,10 +265,10 @@ public class ConflictReason extends Span {
 
 	protected Set<Node> getUsedNodesOfR2() {
 		Set<Node> usedNodesOfR2 = new HashSet<Node>();
-		if (graph.getNodes().size() != mappingsInRule2.size()) {
+		if (getGraph().getNodes().size() != getMappingsInRule2().size()) {
 			System.err.println("Error!");
 		}
-		for (Mapping mappingInRule2 : mappingsInRule2) {
+		for (Mapping mappingInRule2 : getMappingsInRule2()) {
 			usedNodesOfR2.add(mappingInRule2.getImage());
 		}
 		return usedNodesOfR2;
@@ -295,7 +295,7 @@ public class ConflictReason extends Span {
 
 	private Set<Node> getAllUseNodesOfR2() {
 		Set<Node> allUseNodesOfLhsOfR2 = new HashSet<Node>();
-		for (Mapping mappingInRule2 : mappingsInRule2) {
+		for (Mapping mappingInRule2 : getMappingsInRule2()) {
 			allUseNodesOfLhsOfR2.add(mappingInRule2.getImage());
 		}
 		return allUseNodesOfLhsOfR2;

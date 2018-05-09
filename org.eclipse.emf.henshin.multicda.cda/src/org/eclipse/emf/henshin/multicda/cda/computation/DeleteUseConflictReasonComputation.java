@@ -457,11 +457,11 @@ public class DeleteUseConflictReasonComputation {
 	 * @return
 	 */
 	private int checkEquality(Node x, Node y, Span sp1, Span sp2) {
-		Mapping s11 = getMappingInRule(x, sp1.mappingsInRule1);
-		Mapping s21 = getMappingInRule(y, sp2.mappingsInRule2);
+		Mapping s11 = getMappingInRule(x, sp1.getMappingsInRule1());
+		Mapping s21 = getMappingInRule(y, sp2.getMappingsInRule2());
 
-		Mapping s12 = getMappingInRule(x, sp1.mappingsInRule2);
-		Mapping s22 = getMappingInRule(y, sp2.mappingsInRule1);
+		Mapping s12 = getMappingInRule(x, sp1.getMappingsInRule2());
+		Mapping s22 = getMappingInRule(y, sp2.getMappingsInRule1());
 
 		if (s11 != null && s21 != null && s12 != null && s22 != null) {
 			boolean b1 = s11.getImage().getName().equals(s21.getImage().getName())

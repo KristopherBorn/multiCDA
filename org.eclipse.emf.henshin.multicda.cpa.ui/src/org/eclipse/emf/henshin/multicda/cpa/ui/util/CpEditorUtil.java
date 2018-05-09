@@ -123,7 +123,7 @@ public class CpEditorUtil {
 					// save a dummy for the HenshinCPEditor
 					String fileName = "dummy.henshinCp";
 					String fullPath = pathForCurrentCriticalPair + fileName;
-					URI criticalPairURI = saveRuleInFileSystem(commonResourceSet, reason.graph, fullPath);
+					URI criticalPairURI = saveRuleInFileSystem(commonResourceSet, reason.getGraph(), fullPath);
 
 					// save the minimal model in the file system
 					String fileNameMinimalModel = "minimal-model" + ".ecore";
@@ -277,7 +277,7 @@ public class CpEditorUtil {
 		FileEditorInput firstRuleFileEditorInput = new FileEditorInput(iFile0[0]);
 		boolean firstRuleFileEditorInputExists = firstRuleFileEditorInput.exists();
 		/*
-		 * Ansatz für Feedback an Nutzer, dass eines der zugehörigen files nciht geladen werden konnte: (stammt aus
+		 * Ansatz fï¿½r Feedback an Nutzer, dass eines der zugehï¿½rigen files nciht geladen werden konnte: (stammt aus
 		 * HenshinateHenshinFileHandler)
 		 * 
 		 * 

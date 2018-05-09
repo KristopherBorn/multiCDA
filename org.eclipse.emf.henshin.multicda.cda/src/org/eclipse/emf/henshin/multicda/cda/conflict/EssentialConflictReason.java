@@ -35,12 +35,12 @@ public class EssentialConflictReason extends ConflictReason {
 		
 		// - hinzufuegen des use-nodes zum graph
 		String nameOfNewBoundaryNode = boundaryNodeOfRule1.getName()+"_"+usedNodeInLhsOfR2.getName();
-		Node newBoundaryNodeInSpan = henshinFactory.createNode(graph, boundaryNodeOfCA.getType(), nameOfNewBoundaryNode);
+		Node newBoundaryNodeInSpan = henshinFactory.createNode(getGraph(), boundaryNodeOfCA.getType(), nameOfNewBoundaryNode);
 		// - mapping erstellen
 		Mapping mappingInR1 = henshinFactory.createMapping(newBoundaryNodeInSpan, boundaryNodeOfRule1);
-		mappingsInRule1.add(mappingInR1);
+		getMappingsInRule1().add(mappingInR1);
 		Mapping mappingInR2 = henshinFactory.createMapping(newBoundaryNodeInSpan, usedNodeInLhsOfR2);
-		mappingsInRule2.add(mappingInR2);
+		getMappingsInRule2().add(mappingInR2);
 		// ggf. pruefen, dass es keine zu loeschende Kante gibt und somit kein vollstaendiges atom ist 
 		// 		(das waere schon durch die initialReason abgedeckt!!) 
 		
@@ -77,7 +77,7 @@ public class EssentialConflictReason extends ConflictReason {
 
 	public Set<Node> getUsedLhsNodesOfR2() {
 		Set<Node> result = new HashSet<Node>();
-		for(Mapping map : mappingsInRule2){
+		for(Mapping map : getMappingsInRule2()){
 			result.add(map.getImage());
 		}
 		return result;

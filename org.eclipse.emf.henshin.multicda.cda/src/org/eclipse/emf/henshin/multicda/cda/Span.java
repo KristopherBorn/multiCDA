@@ -19,8 +19,11 @@ import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Mapping;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
-import org.eclipse.emf.henshin.model.impl.HenshinFactoryImpl;
 
+/**
+ * @author 
+ * 
+ */
 public class Span implements Comparable<Span> {
 
 	/**
@@ -33,10 +36,10 @@ public class Span implements Comparable<Span> {
 	private Rule rule1;
 	private Rule rule2;
 
-	public Set<Mapping> mappingsInRule1;
-	public Set<Mapping> mappingsInRule2;
+	private Set<Mapping> mappingsInRule1;
+	private Set<Mapping> mappingsInRule2;
 
-	public Graph graph;
+	private Graph graph;
 
 	/**
 	 * @return the rule1
@@ -61,17 +64,17 @@ public class Span implements Comparable<Span> {
 	 */
 	@Override
 	public String toString() {
-		return "Span [mappingsInRule1=" + mappingsInRule1 + ", mappingsInRule2=" + mappingsInRule2 + ", graph: "
-				+ graph.getNodes().size() + " Nodes, " + graph.getEdges().size() + " Edges" + "]";
+		return "Span [mappingsInRule1=" + getMappingsInRule1() + ", mappingsInRule2=" + getMappingsInRule2() + ", graph: "
+				+ getGraph().getNodes().size() + " Nodes, " + getGraph().getEdges().size() + " Edges" + "]";
 	}
 
 	public String toShortString() {
 		StringBuilder sB = new StringBuilder();
-		for (Edge edge : graph.getEdges()) {
+		for (Edge edge : getGraph().getEdges()) {
 			sB.append(shortStringInfoOfGraphEdge(edge));
 			sB.append(", ");
 		}
-		for (Node node : graph.getNodes()) {
+		for (Node node : getGraph().getNodes()) {
 			sB.append(shortStringInfoOfGraphNode(node));
 			sB.append(", ");
 		}
@@ -122,17 +125,17 @@ public class Span implements Comparable<Span> {
 
 		if (this == obj)
 			return true;
-		if (graph == null || other.graph == null)
+		if (getGraph() == null || other.getGraph() == null)
 			return false;
 		if (!(obj instanceof Span))
 			return false;
-		if (graph.getNodes().size() != other.getGraph().getNodes().size())
+		if (getGraph().getNodes().size() != other.getGraph().getNodes().size())
 			return false;
-		if (graph.getEdges().size() != other.getGraph().getEdges().size())
+		if (getGraph().getEdges().size() != other.getGraph().getEdges().size())
 			return false;
-		if (mappingsInRule1.size() != other.getMappingsInRule1().size())
+		if (getMappingsInRule1().size() != other.getMappingsInRule1().size())
 			return false;
-		if (mappingsInRule2.size() != other.getMappingsInRule2().size())
+		if (getMappingsInRule2().size() != other.getMappingsInRule2().size())
 			return false;
 
 		SpanMappings spanMap = new SpanMappings(this);
@@ -186,15 +189,15 @@ public class Span implements Comparable<Span> {
 	}
 
 	public Span(Mapping nodeInRule1Mapping, Graph s1, Mapping nodeInRule2Mapping) {
-		this.graph = s1;
-		mappingsInRule1 = new HashSet<Mapping>();
-		mappingsInRule1.add(nodeInRule1Mapping);
-		mappingsInRule2 = new HashSet<Mapping>();
-		mappingsInRule2.add(nodeInRule2Mapping);
+		this.setGraph(s1);
+		setMappingsInRule1(new HashSet<Mapping>());
+		getMappingsInRule1().add(nodeInRule1Mapping);
+		setMappingsInRule2(new HashSet<Mapping>());
+		getMappingsInRule2().add(nodeInRule2Mapping);
 	}
 
 	public Mapping getMappingFromGraphToRule2(Node imageNode) {
-		for (Mapping mappingInRule2 : mappingsInRule2) {
+		for (Mapping mappingInRule2 : getMappingsInRule2()) {
 			if (mappingInRule2.getImage() == imageNode)
 				return mappingInRule2;
 		}
@@ -202,7 +205,7 @@ public class Span implements Comparable<Span> {
 	}
 
 	public Mapping getMappingFromGraphToRule1(Node imageNode) {
-		for (Mapping mappingInRule1 : mappingsInRule1) {
+		for (Mapping mappingInRule1 : getMappingsInRule1()) {
 			if (mappingInRule1.getImage() == imageNode)
 				return mappingInRule1;
 		}
@@ -226,11 +229,11 @@ public class Span implements Comparable<Span> {
 	}
 
 	public Span(Set<Mapping> rule1Mappings, Graph s1, Set<Mapping> rule2Mappings) {
-		this.mappingsInRule1 = rule1Mappings; // wie verh�lt es sich mit einem
+		this.setMappingsInRule1(rule1Mappings); // wie verh�lt es sich mit einem
 												// leeren Graph, bzw. leeren
 												// mappngs?
-		this.mappingsInRule2 = rule2Mappings;
-		this.graph = s1;
+		this.setMappingsInRule2(rule2Mappings);
+		this.setGraph(s1);
 		this.setRule1(getRuleOfMappings(rule1Mappings)); // might return null.
 															// Needs to be
 															// improved. if
@@ -246,7 +249,7 @@ public class Span implements Comparable<Span> {
 		// copy of graph
 		Graph copiedGraph = (Graph) copierForSpanAndMappings.copy(s1.getGraph());
 		copierForSpanAndMappings.copyReferences();
-		this.graph = copiedGraph;
+		this.setGraph(copiedGraph);
 
 		// extract to method
 		Set<Mapping> mappingsInRule1 = new HashSet<Mapping>();
@@ -255,7 +258,7 @@ public class Span implements Comparable<Span> {
 			copierForSpanAndMappings.copyReferences();
 			mappingsInRule1.add(copiedMapping);
 		}
-		this.mappingsInRule1 = mappingsInRule1;
+		this.setMappingsInRule1(mappingsInRule1);
 
 		Set<Mapping> mappingsInRule2 = new HashSet<Mapping>();
 		for (Mapping mapping : s1.getMappingsInRule2()) {
@@ -263,7 +266,7 @@ public class Span implements Comparable<Span> {
 			copierForSpanAndMappings.copyReferences();
 			mappingsInRule2.add(copiedMapping);
 		}
-		this.mappingsInRule2 = mappingsInRule2;
+		this.setMappingsInRule2(mappingsInRule2);
 
 		this.setRule1(getRuleOfMappings(mappingsInRule1));
 		this.setRule2(getRuleOfMappings(mappingsInRule2));
@@ -274,7 +277,7 @@ public class Span implements Comparable<Span> {
 		Node transformedOrigin = (Node) copierForSpanAndMappings.get(origin);
 
 		Mapping r2Mapping = henshinFactory.createMapping(transformedOrigin, image);
-		mappingsInRule2.add(r2Mapping);
+		getMappingsInRule2().add(r2Mapping);
 	}
 
 	public Graph getGraph() {
@@ -282,7 +285,7 @@ public class Span implements Comparable<Span> {
 	}
 
 	public Mapping getMappingIntoRule1(Node originNode) {
-		for (Mapping mapping : mappingsInRule1) {
+		for (Mapping mapping : getMappingsInRule1()) {
 			if (mapping.getOrigin().equals(originNode))
 				return mapping;
 		}
@@ -290,7 +293,7 @@ public class Span implements Comparable<Span> {
 	}
 
 	public Mapping getMappingIntoRule2(Node originNode) {
-		for (Mapping mapping : mappingsInRule2) {
+		for (Mapping mapping : getMappingsInRule2()) {
 			if (mapping.getOrigin().equals(originNode))
 				return mapping;
 		}
@@ -298,9 +301,9 @@ public class Span implements Comparable<Span> {
 	}
 
 	public boolean validate(Rule rule1, Rule rule2) {
-		if (mappingsInRule1.size() != graph.getNodes().size() || mappingsInRule2.size() != graph.getNodes().size())
+		if (getMappingsInRule1().size() != getGraph().getNodes().size() || getMappingsInRule2().size() != getGraph().getNodes().size())
 			return false;
-		for (Node node : graph.getNodes()) {
+		for (Node node : getGraph().getNodes()) {
 			Mapping mappingIntoRule1 = getMappingIntoRule1(node);
 			if (mappingIntoRule1.getImage() == null)
 				return false;
@@ -339,13 +342,13 @@ public class Span implements Comparable<Span> {
 		result.setNsPrefix("CDAPackage");
 		EList<EClassifier> classifiers = result.getEClassifiers();
 
-		for (Node node : graph.getNodes()) {
+		for (Node node : getGraph().getNodes()) {
 			EClass n = getClassifier(node);
 			added.add(n.getName());
 			result.getEClassifiers().add(n);
 		}
 
-		for (Edge edge : graph.getEdges()) {
+		for (Edge edge : getGraph().getEdges()) {
 			EClass s = getClassifier(edge.getSource());
 			EClass t = getClassifier(edge.getTarget());
 
@@ -384,10 +387,16 @@ public class Span implements Comparable<Span> {
 		return eclass;
 	}
 
+	/**
+	 * @param rule1
+	 */
 	public void setRule1(Rule rule1) {
 		this.rule1 = rule1;
 	}
 
+	/**
+	 * @param rule2
+	 */
 	public void setRule2(Rule rule2) {
 		this.rule2 = rule2;
 	}
@@ -457,6 +466,18 @@ public class Span implements Comparable<Span> {
 			result = (name + ":" + name2).hashCode() * 13;
 		}
 		return result;
+	}
+
+	public void setMappingsInRule1(Set<Mapping> mappingsInRule1) {
+		this.mappingsInRule1 = mappingsInRule1;
+	}
+
+	public void setMappingsInRule2(Set<Mapping> mappingsInRule2) {
+		this.mappingsInRule2 = mappingsInRule2;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;
 	}
 
 }

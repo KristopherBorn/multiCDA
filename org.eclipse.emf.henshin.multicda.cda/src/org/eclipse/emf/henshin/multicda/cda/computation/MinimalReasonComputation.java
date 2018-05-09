@@ -251,14 +251,14 @@ public class MinimalReasonComputation {
 			if (srcS1 == null) {
 				srcS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(srcR1, srcR2),
 						srcR1.getName() + "_" + srcR2.getName());
-				span1.mappingsInRule1.add(henshinFactory.createMapping(srcS1, srcR1));
-				span1.mappingsInRule2.add(henshinFactory.createMapping(srcS1, srcR2));
+				span1.getMappingsInRule1().add(henshinFactory.createMapping(srcS1, srcR1));
+				span1.getMappingsInRule2().add(henshinFactory.createMapping(srcS1, srcR2));
 			} else if (trgS1 == null) {
 				sourceDangling = false;
 				trgS1 = henshinFactory.createNode(span1.getGraph(), commonSubClass(trgR1, trgR2),
 						trgR1.getName() + "_" + trgR2.getName());
-				span1.mappingsInRule1.add(henshinFactory.createMapping(trgS1, trgR1));
-				span1.mappingsInRule2.add(henshinFactory.createMapping(trgS1, trgR2));
+				span1.getMappingsInRule1().add(henshinFactory.createMapping(trgS1, trgR1));
+				span1.getMappingsInRule2().add(henshinFactory.createMapping(trgS1, trgR2));
 			}
 
 			// Treatment of conflict-atom edges

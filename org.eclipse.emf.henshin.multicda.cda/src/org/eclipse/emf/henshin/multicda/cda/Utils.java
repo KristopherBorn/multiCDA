@@ -34,8 +34,8 @@ public abstract class Utils {
 
 	/**
 	 * werden - wie wird damit umgeganen, wenn die Knoten oder Mappings nicht
-	 * erstellt wurde? - wird NULL zurück gegeben, oder wird eine Exception
-	 * geworfen? - sollte es eine Möglichkeit vorab geben zu prüfen, ob die
+	 * erstellt wurde? - wird NULL zurï¿½ck gegeben, oder wird eine Exception
+	 * geworfen? - sollte es eine Mï¿½glichkeit vorab geben zu prï¿½fen, ob die
 	 * Regel invertierbar ist?
 	 * 
 	 * @param rule1
@@ -62,7 +62,7 @@ public abstract class Utils {
 		invRule1.setRhs(newRhs);
 
 		// notwendige Mappings erstellen. Dazu alle Mappings durchgehen und
-		// ausgehend von den Nodes in der ursprünglichen Regel über den copier
+		// ausgehend von den Nodes in der ursprï¿½nglichen Regel ï¿½ber den copier
 		// die Nodes in der neuen regel identifizieren!
 		MappingList mappingsOfOriginalRule1 = rule1.getMappings();
 		for (Mapping mappingInOriginalRule1 : mappingsOfOriginalRule1) {
@@ -82,7 +82,7 @@ public abstract class Utils {
 		}
 
 		// ggf. als Datei speichern?
-		// ABER(!): auch prüfen, ob es rein programmatisch geht!
+		// ABER(!): auch prï¿½fen, ob es rein programmatisch geht!
 
 		return invRule1;
 	}
@@ -260,13 +260,13 @@ public abstract class Utils {
 		result.setNsPrefix("CDAPackage");
 		EList<EClassifier> classifiers = result.getEClassifiers();
 
-		for (Node node : r.graph.getNodes()) {
+		for (Node node : r.getGraph().getNodes()) {
 			EClass n = getClassifier(r, node);
 			added.add(n.getName());
 			result.getEClassifiers().add(n);
 		}
 
-		for (Edge edge : r.graph.getEdges()) {
+		for (Edge edge : r.getGraph().getEdges()) {
 			EClass s = getClassifier(r, edge.getSource());
 			EClass t = getClassifier(r, edge.getTarget());
 
