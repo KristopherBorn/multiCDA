@@ -409,6 +409,7 @@ public class Span implements Comparable<Span> {
 		Graph graph = this.getGraph();
 		EList<Node> nodes = graph.getNodes();
 		EList<Edge> edges = graph.getEdges();
+		result += this.getClass().getSimpleName().hashCode();
 
 		for (Node node : nodes) {
 			result += hashNode(node);
