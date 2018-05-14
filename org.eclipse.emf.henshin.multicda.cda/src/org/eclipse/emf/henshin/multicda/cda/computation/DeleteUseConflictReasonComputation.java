@@ -562,7 +562,12 @@ public class DeleteUseConflictReasonComputation {
 			EClass nType = node.getType();
 			String nName = node.getName();
 			String[] split = nName.split(NODESEPARATOR);
-			String searchName = split[1];
+			String searchName;
+			try {
+				searchName = split[1];
+			} catch (IndexOutOfBoundsException e1) {
+				searchName = split[0];
+			}
 			for (Node node2 : l2n) {
 				String name = node2.getName();
 				EClass type = node2.getType();

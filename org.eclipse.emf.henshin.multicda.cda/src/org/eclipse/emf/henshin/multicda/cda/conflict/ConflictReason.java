@@ -352,7 +352,11 @@ public class ConflictReason extends Span {
 			result = 0;
 		} else {
 			String[] split = name.split(NODESEPARATOR);
-			name = split[0] + "&&" + NODESEPARATOR + split[1];
+			try {
+				name = split[0] + "&&" + NODESEPARATOR + split[1];
+			} catch (IndexOutOfBoundsException e) {
+				name = split[0] + NODESEPARATOR;
+			}
 			String name2 = type.getName();
 			result = (name + ":" + name2).hashCode() * 13;
 		}

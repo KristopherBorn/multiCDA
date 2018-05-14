@@ -413,9 +413,23 @@ public class Span implements Comparable<Span> {
 		return o.toShortString().compareTo(toShortString());
 	}
 	
-	public int hashCode(){
-		return 0;
-	}
+	// Scheint derzeit ncoh überflüssig zu sein!
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Object#hashCode()
+		 */
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			// result = prime * result + getOuterType().hashCode();
+			// result = prime * result + ((graph == null) ? 0 : graph.hashCode());
+			// result = prime * result + ((mappingsInRule1 == null) ? 0 : mappingsInRule1.hashCode()); // no application
+			// due to missing knwoledge on the hashCode of two lists with equal content but different order
+			// result = prime * result + ((mappingsInRule2 == null) ? 0 : mappingsInRule2.hashCode());
+			return result;
+		}
 
 //	public int hashCode() {
 //		int result = 0;
