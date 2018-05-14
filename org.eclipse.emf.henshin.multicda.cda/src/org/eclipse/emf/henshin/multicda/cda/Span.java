@@ -21,7 +21,7 @@ import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 
 /**
- * @author 
+ * @author
  * 
  */
 public class Span implements Comparable<Span> {
@@ -64,8 +64,9 @@ public class Span implements Comparable<Span> {
 	 */
 	@Override
 	public String toString() {
-		return "Span [mappingsInRule1=" + getMappingsInRule1() + ", mappingsInRule2=" + getMappingsInRule2() + ", graph: "
-				+ getGraph().getNodes().size() + " Nodes, " + getGraph().getEdges().size() + " Edges" + "]";
+		return "Span [mappingsInRule1=" + getMappingsInRule1() + ", mappingsInRule2=" + getMappingsInRule2()
+				+ ", graph: " + getGraph().getNodes().size() + " Nodes, " + getGraph().getEdges().size() + " Edges"
+				+ "]";
 	}
 
 	public String toShortString() {
@@ -301,7 +302,8 @@ public class Span implements Comparable<Span> {
 	}
 
 	public boolean validate(Rule rule1, Rule rule2) {
-		if (getMappingsInRule1().size() != getGraph().getNodes().size() || getMappingsInRule2().size() != getGraph().getNodes().size())
+		if (getMappingsInRule1().size() != getGraph().getNodes().size()
+				|| getMappingsInRule2().size() != getGraph().getNodes().size())
 			return false;
 		for (Node node : getGraph().getNodes()) {
 			Mapping mappingIntoRule1 = getMappingIntoRule1(node);
@@ -412,79 +414,66 @@ public class Span implements Comparable<Span> {
 			return 1;
 		return o.toShortString().compareTo(toShortString());
 	}
-	
-	// Scheint derzeit ncoh überflüssig zu sein!
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			// result = prime * result + getOuterType().hashCode();
-			// result = prime * result + ((graph == null) ? 0 : graph.hashCode());
-			// result = prime * result + ((mappingsInRule1 == null) ? 0 : mappingsInRule1.hashCode()); // no application
-			// due to missing knwoledge on the hashCode of two lists with equal content but different order
-			// result = prime * result + ((mappingsInRule2 == null) ? 0 : mappingsInRule2.hashCode());
-			return result;
+
+	@Override
+	public int hashCode() {
+		int result = 0;
+		Graph graph = this.getGraph();
+		EList<Node> nodes = graph.getNodes();
+		EList<Edge> edges = graph.getEdges();
+		result += this.getClass().getSimpleName().hashCode();
+
+		for (Node node : nodes) {
+			result += hashNode(node);
 		}
 
-//	public int hashCode() {
-//		int result = 0;
-//		Graph graph = this.getGraph();
-//		EList<Node> nodes = graph.getNodes();
-//		EList<Edge> edges = graph.getEdges();
-//		result += this.getClass().getSimpleName().hashCode();
-//
-//		for (Node node : nodes) {
-//			result += hashNode(node);
-//		}
-//
-//		for (Edge edge : edges) {
-//			Node source = edge.getSource();
-//			Node target = edge.getTarget();
-//			String sName = source.getName();
-//			String tName = target.getName();
-//			EReference type = edge.getType();
-//			if (type == null)
-//				result += 0;
-//			else {
-//				String typeName = type.getName();
-//				if (source == null || target == null)
-//					result += 0;
-//				else if (sName == null || tName == null)
-//					result += 0;
-//				else if (typeName == null)
-//					result += hashNode(source) * 101 + hashNode(target) * 53 + "Unnamed".hashCode() * 37;
-//				else result += hashNode(source) * 101 + hashNode(target) * 53 + typeName.hashCode() * 37;
-//				
-//			}
-//		}
-//
-//		return result;
-//	}
+		for (Edge edge : edges) {
+			Node source = edge.getSource();
+			Node target = edge.getTarget();
+			String sName = source.getName();
+			String tName = target.getName();
+			EReference type = edge.getType();
+			if (type == null)
+				result += 0;
+			else {
+				String typeName = type.getName();
+				if (source == null || target == null)
+					result += 0;
+				else if (sName == null || tName == null)
+					result += 0;
+				else if (typeName == null)
+					result += hashNode(source) * 101 + hashNode(target) * 53 + "Unnamed".hashCode() * 37;
+				else
+					result += hashNode(source) * 101 + hashNode(target) * 53 + typeName.hashCode() * 37;
 
-//	/**
-//	 * @param result
-//	 * @param node
-//	 * @return
-//	 */
-//	private int hashNode(Node node) {
-//		String name = node.getName();
-//		EClass type = node.getType();
-//		int result = 0;
-//		if (name == null || type == null) {
-//			result = 0;
-//		} else {
-//			String[] split = name.split(NODESEPARATOR);
-//			name = split[0] + "&&" + NODESEPARATOR + split[1];
-//			String name2 = type.getName();
-//			result = (name + ":" + name2).hashCode() * 13;
-//		}
-//		return result;
-//	}
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * @param result
+	 * @param node
+	 * @return
+	 */
+	private int hashNode(Node node) {
+		String name = node.getName();
+		EClass type = node.getType();
+		int result = 0;
+		if (name == null || type == null) {
+			result = 0;
+		} else {
+			String[] split = name.split(NODESEPARATOR);
+			if (split.length == 1)
+				name = split[0] + NODESEPARATOR;
+			else
+				name = split[0] + "&&" + NODESEPARATOR + split[1];
+			String name2 = type.getName();
+			result = (name + ":" + name2).hashCode() * 13;
+		}
+		return result;
+	}
 
 	public void setMappingsInRule1(Set<Mapping> mappingsInRule1) {
 		this.mappingsInRule1 = mappingsInRule1;

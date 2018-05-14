@@ -123,9 +123,10 @@ public class DeleteUseConflictReasonComputation {
 		for (Span sp2 : conflictReasonsFromR2) {
 			boolean sp2DRCR = computeL1SL2Span(sp2, r1);
 			if (sp2DRCR) {
-//				 DeleteReadConflictReason deleteReadConflictReason = new
-//				 DeleteReadConflictReason(sp2); //TODO Das hier unkommentieren und man hat sogar die Rückrichtung
-//				 result.add(deleteReadConflictReason);
+				// DeleteReadConflictReason deleteReadConflictReason = new
+				// DeleteReadConflictReason(sp2); //TODO Das hier unkommentieren
+				// und man hat sogar die Rückrichtung
+				// result.add(deleteReadConflictReason);
 			} else {
 				Span s = compatibleSpans(sp1, sp2);
 				if (s != null) {
@@ -563,11 +564,10 @@ public class DeleteUseConflictReasonComputation {
 			String nName = node.getName();
 			String[] split = nName.split(NODESEPARATOR);
 			String searchName;
-			try {
-				searchName = split[1];
-			} catch (IndexOutOfBoundsException e1) {
+			if (split.length == 1)
 				searchName = split[0];
-			}
+			else
+				searchName = split[1];
 			for (Node node2 : l2n) {
 				String name = node2.getName();
 				EClass type = node2.getType();
