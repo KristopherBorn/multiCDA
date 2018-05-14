@@ -32,7 +32,7 @@ public class FeatureModellTest {
 	private static CDATester aTester;
 	private static CPATester cTester;
 	private static List<Rule> rules;
-	private static int toTest = 7;
+	private static int toTest = 0;
 	private static Map<String, Set<Span>> resultA = new HashMap<String, Set<Span>>();
 	private static Map<String, Set<CriticalPair>> resultE = new HashMap<String, Set<CriticalPair>>();
 
@@ -72,19 +72,19 @@ public class FeatureModellTest {
 		Set<CriticalPair> initsp = new HashSet<>();
 		for (Rule r : rules) {
 			for (Rule r2 : rules) {
-				aTester = new CDATester(r, r2, new Options(true));
-				inits.addAll(aTester.getConflictReasons());
-				List<Rule> a = new ArrayList<Rule>();
-				List<Rule> b = new ArrayList<Rule>();
-				a.add(r);
-				b.add(r2);
-				cTester = new CPATester(a, b, new Options(true));
-				initsp.addAll(cTester.getCriticalPairs());
-				int icr = aTester.getConflictReasons().size();
-				int icp = cTester.getCriticalPairs().size();
-				if (icr != icp)
-					System.err.println(
-							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+				new CDATester(r, r2, new Options(Options.ESSENTIAL, Options.PRINT_HEADER, Options.PRINT_RESULT));
+//				inits.addAll(aTester.getConflictReasons());
+//				List<Rule> a = new ArrayList<Rule>();
+//				List<Rule> b = new ArrayList<Rule>();
+//				a.add(r);
+//				b.add(r2);
+//				cTester = new CPATester(a, b, new Options(true));
+//				initsp.addAll(cTester.getCriticalPairs());
+//				int icr = aTester.getConflictReasons().size();
+//				int icp = cTester.getCriticalPairs().size();
+//				if (icr != icp)
+//					System.err.println(
+//							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
 			}
 		}
 		resultA.put(folders[toTest], inits);
@@ -115,38 +115,38 @@ public class FeatureModellTest {
 		toTest++;
 	}
 
-//	@Test
-//	public void test2() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test3() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test4() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test5() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test6() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test7() {
-//		toTest++;
-//	}
-//
-//	@Test
-//	public void test8() {
-//		toTest++;
-//	}
+	@Test
+	public void test2() {
+		toTest++;
+	}
+
+	@Test
+	public void test3() {
+		toTest++;
+	}
+
+	@Test
+	public void test4() {
+		toTest++;
+	}
+
+	@Test
+	public void test5() {
+		toTest++;
+	}
+
+	@Test
+	public void test6() {
+		toTest++;
+	}
+
+	@Test
+	public void test7() {
+		toTest++;
+	}
+
+	@Test
+	public void test8() {
+		toTest++;
+	}
 }

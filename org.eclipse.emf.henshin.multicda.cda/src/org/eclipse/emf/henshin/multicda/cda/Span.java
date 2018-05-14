@@ -412,61 +412,65 @@ public class Span implements Comparable<Span> {
 			return 1;
 		return o.toShortString().compareTo(toShortString());
 	}
-
-	public int hashCode() {
-		int result = 0;
-		Graph graph = this.getGraph();
-		EList<Node> nodes = graph.getNodes();
-		EList<Edge> edges = graph.getEdges();
-		result += this.getClass().getSimpleName().hashCode();
-
-		for (Node node : nodes) {
-			result += hashNode(node);
-		}
-
-		for (Edge edge : edges) {
-			Node source = edge.getSource();
-			Node target = edge.getTarget();
-			String sName = source.getName();
-			String tName = target.getName();
-			EReference type = edge.getType();
-			if (type == null)
-				result += 0;
-			else {
-				String typeName = type.getName();
-				if (source == null || target == null)
-					result += 0;
-				else if (sName == null || tName == null)
-					result += 0;
-				else if (typeName == null)
-					result += hashNode(source) * 101 + hashNode(target) * 53 + "Unnamed".hashCode() * 37;
-				else result += hashNode(source) * 101 + hashNode(target) * 53 + typeName.hashCode() * 37;
-				
-			}
-		}
-
-		return result;
+	
+	public int hashCode(){
+		return 0;
 	}
 
-	/**
-	 * @param result
-	 * @param node
-	 * @return
-	 */
-	private int hashNode(Node node) {
-		String name = node.getName();
-		EClass type = node.getType();
-		int result = 0;
-		if (name == null || type == null) {
-			result = 0;
-		} else {
-			String[] split = name.split(NODESEPARATOR);
-			name = split[0] + "&&" + NODESEPARATOR + split[1];
-			String name2 = type.getName();
-			result = (name + ":" + name2).hashCode() * 13;
-		}
-		return result;
-	}
+//	public int hashCode() {
+//		int result = 0;
+//		Graph graph = this.getGraph();
+//		EList<Node> nodes = graph.getNodes();
+//		EList<Edge> edges = graph.getEdges();
+//		result += this.getClass().getSimpleName().hashCode();
+//
+//		for (Node node : nodes) {
+//			result += hashNode(node);
+//		}
+//
+//		for (Edge edge : edges) {
+//			Node source = edge.getSource();
+//			Node target = edge.getTarget();
+//			String sName = source.getName();
+//			String tName = target.getName();
+//			EReference type = edge.getType();
+//			if (type == null)
+//				result += 0;
+//			else {
+//				String typeName = type.getName();
+//				if (source == null || target == null)
+//					result += 0;
+//				else if (sName == null || tName == null)
+//					result += 0;
+//				else if (typeName == null)
+//					result += hashNode(source) * 101 + hashNode(target) * 53 + "Unnamed".hashCode() * 37;
+//				else result += hashNode(source) * 101 + hashNode(target) * 53 + typeName.hashCode() * 37;
+//				
+//			}
+//		}
+//
+//		return result;
+//	}
+
+//	/**
+//	 * @param result
+//	 * @param node
+//	 * @return
+//	 */
+//	private int hashNode(Node node) {
+//		String name = node.getName();
+//		EClass type = node.getType();
+//		int result = 0;
+//		if (name == null || type == null) {
+//			result = 0;
+//		} else {
+//			String[] split = name.split(NODESEPARATOR);
+//			name = split[0] + "&&" + NODESEPARATOR + split[1];
+//			String name2 = type.getName();
+//			result = (name + ":" + name2).hashCode() * 13;
+//		}
+//		return result;
+//	}
 
 	public void setMappingsInRule1(Set<Mapping> mappingsInRule1) {
 		this.mappingsInRule1 = mappingsInRule1;
