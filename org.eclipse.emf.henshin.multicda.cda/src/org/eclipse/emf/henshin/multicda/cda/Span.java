@@ -465,10 +465,13 @@ public class Span implements Comparable<Span> {
 			result = 0;
 		} else {
 			String[] split = name.split(NODESEPARATOR);
-			if (split.length == 1)
-				name = split[0] + NODESEPARATOR;
-			else
-				name = split[0] + "&&" + NODESEPARATOR + split[1];
+			int length = split.length;
+			name = split[0] + NODESEPARATOR;
+			if (length > 1)
+				name = split[0];
+				for (int i = 1; i < split.length; i++) {
+					name += "&&" + NODESEPARATOR + split[i];
+				}
 			String name2 = type.getName();
 			result = (name + ":" + name2).hashCode() * 13;
 		}

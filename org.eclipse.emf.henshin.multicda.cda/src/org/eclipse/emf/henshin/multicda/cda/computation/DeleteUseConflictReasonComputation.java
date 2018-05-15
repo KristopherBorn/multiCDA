@@ -564,11 +564,13 @@ public class DeleteUseConflictReasonComputation {
 			String nName = node.getName();
 			String[] split = nName.split(NODESEPARATOR);
 			String searchName;
-			if (split.length == 1)
-				searchName = split[0];
-			else
+			try {
 				searchName = split[1];
-			for (Node node2 : l2n) {
+			} catch (Exception e1) {
+				searchName = split[0];
+			}
+
+				for (Node node2 : l2n) {
 				String name = node2.getName();
 				EClass type = node2.getType();
 				if (name.equals(searchName) && type.equals(nType)) {
