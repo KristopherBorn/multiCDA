@@ -145,8 +145,8 @@ public class FeatureModellTest {
 		toTest++;
 	}
 
-	@Test
-	public void test8() {
-		toTest++;
-	}
+//	@Test
+//	public void test8() {
+//		toTest++;
+//	}
 }
