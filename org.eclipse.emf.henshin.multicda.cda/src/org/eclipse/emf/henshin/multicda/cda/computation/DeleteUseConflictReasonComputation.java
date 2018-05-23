@@ -140,14 +140,22 @@ public class DeleteUseConflictReasonComputation {
 				Span s = compatibleSpans(sp1, sp2);
 				if (s != null) {
 					if (!isEmpty(s.getGraph())) {
-						Pushout pushout = new Pushout(s.getRule1(), s, s.getRule2());
-						Span l1Sl2 = computeL1SL2Span(r1, pushout, r2, s, sp1, sp2);
-						Pushout po = new Pushout(r1, l1Sl2, r2);
-						if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
-								&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings())
-										.isEmpty()) {
-							DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
-							result.add(res);
+						Rule sRule1 = s.getRule1();
+						Rule sRule2 = s.getRule2();
+						if (sRule1 != null && sRule2 != null) {
+							Pushout pushout = new Pushout(sRule1, s, sRule2);
+							if (pushout != null) {
+								Span l1Sl2 = computeL1SL2Span(r1, pushout, r2, s, sp1, sp2);
+								if (l1Sl2 != null){
+									Pushout po = new Pushout(r1, l1Sl2, r2);
+									if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
+											&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings())
+													.isEmpty()) {
+										DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
+										result.add(res);
+									}
+								}
+							}
 						}
 					}
 				}
@@ -445,7 +453,7 @@ public class DeleteUseConflictReasonComputation {
 					mappingsIntoSpan2.add(createMapping2);
 				}
 			} catch (NotCompatibleException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
 				break;
 			}
 
