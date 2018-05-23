@@ -12,6 +12,12 @@ public class MinimalConflict extends CriticalPair {
 
 
 	// Graph should be the Span here!
+	/**
+	 * @param r1
+	 * @param r2
+	 * @param minimalConflictReason
+	 * @param appliedAnalysis
+	 */
 	public MinimalConflict(Rule r1, Rule r2, Graph minimalConflictReason, AppliedAnalysis appliedAnalysis) {
 		super(r1, r2, minimalConflictReason, appliedAnalysis);
 	}
@@ -21,6 +27,14 @@ public class MinimalConflict extends CriticalPair {
 	 * 
 	 */
 
+	/**
+	 * @param firstRule
+	 * @param originalRuleOfRule2
+	 * @param minimalConflictReason
+	 * @param conflictAtoms
+	 * @param conflictAtomCandidates
+	 * @param appliedAnalysis
+	 */
 	public MinimalConflict(Rule firstRule, Rule originalRuleOfRule2, Span minimalConflictReason,
 			List<ConflictAtom> conflictAtoms, List<Span> conflictAtomCandidates, AppliedAnalysis appliedAnalysis) {
 		this(firstRule, originalRuleOfRule2, minimalConflictReason.getGraph(), appliedAnalysis);
