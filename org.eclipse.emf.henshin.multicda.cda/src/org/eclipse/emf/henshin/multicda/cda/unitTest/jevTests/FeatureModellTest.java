@@ -78,7 +78,7 @@ public class FeatureModellTest {
 //				List<Rule> b = new ArrayList<Rule>();
 //				a.add(r);
 //				b.add(r2);
-//				cTester = new CPATester(a, b, new Options(true));
+//				new CPATester(a, b, new Options(true));
 //				initsp.addAll(cTester.getCriticalPairs());
 //				int icr = aTester.getConflictReasons().size();
 //				int icp = cTester.getCriticalPairs().size();
