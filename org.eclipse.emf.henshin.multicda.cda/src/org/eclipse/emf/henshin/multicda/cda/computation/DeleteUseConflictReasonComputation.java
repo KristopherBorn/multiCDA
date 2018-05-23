@@ -201,6 +201,7 @@ public class DeleteUseConflictReasonComputation {
 		List<Mapping> s1ToS = pushout.getRule1Mappings();
 		List<Mapping> s2ToS = pushout.getRule2Mappings();
 		EList<Node> nodes = pushoutGraph.getNodes();
+
 		for (Node s : nodes) {
 			Node node = (Node) s;
 			Mapping c = getMappingFromSpan(node, s1ToS);
