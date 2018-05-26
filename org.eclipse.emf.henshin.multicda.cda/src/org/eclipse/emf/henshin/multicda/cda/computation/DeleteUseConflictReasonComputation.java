@@ -3,13 +3,9 @@
  */
 package org.eclipse.emf.henshin.multicda.cda.computation;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import javax.xml.transform.Source;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -78,8 +74,6 @@ public class DeleteUseConflictReasonComputation {
 	 * @param result
 	 */
 	private void computeDeleteUseConflictReasons(Span conflictReason, Set<DeleteUseConflictReason> result) {
-		// Rule conflictRule2 = conflictReason.getRule2();
-
 		setMappingsForRule2(conflictReason, rule2);
 		if (isDeleteReadConflictReason(conflictReason, rule2)) {
 			Pushout pushout = new Pushout(rule1, conflictReason, rule2);
@@ -101,9 +95,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param rule22
 	 */
 	private void setMappingsForRule2(Span conflictReason, Rule rule) {
-
 		HashSet<Mapping> newMappingsToRule2 = new HashSet<Mapping>();
-
 		Set<Mapping> mappingsInRule2 = conflictReason.getMappingsInRule2();
 		for (Mapping mapping : mappingsInRule2) {
 			Node image = mapping.getImage();
@@ -118,15 +110,13 @@ public class DeleteUseConflictReasonComputation {
 					Mapping newMapping = helper.createMapping(origin, node);
 					newMappingsToRule2.add(newMapping);
 				}
-
 			}
 		}
 
-		if (!newMappingsToRule2.isEmpty()){
+		if (!newMappingsToRule2.isEmpty()) {
 			conflictReason.setMappingsInRule2(newMappingsToRule2);
 			conflictReason.setRule2(rule);
 		}
-		
 
 	}
 
@@ -226,8 +216,8 @@ public class DeleteUseConflictReasonComputation {
 		if (!precondition) {
 			return null;
 		}
-		Set<Mapping> mappingsInL1 = computeMappingStoL(pushout, rule1, sap, sp1, sp2);
-		Set<Mapping> mappingsInL2 = computeMappingStoL(pushout, rule2, sap, sp2, sp1);
+		Set<Mapping> mappingsInL1 = computeMappingStoL(pushout, rule1, sp1, sp2);
+		Set<Mapping> mappingsInL2 = computeMappingStoL(pushout, rule2, sp2, sp1);
 		uniqueSpan = new Span(mappingsInL1, pushoutGraph, mappingsInL2);
 		uniqueSpan.setRule1(rule1);
 		uniqueSpan.setRule2(rule2);
@@ -242,7 +232,7 @@ public class DeleteUseConflictReasonComputation {
 	 * @param rule12
 	 * @return
 	 */
-	private Set<Mapping> computeMappingStoL(Pushout pushout, Rule rule, Span sap, Span sp1, Span sp2) {
+	private Set<Mapping> computeMappingStoL(Pushout pushout, Rule rule, Span sp1, Span sp2) {
 		HashSet<Mapping> result = new HashSet<Mapping>();
 		Graph pushoutGraph = pushout.getResultGraph();
 		List<Mapping> s1ToS = pushout.getRule1Mappings();
@@ -253,62 +243,42 @@ public class DeleteUseConflictReasonComputation {
 			Node node = (Node) s;
 			Mapping c = getMappingFromSpan(node, s1ToS);
 			Mapping d = getMappingFromSpan(node, s2ToS);
-			if (c != null) {
-				Node s1Element = c.getOrigin();
-				Mapping e = null;
-				Mapping e1 = sp1.getMappingIntoRule1(s1Element);
-				Mapping e2 = sp2.getMappingIntoRule2(s1Element);
-				if (e1 != null) {
-					e = e1;
-				} else if (e2 != null) {
-					e = e2;
-				} else {
-					return null;
-				}
-				Node lElement = e.getImage();
-				Graph lhs = rule.getLhs();
-				nodes = lhs.getNodes();
-				if (nodes.contains(lElement)) {
-					Mapping createMapping = helper.createMapping(node, lElement);
-					result.add(createMapping);
-				} else {
-					for (Node n : nodes) {
-						if (n.getName().equals(lElement.getName())) {
-							Mapping createMapping = helper.createMapping(node, n);
-							result.add(createMapping);
-						}
-					}
-				}
-			} else if (d != null) {
-				Node s2Element = d.getOrigin();
-				Mapping f = null;
-				Mapping f1 = sp2.getMappingIntoRule2(s2Element);
-				Mapping f2 = sp1.getMappingIntoRule1(s2Element);
-				if (f1 != null) {
-					f = f1;
-				} else if (f2 != null) {
-					f = f2;
-				} else {
-					return null;
-				}
-				Node lElement = f.getImage();
-				Graph lhs = rule.getLhs();
-				nodes = lhs.getNodes();
-				if (nodes.contains(lElement)) {
-					Mapping createMapping = helper.createMapping(node, lElement);
-					result.add(createMapping);
-				} else {
-					for (Node n : nodes) {
-						if (n.getName().equals(lElement.getName())) {
-							Mapping createMapping = helper.createMapping(node, n);
-							result.add(createMapping);
-						}
-					}
-				}
+			Node sElement = null;
+			if (c != null)
+				sElement = c.getOrigin();
+			else if (d != null)
+				sElement = d.getOrigin();
+			else
+				return null;
+			Mapping sMapping = getMappingFromSpans(sElement, sp1, sp2);
+			if (sMapping == null)
+				return null;
+			Node element = sMapping.getImage();
+			Graph lhs = rule.getLhs();
+			nodes = lhs.getNodes();
+			if (nodes.contains(element)) {
+				Mapping createMapping = helper.createMapping(node, element);
+				result.add(createMapping);
 			}
 		}
 
 		return result;
+	}
+
+	/**
+	 * @param origin
+	 * @param sp1
+	 * @param sp2
+	 * @return
+	 */
+	private Mapping getMappingFromSpans(Node origin, Span sp1, Span sp2) {
+		Mapping image1 = sp1.getMappingIntoRule1(origin);
+		if (image1 != null)
+			return image1;
+		Mapping image2 = sp2.getMappingIntoRule2(origin);
+		if (image2 != null)
+			return image2;
+		return null;
 	}
 
 	private boolean precondition(Span sap, Span sp1, Span sp2) {
@@ -331,8 +301,7 @@ public class DeleteUseConflictReasonComputation {
 					Node e2Element = s2l2.getImage();
 					Node f2Element = s1l2.getImage();
 					if (e1Element != null && f1Element != null && e2Element != null && f2Element != null) {
-						if (e1Element.equals(f1Element)
-								&& e2Element.equals(f2Element)) {
+						if (e1Element.equals(f1Element) && e2Element.equals(f2Element)) {
 							result = true;
 						} else {
 							return false;
