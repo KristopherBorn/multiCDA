@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.transform.Source;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -39,7 +41,8 @@ public class DeleteUseConflictReasonComputation {
 	private Rule rule2;
 	private Set<Span> conflictReasonsFromR2;
 	private MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
-	private HenshinFactoryImpl helper = new HenshinFactoryImpl();
+	private static HenshinFactoryImpl helper = new HenshinFactoryImpl();
+	private static Action preserve = new Action(Action.Type.PRESERVE);
 
 	/**
 	 * constructor
@@ -75,13 +78,13 @@ public class DeleteUseConflictReasonComputation {
 	 * @param result
 	 */
 	private void computeDeleteUseConflictReasons(Span conflictReason, Set<DeleteUseConflictReason> result) {
-		Rule conflictRule2 = conflictReason.getRule2();
+		// Rule conflictRule2 = conflictReason.getRule2();
 
+		setMappingsForRule2(conflictReason, rule2);
 		if (isDeleteReadConflictReason(conflictReason, rule2)) {
-			Pushout pushout = new Pushout(rule1, conflictReason, conflictRule2);
+			Pushout pushout = new Pushout(rule1, conflictReason, rule2);
 			if (helperForCheckDangling.findDanglingEdgesOfRule1(rule1, pushout.getRule1Mappings()).isEmpty()
-					&& helperForCheckDangling.findDanglingEdgesOfRule1(conflictRule2, pushout.getRule2Mappings())
-							.isEmpty()) {
+					&& helperForCheckDangling.findDanglingEdgesOfRule1(rule2, pushout.getRule2Mappings()).isEmpty()) {
 				DeleteUseConflictReason res = new DeleteReadConflictReason(conflictReason);
 				result.add(res);
 			}
@@ -94,6 +97,40 @@ public class DeleteUseConflictReasonComputation {
 	}
 
 	/**
+	 * @param conflictReason
+	 * @param rule22
+	 */
+	private void setMappingsForRule2(Span conflictReason, Rule rule) {
+
+		HashSet<Mapping> newMappingsToRule2 = new HashSet<Mapping>();
+
+		Set<Mapping> mappingsInRule2 = conflictReason.getMappingsInRule2();
+		for (Mapping mapping : mappingsInRule2) {
+			Node image = mapping.getImage();
+			String name = image.getName();
+			EClass type = image.getType();
+			Node origin = mapping.getOrigin();
+			EList<Node> nodes = rule.getLhs().getNodes();
+			for (Node node : nodes) {
+				String name2 = node.getName();
+				EClass type2 = node.getType();
+				if (name.equals(name2) && type.equals(type2)) {
+					Mapping newMapping = helper.createMapping(origin, node);
+					newMappingsToRule2.add(newMapping);
+				}
+
+			}
+		}
+
+		if (!newMappingsToRule2.isEmpty()){
+			conflictReason.setMappingsInRule2(newMappingsToRule2);
+			conflictReason.setRule2(rule);
+		}
+		
+
+	}
+
+	/**
 	 * returns true, if there is a match from S1 to K2, which is equal to the
 	 * match of S1 to lhs of rule 2
 	 * 
@@ -102,23 +139,31 @@ public class DeleteUseConflictReasonComputation {
 	 * @return boolean
 	 */
 	public static boolean isDeleteReadConflictReason(Span conflictReason, Rule rule2) {
-		Graph s1 = conflictReason.getGraph();
-		Action preserve = new Action(Action.Type.PRESERVE);
-		EList<Node> k2N = rule2.getActionNodes(preserve);
-		EList<Edge> k2E = rule2.getActionEdges(preserve);
-		Map<GraphElement, GraphElement> s1tol2 = computeMappings(s1, k2N, k2E); // Berechne
-																				// Mappings
-																				// von
-																				// S1
-																				// auf
-																				// originale
-																				// rule
-																				// 2
-																				// von
-																				// S1
-																				// aus.
-		boolean empty = s1tol2.isEmpty();
-		return !empty;
+		Set<Mapping> mappingsInRule2 = conflictReason.getMappingsInRule2();
+		for (Mapping mapping : mappingsInRule2) {
+			Node image = mapping.getImage();
+			Action action = image.getAction();
+			if (!action.equals(preserve))
+				return false;
+		}
+		EList<Edge> edges = conflictReason.getGraph().getEdges();
+		for (Edge edge : edges) {
+			Node source = edge.getSource();
+			Node target = edge.getTarget();
+			Mapping mappingOfSource = conflictReason.getMappingIntoRule2(source);
+			Mapping mappingOfTarget = conflictReason.getMappingIntoRule2(target);
+			Node image = mappingOfTarget.getImage();
+			EList<Edge> outgoing = mappingOfSource.getImage().getOutgoing();
+			for (Edge edge2 : outgoing) {
+				Node target2 = edge2.getTarget();
+				if (target2.equals(image)) {
+					Action action = edge2.getAction();
+					if (!action.equals(preserve))
+						return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -130,6 +175,7 @@ public class DeleteUseConflictReasonComputation {
 	private Set<DeleteUseConflictReason> ConstructDeleteDeleteSet(Rule r1, Rule r2, Span sp1) {
 		Set<DeleteUseConflictReason> result = new HashSet<>();
 		for (Span sp2 : conflictReasonsFromR2) {
+			setMappingsForRule2(sp2, rule1);
 			boolean sp2DRCR = isDeleteReadConflictReason(sp2, r1);
 			if (sp2DRCR) {
 				// DeleteReadConflictReason deleteReadConflictReason = new
@@ -146,11 +192,12 @@ public class DeleteUseConflictReasonComputation {
 							Pushout pushout = new Pushout(sRule1, s, sRule2);
 							if (pushout != null) {
 								Span l1Sl2 = computeL1SL2Span(r1, pushout, r2, s, sp1, sp2);
-								if (l1Sl2 != null){
+								if (l1Sl2 != null) {
 									Pushout po = new Pushout(r1, l1Sl2, r2);
-									if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings()).isEmpty()
-											&& helperForCheckDangling.findDanglingEdgesOfRule1(r2, po.getRule2Mappings())
-													.isEmpty()) {
+									if (helperForCheckDangling.findDanglingEdgesOfRule1(r1, po.getRule1Mappings())
+											.isEmpty()
+											&& helperForCheckDangling
+													.findDanglingEdgesOfRule1(r2, po.getRule2Mappings()).isEmpty()) {
 										DeleteDeleteConflictReason res = new DeleteDeleteConflictReason(sp1, sp2);
 										result.add(res);
 									}
@@ -284,8 +331,8 @@ public class DeleteUseConflictReasonComputation {
 					Node e2Element = s2l2.getImage();
 					Node f2Element = s1l2.getImage();
 					if (e1Element != null && f1Element != null && e2Element != null && f2Element != null) {
-						if (e1Element.getName().equals(f1Element.getName())
-								&& e2Element.getName().equals(f2Element.getName())) {
+						if (e1Element.equals(f1Element)
+								&& e2Element.equals(f2Element)) {
 							result = true;
 						} else {
 							return false;
@@ -568,64 +615,91 @@ public class DeleteUseConflictReasonComputation {
 				&& (originNode.getType().equals(originNode2.getType()));
 	}
 
-	/**
-	 * computes Mappings of two ELists of Nodes our of two Graphs
-	 * 
-	 * @param l2e
-	 * @param l2n
-	 * @param s1
-	 * @param conflictReason
-	 * @param k
-	 * @return
-	 */
-	private static Map<GraphElement, GraphElement> computeMappings(Graph s1, EList<Node> l2n, EList<Edge> l2e) {
-		HashMap<GraphElement, GraphElement> empty = new HashMap<GraphElement, GraphElement>();
-		HashMap<GraphElement, GraphElement> result = new HashMap<GraphElement, GraphElement>();
-
-		int n = s1.getNodes().size();
-		int e = s1.getEdges().size();
-		int checkN = 0;
-		int checkE = 0;
-
-		for (Node node : s1.getNodes()) {
-			EClass nType = node.getType();
-			String nName = node.getName();
-			String[] split = nName.split(NODESEPARATOR);
-			String searchName;
-			try {
-				searchName = split[1];
-			} catch (Exception e1) {
-				searchName = split[0];
-			}
-
-			for (Node node2 : l2n) {
-				String name = node2.getName();
-				EClass type = node2.getType();
-				if (name.equals(searchName) && type.equals(nType)) {
-					result.put(node, node2);
-					checkN += 1;
-				}
-			}
-		}
-		if (n != checkN) {
-			return empty;
-		}
-		for (Edge edge : s1.getEdges()) {
-			for (Edge edge2 : l2e) {
-				Node source = edge.getSource();
-				Node source2 = edge2.getSource();
-				Node target = edge.getTarget();
-				Node target2 = edge2.getTarget();
-				if (result.get(source).equals(source2) && result.get(target).equals(target2)) {
-					result.put(edge, edge2);
-					checkE += 1;
-				}
-			}
-		}
-		if (e == checkE) {
-			return result;
-		} else {
-			return empty;
-		}
-	}
+	// /**
+	// * computes Mappings of two ELists of Nodes our of two Graphs
+	// *
+	// * @param l2e
+	// * @param l2n
+	// * @param s1
+	// * @param conflictReason
+	// * @param k
+	// * @return
+	// */
+	// private static Map<GraphElement, GraphElement> computeMappings(Span
+	// conflictReason, Rule rule2) {
+	// Graph s1 = conflictReason.getGraph();
+	// HenshinFactoryImpl helper = new HenshinFactoryImpl();
+	// EList<Node> k2N = rule2.getActionNodes(preserve);
+	// EList<Edge> k2E = rule2.getActionEdges(preserve);
+	// HashMap<GraphElement, GraphElement> empty = new HashMap<GraphElement,
+	// GraphElement>();
+	// HashMap<GraphElement, GraphElement> result = new HashMap<GraphElement,
+	// GraphElement>();
+	//
+	// EList<Node> nodes = s1.getNodes();
+	// int nSize = nodes.size(); // TODO Über Mapping aus L2' auf L2 Knoten /
+	// // Kante finden und Aktionen vergleichen.
+	// EList<Edge> edges = s1.getEdges();
+	// int eSize = edges.size();
+	// int checkN = 0;
+	// int checkE = 0;
+	// Set<Mapping> newMappingsInRule2 = new HashSet<Mapping>();
+	// Set<Mapping> mappingsInRule2 = conflictReason.getMappingsInRule2();
+	// for (Mapping mapping : mappingsInRule2) {
+	// Node origin = mapping.getOrigin();
+	// Node image = mapping.getImage();
+	// for (Node n : nodes) {
+	// Mapping newMapping;
+	// if (n.getName().equals(image.getName()) &&
+	// n.getAction().equals(image.getAction())) {
+	// newMapping = helper.createMapping(origin, n);
+	// newMappingsInRule2.add(newMapping);
+	// }
+	// }
+	// }
+	// conflictReason.setMappingsInRule2(newMappingsInRule2);
+	// checkN = newMappingsInRule2.size();
+	//
+	// // for (Node node : nodes) {
+	// // EClass nType = node.getType();
+	// // String nName = node.getName();
+	// // String[] split = nName.split(NODESEPARATOR);
+	// // String searchName;
+	// // try {
+	// // searchName = split[1];
+	// // } catch (Exception e1) {
+	// // searchName = split[0];
+	// // }
+	// //
+	// // for (Node node2 : k2N) {
+	// // String name = node2.getName();
+	// // EClass type = node2.getType();
+	// // if (name.equals(searchName) && type.equals(nType)) {
+	// // result.put(node, node2);
+	// // checkN += 1;
+	// // }
+	// // }
+	// // }
+	// if (nSize != checkN) {
+	// return empty;
+	// }
+	// // for (Edge edge : edges) {
+	// // for (Edge edge2 : k2E) {
+	// // Node source = edge.getSource();
+	// // Node source2 = edge2.getSource();
+	// // Node target = edge.getTarget();
+	// // Node target2 = edge2.getTarget();
+	// // if (result.get(source).equals(source2) &&
+	// // result.get(target).equals(target2)) {
+	// // result.put(edge, edge2);
+	// // checkE += 1;
+	// // }
+	// // }
+	// // }
+	// if (eSize == checkE) {
+	// return true;
+	// } else {
+	// return false;
+	// }
+	// }
 }

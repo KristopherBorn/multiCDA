@@ -72,19 +72,19 @@ public class FeatureModellTest {
 		Set<CriticalPair> initsp = new HashSet<>();
 		for (Rule r : rules) {
 			for (Rule r2 : rules) {
-				new CDATester(r, r2, new Options(Options.ESSENTIAL, Options.PRINT_HEADER, Options.PRINT_RESULT));
-//				inits.addAll(aTester.getConflictReasons());
-//				List<Rule> a = new ArrayList<Rule>();
-//				List<Rule> b = new ArrayList<Rule>();
-//				a.add(r);
-//				b.add(r2);
-//				new CPATester(a, b, new Options(true));
-//				initsp.addAll(cTester.getCriticalPairs());
-//				int icr = aTester.getConflictReasons().size();
-//				int icp = cTester.getCriticalPairs().size();
-//				if (icr != icp)
-//					System.err.println(
-//							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+				aTester = new CDATester(r, r2, new Options(Options.SILENT));
+				inits.addAll(aTester.getConflictReasons());
+				List<Rule> a = new ArrayList<Rule>();
+				List<Rule> b = new ArrayList<Rule>();
+				a.add(r);
+				b.add(r2);
+				cTester = new CPATester(a, b, new Options(Options.SILENT));
+				initsp.addAll(cTester.getCriticalPairs());
+				int icr = aTester.getConflictReasons().size();
+				int icp = cTester.getCriticalPairs().size();
+				if (icr != icp)
+					System.err.println(
+							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
 			}
 		}
 		resultA.put(folders[toTest], inits);
