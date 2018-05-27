@@ -41,7 +41,11 @@ import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MCR;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.MinimalReasonConditions;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Node;
 
+/**
+ * @author vincentcuccu 26.05.2018
+ */
 public class CDATester extends Tester {
+	@SuppressWarnings("javadoc")
 	public boolean PrintFounds = true;
 	private MultiGranularAnalysis analyser;
 	private Rule first;
@@ -49,21 +53,23 @@ public class CDATester extends Tester {
 	private Set<? extends Span> minimalReasons = new HashSet<>();
 	private Set<? extends Span> conflictReasons = new HashSet<>();
 	private Set<? extends Span> essentialConflictReasons = new HashSet<>();
-	private Set<? extends Span> computedAtoms = new HashSet<>();
 	private String checked = "";
 	private int iCheckedCounter = 0;
 	private int mCheckedCounter = 0;
-	private Options options;
 
+	@SuppressWarnings("javadoc")
 	public CDATester(String henshin, String rule, Options... options) {
 		this(henshin, rule, rule, options);
 	}
 
 	/**
-	 * Geeignet nur f�r Henshin Dateien mit nur einer Regel! Denn es wird nur diese eine Regel mit sich selbst analysiert!
+	 * Geeignet nur f�r Henshin Dateien mit nur einer Regel! Denn es wird nur
+	 * diese eine Regel mit sich selbst analysiert!
 	 * 
 	 * @param henshin
-	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
+	 * @param options
+	 *            1:dependency, 2:prepare, 3:nonDeletionSecondRule,
+	 *            4:printHeader, 5:printResult, 6:silent
 	 */
 	public CDATester(String henshin, Options... options) {
 		this(henshin, null, null, options);
@@ -72,10 +78,15 @@ public class CDATester extends Tester {
 	/**
 	 * Initialisiert und f�hrt die multiCDA aus
 	 * 
-	 * @param henshin path to the henshin file
-	 * @param firstRule name of the first rule
-	 * @param secondRule name of the second rule
-	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
+	 * @param henshin
+	 *            path to the henshin file
+	 * @param firstRule
+	 *            name of the first rule
+	 * @param secondRule
+	 *            name of the second rule
+	 * @param options
+	 *            1:dependency, 2:prepare, 3:nonDeletionSecondRule,
+	 *            4:printHeader, 5:printResult, 6:silent
 	 */
 	public CDATester(String henshin, String firstRule, String secondRule, Options... options) {
 		if (henshin.isEmpty()
@@ -117,7 +128,9 @@ public class CDATester extends Tester {
 	 * 
 	 * @param first
 	 * @param second
-	 * @param options 1:dependency, 2:prepare, 3:nonDeletionSecondRule, 4:printHeader, 5:printResult, 6:silent
+	 * @param options
+	 *            1:dependency, 2:prepare, 3:nonDeletionSecondRule,
+	 *            4:printHeader, 5:printResult, 6:silent
 	 */
 	public CDATester(Rule first, Rule second, Options... options) {
 		this.first = first;
@@ -145,8 +158,8 @@ public class CDATester extends Tester {
 			}
 		}
 
-		//if (options.is(Options.NONE_DELETION_SECOND_RULE))
-		//second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
+		// if (options.is(Options.NONE_DELETION_SECOND_RULE))
+		// second = NonDeletingPreparator.prepareNoneDeletingsVersionsRules(second);
 
 		if (options.is(Options.DEPENDENCY))
 			analyser = new DependencyAnalysis(first, second);
@@ -155,28 +168,37 @@ public class CDATester extends Tester {
 
 		minimalReasons = analyser.computeResultsCoarse();
 		conflictReasons = analyser.computeResultsFine();
-		computedAtoms = analyser.computeAtoms();
+		// analyser.computeAtoms();
+
+		if (!options.is(Options.DEPENDENCY))
+			essentialConflictReasons = ((ConflictAnalysis) analyser).computeConflictReasons();
+		else
+			essentialConflictReasons = new HashSet<ConflictReason>();
 
 		print(options.toCDAString() + "\n");
 		if (options.is(Options.PRINT_RESULT)) {
 			printMCR();
 			printICR();
-//			printCR();
+			// printCR();
 			print();
 		}
 		System.out.println();
 	}
 
+	@SuppressWarnings("javadoc")
 	public Set<? extends Span> getConflictReasons() {
 		return conflictReasons;
 	}
 
+	@SuppressWarnings("javadoc")
 	public Set<? extends Span> getMinimalReasons() {
 		return minimalReasons;
 	}
 
 	@Override
-	public boolean check(Conditions typedConditions) { //Class<?> type, Condition... conditions) {
+	public boolean check(Conditions typedConditions) { // Class<?> type,
+														// Condition...
+														// conditions) {
 		Class<?> type = typedConditions.getClass();
 		Condition[] conditions = typedConditions.getConditions();
 
@@ -219,7 +241,7 @@ public class CDATester extends Tester {
 				}
 			}
 		}
-		//______________________new conditions check________________________
+		// ______________________new conditions check________________________
 		if (type == Conditions.class || type == DRCRConditions.class || type == DUCRConditions.class) {
 			for (Span deleteUseConflictReason : conflictReasons) {
 				if (deleteUseConflictReason instanceof DeleteReadConflictReason) {
@@ -246,8 +268,8 @@ public class CDATester extends Tester {
 	 */
 	private Set<DeleteDeleteConflictReason> getDDCR() {
 		Set<DeleteDeleteConflictReason> result = new HashSet<>();
-		for(Span ddcr: conflictReasons)
-			if(ddcr instanceof DeleteDeleteConflictReason)
+		for (Span ddcr : conflictReasons)
+			if (ddcr instanceof DeleteDeleteConflictReason)
 				result.add((DeleteDeleteConflictReason) ddcr);
 		return result;
 	}
@@ -257,8 +279,8 @@ public class CDATester extends Tester {
 	 */
 	private Set<? extends DeleteUseConflictReason> getDRCR() {
 		Set<DeleteReadConflictReason> result = new HashSet<>();
-		for(Span ddcr: conflictReasons)
-			if(ddcr instanceof DeleteReadConflictReason)
+		for (Span ddcr : conflictReasons)
+			if (ddcr instanceof DeleteReadConflictReason)
 				result.add((DeleteReadConflictReason) ddcr);
 		return result;
 	}
@@ -296,8 +318,8 @@ public class CDATester extends Tester {
 			} else {
 				if (conflictReason instanceof MinimalConflictReason)
 					type = "MCR";
-//				else if (conflictReason instanceof ConflictReason)
-//					type = "CR";
+				// else if (conflictReason instanceof ConflictReason)
+				// type = "CR";
 				else if (conflictReason instanceof DependencyReason)
 					type = "DCR";
 				else if (conflictReason instanceof MinimalDependencyReason)
@@ -306,28 +328,33 @@ public class CDATester extends Tester {
 					type = "ECR";
 				else if (conflictReason instanceof DeleteReadConflictReason)
 					type = "DRCR";
-				System.out.println(type + ": " + conflictReason.getGraph().getEdges() + "\t| " + conflictReason.getGraph().getNodes());
+				System.out.println(type + ": " + conflictReason.getGraph().getEdges() + "\t| "
+						+ conflictReason.getGraph().getNodes());
 			}
 		}
 	}
 
+	@SuppressWarnings("javadoc")
 	public void printMCR() {
 		CDATester.print(minimalReasons);
 	}
 
+	@SuppressWarnings("javadoc")
 	public void printICR() {
 		CDATester.print(conflictReasons);
 	}
 
+	@SuppressWarnings("javadoc")
 	public void printCR() {
 		CDATester.print(essentialConflictReasons);
-
 	}
 
+	@SuppressWarnings("javadoc")
 	public Set<? extends Span> getEssentialConflictReasons() {
 		return essentialConflictReasons;
 	}
 
+	@SuppressWarnings("javadoc")
 	public List<Rule> getRules() {
 		ArrayList<Rule> result = new ArrayList<Rule>();
 		result.add(first);
@@ -351,8 +378,9 @@ public class CDATester extends Tester {
 	@Override
 	public String toString() {
 		if (analyser instanceof ConflictAnalysis)
-			return minimalReasons.size() + " Minimal Conflict Reasons, " + getDRCR().size() + " Delete Read Conflict Reasons, " + getDDCR().size()
-					+ " Delete Delete Conflict Reasons, " + essentialConflictReasons.size() + " Essential Conflict Reasons";
+			return minimalReasons.size() + " Minimal Conflict Reasons, " + getDRCR().size()
+					+ " Delete Read Conflict Reasons, " + getDDCR().size() + " Delete Delete Conflict Reasons, "
+					+ essentialConflictReasons.size() + " Conflict Reasons";
 		if (analyser instanceof DependencyAnalysis)
 			return minimalReasons.size() + " Minimal Dependency Reasons, " + conflictReasons.size()
 					+ " Dependency Reasons, " + essentialConflictReasons.size() + " Essential Dependency Reasons";

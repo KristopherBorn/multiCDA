@@ -52,85 +52,85 @@ public class NanoTest {
 			}
 	}
 
-//	@Test
-//	public void AbeideRegelnNormal() {
-//
-//		for (Rule r : rules) {
-//			for (Rule r2 : rules) {
-//				Options dependency = new Options(Options.DEPENDENCY);
-//				Options print = new Options(Options.PRINT_HEADER, Options.PRINT_RESULT);
-//				aTester = new CDATester(r, r2, print);
-//				initsNormal.addAll(aTester.getConflictReasons());
-//				aTester.print();
-//
-//				List<Rule> a = new ArrayList<Rule>();
-//				List<Rule> b = new ArrayList<Rule>();
-//				a.add(r);
-//				b.add(r2);
-//				Options dependEssent = new Options(Options.DEPENDENCY + Options.ESSENTIAL);
-//				eTester = new CPATester(a, b, dependEssent);
-//				initspNormal.addAll(eTester.getCriticalPairs());
-//				eTester.print();
-//
-//				int icr = aTester.getConflictReasons().size();
-//				int icp = eTester.getCriticalPairs().size();
-//				if (icr != icp) {
-//					resultNormal += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
-//							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
-//							+ " Initial Critical Pairs\n";
-//					// System.err.println(
-//					// "Result:\n" + icr + " Initial Conflict Reasons\n" + icp +
-//					// " Initial Critical Pairs");
-//				}
-//			}
-//		}
-//	}
-//
-//	@Test
-//	public void BzweiteNichtLoeschend() {
-//
-//		Options print = new Options(Options.PRINT_HEADER, Options.PRINT_RESULT);
-//		for (Rule r : rules) {
-//			for (Rule r2 : rules) {
-//				Options option = new Options(true, true, false, true);
-//				aTester = new CDATester(r, r2, print);
-//				initsPreserve.addAll(aTester.getConflictReasons());
-//				aTester.print();
-//
-//				List<Rule> a = new ArrayList<Rule>();
-//				List<Rule> b = new ArrayList<Rule>();
-//				a.add(r);
-//				b.add(r2);
-//				eTester = new CPATester(a, b, option);
-//				initspPreserve.addAll(eTester.getCriticalPairs());
-//				eTester.print();
-//
-//				int icr = aTester.getConflictReasons().size();
-//				int icp = eTester.getCriticalPairs().size();
-//				if (icr != icp) {
-//
-//					resultPreserve += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
-//							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
-//							+ " Initial Critical Pairs\n\n";
-//					// System.err.println(
-//					// "Result:\n" + icr + " Initial Conflict Reasons\n" + icp +
-//					// " Initial Critical Pairs");
-//				}
-//			}
-//
-//		}
-//	}
+	@Test
+	public void AbeideRegelnNormal() {
+
+		for (Rule r : rules) {
+			for (Rule r2 : rules) {
+				Options dependency = new Options(Options.DEPENDENCY);
+				Options print = new Options(Options.PRINT_HEADER, Options.PRINT_RESULT);
+				aTester = new CDATester(r, r2, print);
+				initsNormal.addAll(aTester.getConflictReasons());
+				aTester.print();
+
+				List<Rule> a = new ArrayList<Rule>();
+				List<Rule> b = new ArrayList<Rule>();
+				a.add(r);
+				b.add(r2);
+				Options dependEssent = new Options(Options.DEPENDENCY + Options.ESSENTIAL);
+				eTester = new CPATester(a, b, dependEssent);
+				initspNormal.addAll(eTester.getCriticalPairs());
+				eTester.print();
+
+				int icr = aTester.getConflictReasons().size();
+				int icp = eTester.getCriticalPairs().size();
+				if (icr != icp) {
+					resultNormal += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
+							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
+							+ " Initial Critical Pairs\n";
+					// System.err.println(
+					// "Result:\n" + icr + " Initial Conflict Reasons\n" + icp +
+					// " Initial Critical Pairs");
+				}
+			}
+		}
+	}
+
+	@Test
+	public void BzweiteNichtLoeschend() {
+
+		Options print = new Options(Options.PRINT_HEADER, Options.PRINT_RESULT);
+		for (Rule r : rules) {
+			for (Rule r2 : rules) {
+				Options option = new Options(true, true, false, true);
+				aTester = new CDATester(r, r2, print);
+				initsPreserve.addAll(aTester.getConflictReasons());
+				aTester.print();
+
+				List<Rule> a = new ArrayList<Rule>();
+				List<Rule> b = new ArrayList<Rule>();
+				a.add(r);
+				b.add(r2);
+				eTester = new CPATester(a, b, option);
+				initspPreserve.addAll(eTester.getCriticalPairs());
+				eTester.print();
+
+				int icr = aTester.getConflictReasons().size();
+				int icp = eTester.getCriticalPairs().size();
+				if (icr != icp) {
+
+					resultPreserve += "\t\t" + r.getName() + " --> " + r2.getName() + "\nAtomic: " + aTester + "\nCPA: "
+							+ eTester + "\n" + "Result:\n" + icr + " Initial Conflict Reasons\n" + icp
+							+ " Initial Critical Pairs\n\n";
+					// System.err.println(
+					// "Result:\n" + icr + " Initial Conflict Reasons\n" + icp +
+					// " Initial Critical Pairs");
+				}
+			}
+
+		}
+	}
 	
 	@AfterClass
 	public static void after() {
-//		System.out.println("_____________________________________________\nNormal second Rules\n");
-//		System.out.println("Result of Initial Dependency Reasons [Atomic]: " + initsNormal.size());
-//		System.out.println("Result of Initial Dependency Pairs [AGG]: " + initspNormal.size());
-//		System.out.println("_____________________________________________\nPreserved second Rules\n");
-//		System.out.println("Result of Initial Dependency Reasons [Atomic]: " + initsPreserve.size());
-//		System.out.println("Result of Initial Dependency Pairs [AGG]: " + initspPreserve.size());
-//		System.err.println("\n_____________________________________________\nAll Normal Errors:\n" + resultNormal);
-//		System.err.println("_____________________________________________\nAll Preserve Errors:\n" + resultPreserve);
+		System.out.println("_____________________________________________\nNormal second Rules\n");
+		System.out.println("Result of Initial Dependency Reasons [Atomic]: " + initsNormal.size());
+		System.out.println("Result of Initial Dependency Pairs [AGG]: " + initspNormal.size());
+		System.out.println("_____________________________________________\nPreserved second Rules\n");
+		System.out.println("Result of Initial Dependency Reasons [Atomic]: " + initsPreserve.size());
+		System.out.println("Result of Initial Dependency Pairs [AGG]: " + initspPreserve.size());
+		System.err.println("\n_____________________________________________\nAll Normal Errors:\n" + resultNormal);
+		System.err.println("_____________________________________________\nAll Preserve Errors:\n" + resultPreserve);
 	}
 	
 	@Test
@@ -141,7 +141,7 @@ public class NanoTest {
 		optionen.add(Options.PRINT_RESULT);
 		for (Rule r : rules) {
 			for (Rule r2 : rules) {
-				aTester = new CDATester(r, r2, optionen);
+				new CDATester(r, r2, optionen);
 			}
 		}
 	}

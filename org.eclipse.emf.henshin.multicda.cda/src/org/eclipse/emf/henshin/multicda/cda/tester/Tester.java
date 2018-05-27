@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 import org.eclipse.emf.henshin.model.GraphElement;
-import org.eclipse.emf.henshin.model.ModelElement;
 import org.eclipse.emf.henshin.multicda.cda.tester.Condition.Conditions;
 
 /**
@@ -67,6 +66,7 @@ public class Tester {
 		return t.invoke();
 	}
 
+	@SuppressWarnings("javadoc")
 	public static String getContent(Object... objects) {
 		return getContent(false, objects);
 	}
@@ -161,6 +161,7 @@ public class Tester {
 		return result;
 	}
 
+	@SuppressWarnings("javadoc")
 	public static class Options {
 		public final static int DEPENDENCY = 1;
 		public final static int ESSENTIAL = 2;
