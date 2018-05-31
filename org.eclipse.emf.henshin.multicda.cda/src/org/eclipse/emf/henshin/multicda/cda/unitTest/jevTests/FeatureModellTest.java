@@ -41,6 +41,7 @@ public class FeatureModellTest {
 			"complex/refactoring/", "complex/specialization/", };
 	private static String pathNoAttr = "testData/featureModeling/fmedit/rules/";
 	private static File[] files;
+	static String result;
 
 	@BeforeClass
 	public static void before() {
@@ -49,6 +50,7 @@ public class FeatureModellTest {
 
 	@Before
 	public void prepare() {
+		result = "";
 		File folder = new File(pathNoAttr + folders[toTest]);
 		files = folder.listFiles();
 		rules = new ArrayList<Rule>();
@@ -78,36 +80,43 @@ public class FeatureModellTest {
 				List<Rule> b = new ArrayList<Rule>();
 				a.add(r);
 				b.add(r2);
-				cTester = new CPATester(a, b, new Options(Options.SILENT));
-				initsp.addAll(cTester.getCriticalPairs());
-				int icr = aTester.getConflictReasons().size();
-				int icp = cTester.getCriticalPairs().size();
-				if (icr != icp)
-					System.err.println(
-							"Result:\n" + icr + " Initial Conflict Reasons\n" + icp + " Initial Critical Pairs");
+				result += r + " -> " + r2 + "\n";
+				result += aTester.getConflictReasons().toString() + "\n";
+				// cTester = new CPATester(a, b, new Options(Options.SILENT));
+				// initsp.addAll(cTester.getCriticalPairs());
+				// int icr = aTester.getConflictReasons().size();
+				// int icp = cTester.getCriticalPairs().size();
+				// if (icr != icp)
+				// System.err.println(
+				// "Result:\n" + icr + " Initial Conflict Reasons\n" + icp + "
+				// Initial Critical Pairs");
 			}
 		}
-		resultA.put(folders[toTest], inits);
-		resultE.put(folders[toTest], initsp);
+		// resultA.put(folders[toTest], inits);
+		// resultE.put(folders[toTest], initsp);
 	}
 
 	@AfterClass
 	public static void results() {
 		System.out.println("_________________________________________________________________________\n\nTested: "
 				+ resultA.size());
-		for (String folder : folders) {
-			Set<Span> cr = resultA.get(folder);
-			if (cr != null) {
-				System.out
-						.println("\nFolder Tested: " + folder + "\nFound: " + cr.size() + " Initial Conflict Reasons");
-//			AtomicTester.printICR(cr);
-			}
-			Set<CriticalPair> cp = resultE.get(folder);
-			if (cp != null) {
-				System.out.println("Found: " + cp.size() + " Initial Critical Pairs");
-//			CPATester.printCP(cp);
-			}
-		}
+		result.toString();
+		// for (String folder : folders) {
+		// Set<Span> cr = resultA.get(folder);
+		// if (cr != null) {
+		// System.out
+		// .println("\nFolder Tested: " + folder + "\nFound: " + cr.size() + "
+		// Initial Conflict Reasons");
+		//// AtomicTester.printICR(cr);
+		// }
+		// Set<CriticalPair> cp = resultE.get(folder);
+		// if (cp != null) {
+		// System.out.println("Found: " + cp.size() + " Initial Critical
+		// Pairs");
+		//// CPATester.printCP(cp);
+		// }
+		// }
+
 	}
 
 	@Test
@@ -140,13 +149,13 @@ public class FeatureModellTest {
 		toTest++;
 	}
 
-	@Test
-	public void test7() {
-		toTest++;
-	}
-
 //	@Test
-//	public void test8() {
+//	public void test7() {
 //		toTest++;
 //	}
+
+	// @Test
+	// public void test8() {
+	// toTest++;
+	// }
 }

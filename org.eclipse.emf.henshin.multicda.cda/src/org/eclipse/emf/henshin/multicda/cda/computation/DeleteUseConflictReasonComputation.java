@@ -38,6 +38,7 @@ public class DeleteUseConflictReasonComputation {
 	private MinimalReasonComputation helperForCheckDangling = new MinimalReasonComputation(rule1, rule2);
 	private static HenshinFactoryImpl helper = new HenshinFactoryImpl();
 	private static Action preserve = new Action(Action.Type.PRESERVE);
+	private static Action delete = new Action(Action.Type.DELETE);
 
 	/**
 	 * constructor
@@ -130,10 +131,14 @@ public class DeleteUseConflictReasonComputation {
 	public static boolean isDeleteReadConflictReason(Span conflictReason, Rule rule2) {
 		Set<Mapping> mappingsInRule2 = conflictReason.getMappingsInRule2();
 		for (Mapping mapping : mappingsInRule2) {
+			Node origin = mapping.getOrigin();
 			Node image = mapping.getImage();
 			Action action = image.getAction();
-			if (!action.equals(preserve))
-				return false;
+			Mapping mappingIntoRule1 = conflictReason.getMappingIntoRule1(origin);
+			if (mappingIntoRule1.getImage().getAction() == delete){
+				if (!action.equals(preserve))
+					return false;
+			}
 		}
 		EList<Edge> edges = conflictReason.getGraph().getEdges();
 		for (Edge edge : edges) {
