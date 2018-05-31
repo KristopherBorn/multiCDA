@@ -135,7 +135,11 @@ public class DeleteUseConflictReasonComputation {
 			Node image = mapping.getImage();
 			Action action = image.getAction();
 			Mapping mappingIntoRule1 = conflictReason.getMappingIntoRule1(origin);
-			if (mappingIntoRule1.getImage().getAction() == delete){
+			Action action2 = mappingIntoRule1.getImage().getAction();
+			if (action2 == delete){
+				if (!action.equals(preserve))
+					return false;
+			} else if (action2 == preserve){
 				if (!action.equals(preserve))
 					return false;
 			}
